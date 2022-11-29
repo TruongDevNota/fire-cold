@@ -46,15 +46,17 @@ public class Goods_Item : MonoBehaviour
     public void Explode()
     {
         canPick = false;
+        BoardGame.instance.ItemEarned++;
         StartCoroutine(YieldExplode());
     }
 
     private IEnumerator YieldExplode()
     {
-        transform.DOShakePosition(exploreAnim_Duration, 0.15f, 5, 45f);
-        yield return new WaitForSeconds(exploreAnim_Duration);
+        transform.DOScale(1.1f, exploreAnim_Duration * 0.5f);
+        yield return new WaitForSeconds(exploreAnim_Duration * 0.5f);
+        transform.DOScale(0f, exploreAnim_Duration * 0.5f);
+        yield return new WaitForSeconds(exploreAnim_Duration * 0.5f);
         DOTween.Kill(this);
-        BoardGame.instance.ItemEarned++;
         GameObject.Destroy(gameObject);
     }
 }

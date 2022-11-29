@@ -243,10 +243,10 @@ public class UIGameOver : MonoBehaviour
             });
         }
         else
+        {
             restartButton.gameObject.SetActive(true);
-
-        //backButton?.gameObject.SetActive(true);
-
+            backButton?.gameObject.SetActive(true);
+        }
     }
     public virtual void ShowContinue()
     {

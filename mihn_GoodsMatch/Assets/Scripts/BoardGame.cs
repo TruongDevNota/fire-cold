@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
+using DG.Tweening;
 
 public class BoardGame : MonoBehaviour
 {
@@ -54,11 +55,35 @@ public class BoardGame : MonoBehaviour
     private void Start()
     {
         isDraggingItem = false;
-        UI_Ingame_Manager.instance.OnGameInitHandle();
+        PrepareSceneLevel(DataManager.demoLevel);
+        
+    }
+
+    private void OnDestroy()
+    {
+        
+    }
+
+    private void OnEnable()
+    {
+        GameStateManager.OnStateChanged += OnGameStateChangeHandler;
+    }
+
+    private void OnDisable()
+    {
+        GameStateManager.OnStateChanged -= OnGameStateChangeHandler;
+    }
+
+    private void OnGameStateChangeHandler(GameState current, GameState last, object data)
+    {
+        if(current == GameState.Restart)
+            PrepareSceneLevel(DataManager.demoLevel);
     }
 
     private void Update()
     {
+        if (!isPlayingGame || isPausing)
+            return;
         Vector3 touchPosition;
         if (Input.GetMouseButtonDown(0))
         {
@@ -92,6 +117,7 @@ public class BoardGame : MonoBehaviour
         if (isSampleGame)
         {
             currentLevel = level;
+            UI_Ingame_Manager.instance.OnGameInitHandle();
             StartCoroutine(PrepareNewGame(level));
         }
         else
@@ -107,24 +133,23 @@ public class BoardGame : MonoBehaviour
         isPausing = false;
         timeLimitInSeconds = timeLimitDefault;
         stopwatch = new Stopwatch();
-
         if(storageController != null)
             Destroy(storageController.gameObject);
-
         var storage = GameObject.Instantiate(sampleStoragePrefabs[level - 1], this.transform);
         storageController = storage.GetComponent<StorageController>();
-
-        UI_Ingame_Manager.instance.OnGamePrepareHandle(currentLevel);
-        storageController.OnPrepareNewGame();
         yield return new WaitForSeconds(0.25f);
-        UI_Ingame_Manager.instance.OnGamePrepareDone();
+        storageController.OnPrepareNewGame();
+        itemEarned = 0;
+        GameStateManager.Ready(null);
+        UIToast.Hide();
     }
 
     public void StartGamePlay()
     {
         isPlayingGame = true;
         isPausing = false;
-        stopwatch.Restart();
+        //stopwatch.Restart();
+        stopwatch.Start();
         UI_Ingame_Manager.instance.OnGameStarted();
     }
 
@@ -203,7 +228,8 @@ public class BoardGame : MonoBehaviour
         Debug.Log("****  GameComplete  ****");
         stopwatch.Stop();
         isPlayingGame = false;
-        UI_Ingame_Manager.instance.OnGameOverHandle(true);
+        DOVirtual.DelayedCall(1f, () => { GameStateManager.WaitComplete(null); });
+        //UI_Ingame_Manager.instance.OnGameOverHandle(true);
     }
 
     private void GameOverHandler()
@@ -211,7 +237,11 @@ public class BoardGame : MonoBehaviour
         Debug.Log("###### GameOver #####");
         stopwatch.Stop();
         isPlayingGame = false;
-        UI_Ingame_Manager.instance.OnGameOverHandle(false);
+        if (dragingItem != null)
+            dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
+        dragingItem = null;
+        GameStateManager.WaitGameOver(null);
+        //UI_Ingame_Manager.instance.OnGameOverHandle(false);
     }
 
     public void RestartGame()

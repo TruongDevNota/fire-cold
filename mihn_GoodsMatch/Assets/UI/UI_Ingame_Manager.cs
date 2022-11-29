@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class UI_Ingame_Manager : MonoBehaviour
 {
-    [SerializeField] UI_Home panelHome;
     [SerializeField] UIPanel_Playing panelPlaying;
     [SerializeField] UIPanel_TapToPlay panelTapToPlay;
-    [SerializeField] UI_Panel_GameOver panelGameOver;
 
     public static UI_Ingame_Manager instance;
 
@@ -16,27 +14,75 @@ public class UI_Ingame_Manager : MonoBehaviour
         instance = this;
     }
 
+    private void OnEnable()
+    {
+        GameStateManager.OnStateChanged += OnGameStateChangeHandler;
+    }
+
+    private void OnDisable()
+    {
+        GameStateManager.OnStateChanged -= OnGameStateChangeHandler;
+    }
+
+    private void OnGameStateChangeHandler(GameState current, GameState last, object data)
+    {
+        switch (current)
+        {
+            case GameState.None:
+                break;
+            case GameState.LoadMain:
+                break;
+            case GameState.Login:
+                break;
+            case GameState.Idle:
+                break;
+            case GameState.LoadGame:
+                break;
+            case GameState.Init:
+                break;
+            case GameState.Ready:
+                OnGamePrepareHandle(DataManager.demoLevel);
+                break;
+            case GameState.Play:
+                OnGameStarted();
+                break;
+            case GameState.Pause:
+                break;
+            case GameState.RebornContinue:
+                break;
+            case GameState.RebornCheckPoint:
+                break;
+            case GameState.WaitGameOver:
+                OnGameOverHandle(false);
+                break;
+            case GameState.GameOver:
+                break;
+            case GameState.WaitComplete:
+                OnGameOverHandle(true);
+                break;
+            case GameState.Complete:
+                break;
+            case GameState.Restart:
+                break;
+            case GameState.Next:
+                break;
+            case GameState.InShop:
+                break;
+        }
+    }
+
     public void OnGameInitHandle()
     {
         panelTapToPlay.gameObject.SetActive(false);
         panelPlaying.gameObject.SetActive(false);
-        panelGameOver.gameObject.SetActive(false);
-        panelHome.gameObject.SetActive(true);
     }
 
     public void OnGamePrepareHandle(int level)
     {
         panelTapToPlay.gameObject.SetActive(true);
-        panelTapToPlay.OnGamePrepare();
+        panelTapToPlay.OnGamePrepareDone();
         panelPlaying.gameObject.SetActive(true);
         panelPlaying.OnGamePrepareHandler(level);
-        panelHome.gameObject.SetActive(false);
-        panelGameOver.gameObject.SetActive(false);
-    }
-
-    public void OnGamePrepareDone()
-    {
-        panelTapToPlay.OnGamePrepareDone();
     }
 
     public void OnGameStarted()
@@ -46,8 +92,7 @@ public class UI_Ingame_Manager : MonoBehaviour
 
     public void OnGameOverHandle(bool isWin)
     {
-        panelGameOver.gameObject.SetActive(true);
-        panelGameOver.Onshow(isWin);
+        panelPlaying.gameObject.SetActive(false);
     }
 
     public void OnGamePauseHandle()

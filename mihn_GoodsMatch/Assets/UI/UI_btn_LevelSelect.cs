@@ -6,6 +6,11 @@ public class UI_btn_LevelSelect : MonoBehaviour
 {
     public void OnLevelSelect(int level)
     {
-        BoardGame.instance.PrepareSceneLevel(level);
+        DataManager.demoLevel = level;
+
+        if (GameStateManager.CurrentState == GameState.Idle)
+            GameStateManager.LoadGame(null);
+
+        //BoardGame.instance.PrepareSceneLevel(level);
     }
 }

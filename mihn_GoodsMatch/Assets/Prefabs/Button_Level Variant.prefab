@@ -7,6 +7,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5351372014899696966, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351372014899696966, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351372014899696985, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e512dcb5981cdf340b8cbb09dd60a746, type: 3}
+    - target: {fileID: 5351372014899696985, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351372014899696985, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5351372016244032360, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
       propertyPath: m_Name
       value: Button_Level Variant
@@ -69,11 +89,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5351372016244032363, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5351372016244032363, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5351372016244032363, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -122,6 +142,14 @@ PrefabInstance:
     - target: {fileID: 5351372016244032363, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351372016244032365, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7ed45c44b85d6b840b9c403213300c1e, type: 3}
+    - target: {fileID: 5351372016244032365, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e1dd88e8ade3344997fc7f72a76a0ca, type: 3}

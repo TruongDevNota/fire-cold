@@ -221,7 +221,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         StartCoroutine(WaitForLoading(() =>
         {
             mainScreen.Hide();
-            inGameScreen.Show();
+            //inGameScreen.Show();
             //StartCoroutine(WaitToAutoPlay());
         }));
     }
@@ -233,7 +233,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
     public override void RestartGame(object data)
     {
-        GameStateManager.Idle(null);
+        //GameStateManager.Idle(null);
     }
 
     public override void NextGame(object data)
@@ -262,7 +262,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         SoundManager.Play("sfx_crowd_applause_0" + UnityEngine.Random.Range(1, 4));
         MusicManager.Stop(null);
-
     }
 
     protected override void RebornContinueGame(object data)

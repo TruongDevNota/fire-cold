@@ -52,18 +52,15 @@ public class LoadGameContent : MonoBehaviour
         while (!SceneHelper.isLoaded)
             yield return null;
 
-
-
         while (GameStateManager.CurrentState == GameState.LoadGame && UILoadGame.currentProcess < 1)
         {
             UILoadGame.Process();
             yield return null;
         }
 
-        UIToast.Hide();
-        GameStateManager.Ready(new MessageGSReady
-        {
-        });
+        yield return new WaitForEndOfFrame();
+
+        GameStateManager.Init(null);
     }
 
     public void ShowError(FileStatus status)

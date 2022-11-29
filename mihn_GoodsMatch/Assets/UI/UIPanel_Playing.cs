@@ -19,11 +19,11 @@ public class UIPanel_Playing : MonoBehaviour
         {
             timePlayed = BoardGame.instance.pStopWatch.ElapsedMilliseconds / 1000;
         }
-        timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("mm':'ss");
+        timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
     }
     public void OnGamePrepareHandler(int level)
     {
-        timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(BoardGame.instance.pTimeLimitInSeconds)).ToString("mm':'ss");
+        timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(BoardGame.instance.pTimeLimitInSeconds)).ToString("m':'ss");
         this.timePlayed = 0;
         levelText.text = $"Lv.{level}";
     }
