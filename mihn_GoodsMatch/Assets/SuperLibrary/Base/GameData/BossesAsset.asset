@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a975e113749b1224886d64f26cfb6f52, type: 3}
+  m_Name: BossesAsset
+  m_EditorClassIdentifier: 
+  useRandom: 0
+  list:
+  - name: arnold
+    id: id_arnold
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 4
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    thumb: {fileID: 21300000, guid: 031b153a3249dc04eb771c0daaf94252, type: 3}
+  - name: boyka
+    id: id_boyka
+    idThumb: 
+    index: 1
+    description: 
+    unlockType: 4
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    thumb: {fileID: 21300000, guid: 38230ca28eabfab48ba732dfe31c9e5c, type: 3}
+  - name: cap
+    id: id_cap
+    idThumb: 
+    index: 2
+    description: 
+    unlockType: 4
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    thumb: {fileID: 21300000, guid: 13d9f72bc63c1074d9599b7ec846c266, type: 3}
+  - name: mike
+    id: id_mike
+    idThumb: 
+    index: 3
+    description: 
+    unlockType: 4
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    thumb: {fileID: 21300000, guid: 8210bafd79ea93b4e8a50b7417859969, type: 3}
+  - name: rambo
+    id: id_rambo
+    idThumb: 
+    index: 4
+    description: 
+    unlockType: 4
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    thumb: {fileID: 21300000, guid: 367db78955d857c4e87edf2fd240dda4, type: 3}
+  spritesBoss:
+  - {fileID: 21300000, guid: 031b153a3249dc04eb771c0daaf94252, type: 3}
+  - {fileID: 21300000, guid: 38230ca28eabfab48ba732dfe31c9e5c, type: 3}
+  - {fileID: 21300000, guid: 13d9f72bc63c1074d9599b7ec846c266, type: 3}
+  - {fileID: 21300000, guid: 8210bafd79ea93b4e8a50b7417859969, type: 3}
+  - {fileID: 21300000, guid: 367db78955d857c4e87edf2fd240dda4, type: 3}
