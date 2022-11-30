@@ -280,9 +280,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6068090076698717631, guid: b46abf96d95a62b4a9a83c177ab7c174, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8356209308683944662, guid: b46abf96d95a62b4a9a83c177ab7c174, type: 3}
       propertyPath: m_Name
       value: SplashScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8649412966129688527, guid: b46abf96d95a62b4a9a83c177ab7c174, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b46abf96d95a62b4a9a83c177ab7c174, type: 3}
@@ -1468,8 +1476,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 100
   field of view: 60
-  orthographic: 0
-  orthographic size: 6
+  orthographic: 1
+  orthographic size: 12
   m_Depth: -2
   m_CullingMask:
     serializedVersion: 2
@@ -2684,6 +2692,14 @@ PrefabInstance:
     - target: {fileID: 4888077986917416747, guid: 63b522cf70f925b4fa75d7464dfeb259, type: 3}
       propertyPath: m_Depth
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888077986917416747, guid: 63b522cf70f925b4fa75d7464dfeb259, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888077986917416747, guid: 63b522cf70f925b4fa75d7464dfeb259, type: 3}
+      propertyPath: orthographic size
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63b522cf70f925b4fa75d7464dfeb259, type: 3}

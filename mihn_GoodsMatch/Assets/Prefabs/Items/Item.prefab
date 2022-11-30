@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76576f08892e2ca4f9d78b6c78e03ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchAmount: 2
+  matchAmount: 3
   size: {x: 1, y: 1, z: 1}
   spriteRenderer: {fileID: 2748385545455601459}
   tfMoving: {fileID: 2748385545455601460}

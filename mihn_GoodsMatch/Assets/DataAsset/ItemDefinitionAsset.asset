@@ -13,23 +13,44 @@ MonoBehaviour:
   m_Name: ItemDefinitionAsset
   m_EditorClassIdentifier: 
   definitions:
-  - id: Circle_Pink
-    itemType: 200
-    itemPrefabs: {fileID: 8450795534414024555, guid: 6db576431ea5bf547942e38de3a57726, type: 3}
+  - id: drink_1
+    itemType: 1
+    itemPrefabs: {fileID: 4629048590207952901, guid: 7cf25eae688941d46b27d5f8cb834f31, type: 3}
     matchAmount: 3
     slotNeed: 1
     pointEarn: 10
     levelUnlock: 0
-  - id: Square_Green
-    itemType: 101
-    itemPrefabs: {fileID: 6763123014389750935, guid: 524f99bde488b2e46998c5778d9f9fe0, type: 3}
+  - id: drink_2
+    itemType: 2
+    itemPrefabs: {fileID: 1240754615638817363, guid: 3b8d3d58691607b4f88b33e7b22e3a48, type: 3}
     matchAmount: 3
     slotNeed: 1
     pointEarn: 10
     levelUnlock: 0
-  - id: Square_Yellow
-    itemType: 100
-    itemPrefabs: {fileID: 433546568571068080, guid: 4d6e3b0a3ee53f54fa133d2bcace5a5f, type: 3}
+  - id: drink_3
+    itemType: 3
+    itemPrefabs: {fileID: 4300722510773625067, guid: fbe73cc0662f964489168495a978efe2, type: 3}
+    matchAmount: 3
+    slotNeed: 1
+    pointEarn: 10
+    levelUnlock: 0
+  - id: drink_4
+    itemType: 4
+    itemPrefabs: {fileID: 3499278893221558173, guid: 6e66104682a63ef4eaf315dc85b394d7, type: 3}
+    matchAmount: 3
+    slotNeed: 1
+    pointEarn: 10
+    levelUnlock: 0
+  - id: drink_6
+    itemType: 6
+    itemPrefabs: {fileID: 6445086616528182224, guid: da215e4a7e92eea4b824f585221bc9f4, type: 3}
+    matchAmount: 3
+    slotNeed: 1
+    pointEarn: 10
+    levelUnlock: 0
+  - id: drink_5
+    itemType: 5
+    itemPrefabs: {fileID: 7120200131035272130, guid: d43872a7df0fdac44a1155bfe9826984, type: 3}
     matchAmount: 3
     slotNeed: 1
     pointEarn: 10

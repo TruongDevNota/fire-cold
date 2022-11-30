@@ -4,11 +4,15 @@ using UnityEngine;
 
 public enum eItemType
 {
-    square = 1,
-    circle = 2,
-    triangle = 3,
-    Square_Yellow = 100,
-    Square_Green = 101,
-    Circle_Pink = 200,
-    Capsule_White = 300,
+    None = 0,
+    Drink_1 = 1,
+    Drink_2 = 2,
+    Drink_3 = 3,
+    Drink_4 = 4,
+    Drink_5 = 5,
+    Drink_6 = 6,
+    Drink_7 = 7,
+    Drink_8 = 8,
+    Drink_9 = 9,
+    Drink_10 = 10,
 }

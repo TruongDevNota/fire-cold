@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MyBox;
 
 public class ShelfUnit : MonoBehaviour
 {
-    [SerializeField] int cellAmount;
+    public int cellAmount;
     [SerializeField] GameObject cellPrefab;
     public List<Cell> cells;
+
+    public Vector2 init_position;
 
     public int CellAmount { get => cellAmount; }
     private List<Goods_Item> itemsOnShelf = new List<Goods_Item>();
@@ -37,6 +40,7 @@ public class ShelfUnit : MonoBehaviour
             cells[item.pFirstLeftCellIndex + i].isEmpty = false;
         }
         item.transform.position = GetItemPositionOnShelf(item.size, item.pFirstLeftCellIndex);
+        item.pCurrentShelf = this;
     }
 
     public void DoPutNewItem(Goods_Item item)

@@ -11,11 +11,11 @@ public class MapDatum
 [System.Serializable]
 public class LineDatum
 {
-    public List<ShelfDatum> lineSheves;
+    public List<string> lineSheves;
 }
 
 [System.Serializable]
 public class ShelfDatum
 {
-    public string shelfDatum;
+    public List<eItemType> items;
 }

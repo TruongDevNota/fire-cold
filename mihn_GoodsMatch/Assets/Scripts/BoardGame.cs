@@ -12,9 +12,10 @@ public class BoardGame : MonoBehaviour
     [SerializeField] List<GameObject> sampleStoragePrefabs;
     [SerializeField] bool isSampleGame = false;
     [SerializeField] float timeLimitDefault;
+    [SerializeField] MapCreater mapCreater;
 
     private StorageController storageController;
-
+    
     private Goods_Item dragingItem = null;
     private bool isDraggingItem = false;
     private int itemCreated;
@@ -88,12 +89,11 @@ public class BoardGame : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            TryPickItem(touchPosition);
+            if (!isDraggingItem)
+                TryPickItem(touchPosition);
         }
         else if (Input.GetMouseButton(0))
         {
-            if (!isDraggingItem)
-                return;
             touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             DraggingItem(touchPosition);
         }
@@ -114,16 +114,9 @@ public class BoardGame : MonoBehaviour
 
     public void PrepareSceneLevel(int level)
     {
-        if (isSampleGame)
-        {
-            currentLevel = level;
-            UI_Ingame_Manager.instance.OnGameInitHandle();
-            StartCoroutine(PrepareNewGame(level));
-        }
-        else
-        {
-            Debug.LogError($"[Prepare Scene] :Not hander for normal game yet!");
-        }
+        currentLevel = level;
+        UI_Ingame_Manager.instance.OnGameInitHandle();
+        StartCoroutine(PrepareNewGame(level));
     }
 
     private IEnumerator PrepareNewGame(int level)
@@ -133,12 +126,32 @@ public class BoardGame : MonoBehaviour
         isPausing = false;
         timeLimitInSeconds = timeLimitDefault;
         stopwatch = new Stopwatch();
-        if(storageController != null)
-            Destroy(storageController.gameObject);
-        var storage = GameObject.Instantiate(sampleStoragePrefabs[level - 1], this.transform);
-        storageController = storage.GetComponent<StorageController>();
-        yield return new WaitForSeconds(0.25f);
-        storageController.OnPrepareNewGame();
+        if (isSampleGame)
+        {
+            if (storageController != null)
+                Destroy(storageController.gameObject);
+            var storage = GameObject.Instantiate(sampleStoragePrefabs[level - 1], this.transform);
+            storageController = storage.GetComponent<StorageController>();
+            yield return new WaitForSeconds(0.25f);
+            storageController.OnPrepareNewGame();
+        }
+        else
+        {
+            string path = $"Maps/Map_Level_{level}";
+            var file = Resources.Load<TextAsset>(path);
+            if (file != null)
+            {
+                string mapData = file.text;
+                mapCreater.CreateMap(mapData);
+                yield return new WaitForSeconds(0.25f);
+            }
+            else
+            {
+                Debug.Log($"Load map data fail - [{path}]");
+                GameStateManager.Idle(null);
+                yield break;
+            }
+        }
         itemEarned = 0;
         GameStateManager.Ready(null);
         UIToast.Hide();
