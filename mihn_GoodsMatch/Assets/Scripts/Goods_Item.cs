@@ -20,6 +20,11 @@ public class Goods_Item : MonoBehaviour
     [SerializeField] protected float exploreAnim_Duration;
     [SerializeField] Ease exploreAnim_Ease;
 
+    [Header("Rotate Anim")]
+    [SerializeField] protected float rotateAnim_Duration = 0.5f;
+    [SerializeField] protected float rotateAngle = 20f;
+    private Coroutine rotateCoroutine;
+
     public eItemType Type { get => type; }
 
     private ShelfUnit currentShelf;
@@ -43,8 +48,39 @@ public class Goods_Item : MonoBehaviour
         canPick = true;
     }
 
+    public void OnPutUpShelf()
+    {
+        StopRotate();
+    }
+
+    public void OnPickUp()
+    {
+        StopRotate();
+        rotateCoroutine = StartCoroutine(YieldRotate());
+    }
+
+    private void StopRotate()
+    {
+        if (rotateCoroutine != null)
+            StopCoroutine(rotateCoroutine);
+        transform.DoRotateZ(0f, 0f);
+    }
+
+    private IEnumerator YieldRotate()
+    {
+        while (true)
+        {
+            transform.DoRotateZ(rotateAngle, 0.25f);
+            yield return new WaitForSeconds(rotateAnim_Duration * 0.5f);
+            transform.DoRotateZ(-rotateAngle, 0.25f);
+            yield return new WaitForSeconds(rotateAnim_Duration * 0.5f);
+            transform.DoRotateZ(0f, 0f);
+        }
+    }
+
     public void Explode()
     {
+        StopRotate();
         canPick = false;
         BoardGame.instance.ItemEarned++;
         StartCoroutine(YieldExplode());

@@ -7,11 +7,11 @@ public class UI_Ingame_Manager : MonoBehaviour
     [SerializeField] UIPanel_Playing panelPlaying;
     [SerializeField] UIPanel_TapToPlay panelTapToPlay;
 
-    public static UI_Ingame_Manager instance;
+    //public static UI_Ingame_Manager instance;
 
     private void Awake()
     {
-        instance = this;
+        //instance = this;
     }
 
     private void OnEnable()
@@ -41,7 +41,6 @@ public class UI_Ingame_Manager : MonoBehaviour
             case GameState.Init:
                 break;
             case GameState.Ready:
-                OnGamePrepareHandle(DataManager.demoLevel);
                 break;
             case GameState.Play:
                 OnGameStarted();
@@ -92,12 +91,18 @@ public class UI_Ingame_Manager : MonoBehaviour
 
     public void OnGameOverHandle(bool isWin)
     {
-        panelPlaying.gameObject.SetActive(false);
+        //panelPlaying.gameObject.SetActive(false);
+        panelTapToPlay.gameObject.SetActive(false);
     }
 
     public void OnGamePauseHandle()
     {
         panelTapToPlay.gameObject.SetActive(true);
         panelTapToPlay.OnGamePrepareDone();
+    }
+
+    public void OnGameEndHandle()
+    {
+
     }
 }

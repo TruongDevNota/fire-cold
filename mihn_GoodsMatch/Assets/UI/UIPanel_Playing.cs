@@ -15,11 +15,7 @@ public class UIPanel_Playing : MonoBehaviour
     {
         if (!BoardGame.instance.isPlayingGame)
             return;
-        if ((float)BoardGame.instance.pStopWatch.ElapsedMilliseconds / 1000 >= timePlayed + 1)
-        {
-            timePlayed = BoardGame.instance.pStopWatch.ElapsedMilliseconds / 1000;
-        }
-        timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
+        timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - BoardGame.instance.pStopWatch.ElapsedMilliseconds / 1000, 0))).ToString("m':'ss");
     }
     public void OnGamePrepareHandler(int level)
     {

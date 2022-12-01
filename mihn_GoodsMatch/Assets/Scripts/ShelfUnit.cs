@@ -7,8 +7,9 @@ public class ShelfUnit : MonoBehaviour
 {
     public int cellAmount;
     [SerializeField] GameObject cellPrefab;
-    public List<Cell> cells;
+    [SerializeField] float cellWidth = 1.1f;
 
+    public List<Cell> cells;
     public Vector2 init_position;
 
     public int CellAmount { get => cellAmount; }
@@ -20,7 +21,7 @@ public class ShelfUnit : MonoBehaviour
         for (int i = 0; i < cellAmount; i++)
         {
             var go = GameObject.Instantiate(cellPrefab);
-            go.transform.position = new Vector3(transform.position.x + i, transform.position.y, transform.position.z);
+            go.transform.position = new Vector3(transform.position.x + i*cellWidth, transform.position.y, transform.position.z);
             go.transform.parent = transform;
             var newCell = go.GetComponent<Cell>();
             newCell.isEmpty = true;
@@ -56,13 +57,14 @@ public class ShelfUnit : MonoBehaviour
         {
             cells[item.pFirstLeftCellIndex + i].isEmpty = false;
         }
+        item.OnPutUpShelf();
         yield return item.tfMoving.YiledMovingInSameTime(itemPos);
         CheckMatch(item.Type);
     }
 
     public Vector3 GetItemPositionOnShelf(Vector3 itemSize, int itemFirstLeftIndex)
     {
-        return new Vector3(transform.position.x + itemFirstLeftIndex + itemSize.x * 0.5f, transform.position.y + itemSize.y * 0.5f, transform.position.z);
+        return new Vector3(transform.position.x + itemFirstLeftIndex + itemSize.x * 0.5f, transform.position.y, transform.position.z);
     }
 
     public int CheckItemFitOnShelf(int itemsizeX, int firstcheckIndex)

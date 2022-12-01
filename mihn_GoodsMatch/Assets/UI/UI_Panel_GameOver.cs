@@ -16,7 +16,7 @@ public class UI_Panel_GameOver : MonoBehaviour
 
     public void OnBtn_HomeClicked()
     {
-        UI_Ingame_Manager.instance.OnGameInitHandle();
+        
     }
 
     public void OnBtn_RestartHandler()

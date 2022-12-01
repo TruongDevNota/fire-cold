@@ -128,8 +128,10 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2748385545455601459}
   tfMoving: {fileID: 2748385545455601460}
   type: 0
-  exploreAnim_Duration: 1
+  exploreAnim_Duration: 0.5
   exploreAnim_Ease: 10
+  rotateAnim_Duration: 0.5
+  rotateAngle: 10
   canPick: 0
 --- !u!114 &2748385545455601460
 MonoBehaviour:

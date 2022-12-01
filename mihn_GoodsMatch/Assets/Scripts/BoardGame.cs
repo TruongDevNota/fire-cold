@@ -14,6 +14,8 @@ public class BoardGame : MonoBehaviour
     [SerializeField] float timeLimitDefault;
     [SerializeField] MapCreater mapCreater;
 
+    [SerializeField] Vector3 touchPositionOffset;
+
     private StorageController storageController;
     
     private Goods_Item dragingItem = null;
@@ -79,6 +81,10 @@ public class BoardGame : MonoBehaviour
     {
         if(current == GameState.Restart)
             PrepareSceneLevel(DataManager.demoLevel);
+        if (current == GameState.Pause)
+            PauseGame();
+        if (current == GameState.Play)
+            StartGamePlay();
     }
 
     private void Update()
@@ -115,7 +121,6 @@ public class BoardGame : MonoBehaviour
     public void PrepareSceneLevel(int level)
     {
         currentLevel = level;
-        UI_Ingame_Manager.instance.OnGameInitHandle();
         StartCoroutine(PrepareNewGame(level));
     }
 
@@ -163,10 +168,10 @@ public class BoardGame : MonoBehaviour
         isPausing = false;
         //stopwatch.Restart();
         stopwatch.Start();
-        UI_Ingame_Manager.instance.OnGameStarted();
+        //UI_Ingame_Manager.instance.OnGameStarted();
     }
 
-    private void TryPickItem(Vector2 touchPosion)
+    private void TryPickItem(Vector3 touchPosion)
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(touchPosion, Vector2.zero);
         foreach (var hit in hits)
@@ -180,6 +185,8 @@ public class BoardGame : MonoBehaviour
                 if (dragingItem.pCurrentShelf != null)
                     dragingItem.pCurrentShelf.PickItemUpHandler(dragingItem);
                 isDraggingItem = true;
+                //dragingItem.transform.position = touchPosion + Vector3.forward * 0.5f;
+                dragingItem.OnPickUp();
                 break;
             }
         }
@@ -191,8 +198,7 @@ public class BoardGame : MonoBehaviour
             return;
         if (dragingItem == null)
             return;
-
-        dragingItem.transform.position = newPosition + Vector3.forward * 0.5f;
+        dragingItem.transform.position = newPosition + Vector3.forward * 0.5f + touchPositionOffset;
     }
 
     private void DropItemOff(Vector3 touchPosion)
@@ -266,6 +272,5 @@ public class BoardGame : MonoBehaviour
     {
         stopwatch.Stop();
         isPausing = true;
-        UI_Ingame_Manager.instance.OnGamePauseHandle();
     }
 }

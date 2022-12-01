@@ -45,6 +45,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void Start()
     {
         base.Start();
+        Input.multiTouchEnabled = false;
         StartCoroutine(LoadGameData());
     }
 
@@ -221,7 +222,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         StartCoroutine(WaitForLoading(() =>
         {
             mainScreen.Hide();
-            //inGameScreen.Show();
+            inGameScreen.Show();
             //StartCoroutine(WaitToAutoPlay());
         }));
     }

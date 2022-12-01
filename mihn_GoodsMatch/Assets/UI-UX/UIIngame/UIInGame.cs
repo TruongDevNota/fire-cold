@@ -48,6 +48,8 @@ public class UIInGame : MonoBehaviour
         resumeButton?.onClick.AddListener(() =>
         {
         });
+
+        playButton?.onClick.AddListener(PlayButtonOnClick);
     }
     private void backButtonOnClick()
     {
@@ -60,6 +62,14 @@ public class UIInGame : MonoBehaviour
         }
     }
 
+    private void PlayButtonOnClick()
+    {
+        if (GameStateManager.CurrentState == GameState.Ready || GameStateManager.CurrentState == GameState.Pause)
+        {
+            GameStateManager.Play(null);
+        }
+    }
+
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
     {
         switch (current)
@@ -67,13 +77,11 @@ public class UIInGame : MonoBehaviour
             case GameState.Init:
                 break;
             case GameState.Play:
-
                 playButton?.gameObject.SetActive(false);
                 pauseButton?.gameObject.SetActive(true);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
-
-                touchPanel?.SetActive(true);
+                //touchPanel?.SetActive(true);
                 break;
             case GameState.Pause:
                 playButton?.gameObject.SetActive(false);
@@ -98,10 +106,10 @@ public class UIInGame : MonoBehaviour
             resumeButton?.gameObject.SetActive(false);
             backButton?.gameObject.SetActive(false);
             playButton?.gameObject.SetActive(false);
-            touchPanel?.SetActive(false);
+            //touchPanel?.SetActive(false);
         }, ()=> {
             playButton?.gameObject.SetActive(true);
-            touchPanel?.SetActive(true);
+            //touchPanel?.SetActive(true);
         });
     }
 

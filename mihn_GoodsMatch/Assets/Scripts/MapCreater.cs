@@ -17,6 +17,9 @@ public class MapCreater : MonoBehaviour
     [SerializeField] Vector2 shelfUnitSize = new Vector2(1f, 0.5f);
     [SerializeField] float shelfDistance = 0.5f;
 
+    [SerializeField] Camera mainCamera;
+    [SerializeField] Vector2 cameraSizeOffset;
+
     private MapDatum currentMapDatum;
     public List<Goods_Item> itemCreated = new List<Goods_Item>();
 
@@ -27,6 +30,11 @@ public class MapCreater : MonoBehaviour
         CreateMap(data);
     }
 
+    public void ChangeCameraSize(int mapCollume)
+    {
+        mainCamera.orthographicSize = mapCollume < 3 ? cameraSizeOffset.x : cameraSizeOffset.y;
+    }
+
     public void CreateMap(string mapData)
     {
         var data = ReadMapTextData(mapData);
@@ -35,6 +43,7 @@ public class MapCreater : MonoBehaviour
 
     public void CreateMap(MapDatum datum)
     {
+        int maxColumn = 0;
         currentMapDatum = datum;
         if (currentMapDatum == null || currentMapDatum.lines == null || currentMapDatum.lines.Count < 1)
             return;
@@ -48,6 +57,7 @@ public class MapCreater : MonoBehaviour
             var line = currentMapDatum.lines[i];
             if (line.lineSheves == null || line.lineSheves.Count == 0)
                 continue;
+            maxColumn = Mathf.Max(maxColumn, line.lineSheves.Count);
             var linesPosition = (midIndexY - i) * mapUnitSize.y;
             Debug.Log($"lineSheves.Count: {line.lineSheves.Count}");
             for (int i2 = 0; i2 < line.lineSheves.Count; i2++)
@@ -82,7 +92,7 @@ public class MapCreater : MonoBehaviour
                 }
             }
         }
-
+        ChangeCameraSize(maxColumn);
         BoardGame.instance.ItemCreated = itemCreated.Count;
     }
 
@@ -129,5 +139,6 @@ public class MapCreater : MonoBehaviour
         {
             Destroy(transform.GetChild(num).gameObject);
         }
+        itemCreated.Clear();
     }
 }

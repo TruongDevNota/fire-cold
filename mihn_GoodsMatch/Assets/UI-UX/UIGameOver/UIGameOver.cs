@@ -185,9 +185,10 @@ public class UIGameOver : MonoBehaviour
 
     public virtual void ShowResult(bool isWin)
     {
-        UIToast.ShowLoading("", 1);
+        //UIToast.ShowLoading("", 1);
         if (txtLevel)
-            txtLevel.text = $"LEVEL {DataManager.UserData.level + 1}";
+            //txtLevel.text = $"LEVEL {DataManager.UserData.level + 1}";
+            txtLevel.text = $"LEVEL {DataManager.demoLevel}";
         if (txtCoin)
             txtCoin.text = $"+{GameStatisticsManager.goldEarn}";
 
@@ -383,21 +384,22 @@ public class UIGameOver : MonoBehaviour
     #region Button Handle
     public void Btn_Back_Handle()
     {
-        CoinManager.Add(GameStatisticsManager.goldEarn);
+        //CoinManager.Add(GameStatisticsManager.goldEarn);
+        rebornCount = 0;
+        GameStateManager.Idle(null);
         Hide(() =>
         {
-            rebornCount = 0;
             CheckToShowInterstitialAds("Back", null);
-            GameStateManager.Idle(null);
         });
     }
     public void Btn_Restart_Handle()
     {
+        rebornCount = 0;
+        
+        GameStateManager.Restart(null);
         Hide(() =>
         {
-            rebornCount = 0;
             CheckToShowInterstitialAds("Restart", null);
-            GameStateManager.Restart(null);
         });
     }
     public void Btn_RebornByFree_Handle()
