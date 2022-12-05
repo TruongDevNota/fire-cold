@@ -125,12 +125,12 @@ public class ShelfUnit : MonoBehaviour
             {
                 PickItemUpHandler(item);
                 itemsOnShelf.Remove(item);
+                BoardGame.instance?.items.Remove(item);
                 item.Explode();
             }
             Debug.Log($"New match item type: {type}");
         }
     }
-
     public bool CheckIfMatchPut(eItemType type)
     {
         List<Goods_Item> matchItems = new List<Goods_Item>();

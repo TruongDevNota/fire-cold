@@ -7,35 +7,51 @@ using MyBox;
 
 public class MapCreater : MonoBehaviour
 {
+    [Header("Test Map Data")]
     [SerializeField] bool isTest = true;
-    [SerializeField] SampleMapAsset sampleMapDataAsset;
     [SerializeField] TextAsset sampleMapTextAsset;
 
+    [Header("Map Create Config")]
     [SerializeField] ItemDefinitionAsset itemDefinitionAsset;
     [SerializeField] GameObject shelfBasePrefab;
     [SerializeField] Vector2 mapUnitSize = Vector2.one;
     [SerializeField] Vector2 shelfUnitSize = new Vector2(1f, 0.5f);
     [SerializeField] float shelfDistance = 0.5f;
 
+    [Header("Camera Config")]
     [SerializeField] Camera mainCamera;
     [SerializeField] Vector2 cameraSizeOffset;
+    [SerializeField] float[] smallCameraSizeOffsets;
+    [SerializeField] float[] largeCameraSizeOffsets;
 
     private MapDatum currentMapDatum;
     public List<Goods_Item> itemCreated = new List<Goods_Item>();
 
     [ButtonMethod] public void TestMapCreat()
     {
-        var data = ReadMapTextData(sampleMapTextAsset.text);
-        Debug.Log("Line Count: " + data.lines.Count);
-        CreateMap(data);
+        CreateMapFromTextAsset(sampleMapTextAsset.text);
     }
 
     public void ChangeCameraSize(int mapCollume)
     {
-        mainCamera.orthographicSize = mapCollume < 3 ? cameraSizeOffset.x : cameraSizeOffset.y;
+        float screenRatio = Screen.height / Screen.width;
+
+        //mainCamera.orthographicSize = mapCollume < 3 ? cameraSizeOffset.x : cameraSizeOffset.y;
+
+        if(mapCollume < 3)
+        {
+            mainCamera.orthographicSize = screenRatio < 2f ? smallCameraSizeOffsets[0] : smallCameraSizeOffsets[1];
+            //mainCamera.transform.position = Vector3.zero;
+        }
+        else
+        {
+            mainCamera.orthographicSize = screenRatio < 2f ? largeCameraSizeOffsets[0] : largeCameraSizeOffsets[1];
+            //mainCamera.transform.position = screenRatio < 2f ? new Vector3(0, 1f, 0) : Vector3.zero;
+        }
+
     }
 
-    public void CreateMap(string mapData)
+    public void CreateMapFromTextAsset(string mapData)
     {
         var data = ReadMapTextData(mapData);
         CreateMap(data);
@@ -47,8 +63,6 @@ public class MapCreater : MonoBehaviour
         currentMapDatum = datum;
         if (currentMapDatum == null || currentMapDatum.lines == null || currentMapDatum.lines.Count < 1)
             return;
-
-        ClearMap();
 
         //var linesPositionY = new float[currentMapDatum.lines.Count];
         int midIndexY = Mathf.FloorToInt((currentMapDatum.lines.Count - 1) * 0.5f);
@@ -88,12 +102,12 @@ public class MapCreater : MonoBehaviour
                     newItem.pFirstLeftCellIndex = i3;
                     newShelf.DoPutItemFromWareHouse(newItem);
                     newItem.transform.parent = transform;
-                    itemCreated.Add(newItem);
+                    BoardGame.instance.items.Add(newItem);
                 }
             }
         }
         ChangeCameraSize(maxColumn);
-        BoardGame.instance.ItemCreated = itemCreated.Count;
+        //BoardGame.instance.ItemCount = itemCreated.Count;
     }
 
     public MapDatum ReadMapTextData(string content)
@@ -131,14 +145,5 @@ public class MapCreater : MonoBehaviour
             Debug.LogException(ex);
         }
         return datum;
-    }
-
-    private void ClearMap()
-    {
-        for (int num = transform.childCount - 1; num >= 0; num--)
-        {
-            Destroy(transform.GetChild(num).gameObject);
-        }
-        itemCreated.Clear();
     }
 }

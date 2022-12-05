@@ -5,14 +5,17 @@ using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 using DG.Tweening;
+using Random = UnityEngine.Random;
+using System.Linq;
 
 public class BoardGame : MonoBehaviour
 {
     [Header("Sample Game")]
     [SerializeField] List<GameObject> sampleStoragePrefabs;
-    [SerializeField] bool isSampleGame = false;
     [SerializeField] float timeLimitDefault;
     [SerializeField] MapCreater mapCreater;
+
+    [SerializeField] ItemDefinitionAsset itemDefinitionAsset;
 
     [SerializeField] Vector3 touchPositionOffset;
 
@@ -20,22 +23,13 @@ public class BoardGame : MonoBehaviour
     
     private Goods_Item dragingItem = null;
     private bool isDraggingItem = false;
-    private int itemCreated;
-    public int ItemCreated 
+    private int itemCount;
+    public int ItemCount 
     { 
-        get => itemCreated; 
-        set { itemCreated = value; } 
+        get => itemCount; 
+        set { itemCount = value; } 
     }
-    private int itemEarned;
-    public int ItemEarned
-    {
-        get => itemEarned;
-        set { 
-            itemEarned = value;
-            if (itemEarned == itemCreated)
-                GameCompleteHandler();
-        }
-    }
+    public List<Goods_Item> items = new List<Goods_Item>();
 
     private Stopwatch stopwatch;
     public Stopwatch pStopWatch { get { return stopwatch; } }
@@ -59,22 +53,18 @@ public class BoardGame : MonoBehaviour
     {
         isDraggingItem = false;
         PrepareSceneLevel(DataManager.demoLevel);
-        
-    }
-
-    private void OnDestroy()
-    {
-        
     }
 
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += OnGameStateChangeHandler;
+        this.RegisterListener((int)EventID.OnBuffHint, DoBuffHint);
     }
 
     private void OnDisable()
     {
         GameStateManager.OnStateChanged -= OnGameStateChangeHandler;
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffHint, DoBuffHint);
     }
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
@@ -131,33 +121,24 @@ public class BoardGame : MonoBehaviour
         isPausing = false;
         timeLimitInSeconds = timeLimitDefault;
         stopwatch = new Stopwatch();
-        if (isSampleGame)
+
+        ClearMap();
+
+        string path = $"Maps/Map_Level_{level}";
+        var file = Resources.Load<TextAsset>(path);
+        if (file != null)
         {
-            if (storageController != null)
-                Destroy(storageController.gameObject);
-            var storage = GameObject.Instantiate(sampleStoragePrefabs[level - 1], this.transform);
-            storageController = storage.GetComponent<StorageController>();
+            string mapData = file.text;
+            mapCreater.CreateMapFromTextAsset(mapData);
             yield return new WaitForSeconds(0.25f);
-            storageController.OnPrepareNewGame();
         }
         else
         {
-            string path = $"Maps/Map_Level_{level}";
-            var file = Resources.Load<TextAsset>(path);
-            if (file != null)
-            {
-                string mapData = file.text;
-                mapCreater.CreateMap(mapData);
-                yield return new WaitForSeconds(0.25f);
-            }
-            else
-            {
-                Debug.Log($"Load map data fail - [{path}]");
-                GameStateManager.Idle(null);
-                yield break;
-            }
+            Debug.Log($"Load map data fail - [{path}]");
+            GameStateManager.Idle(null);
+            yield break;
         }
-        itemEarned = 0;
+
         GameStateManager.Ready(null);
         UIToast.Hide();
     }
@@ -171,6 +152,45 @@ public class BoardGame : MonoBehaviour
         //UI_Ingame_Manager.instance.OnGameStarted();
     }
 
+    public void CheckGameComplete()
+    {
+        if (items.Count <= 0)
+            GameCompleteHandler();
+    }
+
+    private void GameCompleteHandler()
+    {
+        Debug.Log("****  GameComplete  ****");
+        stopwatch.Stop();
+        isPlayingGame = false;
+        DOVirtual.DelayedCall(1f, () => { GameStateManager.WaitComplete(null); });
+        //UI_Ingame_Manager.instance.OnGameOverHandle(true);
+    }
+
+    private void GameOverHandler()
+    {
+        Debug.Log("###### GameOver #####");
+        stopwatch.Stop();
+        isPlayingGame = false;
+        if (dragingItem != null)
+            dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
+        dragingItem = null;
+        GameStateManager.WaitGameOver(null);
+        //UI_Ingame_Manager.instance.OnGameOverHandle(false);
+    }
+
+    public void RestartGame()
+    {
+        StartCoroutine(PrepareNewGame(currentLevel));
+    }
+
+    public void PauseGame()
+    {
+        stopwatch.Stop();
+        isPausing = true;
+    }
+
+    #region ItemsHandle
     private void TryPickItem(Vector3 touchPosion)
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(touchPosion, Vector2.zero);
@@ -215,7 +235,7 @@ public class BoardGame : MonoBehaviour
         Debug.Log($"On stop touch at position: {touchPosion}");
         Debug.Log($"Ray start at {raystart}");
         RaycastHit2D[] hits = Physics2D.RaycastAll(raystart, Vector2.zero);
-        foreach(var hit in hits)
+        foreach (var hit in hits)
         {
             if (hit.collider != null)
             {
@@ -231,7 +251,7 @@ public class BoardGame : MonoBehaviour
         if (targetShelf != null)
             targetIndex = targetShelf.CheckItemFitOnShelf((int)dragingItem.size.x, targetCell.index);
         Debug.Log(targetIndex);
-        if(targetIndex >= 0)
+        if (targetIndex >= 0)
         {
             dragingItem.pCurrentShelf = targetShelf;
             dragingItem.pFirstLeftCellIndex = targetIndex;
@@ -242,35 +262,26 @@ public class BoardGame : MonoBehaviour
         dragingItem = null;
     }
 
-    private void GameCompleteHandler()
+    private void DoBuffHint(object obj)
     {
-        Debug.Log("****  GameComplete  ****");
-        stopwatch.Stop();
-        isPlayingGame = false;
-        DOVirtual.DelayedCall(1f, () => { GameStateManager.WaitComplete(null); });
-        //UI_Ingame_Manager.instance.OnGameOverHandle(true);
+        var definition = itemDefinitionAsset.GetDefinitionByType(items[Random.Range(0, items.Count)].Type);
+        
+        for(int i = 0; i < definition.matchAmount; i++)
+        {
+            var item = items.FirstOrDefault(x => x.Type == definition.itemType);
+            items.Remove(item);
+            item.pCurrentShelf.PickItemUpHandler(item);
+            item.Explode();
+        }
     }
+    #endregion
 
-    private void GameOverHandler()
+    private void ClearMap()
     {
-        Debug.Log("###### GameOver #####");
-        stopwatch.Stop();
-        isPlayingGame = false;
-        if (dragingItem != null)
-            dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
-        dragingItem = null;
-        GameStateManager.WaitGameOver(null);
-        //UI_Ingame_Manager.instance.OnGameOverHandle(false);
-    }
-
-    public void RestartGame()
-    {
-        StartCoroutine(PrepareNewGame(currentLevel));
-    }
-
-    public void PauseGame()
-    {
-        stopwatch.Stop();
-        isPausing = true;
+        for (int num = transform.childCount - 1; num >= 0; num--)
+        {
+            Destroy(transform.GetChild(num).gameObject);
+        }
+        items.Clear();
     }
 }

@@ -11,6 +11,15 @@ public class UIInGame : MonoBehaviour
     public UIAnimStatus Status => anim.Status;
 
     [SerializeField]
+    private Button buffHintButton = null;
+    [SerializeField]
+    private Text hintCountText = null;
+    [SerializeField]
+    private Button buffRestartButton = null;
+    [SerializeField]
+    private Text restartCountText = null;
+
+    [SerializeField]
     private GameObject touchPanel = null;
     [SerializeField]
     private Button pauseButton = null;
@@ -30,10 +39,12 @@ public class UIInGame : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
+        UserData.OnHintBuffChanged += OnHintBuffChange;
     }
     private void OnDisable()
     {
         GameStateManager.OnStateChanged -= GameStateManager_OnStateChanged;
+        UserData.OnHintBuffChanged -= OnHintBuffChange;
     }
 
     private void Start()
@@ -47,9 +58,11 @@ public class UIInGame : MonoBehaviour
 
         resumeButton?.onClick.AddListener(() =>
         {
+            GameStateManager.Play(null);
         });
 
         playButton?.onClick.AddListener(PlayButtonOnClick);
+        buffHintButton?.onClick.AddListener(BuffHintButtonOnclick);
     }
     private void backButtonOnClick()
     {
@@ -70,13 +83,37 @@ public class UIInGame : MonoBehaviour
         }
     }
 
+    private void BuffHintButtonOnclick()
+    {
+        if(DataManager.UserData.totalHintBuff > 0)
+        {
+            this.PostEvent((int)EventID.OnBuffHint);
+            DataManager.UserData.totalHintBuff--;
+        }
+        else
+        {
+            //Show Popup message
+
+            AdsManager.ShowVideoReward((s) =>
+            {
+                if(s == AdEvent.Success)
+                {
+                    DataManager.UserData.totalHintBuff++;
+                }
+            });
+        }
+    }
+
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
     {
         switch (current)
         {
             case GameState.Init:
+            case GameState.Restart:
+            case GameState.Ready:
                 break;
             case GameState.Play:
+                hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
                 playButton?.gameObject.SetActive(false);
                 pauseButton?.gameObject.SetActive(true);
                 resumeButton?.gameObject.SetActive(false);
@@ -139,5 +176,10 @@ public class UIInGame : MonoBehaviour
             {
                 Debug.Log("Popup -> Cancel");
             });
+    }
+
+    private void OnHintBuffChange(int change, int current)
+    {
+        hintCountText.text = current > 0 ? current.ToString() : "+";
     }
 }

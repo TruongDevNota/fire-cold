@@ -188,6 +188,39 @@ public class UserData : UserAnalysic
     public int totalStarEarn = 0;
     public int totalStarSpend = 0;
 
+    [Header("Buff")]
+    [SerializeField]
+    private int hintBuff;
+    public int totalHintBuff 
+    {
+        get
+        {
+            return hintBuff;
+        }
+        set
+        {
+            if(hintBuff != value)
+            {
+                int changed = 0;
+                if (hintBuff > value)
+                {
+                    changed = hintBuff - value;
+                    totalHintSpent += changed;
+                }
+                else
+                {
+                    changed = value - hintBuff;
+                    totalHintEarn += changed;
+                }
+
+                hintBuff = value;
+                OnHintBuffChanged?.Invoke(changed, hintBuff);
+            }
+        } 
+    }
+    public int totalHintEarn;
+    public int totalHintSpent;
+
 
     private int totalPurchased = 0;
     public int TotalPurchased
@@ -206,6 +239,8 @@ public class UserData : UserAnalysic
     public static event MoneyChangedDelegate OnCoinChanged;
     public static event MoneyChangedDelegate OnDiamondChanged;
     public static event MoneyChangedDelegate OnStarChanged;
+
+    public static event MoneyChangedDelegate OnHintBuffChanged;
 }
 
 [Serializable]

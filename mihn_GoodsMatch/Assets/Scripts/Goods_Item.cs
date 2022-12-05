@@ -82,7 +82,7 @@ public class Goods_Item : MonoBehaviour
     {
         StopRotate();
         canPick = false;
-        BoardGame.instance.ItemEarned++;
+        BoardGame.instance.CheckGameComplete();
         StartCoroutine(YieldExplode());
     }
 

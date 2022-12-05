@@ -191,6 +191,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             UILoadGame.Process();
             yield return null;
         }
+        inGameScreen.Show();
+        yield return new WaitForSeconds(0.2f);
         UILoadGame.Hide();
         onComplete?.Invoke();
     }
@@ -222,7 +224,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         StartCoroutine(WaitForLoading(() =>
         {
             mainScreen.Hide();
-            inGameScreen.Show();
+            
             //StartCoroutine(WaitToAutoPlay());
         }));
     }

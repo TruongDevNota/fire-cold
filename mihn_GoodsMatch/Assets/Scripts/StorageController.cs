@@ -37,7 +37,7 @@ public class StorageController : MonoBehaviour
         }
         Debug.Log($"number of shelf: {shelves.Count} - Total cell slot: {totalCellSlot}");
         CreatItemsWareHouse();
-        BoardGame.instance.ItemCreated = Goods_Container.childCount;
+        BoardGame.instance.items = Goods_Container.GetComponentsInChildren<Goods_Item>().ToList();
     }
 
     public void CreatItemsWareHouse()

@@ -9,6 +9,8 @@ public class UIInfo : MonoBehaviour
 {
     [SerializeField] Text levelTxt = null;
     [SerializeField] Text timeLeftText;
+    [SerializeField] Slider comboTimeSlider = null;
+    [SerializeField] Text comboCountText = null;
 
     float timePlayed = 0;
 
@@ -33,12 +35,12 @@ public class UIInfo : MonoBehaviour
     {
         if (current == GameState.Init || current == GameState.Restart)
         {
-            levelTxt.text = $"LEVEL {DataManager.UserData.level + 1}";
-            timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(BoardGame.instance.pTimeLimitInSeconds)).ToString("m':'ss");
             this.timePlayed = 0;
         }
         else if (current == GameState.Ready)
         {
+            levelTxt.text = $"LEVEL {DataManager.UserData.level + 1}";
+            timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(BoardGame.instance.pTimeLimitInSeconds)).ToString("m':'ss");
         }
     }
 }

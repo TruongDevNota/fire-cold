@@ -11,4 +11,6 @@ public enum EventID
     OnDeath = 6,
     OnInit = 7,
     OnDamage = 8,
+
+    OnBuffHint = 20,
 }
