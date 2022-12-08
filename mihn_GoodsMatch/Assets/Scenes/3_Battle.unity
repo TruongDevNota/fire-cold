@@ -462,11 +462,12 @@ MonoBehaviour:
   - {fileID: 5096375012160423834, guid: f6c6315d623f6314eb11347d0b8bfe89, type: 3}
   - {fileID: 1838829704104400769, guid: 84d7059c4d16c5149bef25bed3993cdb, type: 3}
   - {fileID: 7126140664737683197, guid: 272975f571cd7c1448a4675db66527c6, type: 3}
-  timeLimitDefault: 90
+  timeLimitDefault: 20
   mapCreater: {fileID: 1947759903}
   itemDefinitionAsset: {fileID: 11400000, guid: 75ec217fba8cdc741a3af57c2cf1a626, type: 2}
   touchPositionOffset: {x: 0, y: 0, z: 0}
   items: []
+  timeLimitInSeconds: 0
   isPlayingGame: 0
   isPausing: 0
 --- !u!4 &1947759902

@@ -115,12 +115,12 @@ public class MapCreater : MonoBehaviour
         var newMap = new MapDatum();
         newMap.lines = new List<LineDatum>();
 
-        List<string> lines = content.Split(new char[] { '\n' }).ToList();
+        List<string> lines = content.Split(new char[] { '\n', '\r' }).ToList();
 
         foreach(var line in lines)
         {
             var lineDatum = new LineDatum();
-            lineDatum.lineSheves = line.Split(new char[] { ','}).ToList();
+            lineDatum.lineSheves = line.Split(GameConstants.shelfSplitChars).Where(x => x.Length > 0).ToList();
             newMap.lines.Add(lineDatum);
         }
 
@@ -133,7 +133,7 @@ public class MapCreater : MonoBehaviour
         var datum = new List<eItemType>();
         try
         {
-            var numbers = shelfText?.Split('|')?.Select(Int32.Parse)?.ToList();
+            var numbers = shelfText?.Split(GameConstants.itemSplittChar)?.Select(Int32.Parse)?.ToList();
 
             foreach(var number in numbers)
             {

@@ -138,6 +138,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     public override void IdleGame(object data)
     {
         SceneHelper.DoLoadScene("2_Idle");
+        inGameScreen.Hide();
 
         Action callback = () => {
             mainScreen.Show(()=> {
@@ -209,13 +210,13 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
     protected override void GameOver(object data)
     {
-        inGameScreen.Hide();
+        //inGameScreen.Hide();
         gameOverScreen.Show(GameState.GameOver, data);
     }
 
     protected override void CompleteGame(object data)
     {
-        inGameScreen.Hide();
+        //inGameScreen.Hide();
         gameOverScreen.Show(GameState.Complete, data);
     }
 
@@ -251,7 +252,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         DOVirtual.Float(1.0f, 0.25f, 0.5f, (t) => Time.timeScale = t).SetDelay(0.25f)
             .OnComplete(() => Time.timeScale = 1);
 
-        float timeWaitDie = 1f;
+        float timeWaitDie = 0f;
         SoundManager.Play("sfx_crowd_oohs_0" + UnityEngine.Random.Range(1, 4));
 
         DOVirtual.DelayedCall(timeWaitDie, () =>
@@ -270,8 +271,9 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void RebornContinueGame(object data)
     {
         gameOverScreen.Hide();
-        GameStateManager.Init(null);
-        StartCoroutine(WaitToAutoPlay());
+        inGameScreen.ShowTapToPlay();
+        //GameStateManager.Init(null);
+        //StartCoroutine(WaitToAutoPlay());
     }
 
     protected override void RebornCheckPointGame(object data)

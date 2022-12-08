@@ -77,6 +77,7 @@ public class GameStatisticsManager : MonoBehaviour
     #region RewardInGame
     public static int goldEarn = 0;
     public static int gemEarn = 0;
+    public static int starEarn = 0;
     #endregion
 
     #region Score

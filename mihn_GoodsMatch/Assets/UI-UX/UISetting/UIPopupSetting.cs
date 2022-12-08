@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIPopupSetting : MonoBehaviour
 {
+    [SerializeField]
+    UIAnimation anim;
     [SerializeField] 
     GameObject panelButtonsIngame;
     [SerializeField]
@@ -23,23 +25,24 @@ public class UIPopupSetting : MonoBehaviour
 
     public void OnShow()
     {
-        panelButtonsIngame?.SetActive(GameStateManager.CurrentState == GameState.Play);
+        panelButtonsIngame?.SetActive(GameStateManager.CurrentState != GameState.Idle);
     }
 
     public void OnHomeBtnClick()
     {
         GameStateManager.Idle(null);
+        anim.Hide();
     }
 
     public void OnRestartBtnClick()
     {
-        if (GameStateManager.CurrentState == GameState.Pause)
-            GameStateManager.Restart(null);
+        GameStateManager.LoadGame(null);
+        anim.Hide();
     }
 
     public void OnContinueBtnClick()
     {
-        if (GameStateManager.CurrentState == GameState.Pause)
-            GameStateManager.Play(null);
+        GameStateManager.Play(null);
+        anim.Hide();
     }
 }

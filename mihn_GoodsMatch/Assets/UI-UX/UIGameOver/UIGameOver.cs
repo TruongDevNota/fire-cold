@@ -19,21 +19,30 @@ public class UIGameOver : MonoBehaviour
     [SerializeField]
     protected UIAnimation animWin = null;
 
+    [Header("PopupWin")]
+    [SerializeField]
+    protected UILineRoullete lineRoullete = null;
+    [SerializeField]
+    protected Button btnStarClaim;
+    [SerializeField]
+    protected Text txtStar;
+    [SerializeField]
+    protected Button btnScaleStarClaim = null;
+    [SerializeField]
+    private Text txtScaleStar;
+    [SerializeField]
+    Image imgLightGift;
+
     [Header("Stage Info")]
     [SerializeField]
     protected Text txtLevel;
-    [SerializeField]
-    protected Text txtCoin;
-
+    
     [Header("Buttons Base")]
     [SerializeField]
     protected Button backButton = null;
     [SerializeField]
     protected Button restartButton = null;
-    [SerializeField]
-    protected Button x5Button = null;
-
-
+    
     [Header("Continue")]
     [SerializeField]
     protected UIAnimation animContinue = null;
@@ -112,9 +121,7 @@ public class UIGameOver : MonoBehaviour
     protected string soundFxEnd = "";
 
     [Header("X5 coin")]
-    [SerializeField]
-    private Text txtX5Coin;
-    public int bonusAds = 5;
+    public int bonusAds = 1;
     public float timeDelayBtnBack = 3;
 
     protected static UIGameOver instance;
@@ -143,11 +150,12 @@ public class UIGameOver : MonoBehaviour
         rebornBySkipButton?.onClick.AddListener(Btn_SkipCountDown_Handle);
         noThanksButton?.onClick.AddListener(Btn_NoReborn_Handle);
     }
-    IEnumerator DelayBackBtn()
+    IEnumerator DelayShowButton(System.Action callback = null)
     {
-        backButton?.gameObject.SetActive(false);
+        //backButton?.gameObject.SetActive(false);
         yield return new WaitForSeconds(timeDelayBtnBack);
-        backButton?.gameObject.SetActive(true);
+        //backButton?.gameObject.SetActive(true);
+        callback?.Invoke();
     }
     public void Show(GameState gameState, object data)
     {
@@ -163,7 +171,8 @@ public class UIGameOver : MonoBehaviour
             {
                 SoundManager.Play("sfx_type");
             }
-            ShowResult(false);
+            //ShowResult(false);
+            ShowContinue();
         }
         else if (gameState == GameState.Complete)
         {
@@ -183,18 +192,25 @@ public class UIGameOver : MonoBehaviour
         });
     }
 
+    #region GameComplete
+    private void OnStarScaleHandle(int scaleValue)
+    {
+        bonusAds = scaleValue;
+        txtStar.text = GameStatisticsManager.starEarn.ToString();
+        txtScaleStar.text = (GameStatisticsManager.starEarn * scaleValue).ToString();
+    }
+    #endregion
+
     public virtual void ShowResult(bool isWin)
     {
         //UIToast.ShowLoading("", 1);
         if (txtLevel)
             //txtLevel.text = $"LEVEL {DataManager.UserData.level + 1}";
-            txtLevel.text = $"LEVEL {DataManager.demoLevel}";
-        if (txtCoin)
-            txtCoin.text = $"+{GameStatisticsManager.goldEarn}";
+            txtLevel.text = $"LEVEL {DataManager.selectedLevel}";
+        if (txtStar)
+            txtStar.text = $"+{GameStatisticsManager.starEarn}";
 
-        backButton?.gameObject.SetActive(false);
-        restartButton.gameObject.SetActive(false);
-        x5Button?.gameObject.SetActive(false);
+        btnScaleStarClaim?.gameObject.SetActive(false);
         
         Status = UIAnimStatus.IsAnimationShow;
         if (anim.Status != UIAnimStatus.IsShow)
@@ -203,7 +219,10 @@ public class UIGameOver : MonoBehaviour
             {
                 if (isWin)
                 {
-                    animWin.Show(null, () => OnShowResult(true));
+                    animWin.Show(null, () => {
+                        OnShowResult(true);
+                        lineRoullete.StartRoullete(OnStarScaleHandle);
+                    });
                 }
                 else
                 {
@@ -214,7 +233,10 @@ public class UIGameOver : MonoBehaviour
         else
         {
             if (isWin)
-                animWin.Show(null, () => OnShowResult(true));
+                animWin.Show(null, () => {
+                    OnShowResult(true);
+                    lineRoullete.StartRoullete();
+                });
             else
                 animLose.Show(null, () => OnShowResult(false));
         }
@@ -222,31 +244,33 @@ public class UIGameOver : MonoBehaviour
     public void OnShowResult(bool isWin)
     {
         Status = UIAnimStatus.IsShow;
-        DOVirtual.DelayedCall(0.25f, ()=> {
-            OnShowButton(isWin);
-        });
+        OnShowButton(isWin);
     }
     public void OnShowButton(bool isWin)
     {
         if (isWin)
         {
-            x5Button?.onClick.RemoveAllListeners();
+            btnScaleStarClaim?.onClick.RemoveAllListeners();
 
             DataManager.Save();
-            StartCoroutine(DelayBackBtn());
-            txtX5Coin.text = $"{GameStatisticsManager.goldEarn * bonusAds}";
-            x5Button?.gameObject.SetActive(true);
-            x5Button?.onClick.RemoveAllListeners();
-            x5Button?.onClick.AddListener(() =>
-            {
-                CoinManager.Add(GameStatisticsManager.goldEarn * bonusAds);
-                Btn_Next_Handle();
+            btnStarClaim?.gameObject.SetActive(false);
+            DOVirtual.DelayedCall(timeDelayBtnBack, () => {
+                btnStarClaim?.gameObject.SetActive(true);
+                btnStarClaim?.onClick.RemoveAllListeners();
+                btnStarClaim?.onClick.AddListener(() =>
+                {
+                    StarManager.Add(GameStatisticsManager.starEarn);
+                    DOVirtual.DelayedCall(1.5f, () => Btn_Next_Handle());
+                });
             });
-        }
-        else
-        {
-            restartButton.gameObject.SetActive(true);
-            backButton?.gameObject.SetActive(true);
+            txtScaleStar.text = $"{GameStatisticsManager.goldEarn * bonusAds}";
+            btnScaleStarClaim?.gameObject.SetActive(true);
+            btnScaleStarClaim?.onClick.AddListener(() =>
+            {
+                lineRoullete.StopRoulelete();
+                StarManager.Add(GameStatisticsManager.starEarn * bonusAds);
+                DOVirtual.DelayedCall(1.5f, () => Btn_Next_Handle());
+            });
         }
     }
     public virtual void ShowContinue()
@@ -260,13 +284,6 @@ public class UIGameOver : MonoBehaviour
         rebornByAdsButton?.gameObject.SetActive(false);
         noThanksButton?.gameObject.SetActive(false);
 
-        if (rebornType == RebornType.Continue)
-            rebornByDes.text = "second change";
-        else
-            rebornByDes.text = "from last checkpoint";
-
-        rebornByCountDownText.text = rebornElapsedMaxTime.ToString();
-
         if (rebornByInfo)
         {
             if (GameStatisticsManager.Score > 10)
@@ -279,30 +296,18 @@ public class UIGameOver : MonoBehaviour
             }
         }
 
-        if (rebornBy == RebornBy.Ads)
-        {
-            rebornByAdsButton?.gameObject.SetActive(true);
-        }
-        else if (rebornBy == RebornBy.Gold && rebornByCoinButton && rebornByCoinDes)
-        {
-            rebornByCoinButton.gameObject.SetActive(true);
-            rebornByCoinTotalCost = (rebornCount + 1) * rebornByCoinCost;
-            rebornByCoinDes.text = "-" + rebornByCoinTotalCost;
-        }
-        else if (rebornBy == RebornBy.Gem && rebornByDiamondButton && rebornByDiamondDes)
-        {
-            rebornByDiamondButton.gameObject.SetActive(true);
-            rebornByDiamondCost = (rebornCount + 1) * rebornByDiamondCost;
-            rebornByDiamondDes.text = "-" + rebornByDiamonTotalCost;
-        }
-        else
-        {
-            rebornByFreeButton?.gameObject.SetActive(true);
-        }
+        rebornByAdsButton?.gameObject.SetActive(true);
+        rebornByCoinButton?.gameObject.SetActive(true);
+        rebornByCoinTotalCost = (rebornCount + 1) * rebornByCoinCost;
+        rebornByCoinDes.text = "-" + rebornByCoinTotalCost;
+        rebornByCoinButton.interactable = CoinManager.totalCoin >= rebornByCoinTotalCost;
 
         anim.Show(() =>
         {
-            animContinue.Show(null, () => StartCoroutine(DORebornCountDown()), null);
+            animContinue.Show(null, () =>
+            {
+                DOVirtual.DelayedCall(timeDelayBtnBack, () => noThanksButton?.gameObject.SetActive(true), true);
+            }, null);
         });
     }
 
@@ -428,7 +433,8 @@ public class UIGameOver : MonoBehaviour
         {
             rebornCount = 0;
             CheckToShowInterstitialAds("Next", null);
-            GameStateManager.Next(null);
+            //GameStateManager.Next(null);
+            GameStateManager.Idle(null);
         });
     }
     protected void Btn_SkipCountDown_Handle()
@@ -437,7 +443,7 @@ public class UIGameOver : MonoBehaviour
     }
     public void Btn_NoReborn_Handle()
     {
-        StopCoroutine(DORebornCountDown());
+        //StopCoroutine(DORebornCountDown());
         if (GameStateManager.CurrentState == GameState.GameOver)
         {
             animContinue.Hide(() =>
@@ -456,10 +462,7 @@ public class UIGameOver : MonoBehaviour
         {
             DOVirtual.DelayedCall(0.5f, () =>
             {
-                if (rebornType == RebornType.Continue)
-                    GameStateManager.RebornContinue(null);
-                else
-                    GameStateManager.RebornCheckPoint(null);
+                GameStateManager.RebornContinue(null);
             });
             rebornCount++;
         });

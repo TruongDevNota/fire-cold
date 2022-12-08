@@ -25,7 +25,7 @@ public class DataManager : MonoBehaviour
     #endregion
 
     #region DEMO_DATA
-    public static int demoLevel = 1;
+    public static int selectedLevel = 1;
     #endregion
 
     [Space(10)]

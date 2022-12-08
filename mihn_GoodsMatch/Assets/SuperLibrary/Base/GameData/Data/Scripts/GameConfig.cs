@@ -17,10 +17,8 @@ public class GameConfig
     public int adInterNotToReward = 1;
     public int adInterViewToReward = 5;
 
-
     [Header("Rate")]
     public int promtRateAtWin = 5;
-
 
     #region MONEY
     [Header("Money")]
@@ -40,10 +38,11 @@ public class GameConfig
                 _goldByAds = value;
         }
     }
+    public int startPerMatch = 5;
     #endregion
 
     #region LEVEL DESIGN
-    
+    public int rebornTimeAdding;
     #endregion
 }
 

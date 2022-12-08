@@ -22,7 +22,7 @@ public class UIInGame : MonoBehaviour
     [SerializeField]
     private GameObject touchPanel = null;
     [SerializeField]
-    private Button pauseButton = null;
+    private Button settingButton = null;
     [SerializeField]
     private Button resumeButton = null;
     [SerializeField]
@@ -49,7 +49,7 @@ public class UIInGame : MonoBehaviour
 
     private void Start()
     {
-        pauseButton?.onClick.AddListener(() =>
+        settingButton?.onClick.AddListener(() =>
         {
             GameStateManager.Pause(null);
         });
@@ -77,10 +77,7 @@ public class UIInGame : MonoBehaviour
 
     private void PlayButtonOnClick()
     {
-        if (GameStateManager.CurrentState == GameState.Ready || GameStateManager.CurrentState == GameState.Pause)
-        {
-            GameStateManager.Play(null);
-        }
+        GameStateManager.Play(null);
     }
 
     private void BuffHintButtonOnclick()
@@ -111,24 +108,23 @@ public class UIInGame : MonoBehaviour
             case GameState.Init:
             case GameState.Restart:
             case GameState.Ready:
+                playButton?.gameObject.SetActive(true);
+                hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
                 break;
             case GameState.Play:
                 hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
                 playButton?.gameObject.SetActive(false);
-                pauseButton?.gameObject.SetActive(true);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
                 //touchPanel?.SetActive(true);
                 break;
             case GameState.Pause:
                 playButton?.gameObject.SetActive(false);
-                pauseButton?.gameObject.SetActive(false);
-                resumeButton?.gameObject.SetActive(true);
+                resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(true);
                 break;
             case GameState.GameOver:
                 resumeButton?.gameObject.SetActive(false);
-                pauseButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
                 break;
             case GameState.Complete:
@@ -139,13 +135,10 @@ public class UIInGame : MonoBehaviour
     public void Show()
     {
         anim.Show(()=> {
-            pauseButton?.gameObject.SetActive(false);
-            resumeButton?.gameObject.SetActive(false);
-            backButton?.gameObject.SetActive(false);
-            playButton?.gameObject.SetActive(false);
+            playButton?.gameObject.SetActive(true);
             //touchPanel?.SetActive(false);
         }, ()=> {
-            playButton?.gameObject.SetActive(true);
+            ShowTapToPlay();
             //touchPanel?.SetActive(true);
         });
     }
@@ -153,6 +146,11 @@ public class UIInGame : MonoBehaviour
     public void Hide()
     {
         anim.Hide();
+    }
+
+    public void ShowTapToPlay()
+    {
+        playButton?.gameObject.SetActive(true);
     }
 
     public void Ins_BtnBack()

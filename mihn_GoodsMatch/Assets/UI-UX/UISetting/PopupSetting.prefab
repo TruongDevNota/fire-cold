@@ -1784,6 +1784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91102b91f57d0b243b73647604d9e76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 5515555638110950349}
   panelButtonsIngame: {fileID: 6003118412221913293}
   homeBtn: {fileID: 3579179532845890960}
   restartBtn: {fileID: 7512259823701397543}

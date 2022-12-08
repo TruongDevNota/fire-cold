@@ -121,7 +121,9 @@ public class ShelfUnit : MonoBehaviour
             return;
         if(matchItems.Count == matchItems[0].matchAmount)
         {
-            foreach(var item in matchItems)
+            this.PostEvent((int)EventID.OnNewMatchSuccess);
+           
+            foreach (var item in matchItems)
             {
                 PickItemUpHandler(item);
                 itemsOnShelf.Remove(item);

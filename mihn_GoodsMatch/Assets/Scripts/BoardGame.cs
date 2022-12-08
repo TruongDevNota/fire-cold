@@ -31,9 +31,9 @@ public class BoardGame : MonoBehaviour
     }
     public List<Goods_Item> items = new List<Goods_Item>();
 
-    private Stopwatch stopwatch;
+    public Stopwatch stopwatch;
     public Stopwatch pStopWatch { get { return stopwatch; } }
-    private float timeLimitInSeconds;
+    public float timeLimitInSeconds;
     public float pTimeLimitInSeconds { get { return timeLimitInSeconds; } }
 
     private bool gameSetupDone = false;
@@ -43,6 +43,7 @@ public class BoardGame : MonoBehaviour
     public static BoardGame instance;
 
     private int currentLevel;
+    private Coroutine prepareMapCoroutine;
 
     private void Awake()
     {
@@ -52,7 +53,7 @@ public class BoardGame : MonoBehaviour
     private void Start()
     {
         isDraggingItem = false;
-        PrepareSceneLevel(DataManager.demoLevel);
+        PrepareSceneLevel(DataManager.selectedLevel);
     }
 
     private void OnEnable()
@@ -70,11 +71,16 @@ public class BoardGame : MonoBehaviour
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
     {
         if(current == GameState.Restart)
-            PrepareSceneLevel(DataManager.demoLevel);
+            PrepareSceneLevel(DataManager.selectedLevel);
         if (current == GameState.Pause)
             PauseGame();
         if (current == GameState.Play)
             StartGamePlay();
+        if(current == GameState.RebornContinue)
+        {
+            timeLimitInSeconds += DataManager.GameConfig.rebornTimeAdding;
+            GameStateManager.Ready(null);
+        }
     }
 
     private void Update()
@@ -111,14 +117,15 @@ public class BoardGame : MonoBehaviour
     public void PrepareSceneLevel(int level)
     {
         currentLevel = level;
-        StartCoroutine(PrepareNewGame(level));
+        if(prepareMapCoroutine != null)
+            StopCoroutine(prepareMapCoroutine);
+        prepareMapCoroutine = StartCoroutine(PrepareNewGame(level));
     }
 
     private IEnumerator PrepareNewGame(int level)
     {
         Debug.Log($"Level Select: {level}");
         isPlayingGame = false;
-        isPausing = false;
         timeLimitInSeconds = timeLimitDefault;
         stopwatch = new Stopwatch();
 
@@ -130,7 +137,6 @@ public class BoardGame : MonoBehaviour
         {
             string mapData = file.text;
             mapCreater.CreateMapFromTextAsset(mapData);
-            yield return new WaitForSeconds(0.25f);
         }
         else
         {
@@ -149,6 +155,7 @@ public class BoardGame : MonoBehaviour
         isPausing = false;
         //stopwatch.Restart();
         stopwatch.Start();
+        isDraggingItem = false;
         //UI_Ingame_Manager.instance.OnGameStarted();
     }
 
@@ -177,11 +184,6 @@ public class BoardGame : MonoBehaviour
         dragingItem = null;
         GameStateManager.WaitGameOver(null);
         //UI_Ingame_Manager.instance.OnGameOverHandle(false);
-    }
-
-    public void RestartGame()
-    {
-        StartCoroutine(PrepareNewGame(currentLevel));
     }
 
     public void PauseGame()
