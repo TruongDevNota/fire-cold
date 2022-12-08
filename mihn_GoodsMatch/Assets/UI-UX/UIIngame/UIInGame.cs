@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(UIAnimation))]
 public class UIInGame : MonoBehaviour
@@ -9,6 +10,11 @@ public class UIInGame : MonoBehaviour
     [SerializeField]
     private UIAnimation anim = null;
     public UIAnimStatus Status => anim.Status;
+
+    [SerializeField]
+    List<Sprite> backgroundSprites;
+    [SerializeField]
+    Image ingameBG;
 
     [SerializeField]
     private Button buffHintButton = null;
@@ -38,12 +44,10 @@ public class UIInGame : MonoBehaviour
 
     private void OnEnable()
     {
-        GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
         UserData.OnHintBuffChanged += OnHintBuffChange;
     }
     private void OnDisable()
     {
-        GameStateManager.OnStateChanged -= GameStateManager_OnStateChanged;
         UserData.OnHintBuffChanged -= OnHintBuffChange;
     }
 
@@ -63,6 +67,13 @@ public class UIInGame : MonoBehaviour
 
         playButton?.onClick.AddListener(PlayButtonOnClick);
         buffHintButton?.onClick.AddListener(BuffHintButtonOnclick);
+
+        GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
+    }
+
+    private void OnDestroy()
+    {
+        GameStateManager.OnStateChanged -= GameStateManager_OnStateChanged;
     }
     private void backButtonOnClick()
     {
@@ -110,12 +121,17 @@ public class UIInGame : MonoBehaviour
             case GameState.Ready:
                 playButton?.gameObject.SetActive(true);
                 hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
+                buffHintButton.gameObject.SetActive(false);
+                buffRestartButton.gameObject.SetActive(false);
+                ingameBG.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Count)];
                 break;
             case GameState.Play:
                 hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
+                buffHintButton.gameObject.SetActive(true);
+                buffRestartButton.gameObject.SetActive(true);
                 //touchPanel?.SetActive(true);
                 break;
             case GameState.Pause:

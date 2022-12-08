@@ -259,8 +259,8 @@ public class UIGameOver : MonoBehaviour
                 btnStarClaim?.onClick.RemoveAllListeners();
                 btnStarClaim?.onClick.AddListener(() =>
                 {
-                    StarManager.Add(GameStatisticsManager.starEarn);
-                    DOVirtual.DelayedCall(1.5f, () => Btn_Next_Handle());
+                    StarManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
+                    DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
                 });
             });
             txtScaleStar.text = $"{GameStatisticsManager.goldEarn * bonusAds}";
@@ -268,8 +268,8 @@ public class UIGameOver : MonoBehaviour
             btnScaleStarClaim?.onClick.AddListener(() =>
             {
                 lineRoullete.StopRoulelete();
-                StarManager.Add(GameStatisticsManager.starEarn * bonusAds);
-                DOVirtual.DelayedCall(1.5f, () => Btn_Next_Handle());
+                StarManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
+                DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
             });
         }
     }
@@ -286,14 +286,7 @@ public class UIGameOver : MonoBehaviour
 
         if (rebornByInfo)
         {
-            if (GameStatisticsManager.Score > 10)
-            {
-                rebornByInfo.text = "Wow... " + "<size=32><color=#FFFFFF>" + "NEW RECORD" + "</color></size>" + " has been set ...!";
-            }
-            else
-            {
-                rebornByInfo.text = "Try a lite bit!";
-            }
+            rebornByInfo.text = $"+{Mathf.FloorToInt(DataManager.GameConfig.rebornTimeAdding)}s";
         }
 
         rebornByAdsButton?.gameObject.SetActive(true);

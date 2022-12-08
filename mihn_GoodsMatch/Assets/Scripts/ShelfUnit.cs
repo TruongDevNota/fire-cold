@@ -122,13 +122,14 @@ public class ShelfUnit : MonoBehaviour
         if(matchItems.Count == matchItems[0].matchAmount)
         {
             this.PostEvent((int)EventID.OnNewMatchSuccess);
-           
+            int index = -1;
             foreach (var item in matchItems)
             {
+                index++;
                 PickItemUpHandler(item);
                 itemsOnShelf.Remove(item);
                 BoardGame.instance?.items.Remove(item);
-                item.Explode();
+                item.Explode(index);
             }
             Debug.Log($"New match item type: {type}");
         }

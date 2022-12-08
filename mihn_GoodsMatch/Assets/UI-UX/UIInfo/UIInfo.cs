@@ -17,6 +17,11 @@ public class UIInfo : MonoBehaviour
     [SerializeField] Text comboCountText = null;
     [SerializeField] float comboTimeCooldown = 3f;
 
+    [Header("Star effect")]
+    [SerializeField]
+    GameObject starPrefab;
+    public Transform defaultTarget;
+
     float currentCoolDownTime;
     int comboCount = 0;
     public int ComboCount
@@ -26,6 +31,8 @@ public class UIInfo : MonoBehaviour
         {
             if(value != instance.comboCount)
                 instance.comboCount = value;
+            comboTimeSlider.gameObject.SetActive(instance.comboCount != 0);
+            instance.comboCountText.gameObject.SetActive(instance.comboCount != 0);
             if (instance.comboCount != 0)
                 instance.DoComboCountDown();
             instance.comboCountText.text = $"COMBO X{instance.comboCount}";
@@ -40,6 +47,7 @@ public class UIInfo : MonoBehaviour
     {
         GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
         instance = this;
+        starPrefab.CreatePool(10);
     }
 
     private void OnEnable()
@@ -71,7 +79,7 @@ public class UIInfo : MonoBehaviour
             case GameState.Init:
             case GameState.Restart:
                 this.timePlayed = 0;
-                timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
+                timeLeftText.text = ("-:--");
                 comboTimeSlider.minValue = 0;
                 comboTimeSlider.maxValue = comboTimeCooldown;
                 comboTimeSlider.value = 0;
@@ -81,7 +89,7 @@ public class UIInfo : MonoBehaviour
                 startText.text = "0";
                 break;
             case GameState.Ready:
-                levelTxt.text = $"LEVEL {DataManager.UserData.level}";
+                levelTxt.text = $"LEVEL {DataManager.selectedLevel}";
                 timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
                 break;
             case GameState.Pause:
@@ -115,4 +123,20 @@ public class UIInfo : MonoBehaviour
             currentCoolDownTime = comboTimeCooldown;
         });
     }
+
+    public static void CollectStars(int numb, Transform fromTrans, Transform toTrans = null)
+    {
+        for(int i = 0; i < numb; i++)
+        {
+            var item = instance.starPrefab.Spawn();
+            item.transform.position = fromTrans.position;
+            item.transform.DOScale(1f, 0);
+            item.transform.DOScale(0.8f, 0.8f);
+            item.transform.DOMove(instance.defaultTarget.position, 1f).OnComplete(() =>
+            {
+                item.Recycle();
+            });
+        }
+    }
+
 }

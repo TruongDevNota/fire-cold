@@ -637,7 +637,7 @@ MonoBehaviour:
   rebornCountMax: 1
   rebornByTitle: {fileID: 0}
   rebornByDes: {fileID: 0}
-  rebornByInfo: {fileID: 0}
+  rebornByInfo: {fileID: 3336345869151525979}
   rebornElapsedMaxTime: 5
   rebornByCountDownText: {fileID: 0}
   rebornByCountDownImage: {fileID: 0}
@@ -4757,7 +4757,7 @@ GameObject:
   - component: {fileID: 5542549488694847319}
   - component: {fileID: 7884083117028162186}
   m_Layer: 5
-  m_Name: TxtGiftUnlock
+  m_Name: TxtTimeAdding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -42,7 +42,7 @@ public class GameConfig
     #endregion
 
     #region LEVEL DESIGN
-    public int rebornTimeAdding;
+    public float rebornTimeAdding;
     #endregion
 }
 

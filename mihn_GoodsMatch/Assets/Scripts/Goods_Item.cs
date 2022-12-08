@@ -78,21 +78,21 @@ public class Goods_Item : MonoBehaviour
         }
     }
 
-    public void Explode()
+    public void Explode(int index = 0)
     {
         StopRotate();
         canPick = false;
         BoardGame.instance.CheckGameComplete();
-        StartCoroutine(YieldExplode());
+        StartCoroutine(YieldExplode(index));
     }
 
-    private IEnumerator YieldExplode()
+    private IEnumerator YieldExplode(int index = 0)
     {
-        transform.DOScale(1.1f, exploreAnim_Duration * 0.5f);
-        yield return new WaitForSeconds(exploreAnim_Duration * 0.5f);
-        transform.DOScale(0f, exploreAnim_Duration * 0.5f);
-        yield return new WaitForSeconds(exploreAnim_Duration * 0.5f);
-        DOTween.Kill(this);
+        var waitDelay = new WaitForSeconds(index * 0.2f);
+        yield return waitDelay;
+        yield return transform.DOScale(1.1f, exploreAnim_Duration * 0.5f).WaitForCompletion();
+        yield return transform.DOScale(0f, exploreAnim_Duration * 0.5f).WaitForCompletion();
+        UIInfo.CollectStars(1,this.transform);
         GameObject.Destroy(gameObject);
     }
 }

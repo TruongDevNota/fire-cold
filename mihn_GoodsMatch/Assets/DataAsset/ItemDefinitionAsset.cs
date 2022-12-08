@@ -39,7 +39,9 @@ public class ItemDefinitionAsset : ScriptableObject
             };
             definitions.Add(newDefinition);
         }
+#if UNITY_EDITOR
         EditorUtility.SetDirty(this);
+#endif
     }
 }
 
