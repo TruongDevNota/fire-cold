@@ -250,6 +250,8 @@ public class UIGameOver : MonoBehaviour
     {
         if (isWin)
         {
+            btnStarClaim.interactable = true;
+            btnScaleStarClaim.interactable = true;
             btnScaleStarClaim?.onClick.RemoveAllListeners();
 
             DataManager.Save();
@@ -259,6 +261,8 @@ public class UIGameOver : MonoBehaviour
                 btnStarClaim?.onClick.RemoveAllListeners();
                 btnStarClaim?.onClick.AddListener(() =>
                 {
+                    btnStarClaim.interactable = false;
+                    btnScaleStarClaim.interactable = false;
                     StarManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
                     DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
                 });
@@ -267,6 +271,8 @@ public class UIGameOver : MonoBehaviour
             btnScaleStarClaim?.gameObject.SetActive(true);
             btnScaleStarClaim?.onClick.AddListener(() =>
             {
+                btnStarClaim.interactable = false;
+                btnScaleStarClaim.interactable = false;
                 lineRoullete.StopRoulelete();
                 StarManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
                 DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());

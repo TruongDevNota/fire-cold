@@ -19,8 +19,9 @@ public class BoardGame : MonoBehaviour
 
     [SerializeField] Vector3 touchPositionOffset;
 
-    private StorageController storageController;
-    
+    private LevelConfig currentLevelConfig;
+    public LevelConfig CurrentLevelConfig { get { return currentLevelConfig; } }
+
     private Goods_Item dragingItem = null;
     private bool isDraggingItem = false;
     private int itemCount;
@@ -141,6 +142,19 @@ public class BoardGame : MonoBehaviour
         else
         {
             Debug.Log($"Load map data fail - [{path}]");
+            GameStateManager.Idle(null);
+            yield break;
+        }
+
+        string configPath = $"Configs/Config_Level_{level}";
+        var config = Resources.Load<TextAsset>(configPath);
+        if (file != null)
+        {
+            currentLevelConfig = JsonUtility.FromJson<LevelConfig>(file.text);
+        }
+        else
+        {
+            Debug.Log($"Load level config fail - [{configPath}]");
             GameStateManager.Idle(null);
             yield break;
         }

@@ -26,3 +26,7 @@ MonoBehaviour:
       - 0|0|100
       - 101|200|0
       - 0|200|101
+  sampleLevelConfig:
+    time: 20
+    moveHorizon: 0
+    movingVerticle: 0

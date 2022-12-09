@@ -65,6 +65,7 @@ public class MapCreater : MonoBehaviour
             return;
 
         //var linesPositionY = new float[currentMapDatum.lines.Count];
+        Debug.Log($"READ MAP DATA - TOTAL LINES: {currentMapDatum.lines.Count}");
         int midIndexY = Mathf.FloorToInt((currentMapDatum.lines.Count - 1) * 0.5f);
         for (int i = 0; i < currentMapDatum.lines.Count; i++)
         {
@@ -115,10 +116,13 @@ public class MapCreater : MonoBehaviour
         var newMap = new MapDatum();
         newMap.lines = new List<LineDatum>();
 
-        List<string> lines = content.Split(new char[] { '\n', '\r' }).ToList();
+        List<string> lines = content.Split(new char[] { '\n', '\r'}).ToList();
 
         foreach(var line in lines)
         {
+            Debug.Log($"Convert Line data: {line}");
+            if (line.Length <= 1)
+                continue;
             var lineDatum = new LineDatum();
             lineDatum.lineSheves = line.Split(GameConstants.shelfSplitChars).Where(x => x.Length > 0).ToList();
             newMap.lines.Add(lineDatum);

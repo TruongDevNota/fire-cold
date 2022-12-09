@@ -500,15 +500,15 @@ MonoBehaviour:
   sampleMapTextAsset: {fileID: 0}
   itemDefinitionAsset: {fileID: 11400000, guid: 75ec217fba8cdc741a3af57c2cf1a626, type: 2}
   shelfBasePrefab: {fileID: 5583660029400490324, guid: 3766aa41dfd50a943bf0f73574e9517a, type: 3}
-  mapUnitSize: {x: 1, y: 1.125}
+  mapUnitSize: {x: 1, y: 1.35}
   shelfUnitSize: {x: 3, y: 1}
   shelfDistance: 0.5
   mainCamera: {fileID: 519420031}
   cameraSizeOffset: {x: 9, y: 11}
   smallCameraSizeOffsets:
   - 9
-  - 11.5
-  largeCameraSizeOffsets:
   - 10
+  largeCameraSizeOffsets:
+  - 11.5
   - 13
   itemCreated: []
