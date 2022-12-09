@@ -35,6 +35,5 @@ public class UIShop : MonoBehaviour
 
     public void OnShow()
     {
-        shopItems[0].CheckTime();
     }
 }
