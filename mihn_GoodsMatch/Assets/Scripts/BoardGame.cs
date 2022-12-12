@@ -127,7 +127,7 @@ public class BoardGame : MonoBehaviour
     {
         Debug.Log($"Level Select: {level}");
         isPlayingGame = false;
-        timeLimitInSeconds = timeLimitDefault;
+        
         stopwatch = new Stopwatch();
 
         ClearMap();
@@ -148,15 +148,17 @@ public class BoardGame : MonoBehaviour
 
         string configPath = $"Configs/Config_Level_{level}";
         var config = Resources.Load<TextAsset>(configPath);
-        if (file != null)
+        if (config != null)
         {
             currentLevelConfig = JsonUtility.FromJson<LevelConfig>(file.text);
+            timeLimitInSeconds = currentLevelConfig.time;
         }
         else
         {
-            Debug.Log($"Load level config fail - [{configPath}]");
-            GameStateManager.Idle(null);
-            yield break;
+            Debug.LogError($"Load level config fail - [{configPath}]");
+            timeLimitInSeconds = timeLimitDefault;
+            //GameStateManager.Idle(null);
+            //yield break;
         }
 
         GameStateManager.Ready(null);

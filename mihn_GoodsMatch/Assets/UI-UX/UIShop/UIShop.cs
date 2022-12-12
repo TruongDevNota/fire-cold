@@ -24,7 +24,7 @@ public class UIShop : MonoBehaviour
         uiItemPrefab.CreatePool(itemNum);
     }
 
-    private void Init()
+    public void Init()
     {
         for(int i = 0; i < itemNum; i++)
         {
