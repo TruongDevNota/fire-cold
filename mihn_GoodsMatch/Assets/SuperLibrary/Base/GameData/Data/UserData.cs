@@ -10,6 +10,20 @@ public class UserData : UserAnalysic
     [Header("Data")]
     public int level = 0;
 
+    [Header("Reward Unlock")]
+    private int levelChestPercent = 0;
+    public int LevelChesPercent 
+    {
+        get
+        {
+            return levelChestPercent;
+        }
+        set
+        {
+            levelChestPercent = Mathf.Min(100,value);
+        }
+    }
+
     private string lastTimeUpdate = new DateTime(1999, 1, 1).ToString();
     public DateTime LastTimeUpdate
     {
@@ -127,6 +141,16 @@ public class UserData : UserAnalysic
     public int totalCoinEarn = 0;
     public int totalCoinSpend = 0;
 
+    private int bankCoin = 0;
+    public int totalBankCoin 
+    { 
+        get => bankCoin;
+        set
+        {
+            bankCoin = Mathf.Min(value, DataManager.GameConfig.BankCoinStage.Last());
+        }
+    }
+
     [SerializeField]
     private int diamond;
     public int totalDiamond
@@ -220,7 +244,6 @@ public class UserData : UserAnalysic
     }
     public int totalHintEarn;
     public int totalHintSpent;
-
 
     private int totalPurchased = 0;
     public int TotalPurchased

@@ -54,7 +54,7 @@ public class BoardGame : MonoBehaviour
     private void Start()
     {
         isDraggingItem = false;
-        PrepareSceneLevel(DataManager.selectedLevel);
+        PrepareSceneLevel();
     }
 
     private void OnEnable()
@@ -72,7 +72,7 @@ public class BoardGame : MonoBehaviour
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
     {
         if(current == GameState.Restart)
-            PrepareSceneLevel(DataManager.selectedLevel);
+            PrepareSceneLevel();
         if (current == GameState.Pause)
             PauseGame();
         if (current == GameState.Play)
@@ -115,12 +115,12 @@ public class BoardGame : MonoBehaviour
             GameOverHandler();
     }
 
-    public void PrepareSceneLevel(int level)
+    public void PrepareSceneLevel()
     {
-        currentLevel = level;
+        currentLevel = DataManager.UserData.level + 1 <= 30 ? DataManager.UserData.level + 1 : Random.Range(20, 30);
         if(prepareMapCoroutine != null)
             StopCoroutine(prepareMapCoroutine);
-        prepareMapCoroutine = StartCoroutine(PrepareNewGame(level));
+        prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel));
     }
 
     private IEnumerator PrepareNewGame(int level)
@@ -150,7 +150,7 @@ public class BoardGame : MonoBehaviour
         var config = Resources.Load<TextAsset>(configPath);
         if (config != null)
         {
-            currentLevelConfig = JsonUtility.FromJson<LevelConfig>(file.text);
+            currentLevelConfig = JsonUtility.FromJson<LevelConfig>(config.text);
             timeLimitInSeconds = currentLevelConfig.time;
         }
         else
@@ -186,6 +186,7 @@ public class BoardGame : MonoBehaviour
         Debug.Log("****  GameComplete  ****");
         stopwatch.Stop();
         isPlayingGame = false;
+        DataManager.UserData.LevelChesPercent += DataManager.GameConfig.unlockChestEachLevel;
         DOVirtual.DelayedCall(1f, () => { GameStateManager.WaitComplete(null); });
         //UI_Ingame_Manager.instance.OnGameOverHandle(true);
     }

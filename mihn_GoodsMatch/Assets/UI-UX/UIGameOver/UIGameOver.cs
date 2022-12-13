@@ -29,9 +29,18 @@ public class UIGameOver : MonoBehaviour
     [SerializeField]
     protected Button btnScaleStarClaim = null;
     [SerializeField]
-    private Text txtScaleStar;
+    protected Text txtScaleStar;
     [SerializeField]
-    Image imgLightGift;
+    protected Image img_newItemUnlock;
+    [SerializeField]
+    protected GameObject levelChest;
+    [SerializeField]
+    protected Image img_ChestUnlocked;
+    [SerializeField]
+    protected Text txt_unlockValue;
+    [SerializeField]
+    private UIPopupReward popupReward;
+    private bool isItemUnlock;
 
     [Header("Stage Info")]
     [SerializeField]
@@ -206,9 +215,19 @@ public class UIGameOver : MonoBehaviour
         //UIToast.ShowLoading("", 1);
         if (txtLevel)
             //txtLevel.text = $"LEVEL {DataManager.UserData.level + 1}";
-            txtLevel.text = $"LEVEL {DataManager.selectedLevel}";
+            txtLevel.text = $"LEVEL {DataManager.UserData.level + 1}";
         if (txtStar)
             txtStar.text = $"+{GameStatisticsManager.starEarn}";
+
+        if (isWin)
+        {
+            //isItemUnlock = DataManager.UserData.level % 5 == 1;
+            isItemUnlock = false;
+            img_newItemUnlock.gameObject.SetActive(isItemUnlock);
+            levelChest.gameObject.SetActive(!isItemUnlock);
+            img_ChestUnlocked.fillAmount = DataManager.UserData.LevelChesPercent * 1f / 100;
+            txt_unlockValue.text = isItemUnlock ? $"New Item" : $"{DataManager.UserData.LevelChesPercent}%";
+        }
 
         btnScaleStarClaim?.gameObject.SetActive(false);
         
@@ -432,8 +451,16 @@ public class UIGameOver : MonoBehaviour
         {
             rebornCount = 0;
             CheckToShowInterstitialAds("Next", null);
-            //GameStateManager.Next(null);
-            GameStateManager.Idle(null);
+
+            //Check to show reward popup
+            if(DataManager.UserData.LevelChesPercent >= 100)
+            {
+                popupReward.ShowLevelChestReward(DataManager.UserData.level * DataManager.GameConfig.coinRewardByLevel, DataManager.GameConfig.buffHintReward);
+            }
+            else
+            {
+                GameStateManager.LoadGame(null);
+            }
         });
     }
     protected void Btn_SkipCountDown_Handle()

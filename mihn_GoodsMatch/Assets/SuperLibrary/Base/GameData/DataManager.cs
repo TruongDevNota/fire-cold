@@ -24,10 +24,6 @@ public class DataManager : MonoBehaviour
 
     #endregion
 
-    #region DEMO_DATA
-    public static int selectedLevel = 1;
-    #endregion
-
     [Space(10)]
     [Header("Default Data")]
     [SerializeField]

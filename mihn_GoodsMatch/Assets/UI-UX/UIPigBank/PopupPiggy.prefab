@@ -354,10 +354,10 @@ RectTransform:
   m_Father: {fileID: 732808658156666878}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -135.66248}
-  m_SizeDelta: {x: -80.962524, y: 116}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 320}
+  m_SizeDelta: {x: 368, y: 116}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4845053699873948427
 CanvasRenderer:
@@ -431,7 +431,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00024414062, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5494383315461094867
@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1637,7 +1637,7 @@ GameObject:
   - component: {fileID: 6806444486028212474}
   - component: {fileID: 6806444486028212472}
   - component: {fileID: 6806444486028212479}
-  - component: {fileID: 2214621165607155384}
+  - component: {fileID: 3562456546266207194}
   m_Layer: 5
   m_Name: PopupPiggy
   m_TagString: Untagged
@@ -1699,9 +1699,9 @@ MonoBehaviour:
   m_StartEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2214621165607155384}
-        m_TargetAssemblyTypeName: UIShop, Assembly-CSharp
-        m_MethodName: Init
+      - m_Target: {fileID: 3562456546266207194}
+        m_TargetAssemblyTypeName: UIPopupPiggyBank, Assembly-CSharp
+        m_MethodName: Onshow
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_HideCompletedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2214621165607155384
+--- !u!114 &3562456546266207194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1742,23 +1742,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6806444486028212475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02af84dcc6942c244aab339dd0823fbb, type: 3}
+  m_Script: {fileID: 11500000, guid: 8dbb67560fca86643aa2e1f0a7f97e76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiItemPrefab: {fileID: 648503586799784150, guid: 2edc025823f37624f8136d100107dff9, type: 3}
-  scrollRect: {fileID: 0}
-  contentParent: {fileID: 0}
-  itemNum: 8
-  values: 320000006400000096000000c8000000fa0000002c0100005e01000090010000
-  price:
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
+  txt_BankValue: {fileID: 5330338067160979174}
+  slider: {fileID: 2897651926968272146}
+  btn_Claim: {fileID: 7069458102853997145}
+  stagesValues: 
 --- !u!1 &6806444486172563802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,7 +2012,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6806444487172125876}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2432,6 +2422,17 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 19e74475c9034794fbbf2dff948bace7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f007df69c25c8b4982e01941131a105, type: 3}
+--- !u!114 &7069458102853997145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3162345573681129395, guid: 7f007df69c25c8b4982e01941131a105, type: 3}
+  m_PrefabInstance: {fileID: 5330338067923629546}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7069458102853997147 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3162345573681129393, guid: 7f007df69c25c8b4982e01941131a105, type: 3}

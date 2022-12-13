@@ -21,7 +21,12 @@ MonoBehaviour:
     adRewardNotToInter: 1
     adInterNotToReward: 1
     adInterViewToReward: 5
+    coinRewardByRemoveAds: 800
+    removeAdsCost: 5.99
     promtRateAtWin: 3
+    starCollectStage: 100
+    coinRewardByStarChest: 50
     _goldByAds: 150
     startPerMatch: 5
+    bankCoinStage: d007000088130000
     rebornTimeAdding: 30.5

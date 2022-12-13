@@ -16,9 +16,18 @@ public class GameConfig
     public int adRewardNotToInter = 1;
     public int adInterNotToReward = 1;
     public int adInterViewToReward = 5;
+    public int coinRewardByRemoveAds = 800;
+    public float removeAdsCost = 5.99f;
 
     [Header("Rate")]
     public int promtRateAtWin = 5;
+
+    [Header("Rewards")]
+    public int starCollectStage = 100;
+    public int coinRewardByStarChest = 50;
+    public int unlockChestEachLevel = 25;
+    public int coinRewardByLevel = 10;
+    public int buffHintReward = 1;
 
     #region MONEY
     [Header("Money")]
@@ -39,6 +48,12 @@ public class GameConfig
         }
     }
     public int startPerMatch = 5;
+    [SerializeField]
+    List<int> bankCoinStage = new List<int>() { 2000, 5000 };
+    public List<int> BankCoinStage
+    {
+        get { return bankCoinStage; }
+    }
     #endregion
 
     #region LEVEL DESIGN
