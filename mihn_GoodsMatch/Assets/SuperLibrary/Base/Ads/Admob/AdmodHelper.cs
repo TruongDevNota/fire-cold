@@ -4,17 +4,17 @@ using static Base.Ads.AdsManager;
 
 namespace Base.Ads
 {
-    public class IronHelper : AdsBase<IronHelper>
+    public class AdmodHelper : AdsBase<AdmodHelper>
     {
         protected static string appKey = "UnSupport";
 
-        public static IronHelper instance = null;
+        public static AdmodHelper instance = null;
 
         public static bool InterIsReady
         {
             get
             {
-#if USE_IRON
+#if USE_ADMOB
                 return IronSource.Agent.isInterstitialReady();
 #else
                 return false;
@@ -26,7 +26,7 @@ namespace Base.Ads
         {
             get
             {
-#if USE_IRON
+#if USE_ADMOB
                 return IronSource.Agent.isRewardedVideoAvailable();
 #else
                 return false;
@@ -37,12 +37,12 @@ namespace Base.Ads
         protected void Awake()
         {
             instance = this;
-            TAG = "IRON ";
+            TAG = "ADMOB ";
         }
 
         public static void Init(bool isDebug)
         {
-#if USE_IRON
+#if USE_ADMOB
             if (instance)
             {
                 try
@@ -117,7 +117,7 @@ namespace Base.Ads
 #endif
         }
 
-#if USE_IRON
+#if USE_ADMOB
         private static void ImpressionSuccessEvent(IronSourceImpressionData impressionData)
         {
             Log(TAG + "ImpressionSuccessEvent allData: " + impressionData.allData);
@@ -148,7 +148,7 @@ namespace Base.Ads
         #region VIDEO REWARDED
         public override void InitVideoRewarded()
         {
-#if USE_IRON
+#if USE_ADMOB
             IronSourceEvents.onRewardedVideoAvailabilityChangedEvent += RewardOnReady;
             IronSourceEvents.onRewardedVideoAdLoadFailedEvent += RewardOnLoadFailed;
             IronSourceEvents.onRewardedVideoAdRewardedEvent += RewardOnShowSuscess;
@@ -163,7 +163,7 @@ namespace Base.Ads
 
         public override void RewardLoad()
         {
-#if USE_IRON
+#if USE_ADMOB
             if (!RewardIsReady)
             {
                 SetStatus(AdType.VideoReward, AdEvent.Load, rewardPlacementName, rewardItemName, mediation);
@@ -174,7 +174,7 @@ namespace Base.Ads
 
         public override void RewardOnReady(bool avaiable)
         {
-#if USE_IRON
+#if USE_ADMOB
             rewardCountTry = 0;
             Debug.Log(TAG + " RewardOnReady " + RewardIsReady);
 #endif
@@ -186,7 +186,7 @@ namespace Base.Ads
             {
                 try
                 {
-#if USE_IRON
+#if USE_ADMOB
                     if (!IsInitReward) instance.InitVideoRewarded();
 
                     rewardPlacementName = placementName;
@@ -231,7 +231,7 @@ namespace Base.Ads
 
             try
             {
-#if USE_IRON
+#if USE_ADMOB
                 if (obj != null && obj is IronSourceError errorIron)
                 {
                     logParams.Add("errorCode", errorIron.getErrorCode().ToString());
@@ -255,7 +255,7 @@ namespace Base.Ads
             var logParams = ParamsBase(interPlacemenetName, interItemName, mediation);
             try
             {
-#if USE_IRON
+#if USE_ADMOB
                 if (obj != null && obj is IronSourceError errorIron)
                 {
                     logParams.Add("errorCode", errorIron.getErrorCode().ToString());
@@ -293,7 +293,7 @@ namespace Base.Ads
         #region INTERSTITIAL
         public override void InitInterstitial()
         {
-#if USE_IRON
+#if USE_ADMOB
             IronSourceEvents.onInterstitialAdReadyEvent += InterOnReady;
             IronSourceEvents.onInterstitialAdLoadFailedEvent += InterOnLoadFailed;
             IronSourceEvents.onInterstitialAdShowSucceededEvent += InterOnShowSuscess;
@@ -308,7 +308,7 @@ namespace Base.Ads
 
         public override void InterLoad()
         {
-#if USE_IRON
+#if USE_ADMOB
             if (!InterIsReady)
             {
                 SetStatus(AdType.Interstitial, AdEvent.Load, interPlacemenetName, interItemName, mediation);
@@ -319,7 +319,7 @@ namespace Base.Ads
 
         public override void InterOnReady()
         {
-#if USE_IRON
+#if USE_ADMOB
             SetStatus(AdType.Interstitial, AdEvent.Avaiable, interPlacemenetName, interItemName, mediation);
             interCountTry = 0;
 #endif
@@ -336,7 +336,7 @@ namespace Base.Ads
 
                     if (!IsInitInter) instance.InitInterstitial();
 
-#if USE_IRON
+#if USE_ADMOB
                     if (IronSource.Agent.isInterstitialReady())
                     {
                         Log(TAG + "ShowInterstitial -> Ready");
@@ -374,7 +374,7 @@ namespace Base.Ads
 
             try
             {
-#if USE_IRON
+#if USE_ADMOB
                 if (obj != null && obj is IronSourceError errorIron)
                 {
                     logParams.Add("errorCode", errorIron.getErrorCode().ToString());
@@ -401,7 +401,7 @@ namespace Base.Ads
 
             try
             {
-#if USE_IRON
+#if USE_ADMOB
                 if (obj != null && obj is IronSourceError errorIron)
                 {
                     logParams.Add("errorCode", errorIron.getErrorCode().ToString());
@@ -426,7 +426,7 @@ namespace Base.Ads
         #region BANNER
         public static void InitBanner()
         {
-#if USE_IRON
+#if USE_ADMOB
             SetStatus(AdType.Banner, AdEvent.Load, "default", "default", instance.mediation);
             if (AdsManager.BannerPos == BannerPos.BOTTOM)
                 IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.BOTTOM);
@@ -438,21 +438,21 @@ namespace Base.Ads
 
         public static void DestroyBanner()
         {
-#if USE_IRON
+#if USE_ADMOB
             IronSource.Agent.destroyBanner();
 #endif
         }
 
         public static void HideBanner()
         {
-#if USE_IRON
+#if USE_ADMOB
             IronSource.Agent.hideBanner();
 #endif
         }
 
         public static void ShowBanner()
         {
-#if USE_IRON
+#if USE_ADMOB
             IronSource.Agent.displayBanner();
 #endif
         }
@@ -460,7 +460,7 @@ namespace Base.Ads
         protected static bool tryLoadBanner = false;
         protected static void OnBannerAdLoadFailedEvent(object obj)
         {
-#if USE_IRON
+#if USE_ADMOB
             if (instance != null)
                 SetStatus(AdType.Banner, AdEvent.LoadFailed, "default", "default", instance.mediation);
             if (tryLoadBanner == false)
@@ -473,7 +473,7 @@ namespace Base.Ads
 
         private static void OnBannerAdLoadedEvent()
         {
-#if USE_IRON
+#if USE_ADMOB
             IronSource.Agent.displayBanner();
             if (instance != null)
                 SetStatus(AdType.Banner, AdEvent.Success, "default", "default", instance.mediation);

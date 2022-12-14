@@ -1,3 +1,4 @@
+using Base.Ads;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,9 +42,9 @@ public class UIShopItem : MonoBehaviour
         if (lastTimeViewAds + coolDownInSeconds > Time.realtimeSinceStartup)
             return;
 
-        AdsManager.ShowVideoReward(s =>
+        AdsManager.ShowVideoReward((e,t) =>
         {
-            if(s == AdEvent.Success)
+            if(e == AdEvent.Success)
             {
                 lastTimeViewAds = Time.realtimeSinceStartup;
 

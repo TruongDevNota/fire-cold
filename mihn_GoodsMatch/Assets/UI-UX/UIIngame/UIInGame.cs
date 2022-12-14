@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
+using Base.Ads;
 
 [RequireComponent(typeof(UIAnimation))]
 public class UIInGame : MonoBehaviour
@@ -102,13 +103,13 @@ public class UIInGame : MonoBehaviour
         {
             //Show Popup message
 
-            AdsManager.ShowVideoReward((s) =>
+            AdsManager.ShowVideoReward((e, t) =>
             {
-                if(s == AdEvent.Success)
+                if(e == AdEvent.Success)
                 {
                     DataManager.UserData.totalHintBuff++;
                 }
-            });
+            }, "BuffHintButtonOnclick");
         }
     }
 

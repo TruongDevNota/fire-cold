@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Base.Ads;
 
 public class UIPopupReward : MonoBehaviour
 {
@@ -98,10 +99,10 @@ public class UIPopupReward : MonoBehaviour
     {
         string placeAds = isStarChes ? "OpenIdleStarChestReward" : "UnlockLevelChestReward";
         SwitchActiveAllButton(false);
-        AdsManager.ShowVideoReward(s =>
+        AdsManager.ShowVideoReward((e, t) =>
         {
             var lastValue = coinEarn;
-            if (s == AdEvent.Success)
+            if (e == AdEvent.Success)
             {
                 coinEarn *= 2;
                 buffEarn *= 2;

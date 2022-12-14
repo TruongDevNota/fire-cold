@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393e43fb32192d14f8cbfdbfe3e839e9, type: 3}
+  m_Name: AdsSettingsAsset
+  m_EditorClassIdentifier: 
+  ratioInterPerReward: 3
+  autoRetryMax: 3
+  useBanner: 2
+  bannerPosition: 2
+  ironAndroidAppKey: 
+  ironIOSAppKey: 
+  maxSdkKey: M4GLwqezVT2WDo75OWFGOV873pVg6-3S3Kpz8Rxe_-9CnHI9oXPB2TI5LpnRnqvr8hpH8kw7i4KTMcc891KCad
+  maxAndroidBannerUnitId: 301e97b77eb38a47
+  maxAndroidInterUnitId: 73c348be161dad93
+  maxAndroidRewaredUnitId: 73c348be161dad93
+  maxAndroidOpenUnitId: 960cd531919b9746
+  maxIOSBannerUnitId: 
+  maxIOSInterUnitId: 
+  maxIOSRewaredUnitId: 
+  maxIOSOpenUnitId: 
+  adMobAndroidAppId: 
+  adMobIOSAppId: 
+  admobAndroidBannerUnitId: 
+  admobAndroidInterUnitId: 
+  admobAndroidRewaredUnitId: 
+  admobAndroidBannerRectangleUnitId: 
+  admobIOSBannerUnitId: 
+  admobIOSInterUnitId: 
+  admobIOSRewaredUnitId: 
+  admobIOSBannerRectangleUnitId: 
+  openAnroidUnitId: ' '
+  openIOSUnitId: 

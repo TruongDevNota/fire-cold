@@ -18,6 +18,7 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
+    implementation 'com.applovin.mediation:google-adapter:[21.3.0.2]' // Assets/MaxSdk/Mediation/Google/Editor/Dependencies.xml:5
     implementation 'com.applovin:applovin-sdk:11.6.0' // Assets/MaxSdk/AppLovin/Editor/Dependencies.xml:4
 // Android Resolver Dependencies End
 **DEPS**}

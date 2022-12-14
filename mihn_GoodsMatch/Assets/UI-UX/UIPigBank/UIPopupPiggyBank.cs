@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
+using Base.Ads;
 
 public class UIPopupPiggyBank : MonoBehaviour
 {
@@ -39,13 +40,13 @@ public class UIPopupPiggyBank : MonoBehaviour
 
     public void OnClaim()
     {
-        AdsManager.ShowVideoReward(s =>
+        AdsManager.ShowVideoReward((e, t) =>
         {
-            if(s == AdEvent.Success)
+            if(e == AdEvent.Success)
             {
                 CoinManager.Add(DataManager.UserData.totalBankCoin);
                 DataManager.UserData.totalBankCoin = 0;
             }
-        });
+        }, "UIPopupPiggyBank_OnClaim");
     }
 }
