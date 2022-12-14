@@ -45,7 +45,8 @@ public class UIPopupSetting : MonoBehaviour
 
     public void OnContinueBtnClick()
     {
-        GameStateManager.Play(null);
+        if(GameStateManager.CurrentState != GameState.Idle)
+            GameStateManager.Play(null);
         anim.Hide();
     }
 }
