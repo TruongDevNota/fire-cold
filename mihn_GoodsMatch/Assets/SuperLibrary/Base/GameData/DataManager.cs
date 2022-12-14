@@ -21,8 +21,9 @@ public class DataManager : MonoBehaviour
     public static ExercisesAsset ExercisesAsset { get; private set; }
     public static GameData gameData { get; private set; }
     private static DataManager instance { get; set; }
-
     #endregion
+
+    public static int levelSelect;
 
     [Space(10)]
     [Header("Default Data")]

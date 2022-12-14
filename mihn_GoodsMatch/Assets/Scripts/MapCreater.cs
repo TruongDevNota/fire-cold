@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using MyBox;
+using UnityEngine.UI;
 
 public class MapCreater : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class MapCreater : MonoBehaviour
 
     [Header("Camera Config")]
     [SerializeField] Camera mainCamera;
+    [SerializeField] Camera inGameUICam;
     [SerializeField] Vector2 cameraSizeOffset;
     [SerializeField] float[] smallCameraSizeOffsets;
     [SerializeField] float[] largeCameraSizeOffsets;
@@ -32,23 +34,24 @@ public class MapCreater : MonoBehaviour
         CreateMapFromTextAsset(sampleMapTextAsset.text);
     }
 
-    public void ChangeCameraSize(int mapCollume)
+    public void ChangeCameraSize(int mapCollume, int mapRow)
     {
         float screenRatio = Screen.height / Screen.width;
 
         //mainCamera.orthographicSize = mapCollume < 3 ? cameraSizeOffset.x : cameraSizeOffset.y;
-
-        if(mapCollume < 3)
+        var camSize = smallCameraSizeOffsets[0];
+        if (mapCollume < 3 && mapRow < 6)
         {
-            mainCamera.orthographicSize = screenRatio < 2f ? smallCameraSizeOffsets[0] : smallCameraSizeOffsets[1];
+            camSize = screenRatio < 2f ? smallCameraSizeOffsets[0] : smallCameraSizeOffsets[1];
             //mainCamera.transform.position = Vector3.zero;
         }
         else
         {
-            mainCamera.orthographicSize = screenRatio < 2f ? largeCameraSizeOffsets[0] : largeCameraSizeOffsets[1];
+            camSize = screenRatio < 2f ? largeCameraSizeOffsets[0] : largeCameraSizeOffsets[1];
             //mainCamera.transform.position = screenRatio < 2f ? new Vector3(0, 1f, 0) : Vector3.zero;
         }
-
+        mainCamera.orthographicSize = camSize;
+        inGameUICam.orthographicSize = camSize;
     }
 
     public void CreateMapFromTextAsset(string mapData)
@@ -107,7 +110,7 @@ public class MapCreater : MonoBehaviour
                 }
             }
         }
-        ChangeCameraSize(maxColumn);
+        ChangeCameraSize(maxColumn, currentMapDatum.lines.Count);
         //BoardGame.instance.ItemCount = itemCreated.Count;
     }
 

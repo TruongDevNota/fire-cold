@@ -459,6 +459,7 @@ public class UIGameOver : MonoBehaviour
             }
             else
             {
+                DataManager.levelSelect++;
                 GameStateManager.LoadGame(null);
             }
         });

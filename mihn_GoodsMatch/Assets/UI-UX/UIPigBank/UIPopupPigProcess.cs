@@ -48,6 +48,7 @@ public class UIPopupPigProcess : MonoBehaviour
 
     private void BtnContinueClick()
     {
+        DataManager.levelSelect++;
         btn_Continue.interactable = false;
         anim.Hide();
         GameStateManager.LoadGame(null);

@@ -87,7 +87,7 @@ public class UIInfo : MonoBehaviour
                 startText.text = "0";
                 break;
             case GameState.Ready:
-                levelTxt.text = $"LEVEL {DataManager.UserData.level + 1}";
+                levelTxt.text = $"LEVEL {DataManager.levelSelect}";
                 timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
                 break;
             case GameState.Pause:

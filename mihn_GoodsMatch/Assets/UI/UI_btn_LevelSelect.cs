@@ -9,6 +9,9 @@ public class UI_btn_LevelSelect : MonoBehaviour
         Debug.Log($"Level data load: {DataManager.UserData.level}");
 
         if (GameStateManager.CurrentState == GameState.Idle)
+        {
+            DataManager.levelSelect = DataManager.UserData.level + 1;
             GameStateManager.LoadGame(null);
+        }
     }
 }

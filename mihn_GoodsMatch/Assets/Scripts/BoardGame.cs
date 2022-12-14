@@ -117,7 +117,7 @@ public class BoardGame : MonoBehaviour
 
     public void PrepareSceneLevel()
     {
-        currentLevel = DataManager.UserData.level + 1 <= 30 ? DataManager.UserData.level + 1 : Random.Range(20, 30);
+        currentLevel = DataManager.levelSelect <= 30 ? DataManager.levelSelect : Random.Range(20, 30);
         if(prepareMapCoroutine != null)
             StopCoroutine(prepareMapCoroutine);
         prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel));
