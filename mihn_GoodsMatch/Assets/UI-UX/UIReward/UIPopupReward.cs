@@ -100,12 +100,13 @@ public class UIPopupReward : MonoBehaviour
         SwitchActiveAllButton(false);
         AdsManager.ShowVideoReward(s =>
         {
-            if(s == AdEvent.Success)
+            var lastValue = coinEarn;
+            if (s == AdEvent.Success)
             {
                 coinEarn *= 2;
                 buffEarn *= 2;
+                coinReward.DoTextAnim(lastValue, coinEarn);
             }
-            
             OnClaimReward();
         }, placeAds, "coin");
     }

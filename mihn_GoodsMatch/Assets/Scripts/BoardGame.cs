@@ -284,13 +284,15 @@ public class BoardGame : MonoBehaviour
     private void DoBuffHint(object obj)
     {
         var definition = itemDefinitionAsset.GetDefinitionByType(items[Random.Range(0, items.Count)].Type);
-        
+        var hintItems = items.FindAll(x => x.Type == definition.itemType).ToList();
         for(int i = 0; i < definition.matchAmount; i++)
         {
-            var item = items.FirstOrDefault(x => x.Type == definition.itemType);
-            items.Remove(item);
-            item.pCurrentShelf.PickItemUpHandler(item);
-            item.Explode();
+            var item = hintItems[i];
+            var posOffset = new Vector3(0, item.size.y * 0.5f, 0);
+            //items.Remove(item);
+            //item.pCurrentShelf.PickItemUpHandler(item);
+            //item.Explode();
+            EffectManager.ShowHintCircle(item.transform, posOffset);
         }
     }
     #endregion

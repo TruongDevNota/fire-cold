@@ -718,6 +718,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114271021141075772, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 648503586799784150}
+    - target: {fileID: 114271021141075772, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BuyWithAds
+      objectReference: {fileID: 0}
+    - target: {fileID: 114271021141075772, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIShopItem, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 114679614447136764, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
       propertyPath: m_Sprite
       value: 

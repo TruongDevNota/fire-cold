@@ -317,7 +317,7 @@ public class UIGameOver : MonoBehaviour
         rebornByAdsButton?.gameObject.SetActive(true);
         rebornByCoinButton?.gameObject.SetActive(true);
         rebornByCoinTotalCost = (rebornCount + 1) * rebornByCoinCost;
-        rebornByCoinDes.text = "-" + rebornByCoinTotalCost;
+        rebornByCoinDes.text = rebornByCoinTotalCost.ToString();
         rebornByCoinButton.interactable = CoinManager.totalCoin >= rebornByCoinTotalCost;
 
         anim.Show(() =>

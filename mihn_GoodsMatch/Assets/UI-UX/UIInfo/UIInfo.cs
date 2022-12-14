@@ -32,10 +32,8 @@ public class UIInfo : MonoBehaviour
             if(value != instance.comboCount)
                 instance.comboCount = value;
             comboTimeSlider.gameObject.SetActive(instance.comboCount != 0);
-            instance.comboCountText.gameObject.SetActive(instance.comboCount != 0);
             if (instance.comboCount != 0)
                 instance.DoComboCountDown();
-            instance.comboCountText.text = $"COMBO X{instance.comboCount}";
         }
     }
     Coroutine coolDownCoroutine;
@@ -117,6 +115,9 @@ public class UIInfo : MonoBehaviour
     {
         DOTween.Kill(comboTimeSlider);
         comboTimeSlider.value = currentCoolDownTime;
+        instance.comboCountText.text = $"X{instance.comboCount}";
+        instance.comboCountText.transform.DOScale(2f, 0f);
+        instance.comboCountText.transform.DOScale(1f, currentCoolDownTime/2);
         comboTimeSlider.DOValue(0, currentCoolDownTime).OnComplete(() =>
         {
             ComboCount = 0;

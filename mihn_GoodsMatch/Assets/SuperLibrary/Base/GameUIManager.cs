@@ -10,12 +10,15 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 {
     [SerializeField]
     private float waitTimeForLoadAd = 1;
-
     [SerializeField]
     private UIAnimation splashScreen = null;
-
     [SerializeField]
     private UIMainScreen mainScreen = null;
+    [SerializeField]
+    private UIAnimation coinScreen;
+    [SerializeField]
+    private UIAnimation starScreen;
+
     public static UIMainScreen MainScreen => instance?.mainScreen;
 
     [SerializeField]
@@ -172,7 +175,9 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     public override void LoadGame(object data)
     {
         Time.timeScale = 1;
-        LoadGameContent.PrepairDataToPlay();
+        LoadGameContent.PrepairDataToPlay(); 
+        coinScreen.Hide();
+        starScreen.Hide();
     }
 
     public override void InitGame(object data)

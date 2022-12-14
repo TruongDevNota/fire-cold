@@ -27,8 +27,8 @@ public class UIShopItem : MonoBehaviour
         value = valueToBuy;
         txt_Value.text = valueToBuy.ToString();
         txt_Price.text = "$"+price.ToString("n2");
-        btn_BuyWithCoin?.gameObject.SetActive(index > 1);
-        btn_BuyWithAds?.gameObject.SetActive(index == 1);
+        btn_BuyWithCoin?.gameObject.SetActive(index > 0);
+        btn_BuyWithAds?.gameObject.SetActive(index == 0);
     }
 
     public void CheckTimeToBuy()
@@ -49,6 +49,6 @@ public class UIShopItem : MonoBehaviour
 
                 CoinManager.Add(value, transform);
             }
-        });
+        }, "ShopBuyCoinWithAds", "coin");
     }
 }

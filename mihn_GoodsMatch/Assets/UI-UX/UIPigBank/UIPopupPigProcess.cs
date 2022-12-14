@@ -24,7 +24,7 @@ public class UIPopupPigProcess : MonoBehaviour
         txt_coinSave.text = coinNumber > 0 ? "0" : "MAX";
         txt_MinStage.text = DataManager.GameConfig.BankCoinStage[0].ToString();
         txt_MaxStage.text = DataManager.GameConfig.BankCoinStage.Last().ToString();
-        float lastvalue = DataManager.UserData.totalBankCoin * 1f / DataManager.GameConfig.BankCoinStage.Last();
+        float lastvalue = DataManager.UserData.totalBankCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last();
         DataManager.UserData.totalBankCoin += coinNumber;
         slider.value = lastvalue;
         btn_Continue.gameObject.SetActive(false);
@@ -35,7 +35,7 @@ public class UIPopupPigProcess : MonoBehaviour
             if(coinNumber > 0)
             {
                 txt_coinSave.DOText(0, coinNumber, 1f);
-                slider.DOValue(DataManager.UserData.totalBankCoin * 1f / DataManager.GameConfig.BankCoinStage.Last(), 1f);
+                slider.DOValue(DataManager.UserData.totalBankCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last(), 1f);
                 DOVirtual.DelayedCall(1f, () =>
                 {
                     btn_Continue.gameObject.SetActive(true);

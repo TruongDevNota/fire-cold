@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 
 public class UIPopupPiggyBank : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class UIPopupPiggyBank : MonoBehaviour
         btn_Claim.interactable = DataManager.UserData.totalBankCoin >= DataManager.GameConfig.BankCoinStage[0];
         txt_BankValue.DOText(0, DataManager.UserData.totalBankCoin, 1f);
         slider.value = 0;
-        slider.DOValue(DataManager.UserData.totalBankCoin, 1f);
+        slider.DOValue(DataManager.UserData.totalBankCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last(), 1f);
     }
 
     public void OnClaim()

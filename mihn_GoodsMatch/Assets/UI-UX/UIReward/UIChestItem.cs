@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIChestItem : MonoBehaviour
 {
@@ -12,7 +13,14 @@ public class UIChestItem : MonoBehaviour
     {
         if(icon != null)
             img_icon.sprite = icon;
+        DOTween.Kill(txt_Amount);
+        DoTextAnim(0, number);
+    }
 
-        txt_Amount.text = $"+{number}";
+    public void DoTextAnim(int startValue, int endValue, float dur = 1f)
+    {
+        DOTween.Kill(txt_Amount);
+        txt_Amount.text = startValue.ToString();
+        txt_Amount.DOText(startValue, endValue, dur);
     }
 }
