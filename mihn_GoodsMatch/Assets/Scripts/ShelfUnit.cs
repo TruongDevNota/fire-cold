@@ -122,6 +122,7 @@ public class ShelfUnit : MonoBehaviour
         if(matchItems.Count == matchItems[0].matchAmount)
         {
             this.PostEvent((int)EventID.OnNewMatchSuccess);
+            SoundManager.Play("3. Scoring");
             int index = -1;
             foreach (var item in matchItems)
             {

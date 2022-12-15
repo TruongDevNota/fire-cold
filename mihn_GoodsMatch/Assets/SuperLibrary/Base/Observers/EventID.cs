@@ -15,4 +15,6 @@ public enum EventID
     OnBuffHint = 20,
 
     OnNewMatchSuccess = 30,
+
+    OnPlayMusic = 40,
 }

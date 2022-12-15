@@ -79,7 +79,7 @@ public class UIToggle : MonoBehaviour
     {
         if (objOff)
         {
-            objOff.SetActive(isOn);
+            objOff.SetActive(!isOn);
         }
         if (status)
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class StarManager : MonoBehaviour
 {
@@ -44,11 +45,13 @@ public class StarManager : MonoBehaviour
         {
             if (numb > 0)
             {
+                SoundManager.Play("7. Star appear");
                 if (fromTrans)
                 {
                     Particle.Emit(Mathf.Clamp(numb + 1, 0, 10), fromTrans, toTrans ?? instance.defaultTarget);
                 }
                 Number.DOAnimation(current, totalStar, Particle == null ? 0.5f : Particle.StartLifetime * 0.5f);
+                DOVirtual.DelayedCall(Particle.StartLifetime, () => SoundManager.Play("5. Star to target"));
             }
             else
             {

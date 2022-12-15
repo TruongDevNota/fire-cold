@@ -50,12 +50,14 @@ public class Goods_Item : MonoBehaviour
 
     public void OnPutUpShelf()
     {
+        SoundManager.Play("2. Item Puton");
         StopRotate();
     }
 
     public void OnPickUp()
     {
         StopRotate();
+        SoundManager.Play("1. Item Pickup");
         rotateCoroutine = StartCoroutine(YieldRotate());
     }
 

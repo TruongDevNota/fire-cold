@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
+using DG.Tweening;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(ParticleSystem))]
@@ -54,10 +55,8 @@ public class ParticleLockAt : MonoBehaviour
             mParticles = new Particle[mainModule.maxParticles];
 
         StartLifetime = mainModule.startLifetimeMultiplier;
-
         //Debug.LogError("startLifetime: " + mSystem.main.startLifetimeMultiplier);
     }
-
 
     private int numParticlesAlive = 0;
     private int NumParticlesAlive = 0;

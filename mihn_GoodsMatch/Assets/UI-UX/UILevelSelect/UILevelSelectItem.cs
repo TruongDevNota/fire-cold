@@ -10,18 +10,18 @@ public class UILevelSelectItem : MonoBehaviour
     [SerializeField]
     Sprite spr_LockBG;
     [SerializeField]
-    Sprite spr_UnlockIcon;
-    [SerializeField]
     Sprite spr_LockIcon;
     [SerializeField]
-    Sprite spr_UnlockFooter;
-    [SerializeField]
     Sprite spr_LockFooter;
+    [SerializeField]
+    Sprite spr_UnlockFooter;
 
     [SerializeField]
     private Image img_bg;
     [SerializeField]
     private Image img_icon;
+    [SerializeField]
+    private GameObject panel_Star;
     [SerializeField]
     private Image img_footer;
     [SerializeField]
@@ -36,7 +36,8 @@ public class UILevelSelectItem : MonoBehaviour
         bool isUnlocked = isTest ? true : level <= DataManager.UserData.level + 1;
         img_bg.sprite = isUnlocked ? spr_UnlockBG : spr_LockBG;
         img_footer.sprite = isUnlocked ? spr_UnlockFooter : spr_LockFooter;
-        img_icon.sprite = isUnlocked ? spr_UnlockIcon : spr_LockIcon;
+        img_icon.gameObject.SetActive(!isUnlocked);
+        panel_Star?.SetActive(isUnlocked);
         txt_level.text = $"Level {level}";
         datumLevel = level;
         onLevelSelect = OnLevelSelect;

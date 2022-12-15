@@ -31,7 +31,7 @@ public class UILevelSelect : MonoBehaviour
     {
         for(int i = 1; i<= totalLevel; i++)
         {
-            var isExist = i < selectItems.Count;
+            var isExist = i <= selectItems.Count;
             var item = isExist ? selectItems[i-1] : itemSelectPrefab.Spawn(contentRect);
             if(!isExist)
                 selectItems.Add(item);

@@ -127,6 +127,7 @@ public class UIInfo : MonoBehaviour
 
     public static void CollectStars(int numb, Transform fromTrans, Transform toTrans = null)
     {
+        
         for(int i = 0; i < numb; i++)
         {
             var item = instance.starPrefab.Spawn();
@@ -138,6 +139,7 @@ public class UIInfo : MonoBehaviour
                 item.Recycle();
             });
         }
+        DOVirtual.DelayedCall(1f,() => SoundManager.Play("5. Star to target"));
     }
 
 }

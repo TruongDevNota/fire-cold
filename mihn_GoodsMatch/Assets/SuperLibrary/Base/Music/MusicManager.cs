@@ -66,6 +66,14 @@ public class MusicManager : MonoBehaviour
                     FadeOut();
             });
         }
+
+        this.RegisterListener((int)EventID.OnPlayMusic, SchedulePlayMusicHandle);
+    }
+
+    public void SchedulePlayMusicHandle(object obj)
+    {
+        string fileName = (string)obj;
+        StartCoroutine(DoPlay(fileName, true));
     }
 
     public static IEnumerator DoPlay(string fileName, bool autoPlay, Action<bool> onDone = null)
@@ -76,7 +84,7 @@ public class MusicManager : MonoBehaviour
             {
                 Init(onDone, clib, autoPlay);
             }
-        }, fileName);
+        }, "Musics/" + fileName);
     }
 
     public static void Init(Action<bool> actionOnDone, AudioClip clip, bool autoPlay = false, float fadeTime = 0.25f)

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using DG.Tweening;
 
 public class CoinManager : MonoBehaviour
 {
@@ -46,8 +47,10 @@ public class CoinManager : MonoBehaviour
                 if (fromTrans)
                 {
                     Particle.Emit(Mathf.Clamp(numb + 1,0,10), fromTrans, toTrans ?? instance.defaultTarget);
+                    SoundManager.Play("7. Star appear");
                 }
                 Number.DOAnimation(current, totalCoin, Particle == null ? 0.5f : Particle.StartLifetime * 0.5f);
+                DOVirtual.DelayedCall(Particle.StartLifetime *0.8f, () => SoundManager.Play("5. Star to target"));
             }
             else
             {

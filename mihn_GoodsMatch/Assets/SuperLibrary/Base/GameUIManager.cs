@@ -142,7 +142,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         SceneHelper.DoLoadScene("2_Idle");
         inGameScreen.Hide();
-
+        this.PostEvent((int)EventID.OnPlayMusic, "Bgm Menu");
         Action callback = () => {
             mainScreen.Show(()=> {
             }, () => {
@@ -223,10 +223,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         //inGameScreen.Hide();
         gameOverScreen.Show(GameState.Complete, data);
+        SoundManager.Play("6. Win");
     }
 
     protected override void ReadyGame(object data)
     {
+        this.PostEvent((int)EventID.OnPlayMusic, "Bgm Gamepaly");
         StartCoroutine(WaitForLoading(() =>
         {
             mainScreen.Hide();
@@ -258,7 +260,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             .OnComplete(() => Time.timeScale = 1);
 
         float timeWaitDie = 0f;
-        SoundManager.Play("sfx_crowd_oohs_0" + UnityEngine.Random.Range(1, 4));
 
         DOVirtual.DelayedCall(timeWaitDie, () =>
         {
@@ -269,7 +270,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
     protected override void WaitingGameComplete(object data)
     {
-        SoundManager.Play("sfx_crowd_applause_0" + UnityEngine.Random.Range(1, 4));
         MusicManager.Stop(null);
     }
 

@@ -11,6 +11,7 @@ public class MovingTF : MonoBehaviour
     {
         float t = 0;
         var starPos = transform.position;
+        SoundManager.Play("4. Moving item");
         while(t < duration)
         {
             transform.position = Vector3.Lerp(starPos, targetPos, t/duration);

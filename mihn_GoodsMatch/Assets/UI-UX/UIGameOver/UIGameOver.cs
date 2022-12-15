@@ -178,9 +178,10 @@ public class UIGameOver : MonoBehaviour
         {
             if (data != null)
             {
-                SoundManager.Play("sfx_type");
+                //SoundManager.Play("sfx_type");
             }
             //ShowResult(false);
+            SoundManager.Play("8. Time Up");
             ShowContinue();
         }
         else if (gameState == GameState.Complete)
