@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Base.Ads;
 
 public class UIGameOver : MonoBehaviour
 {
@@ -171,7 +172,7 @@ public class UIGameOver : MonoBehaviour
         Status = UIAnimStatus.IsAnimationShow;
 
 #if USE_IRON || USE_MAX || USE_ADMOB
-        AdsManager.TotalTimePlay += GameStatisticsManager.TimePlayInGameEnd;
+        // AdsManager.TotalTimePlay += GameStatisticsManager.TimePlayInGameEnd;
 #endif
 
         if (gameState == GameState.GameOver)
@@ -397,7 +398,7 @@ public class UIGameOver : MonoBehaviour
     public void CheckToShowInterstitialAds(string itemId, Action onDone)
     {
 #if USE_IRON || USE_MAX || USE_ADMOB
-        AdsManager.ShowInterstitial((s) =>
+        AdsManager.ShowInterstitial((s, adType) =>
         {
             UIToast.Hide();
             onDone?.Invoke();

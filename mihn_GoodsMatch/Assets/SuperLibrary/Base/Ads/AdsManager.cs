@@ -841,5 +841,8 @@ namespace Base.Ads
             IronSource.Agent.onApplicationPause(isPaused);
 #endif
         }
+
+        public static void SetArea()
+        {}
     }
 }

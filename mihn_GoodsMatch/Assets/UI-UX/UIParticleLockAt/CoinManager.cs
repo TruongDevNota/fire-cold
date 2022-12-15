@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using DG.Tweening;
+using Base.Ads;
 
 public class CoinManager : MonoBehaviour
 {
@@ -61,7 +62,7 @@ public class CoinManager : MonoBehaviour
     public static void GetByAds(Transform transform, string placement, Action<AdEvent> status = null)
     {
 #if USE_IRON || USE_MAX || USE_ADMOB
-        AdsManager.ShowVideoReward((onSuccess) =>
+        AdsManager.ShowVideoReward((onSuccess, adType) =>
         {
             if (onSuccess == AdEvent.Success)
             {
