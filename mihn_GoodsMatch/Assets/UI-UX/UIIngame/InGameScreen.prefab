@@ -2376,6 +2376,9 @@ MonoBehaviour:
   endPos: 0
   timeAnimationOut: 0.175
   timeDelayOut: 0
+  m_HideStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
   m_HideCompletedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3323,7 +3326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8387380528481032000, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
       propertyPath: m_Text
-      value: 3
+      value: '-'
       objectReference: {fileID: 0}
     - target: {fileID: 8387380528481032000, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
       propertyPath: m_Color.a
@@ -3709,7 +3712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8387380528481032000, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
       propertyPath: m_Text
-      value: 3
+      value: '-'
       objectReference: {fileID: 0}
     - target: {fileID: 8387380528481032000, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
       propertyPath: m_FontData.m_MinSize

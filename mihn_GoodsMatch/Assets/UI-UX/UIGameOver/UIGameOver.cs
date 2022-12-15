@@ -187,6 +187,7 @@ public class UIGameOver : MonoBehaviour
         else if (gameState == GameState.Complete)
         {
             ShowResult(true);
+            SoundManager.Play("6. Win");
         }
     }
     public void Hide(Action onHideDone = null)
@@ -382,7 +383,9 @@ public class UIGameOver : MonoBehaviour
                         rebornByCountDownText.text = timeStr;
                         UIAnimation.DoScale(rebornByCountDownText.transform, 1.2f, 0.25f, 0);
                         if (rebornElapsedTime >= 0.5f && !string.IsNullOrEmpty(timeStrLast))
-                            SoundManager.Play("sfx_timer_" + (timeCount % 2));
+                        {
+                            //SoundManager.Play("sfx_timer_" + (timeCount % 2));
+                        }
                     }
                 }
             }

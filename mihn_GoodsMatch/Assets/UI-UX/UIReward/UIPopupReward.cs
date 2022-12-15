@@ -37,11 +37,11 @@ public class UIPopupReward : MonoBehaviour
         buffIdeReward.gameObject.SetActive(false);
         coinReward.gameObject.SetActive(true);
         coinReward.Fill(coinNumber);
-        
+
+        anim.Show();
         SwitchActiveAllButton(true);
         btn_Claim.onClick.AddListener(BtnClaimSelect);
         btn_x2Claim.onClick.AddListener(BtnX2ClaimSelect);
-        anim.Show();
     }
 
     public void ShowLevelChestReward(int coinNumber, int buffNum)
@@ -59,10 +59,10 @@ public class UIPopupReward : MonoBehaviour
         coinReward.gameObject.SetActive(true);
         coinReward.Fill(coinNumber);
 
+        anim.Show();
         SwitchActiveAllButton(true);
         btn_Claim.onClick.AddListener(BtnClaimSelect);
         btn_x2Claim.onClick.AddListener(BtnX2ClaimSelect);
-        anim.Show();
     }
 
     public void OnHide()

@@ -37,7 +37,7 @@ public class UILevelSelect : MonoBehaviour
                 selectItems.Add(item);
             item.Fill(i, OnLevelSelectHandle, isTest);
         }
-        scrollRect.verticalNormalizedPosition = Mathf.Clamp01(DataManager.UserData.level * 1f / totalLevel);
+        scrollRect.verticalNormalizedPosition = 1f; // Mathf.Clamp01(DataManager.UserData.level * 1f / totalLevel);
         anim.Show();
     }
 

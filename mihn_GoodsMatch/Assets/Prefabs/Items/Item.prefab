@@ -132,6 +132,8 @@ MonoBehaviour:
   exploreAnim_Ease: 10
   rotateAnim_Duration: 0.5
   rotateAngle: 10
+  jumpAnim_Duration: 2
+  deltaY: 0.35
   canPick: 0
 --- !u!114 &2748385545455601460
 MonoBehaviour:

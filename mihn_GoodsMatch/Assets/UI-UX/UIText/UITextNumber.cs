@@ -32,11 +32,11 @@ public class UITextNumber : MonoBehaviour
         uiText.DOText(startValue, endValue, timeAnimation, delayTime, fomat,
             (s) =>
             {
-                SoundManager.Play(soundCount);
+                //SoundManager.Play(soundCount);
             },
             () =>
             {
-                SoundManager.Play(soundCompleted);
+                //SoundManager.Play(soundCompleted);
             });
     }
 }

@@ -31,6 +31,7 @@ public class BoardGame : MonoBehaviour
         set { itemCount = value; } 
     }
     public List<Goods_Item> items = new List<Goods_Item>();
+    public List<ShelfUnit> shelves = new List<ShelfUnit>();
 
     public Stopwatch stopwatch;
     public Stopwatch pStopWatch { get { return stopwatch; } }
@@ -61,12 +62,14 @@ public class BoardGame : MonoBehaviour
     {
         GameStateManager.OnStateChanged += OnGameStateChangeHandler;
         this.RegisterListener((int)EventID.OnBuffHint, DoBuffHint);
+        this.RegisterListener((int)EventID.OnBuffSwap, DoBuffSwap);
     }
 
     private void OnDisable()
     {
         GameStateManager.OnStateChanged -= OnGameStateChangeHandler;
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffHint, DoBuffHint);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffSwap, DoBuffSwap);
     }
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
@@ -288,21 +291,67 @@ public class BoardGame : MonoBehaviour
         for(int i = 0; i < definition.matchAmount; i++)
         {
             var item = hintItems[i];
-            var posOffset = new Vector3(0, item.size.y * 0.5f, 0);
+            item.jump();
+            //var posOffset = new Vector3(0, item.size.y * 0.5f, 0);
             //items.Remove(item);
             //item.pCurrentShelf.PickItemUpHandler(item);
             //item.Explode();
-            EffectManager.ShowHintCircle(item.transform, posOffset);
+            //EffectManager.ShowHintCircle(item.transform, posOffset);
         }
+    }
+
+    private void DoBuffSwap(object obj)
+    {
+        var swapShelf1 = shelves.FirstOrDefault(x => x.CanSwap());
+        if (swapShelf1 == null)
+            return;
+        var item2 = items.FirstOrDefault(x => x.pCurrentShelf != swapShelf1 && x.Type == swapShelf1.ItemsOnShelf[0].Type);
+        switch (swapShelf1.ItemsOnShelf.Count)
+        {
+            case 1:
+                item2.pCurrentShelf.PickItemUpHandler(item2);
+                item2.pCurrentShelf = swapShelf1;
+                item2.pFirstLeftCellIndex = swapShelf1.cells.FirstOrDefault(c => c.isEmpty).index;
+                item2.OnPickUp();
+                item2.pCurrentShelf.DoPutNewItem(item2);
+                break;
+            case 2:
+                var item1 = swapShelf1.ItemsOnShelf[1];
+                
+                var shelf2 = item2.pCurrentShelf;
+                int index2 = item2.pFirstLeftCellIndex;
+
+                item2.pCurrentShelf.PickItemUpHandler(item2);
+                item2.pCurrentShelf = swapShelf1;
+                item2.pFirstLeftCellIndex = item1.pFirstLeftCellIndex;
+
+                swapShelf1.PickItemUpHandler(item1);
+                item1.pCurrentShelf = shelf2;
+                item1.pFirstLeftCellIndex = index2;
+
+                item2.OnPickUp();
+                item1.OnPickUp();
+                swapShelf1.DoPutNewItem(item2);
+                shelf2.DoPutNewItem(item1);
+
+                break;
+        }
+
     }
     #endregion
 
     private void ClearMap()
     {
-        for (int num = transform.childCount - 1; num >= 0; num--)
-        {
-            Destroy(transform.GetChild(num).gameObject);
-        }
+        foreach(var item in items)
+            item.Recycle();
+        foreach(var shelf in shelves)
+            shelf.Recycle();
+
+        //for (int num = transform.childCount - 1; num >= 0; num--)
+        //{
+        //    Destroy(transform.GetChild(num).gameObject);
+        //}
         items.Clear();
+        shelves.Clear();
     }
 }

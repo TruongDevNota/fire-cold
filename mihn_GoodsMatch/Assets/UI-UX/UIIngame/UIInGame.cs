@@ -46,10 +46,12 @@ public class UIInGame : MonoBehaviour
     private void OnEnable()
     {
         UserData.OnHintBuffChanged += OnHintBuffChange;
+        UserData.OnSwapBuffChanged += OnSwapBuffChange;
     }
     private void OnDisable()
     {
         UserData.OnHintBuffChanged -= OnHintBuffChange;
+        UserData.OnSwapBuffChanged -= OnSwapBuffChange;
     }
 
     private void Start()
@@ -68,6 +70,7 @@ public class UIInGame : MonoBehaviour
 
         playButton?.onClick.AddListener(PlayButtonOnClick);
         buffHintButton?.onClick.AddListener(BuffHintButtonOnclick);
+        buffRestartButton?.onClick.AddListener(BuffSwapClick);
 
         GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
     }
@@ -110,6 +113,27 @@ public class UIInGame : MonoBehaviour
                     DataManager.UserData.totalHintBuff++;
                 }
             }, "BuffHintButtonOnclick");
+        }
+    }
+
+    private void BuffSwapClick()
+    {
+        if (DataManager.UserData.totalSwapBuff > 0)
+        {
+            this.PostEvent((int)EventID.OnBuffSwap);
+            DataManager.UserData.totalSwapBuff--;
+        }
+        else
+        {
+            //Show Popup message
+
+            AdsManager.ShowVideoReward((e, t) =>
+            {
+                if (e == AdEvent.Success)
+                {
+                    DataManager.UserData.totalSwapBuff++;
+                }
+            }, "BuffSwapButtonOnclick");
         }
     }
 
@@ -196,5 +220,10 @@ public class UIInGame : MonoBehaviour
     private void OnHintBuffChange(int change, int current)
     {
         hintCountText.text = current > 0 ? current.ToString() : "+";
+    }
+
+    private void OnSwapBuffChange(int change, int current)
+    {
+        restartCountText.text = current > 0 ? current.ToString() : "+";
     }
 }

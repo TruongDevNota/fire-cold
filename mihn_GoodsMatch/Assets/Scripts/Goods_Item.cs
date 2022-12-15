@@ -25,6 +25,12 @@ public class Goods_Item : MonoBehaviour
     [SerializeField] protected float rotateAngle = 20f;
     private Coroutine rotateCoroutine;
 
+    [Header("JumpAnim")]
+    [SerializeField] protected float jumpAnim_Duration = 0.5f;
+    [SerializeField] protected float deltaY = 0.35f;
+    private Coroutine jumpCoroutine;
+    private Vector3 defaultPos;
+
     public eItemType Type { get => type; }
 
     private ShelfUnit currentShelf;
@@ -52,15 +58,24 @@ public class Goods_Item : MonoBehaviour
     {
         SoundManager.Play("2. Item Puton");
         StopRotate();
+        //StopJumping();
     }
 
     public void OnPickUp()
     {
         StopRotate();
+        StopJumping();
         SoundManager.Play("1. Item Pickup");
         rotateCoroutine = StartCoroutine(YieldRotate());
     }
-
+    private void StopJumping()
+    {
+        if (jumpCoroutine != null)
+        {
+            StopCoroutine(jumpCoroutine);
+            transform.position = defaultPos;
+        }
+    }
     private void StopRotate()
     {
         if (rotateCoroutine != null)
@@ -96,5 +111,21 @@ public class Goods_Item : MonoBehaviour
         yield return transform.DOScale(0f, exploreAnim_Duration * 0.5f).WaitForCompletion();
         UIInfo.CollectStars(1,this.transform);
         GameObject.Destroy(gameObject);
+    }
+
+    public void jump()
+    {
+        jumpCoroutine = StartCoroutine(YieldJumping());
+    }
+    private IEnumerator YieldJumping()
+    {
+        defaultPos = transform.position;
+        for (int i = 0; i < 2 ; i++)
+        {
+            yield return transform.DOMoveY(defaultPos.y + deltaY, jumpAnim_Duration * 0.25f).WaitForCompletion();
+            yield return new WaitForEndOfFrame();
+            yield return transform.DOMoveY(defaultPos.y, jumpAnim_Duration * 0.25f).WaitForCompletion();
+        }
+        transform.position = defaultPos;
     }
 }

@@ -86,7 +86,7 @@ public class MapCreater : MonoBehaviour
                 var itemTypes = ConvertToShelfDatum(line.lineSheves[i2]);
                 var sizeX = itemTypes.Count * mapUnitSize.x;
                 float posX = -(sizeX * line.lineSheves.Count + shelfDistance * (line.lineSheves.Count - 1)) * 0.5f + i2 * (sizeX + shelfDistance);
-                var newShelf = GameObject.Instantiate(shelfBasePrefab).GetComponent<ShelfUnit>();
+                var newShelf = shelfBasePrefab.Spawn().GetComponent<ShelfUnit>();
                 newShelf.transform.localScale = Vector3.one;
                 newShelf.transform.position = new Vector2(posX, linesPosition);
                 newShelf.cellAmount = itemTypes.Count;
@@ -102,12 +102,13 @@ public class MapCreater : MonoBehaviour
                         Debug.Log($"Could not found item definition of type: [{itemTypes[i3]}]");
                         return;
                     }
-                    var newItem = GameObject.Instantiate(definition.itemPrefabs).GetComponent<Goods_Item>();
+                    var newItem = definition.itemPrefabs.Spawn().GetComponent<Goods_Item>();
                     newItem.pFirstLeftCellIndex = i3;
                     newShelf.DoPutItemFromWareHouse(newItem);
-                    newItem.transform.parent = transform;
+                    newItem.transform.parent = newShelf.transform;
                     BoardGame.instance.items.Add(newItem);
                 }
+                BoardGame.instance.shelves.Add(newShelf);
             }
         }
         ChangeCameraSize(maxColumn, currentMapDatum.lines.Count);

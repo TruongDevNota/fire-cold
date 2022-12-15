@@ -223,7 +223,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         //inGameScreen.Hide();
         gameOverScreen.Show(GameState.Complete, data);
-        SoundManager.Play("6. Win");
     }
 
     protected override void ReadyGame(object data)
@@ -239,7 +238,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
     public override void ResumeGame(object data)
     {
-        //MusicManager.UnPause();
+        MusicManager.UnPause();
     }
 
     public override void RestartGame(object data)

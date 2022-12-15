@@ -13,6 +13,7 @@ public enum EventID
     OnDamage = 8,
 
     OnBuffHint = 20,
+    OnBuffSwap = 21,
 
     OnNewMatchSuccess = 30,
 

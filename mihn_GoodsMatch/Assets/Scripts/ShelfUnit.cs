@@ -14,6 +14,10 @@ public class ShelfUnit : MonoBehaviour
 
     public int CellAmount { get => cellAmount; }
     private List<Goods_Item> itemsOnShelf = new List<Goods_Item>();
+    public List<Goods_Item> ItemsOnShelf 
+    {
+        get { return itemsOnShelf; }
+    }
 
     public void InitCells()
     {
@@ -146,6 +150,19 @@ public class ShelfUnit : MonoBehaviour
         if(matchItems.Count <= 0)
             return false;
         return matchItems.Count == matchItems[0].matchAmount -1;
+    }
+
+    public bool CanSwap()
+    {
+        switch (itemsOnShelf.Count)
+        {
+            case 1:
+                return true;
+            case 2:
+                return itemsOnShelf[0].Type != itemsOnShelf[1].Type;
+            default:
+                return false;
+        }
     }
     #endregion
 }
