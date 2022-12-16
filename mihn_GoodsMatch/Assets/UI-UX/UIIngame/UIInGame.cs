@@ -16,6 +16,12 @@ public class UIInGame : MonoBehaviour
     List<Sprite> backgroundSprites;
     [SerializeField]
     Image ingameBG;
+    [SerializeField] 
+    Text levelTxt = null;
+    [SerializeField]
+    private UIAnimation uiTopAnim = null;
+    [SerializeField]
+    private UIAnimation uiBottomAnim = null;
 
     [SerializeField]
     private Button buffHintButton = null;
@@ -156,23 +162,30 @@ public class UIInGame : MonoBehaviour
             case GameState.Ready:
                 playButton?.gameObject.SetActive(true);
                 hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
-                buffHintButton.gameObject.SetActive(false);
-                buffRestartButton.gameObject.SetActive(false);
+                //buffHintButton.gameObject.SetActive(false);
+                //buffRestartButton.gameObject.SetActive(false);
                 ingameBG.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Count)];
+                levelTxt.text = $"LEVEL {DataManager.levelSelect}";
+                uiTopAnim.Hide();
+                uiBottomAnim.Hide();
                 break;
             case GameState.Play:
                 hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
-                buffHintButton.gameObject.SetActive(true);
-                buffRestartButton.gameObject.SetActive(true);
+                //buffHintButton.gameObject.SetActive(true);
+                //buffRestartButton.gameObject.SetActive(true);
+                uiBottomAnim.Show();
+                uiTopAnim.Show();
                 //touchPanel?.SetActive(true);
                 break;
             case GameState.Pause:
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(true);
+                //uiTopAnim.Hide();
+                //uiBottomAnim.Hide();
                 break;
             case GameState.GameOver:
                 resumeButton?.gameObject.SetActive(false);

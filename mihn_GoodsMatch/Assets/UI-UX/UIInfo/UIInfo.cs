@@ -9,7 +9,6 @@ public class UIInfo : MonoBehaviour
 {
     private static UIInfo instance;
 
-    [SerializeField] Text levelTxt = null;
     [SerializeField] Text timeLeftText;
     [SerializeField] Text startText;
 
@@ -87,7 +86,6 @@ public class UIInfo : MonoBehaviour
                 startText.text = "0";
                 break;
             case GameState.Ready:
-                levelTxt.text = $"LEVEL {DataManager.levelSelect}";
                 timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
                 break;
             case GameState.Pause:

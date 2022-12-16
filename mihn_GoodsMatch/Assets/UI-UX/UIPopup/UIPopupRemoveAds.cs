@@ -29,7 +29,19 @@ public class UIPopupRemoveAds : MonoBehaviour
         remainTime = endTime.Subtract(DateTime.Now);
         btn_RemoveAds.interactable = true;
         isCountDown = true;
+        if (countDownCoroutine != null)
+            StopCoroutine(countDownCoroutine);
         countDownCoroutine = StartCoroutine(YieldCountDown());
+        if (GameStateManager.CurrentState == GameState.Play)
+            GameStateManager.Pause(null);
+    }
+
+    public void OnHide()
+    {
+        if (countDownCoroutine != null)
+            StopCoroutine(countDownCoroutine);
+        if (GameStateManager.CurrentState == GameState.Pause)
+            GameStateManager.Play(null);
     }
 
     private IEnumerator YieldCountDown()
@@ -38,7 +50,7 @@ public class UIPopupRemoveAds : MonoBehaviour
         {
             txt_CountDown.text = remainTime.ToString("hh':'mm':'ss");
             yield return new WaitForSeconds(1);
-            remainTime = endTime.Subtract(DateTime.Now);
+            remainTime = remainTime.Subtract(TimeSpan.FromSeconds(1d));
             if(remainTime <= TimeSpan.Zero)
             {
                 OnStopCountDown();
@@ -49,8 +61,7 @@ public class UIPopupRemoveAds : MonoBehaviour
     public void OnBtnRemoveAds()
     {
         //Shop ingame handle
-
-        OnStopCountDown();
+        //OnStopCountDown();
         CoinManager.Add(DataManager.GameConfig.coinRewardByRemoveAds);
         DataManager.UserData.isRemovedAds = true;
     }

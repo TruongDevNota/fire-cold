@@ -28,12 +28,12 @@ public class UILevelSelectItem : MonoBehaviour
     private Text txt_level;
     [SerializeField]
     private Button btn_Select;
-
+    bool isUnlocked = false;
     private int datumLevel;
     private System.Action<int> onLevelSelect;
     public void Fill(int level, System.Action<int> OnLevelSelect, bool isTest = false)
     {
-        bool isUnlocked = isTest ? true : level <= DataManager.UserData.level + 1;
+        isUnlocked = isTest ? true : level <= DataManager.UserData.level + 1;
         img_bg.sprite = isUnlocked ? spr_UnlockBG : spr_LockBG;
         img_footer.sprite = isUnlocked ? spr_UnlockFooter : spr_LockFooter;
         img_icon.gameObject.SetActive(!isUnlocked);
@@ -47,6 +47,8 @@ public class UILevelSelectItem : MonoBehaviour
 
     public void ButtonLevelSelect()
     {
+        if (!isUnlocked)
+            return;
         onLevelSelect?.Invoke(datumLevel);
     }
 }
