@@ -18,7 +18,7 @@ public class UIShop : MonoBehaviour
     [SerializeField]
     List<float> price;
 
-    List<UIShopItem> shopItems;
+    List<UIShopItem> shopItems = new List<UIShopItem>();
     private void Start()
     {
         uiItemPrefab.CreatePool(itemNum);
@@ -28,8 +28,11 @@ public class UIShop : MonoBehaviour
     {
         for(int i = 0; i < itemNum; i++)
         {
-            var item = uiItemPrefab.Spawn(contentParent);
+            var exist = i < shopItems.Count;
+            var item = exist? shopItems[i] : uiItemPrefab.Spawn(contentParent);
             item.Init(i, values[i], price[i]);
+            if (!exist)
+                shopItems.Add(item);
         }
     }
 

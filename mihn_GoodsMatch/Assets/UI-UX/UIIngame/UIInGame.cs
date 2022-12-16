@@ -112,6 +112,11 @@ public class UIInGame : MonoBehaviour
                 {
                     DataManager.UserData.totalHintBuff++;
                 }
+                else
+                {
+                    Debug.Log($"!!!!! video reward fail.");
+                    UIToast.ShowNotice("view video reward fail!");
+                }
             }, "BuffHintButtonOnclick");
         }
     }
@@ -132,6 +137,11 @@ public class UIInGame : MonoBehaviour
                 if (e == AdEvent.Success)
                 {
                     DataManager.UserData.totalSwapBuff++;
+                }
+                else
+                {
+                    Debug.Log($"!!!!! video reward fail.");
+                    UIToast.ShowNotice("view video reward fail!");
                 }
             }, "BuffSwapButtonOnclick");
         }
