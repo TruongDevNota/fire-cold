@@ -18,4 +18,6 @@ public enum EventID
     OnNewMatchSuccess = 30,
 
     OnPlayMusic = 40,
+
+    OnGameReady = 50,
 }

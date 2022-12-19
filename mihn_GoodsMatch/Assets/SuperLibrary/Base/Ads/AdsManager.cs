@@ -1066,9 +1066,11 @@ namespace Base.Ads
                 else if (onSuccess == AdEvent.Exception)
                     UIToast.ShowNotice("Something wrong, please try again...!");
                 else if (onSuccess == AdEvent.ShowSuccess)
-                    UIToast.ShowNotice("Thanks for watching video...!");
+                    Debug.Log("Show Ads success!");
+                //UIToast.ShowNotice("Thanks for watching video...!");
                 else if (onSuccess == AdEvent.ShowStart)
-                    UIToast.ShowLoading("Time to show ADs... please wait!");
+                    Debug.Log("Time to show ADs!");
+                //UIToast.ShowLoading("Time to show ADs... please wait!");
             }
             catch (Exception ex)
             {

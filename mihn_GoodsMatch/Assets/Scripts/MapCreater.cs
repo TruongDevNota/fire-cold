@@ -29,11 +29,6 @@ public class MapCreater : MonoBehaviour
     private MapDatum currentMapDatum;
     public List<Goods_Item> itemCreated = new List<Goods_Item>();
 
-    [ButtonMethod] public void TestMapCreat()
-    {
-        CreateMapFromTextAsset(sampleMapTextAsset.text);
-    }
-
     public void ChangeCameraSize(int mapCollume, int mapRow)
     {
         float screenRatio = Screen.height / Screen.width;

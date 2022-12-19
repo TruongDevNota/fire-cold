@@ -17,7 +17,7 @@ public class BoardGame : MonoBehaviour
 
     [SerializeField] ItemDefinitionAsset itemDefinitionAsset;
 
-    [SerializeField] Vector3 touchPositionOffset;
+    public Vector3 touchPositionOffset;
 
     private LevelConfig currentLevelConfig;
     public LevelConfig CurrentLevelConfig { get { return currentLevelConfig; } }
@@ -74,7 +74,7 @@ public class BoardGame : MonoBehaviour
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
     {
-        if(current == GameState.Restart)
+        if(current == GameState.Restart || current == GameState.Init)
             PrepareSceneLevel();
         if (current == GameState.Pause)
             PauseGame();
@@ -233,6 +233,7 @@ public class BoardGame : MonoBehaviour
                 isDraggingItem = true;
                 //dragingItem.transform.position = touchPosion + Vector3.forward * 0.5f;
                 dragingItem.OnPickUp();
+                touchPositionOffset = new Vector3(dragingItem.transform.position.x - touchPosion.x, dragingItem.transform.position.y - touchPosion.y, 0) + Vector3.forward;
                 break;
             }
         }
@@ -244,7 +245,7 @@ public class BoardGame : MonoBehaviour
             return;
         if (dragingItem == null)
             return;
-        dragingItem.transform.position = newPosition + Vector3.forward * 0.5f + touchPositionOffset;
+        dragingItem.transform.position = newPosition + touchPositionOffset;
     }
 
     private void DropItemOff(Vector3 touchPosion)
@@ -295,12 +296,7 @@ public class BoardGame : MonoBehaviour
         for(int i = 0; i < definition.matchAmount; i++)
         {
             var item = hintItems[i];
-            item.jump();
-            //var posOffset = new Vector3(0, item.size.y * 0.5f, 0);
-            //items.Remove(item);
-            //item.pCurrentShelf.PickItemUpHandler(item);
-            //item.Explode();
-            //EffectManager.ShowHintCircle(item.transform, posOffset);
+            item.jump(i);
         }
     }
 

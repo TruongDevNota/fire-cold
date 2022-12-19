@@ -150,7 +150,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             });
             inGameScreen.Hide();
             gameOverScreen.Hide();
-
         };
 
         if(GameStateManager.LastState == GameState.Complete 
@@ -197,9 +196,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             UILoadGame.Process();
             yield return null;
         }
-        inGameScreen.Show();
-        yield return new WaitForSeconds(0.2f);
-        UILoadGame.Hide();
+        
         onComplete?.Invoke();
     }
 
@@ -228,11 +225,10 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void ReadyGame(object data)
     {
         this.PostEvent((int)EventID.OnPlayMusic, "Bgm Gamepaly");
+        mainScreen.Hide();
         StartCoroutine(WaitForLoading(() =>
         {
-            mainScreen.Hide();
-            
-            //StartCoroutine(WaitToAutoPlay());
+            UILoadGame.Hide();
         }));
     }
 
@@ -275,7 +271,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void RebornContinueGame(object data)
     {
         gameOverScreen.Hide();
-        inGameScreen.ShowTapToPlay();
+        //inGameScreen.ShowTapToPlay();
         //GameStateManager.Init(null);
         //StartCoroutine(WaitToAutoPlay());
     }

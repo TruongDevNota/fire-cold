@@ -51,7 +51,7 @@ public class StarManager : MonoBehaviour
                     Particle.Emit(Mathf.Clamp(numb + 1, 0, 10), fromTrans, toTrans ?? instance.defaultTarget);
                 }
                 Number.DOAnimation(current, totalStar, Particle == null ? 0.5f : Particle.StartLifetime * 0.5f);
-                DOVirtual.DelayedCall(Particle.StartLifetime, () => SoundManager.Play("5. Star to target"));
+                //DOVirtual.DelayedCall(Particle.StartLifetime, () => SoundManager.Play("5. Star to target"));
             }
             else
             {

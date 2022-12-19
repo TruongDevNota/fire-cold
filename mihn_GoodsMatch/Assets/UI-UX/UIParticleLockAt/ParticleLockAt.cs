@@ -109,6 +109,7 @@ public class ParticleLockAt : MonoBehaviour
             if (mParticles[i].remainingLifetime <= 0.1f)
             {
                 mParticles[i].remainingLifetime = 0;
+                SoundManager.Play("5. Star to target");
                 OnEmitDone(numParticlesAlive);
             }
         }

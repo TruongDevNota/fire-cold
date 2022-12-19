@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
 using Base.Ads;
+using System.Collections;
 
 [RequireComponent(typeof(UIAnimation))]
 public class UIInGame : MonoBehaviour
@@ -45,6 +46,10 @@ public class UIInGame : MonoBehaviour
     [SerializeField]
     private Button backButton = null;
 
+    [Header("PerfectToast")]
+    [SerializeField]
+    private UIPerfectToast perfectToast = null;
+
     private void Awake()
     {
         if (anim == null)
@@ -79,7 +84,7 @@ public class UIInGame : MonoBehaviour
         playButton?.onClick.AddListener(PlayButtonOnClick);
         buffHintButton?.onClick.AddListener(BuffHintButtonOnclick);
         buffRestartButton?.onClick.AddListener(BuffSwapClick);
-
+        
         GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
     }
 
@@ -135,33 +140,30 @@ public class UIInGame : MonoBehaviour
         {
             case GameState.Init:
             case GameState.Restart:
-            case GameState.Ready:
                 playButton?.gameObject.SetActive(true);
-                hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
-                //buffHintButton.gameObject.SetActive(false);
-                //buffRestartButton.gameObject.SetActive(false);
                 ingameBG.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Count)];
                 levelTxt.text = $"LEVEL {DataManager.levelSelect}";
                 uiTopAnim.Hide();
                 uiBottomAnim.Hide();
                 break;
+            case GameState.Ready:
+                playButton?.gameObject.SetActive(true);
+                anim.Show();
+                CountDown();
+                break;
             case GameState.Play:
                 hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
+                restartCountText.text = DataManager.UserData.totalSwapBuff > 0 ? DataManager.UserData.totalSwapBuff.ToString() : "+";
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
-                //buffHintButton.gameObject.SetActive(true);
-                //buffRestartButton.gameObject.SetActive(true);
                 uiBottomAnim.Show();
                 uiTopAnim.Show();
-                //touchPanel?.SetActive(true);
                 break;
             case GameState.Pause:
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(true);
-                //uiTopAnim.Hide();
-                //uiBottomAnim.Hide();
                 break;
             case GameState.GameOver:
                 resumeButton?.gameObject.SetActive(false);
@@ -174,19 +176,46 @@ public class UIInGame : MonoBehaviour
 
     public void Show()
     {
-        anim.Show(()=> {
-            playButton?.gameObject.SetActive(true);
-            //touchPanel?.SetActive(false);
-        }, ()=> {
-            ShowTapToPlay();
-            //touchPanel?.SetActive(true);
-        });
+        anim.Show();
     }
 
     public void Hide()
     {
         anim.Hide();
     }
+
+    #region Ready
+    public void CountDown()
+    {
+        StartCoroutine(DOStartCountDown());
+    }
+
+    public IEnumerator DOStartCountDown()
+    {
+        if (GameStateManager.CurrentState == GameState.Ready)
+        {
+            var wait1 = new WaitForSeconds(1);
+            this.PostEvent((int)EventID.OnGameReady, 3);
+            ShowToastPerfect("3", 0.8f, true);
+            yield return wait1;
+            this.PostEvent((int)EventID.OnGameReady, 2);
+            ShowToastPerfect("2", 0.8f, true);
+            yield return wait1;
+            this.PostEvent((int)EventID.OnGameReady, 1);
+            ShowToastPerfect("1", 0.8f, true);
+            yield return wait1;
+            this.PostEvent((int)EventID.OnGameReady, 0);
+            ShowToastPerfect("go", 0.8f, true);
+        }
+        GameStateManager.Play(null);
+    }
+
+    public void ShowToastPerfect(string second, float timeAutoHide, bool waitAnimation)
+    {
+        if (perfectToast != null)
+            perfectToast.Show(second.ToUpper(), timeAutoHide, waitAnimation);
+    }
+    #endregion
 
     public void ShowTapToPlay()
     {

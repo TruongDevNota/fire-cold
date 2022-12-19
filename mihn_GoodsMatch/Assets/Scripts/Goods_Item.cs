@@ -105,21 +105,21 @@ public class Goods_Item : MonoBehaviour
 
     private IEnumerator YieldExplode(int index = 0)
     {
-        var waitDelay = new WaitForSeconds(index * 0.2f);
-        yield return waitDelay;
+        yield return new WaitForSeconds(index * 0.2f);
         yield return transform.DOScale(1.1f, exploreAnim_Duration * 0.5f).WaitForCompletion();
         yield return transform.DOScale(0f, exploreAnim_Duration * 0.5f).WaitForCompletion();
         UIInfo.CollectStars(1,this.transform);
         GameObject.Destroy(gameObject);
     }
 
-    public void jump()
+    public void jump(int index)
     {
-        jumpCoroutine = StartCoroutine(YieldJumping());
+        jumpCoroutine = StartCoroutine(YieldJumping(index));
     }
-    private IEnumerator YieldJumping()
+    private IEnumerator YieldJumping(int index)
     {
         defaultPos = transform.position;
+        yield return new WaitForSeconds(index * 0.2f);
         for (int i = 0; i < 2 ; i++)
         {
             yield return transform.DOMoveY(defaultPos.y + deltaY, jumpAnim_Duration * 0.25f).WaitForCompletion();

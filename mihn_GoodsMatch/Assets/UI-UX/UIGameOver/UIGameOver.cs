@@ -137,7 +137,7 @@ public class UIGameOver : MonoBehaviour
     protected static UIGameOver instance;
     protected UserData userData => DataManager.UserData;
     protected GameConfig gameConfig => DataManager.GameConfig;
-    public bool IsShowContinue => rebornCount < rebornCountMax;
+    public bool IsShowContinue => rebornCount <= rebornCountMax;
 
     protected void Awake()
     {
@@ -177,13 +177,13 @@ public class UIGameOver : MonoBehaviour
 
         if (gameState == GameState.GameOver)
         {
-            if (data != null)
+            if (IsShowContinue)
             {
-                //SoundManager.Play("sfx_type");
+                SoundManager.Play("8. Time Up");
+                ShowContinue();
             }
-            //ShowResult(false);
-            SoundManager.Play("8. Time Up");
-            ShowContinue();
+            else
+                ShowResult(false);
         }
         else if (gameState == GameState.Complete)
         {
@@ -285,6 +285,7 @@ public class UIGameOver : MonoBehaviour
                 {
                     btnStarClaim.interactable = false;
                     btnScaleStarClaim.interactable = false;
+                    lineRoullete.StopRoulelete();
                     StarManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
                     DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
                 });
@@ -296,8 +297,20 @@ public class UIGameOver : MonoBehaviour
                 btnStarClaim.interactable = false;
                 btnScaleStarClaim.interactable = false;
                 lineRoullete.StopRoulelete();
-                StarManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
-                DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
+                AdsManager.ShowVideoReward((e, t) =>
+                {
+                    if (e == AdEvent.ShowSuccess)
+                    {
+                        StarManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
+                    }
+                    else
+                    {
+                        Debug.Log($"!!!!! video reward fail.");
+                        UIToast.ShowNotice("view video reward fail!");
+                        StarManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
+                    }
+                    DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
+                }, "ClaimStarScale", "star");
             });
         }
     }
@@ -448,7 +461,18 @@ public class UIGameOver : MonoBehaviour
     }
     public void Btn_RebornByAds_Handle()
     {
-        Reborn();
+        AdsManager.ShowVideoReward((e, t) =>
+        {
+            if (e == AdEvent.ShowSuccess)
+            {
+                Reborn();
+            }
+            else
+            {
+                Debug.Log($"!!!!! video reward fail.");
+                UIToast.ShowNotice("view video reward fail!");
+            }
+        }, "ContinueWithAds", "TimePlay");
     }
     public void Btn_Next_Handle()
     {

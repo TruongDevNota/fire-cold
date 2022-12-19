@@ -32,7 +32,7 @@ public class LoadGameContent : MonoBehaviour
 
     private IEnumerator DoPrepairDataToPlay()
     {
-        GameStateManager.Init(null);
+        //GameStateManager.Init(null);
         //UIToast.ShowLoading(randomTip, 5f, UIToast.IconTip);
         UILoadGame.Init(true, null);
 
@@ -51,14 +51,12 @@ public class LoadGameContent : MonoBehaviour
 
         while (!SceneHelper.isLoaded)
             yield return null;
-
+        
         while (GameStateManager.CurrentState == GameState.LoadGame && UILoadGame.currentProcess < 1)
         {
             UILoadGame.Process();
             yield return null;
         }
-
-        yield return new WaitForEndOfFrame();
 
         GameStateManager.Init(null);
     }
