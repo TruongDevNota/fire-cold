@@ -13,6 +13,27 @@ MonoBehaviour:
   m_Name: ConfigAsset
   m_EditorClassIdentifier: Assembly-CSharp::ConfigData
   gameConfig:
+    buildVersion: 999999999
+    _timePlayToShowAd: 15
+    _timePlayToShowAdReduce: -5
+    _timeToWaitOpenAd: 5
+    _timePlayToShowOpenAd: 5
+    _adShowFromLevel: 1
+    _adInterOnComplete: 1
+    _reviceCountDown: 5
+    _reviceCountMax: 3
+    _reviceNoThankCountDown: 2
+    _reviceFree: 1
+    _reviceType: 0
+    adUseBackup: 0
+    adUseOpenBackup: 0
+    adUseNative: 0
+    adUseInPlay: 0
+    forceInterToReward: 0
+    forceRewardToInter: 0
+    forceInterEverywhere: 0
+    timeToWaitOpenInter: 4.5
+    isNeedInternet: 9999999
     timePlayToShowAds: 30
     timePlayReduceToShowAds: 0
     rebornType: 0
@@ -23,7 +44,7 @@ MonoBehaviour:
     adInterViewToReward: 5
     coinRewardByRemoveAds: 800
     removeAdsCost: 5.99
-    isAdsByPass: 1
+    isAdsByPass: 0
     promtRateAtWin: 3
     starCollectStage: 100
     coinRewardByStarChest: 50
