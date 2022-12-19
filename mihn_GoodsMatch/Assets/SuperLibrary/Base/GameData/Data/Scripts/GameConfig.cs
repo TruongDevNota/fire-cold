@@ -5,9 +5,19 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class GameConfig
+public class GameConfig : GameConfigBase
 {
     [Header("ADs")]
+    public bool adUseBackup = false;
+    public bool adUseOpenBackup = false;
+    public bool adUseNative = false;
+    public bool adUseInPlay = false;
+    public bool forceInterToReward = false;
+    public bool forceRewardToInter = false;
+    public bool forceInterEverywhere = false;
+    public float timeToWaitOpenInter = 4.5f;
+    public int isNeedInternet = 9999999;
+
     public float timePlayToShowAds = 30;
     public float timePlayReduceToShowAds = 15;
     public RebornType rebornType = RebornType.Continue;

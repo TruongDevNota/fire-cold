@@ -43,9 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e70df7ed043fda4eab510d85eaa87c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interCountMax: 3
-  interPlacemenetName: DefaultInterstitial
-  rewardCountMax: 3
-  rewardPlacementName: DefaultRewardedVideo
-  appIdANDROID: 1154d1165
-  appIdIPHONE: 1154cd7dd
+  mediation: 1

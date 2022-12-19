@@ -13,6 +13,7 @@ namespace Base.Ads
         protected static string interPlacemenetName = "DefaultInterstitial";
         protected static string interItemName = "Default";
         private Action<AdEvent, AdType> onInterShowSuccess = null;
+        protected AdEvent interEvent = AdEvent.Load;
 
 
         public static bool IsInitInter = false;
@@ -24,7 +25,7 @@ namespace Base.Ads
         protected static string rewardPlacementName = "DefaultRewardedVideo";
         protected static string rewardItemName = "Default";
         protected Action<AdEvent, AdType> onRewardShowSuccess = null;
-        protected AdEvent rewardEvent = AdEvent.NotAvailable;
+        protected AdEvent rewardEvent = AdEvent.Load;
 
         public static bool IsInitReward = false;
 
@@ -32,7 +33,7 @@ namespace Base.Ads
         protected static int rewardCountTry = 0;
 
         #region VIDEO REWARED
-        public abstract void InitVideoRewarded();
+        public abstract void RewardInit();
 
         public abstract void RewardLoad();
 
@@ -41,8 +42,8 @@ namespace Base.Ads
         protected virtual void RewardOnLoadFailed(object obj)
         {
             PauseApp(false);
-            SetStatus(AdType.VideoReward, AdEvent.LoadFailed, rewardPlacementName, rewardItemName, mediation);
-            onRewardShowSuccess?.Invoke(AdEvent.LoadFailed, AdType.VideoReward);
+
+            onRewardShowSuccess?.Invoke(AdEvent.LoadNotAvaiable, AdType.Reward);
             onRewardShowSuccess = null;
 
             if (rewardCountTry < rewardCountMax)
@@ -55,70 +56,72 @@ namespace Base.Ads
         protected virtual void RewardOnShowFailed(object obj)
         {
             PauseApp(false);
-            SetStatus(AdType.VideoReward, AdEvent.ShowFailed, rewardPlacementName, rewardItemName, mediation);
-            onRewardShowSuccess?.Invoke(AdEvent.ShowFailed, AdType.VideoReward);
+
+            onRewardShowSuccess?.Invoke(AdEvent.ShowFailed, AdType.Reward);
             onRewardShowSuccess = null;
 
             RewardLoad();
         }
 
-        public virtual void RewardOnClick(object obj = null)
-        {
-            SetStatus(AdType.VideoReward, AdEvent.Click, rewardPlacementName, rewardItemName, mediation);
-        }
-
         public virtual void RewardOnClose()
         {
-            PauseApp(false);
-
-            if (rewardEvent == AdEvent.Success)
+            try
             {
-                if (UnityMainThreadDispatcher.Exists())
+                Debug.Log(TAG + "RewardOnClose: " + rewardEvent);
+
+                PauseApp(false);
+
+                if (rewardEvent == AdEvent.ShowSuccess)
                 {
-                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
-                    {
-                        onRewardShowSuccess?.Invoke(AdEvent.Success, AdType.VideoReward);
-                        onRewardShowSuccess = null;
-                    });
+                    onRewardShowSuccess?.Invoke(AdEvent.ShowSuccess, AdType.Reward);
+                    onRewardShowSuccess = null;
                 }
-                else
-                {
-                    try
-                    {
-                        onRewardShowSuccess?.Invoke(AdEvent.Success, AdType.VideoReward);
-                        onRewardShowSuccess = null;
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogException(ex);
-                    }
-                }
+
+                SetStatus(AdType.Reward, AdEvent.Close, rewardPlacementName, rewardItemName, mediation);
+
+                rewardEvent = AdEvent.Load;
+                RewardLoad();
             }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
 
-            SetStatus(AdType.VideoReward, AdEvent.Close, rewardPlacementName, rewardItemName, mediation);
-
-            rewardEvent = AdEvent.Load;
-            RewardLoad();
+                onRewardShowSuccess?.Invoke(AdEvent.Exception, AdType.Reward);
+                onRewardShowSuccess = null;
+            }
         }
 
         public virtual void RewardOnShowSuscess(object obj)
         {
-            rewardEvent = AdEvent.Success;
-            SetStatus(AdType.VideoReward, AdEvent.Success, rewardPlacementName, rewardItemName, mediation);
+            try
+            {
+                rewardEvent = AdEvent.ShowSuccess;
+                SetStatus(AdType.Reward, AdEvent.ShowSuccess, rewardPlacementName, rewardItemName, mediation);
+
+                onRewardShowSuccess?.Invoke(AdEvent.ShowSuccess, AdType.Reward);
+                onRewardShowSuccess = null;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
+
+            Debug.Log(TAG + "RewardOnShowSuscess");
         }
 
         protected void RewardShow(Action<AdEvent, AdType> status)
         {
+            PauseApp(true);
+
             rewardEvent = AdEvent.ShowStart;
             rewardCountTry = 0;
             onRewardShowSuccess = status;
-            SetStatus(AdType.VideoReward, AdEvent.ShowStart, rewardPlacementName, rewardItemName, mediation);
-            PauseApp(true);
+            SetStatus(AdType.Reward, AdEvent.ShowStart, rewardPlacementName, rewardItemName, mediation);
         }
         #endregion
 
         #region INTERSTITIAL
-        public abstract void InitInterstitial();
+        public abstract void InterInit();
 
         public abstract void InterLoad();
 
@@ -127,8 +130,8 @@ namespace Base.Ads
         protected virtual void InterOnLoadFailed(object obj = null)
         {
             PauseApp(false);
-            SetStatus(AdType.Interstitial, AdEvent.LoadFailed, interPlacemenetName, interItemName, mediation);
-            onInterShowSuccess?.Invoke(AdEvent.LoadFailed, AdType.Interstitial);
+
+            onInterShowSuccess?.Invoke(AdEvent.LoadNotAvaiable, AdType.Inter);
             onInterShowSuccess = null;
 
             if (interCountTry < interCountMax)
@@ -141,8 +144,8 @@ namespace Base.Ads
         protected virtual void InterOnShowFailed(object obj = null)
         {
             PauseApp(false);
-            SetStatus(AdType.Interstitial, AdEvent.ShowFailed, interPlacemenetName, interItemName, mediation);
-            onInterShowSuccess?.Invoke(AdEvent.ShowFailed, AdType.Interstitial);
+
+            onInterShowSuccess?.Invoke(AdEvent.ShowFailed, AdType.Inter);
             onInterShowSuccess = null;
 
             InterLoad();
@@ -150,82 +153,58 @@ namespace Base.Ads
 
         public virtual void InterOnShowSuscess()
         {
-            SetStatus(AdType.Interstitial, AdEvent.Success, interPlacemenetName, interItemName, mediation);
-            onInterShowSuccess?.Invoke(AdEvent.Success, AdType.Interstitial);
-            onInterShowSuccess = null;
-        }
+            try
+            {
+                interEvent = AdEvent.ShowSuccess;
+                SetStatus(AdType.Inter, AdEvent.ShowSuccess, interPlacemenetName, interItemName, mediation);
 
-        public virtual void InterOnClick()
-        {
-            SetStatus(AdType.Interstitial, AdEvent.Click, interPlacemenetName, interItemName, mediation);
+                onInterShowSuccess?.Invoke(AdEvent.ShowSuccess, AdType.Inter);
+                onInterShowSuccess = null;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
+
+            Debug.Log(TAG + "InterOnShowSuscess");
         }
 
         public virtual void InterOnClose()
         {
-            PauseApp(false);
-            SetStatus(AdType.Interstitial, AdEvent.Close, interPlacemenetName, interItemName, mediation);
-            InterLoad();
+            try
+            {
+                Debug.Log(TAG + "InterOnClose " + interEvent);
+                PauseApp(false);
+
+                if (interEvent == AdEvent.ShowSuccess)
+                {
+                    onInterShowSuccess?.Invoke(AdEvent.ShowSuccess, AdType.Inter);
+                    onInterShowSuccess = null;
+                }
+
+                SetStatus(AdType.Inter, AdEvent.Close, interPlacemenetName, interItemName, mediation);
+
+                interEvent = AdEvent.Load;
+                InterLoad();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+
+                onInterShowSuccess?.Invoke(AdEvent.Exception, AdType.Inter);
+                onInterShowSuccess = null;
+            }
         }
 
         protected void InterShow(Action<AdEvent, AdType> status)
         {
             PauseApp(true);
-            onInterShowSuccess = status;
-            SetStatus(AdType.Interstitial, AdEvent.ShowStart, interPlacemenetName, interItemName, mediation);
-        }
 
-        private float lastTimeScale = 1f;
-        private void PauseApp(bool pause)
-        {
-            if (pause)
-            {
-                lastTimeScale = Time.timeScale;
-                Time.timeScale = 0;
-            }
-            else
-            {
-                Time.timeScale = lastTimeScale;
-            }
+            interEvent = AdEvent.ShowStart;
+            interCountTry = 0;
+            onInterShowSuccess = status;
+            SetStatus(AdType.Inter, AdEvent.ShowStart, interPlacemenetName, interItemName, mediation);
         }
         #endregion
     }
-}
-public enum AdType
-{
-    Interstitial = 0,
-    VideoReward = 1,
-    Banner = 2,
-    AppOpen = 3
-}
-public enum AdEvent
-{
-    Load = 0,
-    Avaiable = 1,
-    Offer = 2,
-    LoadFailed = 3,
-    Show = 4,
-    ShowStart = 5,
-    ShowFailed = 6,
-    Success = 7,
-    Click = 8,
-    Close = 9,
-    Cancel = 10,
-    NotInternet = 11,
-    NotAvailable = 12,
-    NotTimeToShow = 13,
-    Exception = 14
-}
-public enum AdMediation
-{
-    NONE = 0,
-    IRON = 1,
-    MAX = 2,
-    ADMOD = 3,
-    APPOPEN = 4
-}
-public enum BannerPos
-{
-    NONE = 0,
-    TOP = 1,
-    BOTTOM = 2
 }

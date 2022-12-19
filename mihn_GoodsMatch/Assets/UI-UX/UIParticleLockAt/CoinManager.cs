@@ -64,7 +64,7 @@ public class CoinManager : MonoBehaviour
 #if USE_IRON || USE_MAX || USE_ADMOB
         AdsManager.ShowVideoReward((onSuccess, adType) =>
         {
-            if (onSuccess == AdEvent.Success || DataManager.GameConfig.isAdsByPass)
+            if (onSuccess == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 Add(CoinByAds, transform);
                 AdsManager.ShowNotice(onSuccess);

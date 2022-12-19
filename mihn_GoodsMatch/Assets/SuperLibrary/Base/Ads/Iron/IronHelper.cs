@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using static Base.Ads.AdsManager;
 
@@ -65,49 +66,35 @@ namespace Base.Ads
 
                     IronSource.Agent.shouldTrackNetworkState(true);
 
-                    IronSourceEvents.onImpressionSuccessEvent += ImpressionSuccessEvent;
+                    IronSourceEvents.onSdkInitializationCompletedEvent += () =>
+                    {
+                        instance.InterInit();
+                        instance.RewardInit();
+
+                        if (Settings.useBanner == AdMediation.IRON)
+                            InitBanner(AdsManager.BannerPos);
+
+                        Debug.Log(TAG + "Init: " + appKey + " - deviceUniqueIdentifier: " + SystemInfo.deviceUniqueIdentifier);
+                    };
+
+                    IronSourceEvents.onImpressionDataReadyEvent += ImpressionSuccessEvent;
 
                     if (Settings.useBanner == AdMediation.IRON)
                     {
                         IronSource.Agent.init(appKey, IronSourceAdUnits.REWARDED_VIDEO, IronSourceAdUnits.INTERSTITIAL, IronSourceAdUnits.BANNER);
-                        IronSourceEvents.onBannerAdLoadedEvent += OnBannerAdLoadedEvent;
-                        IronSourceEvents.onBannerAdLoadFailedEvent += OnBannerAdLoadFailedEvent;
                     }
                     else
                         IronSource.Agent.init(appKey, IronSourceAdUnits.REWARDED_VIDEO, IronSourceAdUnits.INTERSTITIAL);
-
-                    Log(TAG + "Init: " + appKey + " - deviceUniqueIdentifier: " + SystemInfo.deviceUniqueIdentifier + " AdvertiserId: " + IronSource.Agent.getAdvertiserId());
-
-                    DG.Tweening.DOVirtual.DelayedCall(1, () =>
-                    {
-                        instance.InitVideoRewarded();
-                    });
-
-                    DG.Tweening.DOVirtual.DelayedCall(2, () =>
-                    {
-                        instance.InitInterstitial();
-                    });
-
-
-                    Log(TAG + "Init DONE");
                 }
                 catch (Exception ex)
                 {
                     LogError(TAG + "Init: " + ex.Message);
-#if USE_FIREBASE
-                    try
+
+                    FirebaseManager.LogEvent("ad_init_exception", new Dictionary<string, object>
                     {
-                        Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_init_exception", new Firebase.Analytics.Parameter[]
-                        {
-                            new Firebase.Analytics.Parameter("errorDescription", ex.Message),
-                            new Firebase.Analytics.Parameter("mediation", TAG)
-                        });
-                    }
-                    catch (Exception e)
-                    {
-                        LogError(TAG + "Log Firebase: " + e.Message);
-                    }
-#endif
+                        {"errorDescription", ex.Message },
+                        {"mediation", instance.mediation.ToString() }
+                    });
                 }
             }
             else
@@ -120,44 +107,48 @@ namespace Base.Ads
 #if USE_IRON
         private static void ImpressionSuccessEvent(IronSourceImpressionData impressionData)
         {
-            Log(TAG + "ImpressionSuccessEvent allData: " + impressionData.allData);
+            LogImpressionData(AdMediation.IRON, impressionData);
+        }
 
+        protected void OnAdEvent(AdType type, string eventName, IronSourceAdInfo obj)
+        {
 #if USE_FIREBASE
             try
             {
-                var eventParams = new Firebase.Analytics.Parameter[]
-                {
-                new Firebase.Analytics.Parameter("adNetwork", impressionData.adNetwork),
-                new Firebase.Analytics.Parameter("adUnit", impressionData.adUnit),
-                new Firebase.Analytics.Parameter("country", impressionData.country),
-                new Firebase.Analytics.Parameter("revenue", impressionData.revenue?.ToString("#0.000")),
-                new Firebase.Analytics.Parameter("lifetimeRevenue", impressionData.lifetimeRevenue?.ToString("#0.000")),
-                new Firebase.Analytics.Parameter("placement", impressionData.placement)
-                };
-
-                Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_impression", eventParams);
+                var adNetwork = obj.adNetwork;
+                var paramBase = ParamsBase(rewardPlacementName, rewardItemName, mediation);
+                paramBase.Add("ad_network", adNetwork);
+                FirebaseManager.LogEvent("ad_" + type.ToString() + "_" + eventName, paramBase);
             }
             catch (Exception ex)
             {
-                Firebase.Crashlytics.Crashlytics.LogException(ex);
+                Debug.LogException(ex);
             }
 #endif
         }
 #endif
 
         #region VIDEO REWARDED
-        public override void InitVideoRewarded()
+        public override void RewardInit()
         {
 #if USE_IRON
-            IronSourceEvents.onRewardedVideoAvailabilityChangedEvent += RewardOnReady;
-            IronSourceEvents.onRewardedVideoAdLoadFailedEvent += RewardOnLoadFailed;
-            IronSourceEvents.onRewardedVideoAdRewardedEvent += RewardOnShowSuscess;
-            IronSourceEvents.onRewardedVideoAdShowFailedEvent += RewardOnShowFailed;
-            IronSourceEvents.onRewardedVideoAdClickedEvent += RewardOnClick;
-            IronSourceEvents.onRewardedVideoAdClosedEvent += RewardOnClose;
-            IronSource.Agent.loadRewardedVideo();
-            IsInitReward = true;
-            Log(TAG + "InitVideoRewarded " + appKey);
+            if (!IsInitReward)
+            {
+                IronSourceEvents.onRewardedVideoAvailabilityChangedEvent += RewardOnReady;
+                IronSourceEvents.onRewardedVideoAdLoadFailedEvent += RewardOnLoadFailed;
+                IronSourceEvents.onRewardedVideoAdRewardedEvent += RewardOnShowSuscess;
+                IronSourceEvents.onRewardedVideoAdShowFailedEvent += RewardOnShowFailed;
+                IronSourceEvents.onRewardedVideoAdClosedEvent += RewardOnClose;
+
+                IronSourceRewardedVideoEvents.onAdOpenedEvent += (i) => OnAdEvent(AdType.Reward, "open", i);
+                IronSourceRewardedVideoEvents.onAdReadyEvent += (i) => OnAdEvent(AdType.Reward, "ready", i);
+
+                IronSource.Agent.loadRewardedVideo();
+                IsInitReward = true;
+                Log(TAG + "InitVideoRewarded " + appKey);
+            }
+
+            RewardLoad();
 #endif
         }
 
@@ -166,7 +157,7 @@ namespace Base.Ads
 #if USE_IRON
             if (!RewardIsReady)
             {
-                SetStatus(AdType.VideoReward, AdEvent.Load, rewardPlacementName, rewardItemName, mediation);
+                SetStatus(AdType.Reward, AdEvent.Load, rewardPlacementName, rewardItemName, mediation);
                 IronSource.Agent.loadRewardedVideo();
             }
 #endif
@@ -187,7 +178,7 @@ namespace Base.Ads
                 try
                 {
 #if USE_IRON
-                    if (!IsInitReward) instance.InitVideoRewarded();
+                    if (!IsInitReward) instance.RewardInit();
 
                     rewardPlacementName = placementName;
                     rewardItemName = itemName;
@@ -200,14 +191,23 @@ namespace Base.Ads
                     }
                     else
                     {
-                        LogError(TAG + "ShowRewarded -> Not Ready");
-                        SetStatus(AdType.VideoReward, AdEvent.NotAvailable, placementName, itemName, instance.mediation);
-                        onSuccess?.Invoke(AdEvent.NotAvailable, AdType.VideoReward);
+                        if (IsConnected)
+                        {
+                            LogError(TAG + "ShowRewarded -> NotAvailable");
+                            SetStatus(AdType.Reward, AdEvent.ShowNotAvailable, rewardPlacementName, rewardItemName, instance.mediation);
+                            onSuccess?.Invoke(AdEvent.ShowNotAvailable, AdType.Reward);
+                        }
+                        else
+                        {
+                            LogError(TAG + "ShowRewarded -> NotInternet");
+                            SetStatus(AdType.Reward, AdEvent.ShowNoInternet, rewardPlacementName, rewardItemName, instance.mediation);
+                            onSuccess?.Invoke(AdEvent.ShowNoInternet, AdType.Reward);
+                        }
                         rewardCountTry = 0;
                         instance.RewardLoad();
                     }
 #else
-                    onSuccess?.Invoke(AdEvent.ShowFailed, AdType.VideoReward);
+                    onSuccess?.Invoke(AdEvent.ShowFailed, AdType.Reward);
 #endif
                 }
                 catch (Exception ex)
@@ -238,7 +238,7 @@ namespace Base.Ads
                     logParams.Add("errorDescription", errorIron.getDescription());
                     logParams.Add("error", errorIron.ToString());
 
-                    LogError(TAG + "InterOnLoadFailed Error: " + errorIron.ToString() + " re-trying in 15 seconds " + interCountTry + "/" + interCountMax);
+                    LogError(TAG + "RewardOnLoadFailed Error: " + errorIron.getCode() + " " + errorIron.getDescription() + " re-trying in 15 seconds " + interCountTry + "/" + interCountMax);
                 }
 #endif
             }
@@ -247,7 +247,7 @@ namespace Base.Ads
                 Debug.LogException(ex);
             }
 
-            LogEvent(AdType.VideoReward, AdEvent.LoadFailed, logParams);
+            LogEvent(AdType.Reward, AdEvent.LoadNotAvaiable, logParams);
         }
 
         protected override void RewardOnShowFailed(object obj)
@@ -266,16 +266,16 @@ namespace Base.Ads
 
                     if (errorIron.getCode() == 520)
                     {
-                        onRewardShowSuccess?.Invoke(AdEvent.NotInternet, AdType.VideoReward);
+                        onRewardShowSuccess?.Invoke(AdEvent.ShowNoInternet, AdType.Reward);
                     }
                     else
                     {
-                        onRewardShowSuccess?.Invoke(AdEvent.ShowFailed, AdType.VideoReward);
+                        onRewardShowSuccess?.Invoke(AdEvent.ShowFailed, AdType.Reward);
                     }
                 }
                 else
                 {
-                    onRewardShowSuccess?.Invoke(AdEvent.ShowFailed, AdType.VideoReward);
+                    onRewardShowSuccess?.Invoke(AdEvent.ShowFailed, AdType.Reward);
                 }
 #endif
             }
@@ -284,25 +284,32 @@ namespace Base.Ads
                 Debug.LogException(ex);
             }
 
-            LogEvent(AdType.VideoReward, AdEvent.ShowFailed, logParams);
+            LogEvent(AdType.Reward, AdEvent.ShowFailed, logParams);
 
             base.RewardOnShowFailed(obj);
         }
         #endregion
 
         #region INTERSTITIAL
-        public override void InitInterstitial()
+        public override void InterInit()
         {
 #if USE_IRON
-            IronSourceEvents.onInterstitialAdReadyEvent += InterOnReady;
-            IronSourceEvents.onInterstitialAdLoadFailedEvent += InterOnLoadFailed;
-            IronSourceEvents.onInterstitialAdShowSucceededEvent += InterOnShowSuscess;
-            IronSourceEvents.onInterstitialAdShowFailedEvent += InterOnShowFailed;
-            IronSourceEvents.onInterstitialAdClickedEvent += InterOnClick;
-            IronSourceEvents.onInterstitialAdClosedEvent += InterOnClose;
-            IronSource.Agent.loadInterstitial();
-            IsInitInter = true;
-            Log(TAG + "InitInterstitial " + appKey);
+            if (!IsInitInter)
+            {
+                IronSourceEvents.onInterstitialAdReadyEvent += InterOnReady;
+                IronSourceEvents.onInterstitialAdLoadFailedEvent += InterOnLoadFailed;
+                IronSourceEvents.onInterstitialAdShowSucceededEvent += InterOnShowSuscess;
+                IronSourceEvents.onInterstitialAdShowFailedEvent += InterOnShowFailed;
+                IronSourceEvents.onInterstitialAdClosedEvent += InterOnClose;
+
+                IronSourceInterstitialEvents.onAdOpenedEvent += (i) => OnAdEvent(AdType.Inter, "open", i);
+                IronSourceInterstitialEvents.onAdReadyEvent += (i) => OnAdEvent(AdType.Inter, "ready", i);
+
+                IsInitInter = true;
+                Log(TAG + "InitInterstitial " + appKey);
+
+            }
+            InterLoad();
 #endif
         }
 
@@ -311,7 +318,7 @@ namespace Base.Ads
 #if USE_IRON
             if (!InterIsReady)
             {
-                SetStatus(AdType.Interstitial, AdEvent.Load, interPlacemenetName, interItemName, mediation);
+                SetStatus(AdType.Inter, AdEvent.Load, interPlacemenetName, interItemName, mediation);
                 IronSource.Agent.loadInterstitial();
             }
 #endif
@@ -320,7 +327,7 @@ namespace Base.Ads
         public override void InterOnReady()
         {
 #if USE_IRON
-            SetStatus(AdType.Interstitial, AdEvent.Avaiable, interPlacemenetName, interItemName, mediation);
+            SetStatus(AdType.Inter, AdEvent.LoadAvaiable, interPlacemenetName, interItemName, mediation);
             interCountTry = 0;
 #endif
         }
@@ -334,7 +341,7 @@ namespace Base.Ads
                     interPlacemenetName = placementName;
                     interItemName = itemName;
 
-                    if (!IsInitInter) instance.InitInterstitial();
+                    if (!IsInitInter) instance.InterInit();
 
 #if USE_IRON
                     if (IronSource.Agent.isInterstitialReady())
@@ -345,14 +352,23 @@ namespace Base.Ads
                     }
                     else
                     {
-                        LogError(TAG + "ShowInterstitial -> Not Ready");
-                        SetStatus(AdType.Interstitial, AdEvent.NotAvailable, interPlacemenetName, interItemName, instance.mediation);
-                        onSuccess?.Invoke(AdEvent.NotAvailable, AdType.Interstitial);
+                        if (IsConnected)
+                        {
+                            LogError(TAG + "ShowInterstitial -> NotAvailable");
+                            SetStatus(AdType.Inter, AdEvent.ShowNotAvailable, interPlacemenetName, interItemName, instance.mediation);
+                            onSuccess?.Invoke(AdEvent.ShowNotAvailable, AdType.Inter);
+                        }
+                        else
+                        {
+                            LogError(TAG + "ShowInterstitial -> NotInternet");
+                            SetStatus(AdType.Inter, AdEvent.ShowNoInternet, interPlacemenetName, interItemName, instance.mediation);
+                            onSuccess?.Invoke(AdEvent.ShowNoInternet, AdType.Inter);
+                        }
                         interCountTry = 0;
                         instance.InterLoad();
                     }
 #else
-                    onSuccess?.Invoke(AdEvent.ShowFailed, AdType.VideoReward);
+                    onSuccess?.Invoke(AdEvent.ShowFailed, AdType.Reward);
 #endif
                 }
                 catch (Exception ex)
@@ -381,7 +397,7 @@ namespace Base.Ads
                     logParams.Add("errorDescription", errorIron.getDescription());
                     logParams.Add("error", errorIron.ToString());
 
-                    LogError(TAG + "InterOnLoadFailed Error: " + errorIron.ToString() + " re-trying in 15 seconds " + interCountTry + "/" + interCountMax);
+                    LogError(TAG + "InterOnLoadFailed Error: " + errorIron.getCode() + " " + errorIron.getDescription() + " re-trying in 15 seconds " + interCountTry + "/" + interCountMax);
                 }
 #endif
             }
@@ -390,7 +406,7 @@ namespace Base.Ads
                 Debug.LogException(ex);
             }
 
-            LogEvent(AdType.Interstitial, AdEvent.LoadFailed, logParams);
+            LogEvent(AdType.Inter, AdEvent.LoadNotAvaiable, logParams);
 
             base.InterOnLoadFailed(obj);
         }
@@ -417,30 +433,73 @@ namespace Base.Ads
                 Debug.LogException(ex);
             }
 
-            LogEvent("ad_" + AdType.Interstitial + "show_error", logParams);
+            LogEvent("ad_" + AdType.Inter + "show_error", logParams);
 
             base.InterOnShowFailed(obj);
         }
         #endregion
 
         #region BANNER
-        public static void InitBanner()
+        protected static bool BannerIsInit = true;
+        protected static BannerPos bannerPos = BannerPos.BOTTOM;
+
+        public static void InitBanner(BannerPos pos)
         {
+            if (instance == null)
+                return;
+
+            Log(TAG + "InitBanner " + appKey + " IsNotShowAds: " + IsNotShowAds);
+
+            if (IsNotShowAds)
+                return;
 #if USE_IRON
-            SetStatus(AdType.Banner, AdEvent.Load, "default", "default", instance.mediation);
-            if (AdsManager.BannerPos == BannerPos.BOTTOM)
-                IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.BOTTOM);
-            else if (AdsManager.BannerPos == BannerPos.TOP)
-                IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.TOP);
-            Log(TAG + "InitBanner " + appKey);
+            bannerPos = pos;
+
+            IronSourceEvents.onBannerAdLoadedEvent += OnBannerAdLoadedEvent;
+            IronSourceEvents.onBannerAdLoadFailedEvent += OnBannerAdLoadFailedEvent;
+
+            BannerIsInit = true;
+
+            LoadBanner();
 #endif
+        }
+
+        public static void LoadBanner()
+        {
+            try
+            {
+#if USE_IRON
+                SetStatus(AdType.Banner, AdEvent.Load, "default", "default", instance.mediation);
+
+                if (bannerPos == BannerPos.BOTTOM)
+                    IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.BOTTOM);
+                else if (bannerPos == BannerPos.TOP)
+                    IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.TOP);
+#endif
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
         }
 
         public static void DestroyBanner()
         {
+            try
+            {
 #if USE_IRON
-            IronSource.Agent.destroyBanner();
+                if (BannerIsInit)
+                {
+                    IronSourceEvents.onBannerAdLoadedEvent -= OnBannerAdLoadedEvent;
+                    IronSourceEvents.onBannerAdLoadFailedEvent -= OnBannerAdLoadFailedEvent;
+                    IronSource.Agent.destroyBanner();
+                }
 #endif
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
         }
 
         public static void HideBanner()
@@ -461,12 +520,11 @@ namespace Base.Ads
         protected static void OnBannerAdLoadFailedEvent(object obj)
         {
 #if USE_IRON
-            if (instance != null)
-                SetStatus(AdType.Banner, AdEvent.LoadFailed, "default", "default", instance.mediation);
+            SetStatus(AdType.Banner, AdEvent.LoadNotAvaiable, "default", "default", instance.mediation);
             if (tryLoadBanner == false)
             {
                 tryLoadBanner = true;
-                InitBanner();
+                LoadBanner();
             }
 #endif
         }
@@ -475,8 +533,7 @@ namespace Base.Ads
         {
 #if USE_IRON
             IronSource.Agent.displayBanner();
-            if (instance != null)
-                SetStatus(AdType.Banner, AdEvent.Success, "default", "default", instance.mediation);
+            SetStatus(AdType.Banner, AdEvent.ShowSuccess, "default", "default", instance.mediation);
 #endif
         }
         #endregion

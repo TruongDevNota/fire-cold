@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Base.Ads;
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,6 +66,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         }
 
         SoundManager.LoadAllSounds();
+
+        yield return AdsManager.DOInit();
 
 #if USE_FIREBASE
         yield return FirebaseHelper.DoCheckStatus(null, true);

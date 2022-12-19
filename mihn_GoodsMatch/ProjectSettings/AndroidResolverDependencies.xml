@@ -1,5 +1,7 @@
 <dependencies>
   <packages>
+    <package>androidx.lifecycle:lifecycle-common-java8:2.4.1</package>
+    <package>androidx.lifecycle:lifecycle-process:2.4.1</package>
     <package>androidx.recyclerview:recyclerview:1.2.1</package>
     <package>com.android.support:customtabs:28.+</package>
     <package>com.android.support:recyclerview-v7:28.+</package>
@@ -13,12 +15,13 @@
     <package>com.applovin.mediation:smaato-adapter:21.8.6.0</package>
     <package>com.applovin.mediation:vungle-adapter:6.12.0.4</package>
     <package>com.applovin:applovin-sdk:11.6.0</package>
+    <package>com.google.android.gms:play-services-ads:21.3.0</package>
     <package>com.squareup.picasso:picasso:2.71828</package>
   </packages>
   <files />
   <settings>
     <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
-    <setting name="bundleId" value="com.mihn.goods" />
+    <setting name="bundleId" value="com.falcon.p.mcom.goodsmatch.puzzle.triplemaster" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradlePropertiesTemplateEnabled" value="True" />

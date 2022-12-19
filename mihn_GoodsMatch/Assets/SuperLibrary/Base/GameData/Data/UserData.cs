@@ -8,6 +8,12 @@ using Base.Ads;
 [Serializable]
 public class UserData : UserAnalysic
 {
+    public delegate void VIPChangedDelegate(bool isVip);
+    public static event VIPChangedDelegate OnVIPChanged;
+
+    public delegate void RemovedAdsChangedDelegate(bool isRemoveAds);
+    public static event RemovedAdsChangedDelegate OnRemovedAdsChanged;
+
     [Header("Data")]
     public int level = 0;
 
@@ -45,10 +51,24 @@ public class UserData : UserAnalysic
         {
             if (value != _isRemovedAds)
             {
-                _isRemovedAds = value;
-#if USE_IRON || USE_MAX || USE_ADMOB
-                AdsManager.SetArea();
-#endif
+                _isRemovedAds = value; 
+                SetUserProperty("is_removed_ads", _isRemovedAds);
+                OnRemovedAdsChanged?.Invoke(_isRemovedAds);
+            }
+        }
+    }
+    [SerializeField]
+    protected bool _isVip = false;
+    public bool isVIP
+    {
+        get => _isVip;
+        set
+        {
+            if (value != _isVip)
+            {
+                _isVip = value;
+                SetUserProperty("is_VIP", _isVip);
+                OnVIPChanged?.Invoke(_isVip);
             }
         }
     }
@@ -96,7 +116,7 @@ public class UserData : UserAnalysic
                 FirebaseHelper.SetUser("Limited", _limitedDateTime);
 #endif
 #if USE_IRON || USE_MAX || USE_ADMOB
-                AdsManager.SetArea();
+                AdsManager.UpdateBannerArea();
 #endif
             }
         }
@@ -465,6 +485,20 @@ public class UserAnalysic : UserBase
             {
                 source = value;
             }
+        }
+    }
+
+    public void SetUserProperty(string title, object value)
+    {
+        try
+        {
+#if USE_FIREBASE
+            FirebaseManager.SetUser(title.ToLower(), value.ToString());
+#endif
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
         }
     }
 }

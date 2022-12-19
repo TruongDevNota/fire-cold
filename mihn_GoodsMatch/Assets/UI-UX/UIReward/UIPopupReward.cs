@@ -103,7 +103,7 @@ public class UIPopupReward : MonoBehaviour
         AdsManager.ShowVideoReward((e, t) =>
         {
             var lastValue = coinEarn;
-            if (e == AdEvent.Success || DataManager.GameConfig.isAdsByPass)
+            if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 coinEarn *= 2;
                 buffEarn *= 2;

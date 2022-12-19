@@ -8,6 +8,9 @@
             url "https://maven.google.com"
         }
         maven {
+            url "https://maven.google.com/" // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7, Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:12, Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:17
+        }
+        maven {
             url "https://artifact.bytedance.com/repository/pangle" // Assets/MaxSdk/Mediation/ByteDance/Editor/Dependencies.xml:8
         }
         maven {
@@ -30,6 +33,8 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.1' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:12
+    implementation 'androidx.lifecycle:lifecycle-process:2.4.1' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:17
     implementation 'androidx.recyclerview:recyclerview:1.2.1' // Assets/MaxSdk/Mediation/Mintegral/Editor/Dependencies.xml:9
     implementation 'com.android.support:customtabs:28.+' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:7
     implementation 'com.android.support:recyclerview-v7:28.+' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:6
@@ -43,6 +48,7 @@ dependencies {
     implementation 'com.applovin.mediation:smaato-adapter:21.8.6.0' // Assets/MaxSdk/Mediation/Smaato/Editor/Dependencies.xml:8
     implementation 'com.applovin.mediation:vungle-adapter:6.12.0.4' // Assets/MaxSdk/Mediation/Vungle/Editor/Dependencies.xml:4
     implementation 'com.applovin:applovin-sdk:11.6.0' // Assets/MaxSdk/AppLovin/Editor/Dependencies.xml:4
+    implementation 'com.google.android.gms:play-services-ads:21.3.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
     implementation 'com.squareup.picasso:picasso:2.71828' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:5
 // Android Resolver Dependencies End
 **DEPS**}

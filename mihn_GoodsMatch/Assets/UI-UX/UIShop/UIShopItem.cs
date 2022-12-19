@@ -44,7 +44,7 @@ public class UIShopItem : MonoBehaviour
 
         AdsManager.ShowVideoReward((e,t) =>
         {
-            if(e == AdEvent.Success || DataManager.GameConfig.isAdsByPass)
+            if(e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 lastTimeViewAds = Time.realtimeSinceStartup;
 

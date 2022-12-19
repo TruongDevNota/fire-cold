@@ -42,7 +42,7 @@ public class UIPopupPiggyBank : MonoBehaviour
     {
         AdsManager.ShowVideoReward((e, t) =>
         {
-            if(e == AdEvent.Success || DataManager.GameConfig.isAdsByPass)
+            if(e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 CoinManager.Add(DataManager.UserData.totalBankCoin);
                 DataManager.UserData.totalBankCoin = 0;
