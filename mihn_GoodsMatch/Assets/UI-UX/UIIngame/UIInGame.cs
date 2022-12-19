@@ -22,6 +22,8 @@ public class UIInGame : MonoBehaviour
     private UIAnimation uiTopAnim = null;
     [SerializeField]
     private UIAnimation uiBottomAnim = null;
+    [SerializeField]
+    private PopupBuyBuff popupBuyBuff = null;
 
     [SerializeField]
     private Button buffHintButton = null;
@@ -110,20 +112,7 @@ public class UIInGame : MonoBehaviour
         }
         else
         {
-            //Show Popup message
-
-            AdsManager.ShowVideoReward((e, t) =>
-            {
-                if(e == AdEvent.Success)
-                {
-                    DataManager.UserData.totalHintBuff++;
-                }
-                else
-                {
-                    Debug.Log($"!!!!! video reward fail.");
-                    UIToast.ShowNotice("view video reward fail!");
-                }
-            }, "BuffHintButtonOnclick");
+            popupBuyBuff.Onshow(BuffType.Hint);
         }
     }
 
@@ -136,20 +125,7 @@ public class UIInGame : MonoBehaviour
         }
         else
         {
-            //Show Popup message
-
-            AdsManager.ShowVideoReward((e, t) =>
-            {
-                if (e == AdEvent.Success)
-                {
-                    DataManager.UserData.totalSwapBuff++;
-                }
-                else
-                {
-                    Debug.Log($"!!!!! video reward fail.");
-                    UIToast.ShowNotice("view video reward fail!");
-                }
-            }, "BuffSwapButtonOnclick");
+            popupBuyBuff.Onshow(BuffType.Swap);
         }
     }
 

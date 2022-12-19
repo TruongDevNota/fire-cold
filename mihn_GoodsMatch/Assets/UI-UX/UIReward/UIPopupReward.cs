@@ -85,6 +85,7 @@ public class UIPopupReward : MonoBehaviour
         {
             //Show Pig Process
             popup_PigProcess.OnShow(coinEarn);
+            DataManager.UserData.totalHintBuff++;
             OnHide();
         }
     }
@@ -102,7 +103,7 @@ public class UIPopupReward : MonoBehaviour
         AdsManager.ShowVideoReward((e, t) =>
         {
             var lastValue = coinEarn;
-            if (e == AdEvent.Success)
+            if (e == AdEvent.Success || DataManager.GameConfig.isAdsByPass)
             {
                 coinEarn *= 2;
                 buffEarn *= 2;

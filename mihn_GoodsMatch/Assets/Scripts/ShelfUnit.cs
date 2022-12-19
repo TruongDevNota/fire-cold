@@ -134,6 +134,7 @@ public class ShelfUnit : MonoBehaviour
                 PickItemUpHandler(item);
                 itemsOnShelf.Remove(item);
                 BoardGame.instance?.items.Remove(item);
+                BoardGame.instance.CheckGameComplete();
                 item.Explode(index);
             }
             Debug.Log($"New match item type: {type}");

@@ -190,7 +190,11 @@ public class BoardGame : MonoBehaviour
         stopwatch.Stop();
         isPlayingGame = false;
         DataManager.UserData.LevelChesPercent += DataManager.GameConfig.unlockChestEachLevel;
-        DOVirtual.DelayedCall(1f, () => { GameStateManager.WaitComplete(null); });
+        GameStateManager.WaitComplete(null);
+        //DOVirtual.DelayedCall(1f, () => 
+        //{ 
+        //    GameStateManager.WaitComplete(null); 
+        //});
         //UI_Ingame_Manager.instance.OnGameOverHandle(true);
     }
 

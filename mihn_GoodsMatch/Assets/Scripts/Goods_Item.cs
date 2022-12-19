@@ -99,7 +99,7 @@ public class Goods_Item : MonoBehaviour
     {
         StopRotate();
         canPick = false;
-        BoardGame.instance.CheckGameComplete();
+        //BoardGame.instance.CheckGameComplete();
         StartCoroutine(YieldExplode(index));
     }
 

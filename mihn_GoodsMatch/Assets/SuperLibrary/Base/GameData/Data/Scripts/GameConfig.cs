@@ -18,6 +18,7 @@ public class GameConfig
     public int adInterViewToReward = 5;
     public int coinRewardByRemoveAds = 800;
     public float removeAdsCost = 5.99f;
+    public bool isAdsByPass = false;
 
     [Header("Rate")]
     public int promtRateAtWin = 5;
@@ -58,6 +59,7 @@ public class GameConfig
 
     #region LEVEL DESIGN
     public float rebornTimeAdding;
+    public int buffPrice = 500;
     #endregion
 }
 

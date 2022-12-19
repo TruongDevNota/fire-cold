@@ -40,7 +40,7 @@ public class MapCreater : MonoBehaviour
 
         //mainCamera.orthographicSize = mapCollume < 3 ? cameraSizeOffset.x : cameraSizeOffset.y;
         var camSize = smallCameraSizeOffsets[0];
-        if (mapCollume < 3 && mapRow < 6)
+        if (mapCollume < 3 && mapRow < 10)
         {
             camSize = screenRatio < 2f ? smallCameraSizeOffsets[0] : smallCameraSizeOffsets[1];
             //mainCamera.transform.position = Vector3.zero;

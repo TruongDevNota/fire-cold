@@ -23,10 +23,15 @@ MonoBehaviour:
     adInterViewToReward: 5
     coinRewardByRemoveAds: 800
     removeAdsCost: 5.99
+    isAdsByPass: 1
     promtRateAtWin: 3
     starCollectStage: 100
     coinRewardByStarChest: 50
+    unlockChestEachLevel: 25
+    coinRewardByLevel: 10
+    buffHintReward: 1
     _goldByAds: 150
     startPerMatch: 5
     bankCoinStage: d007000088130000
     rebornTimeAdding: 30.5
+    buffPrice: 500

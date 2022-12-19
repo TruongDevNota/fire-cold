@@ -716,7 +716,6 @@ namespace Base.Ads
 
         public static void Log(string value)
         {
-            if (IsDebug)
                 Debug.Log(value);
         }
 

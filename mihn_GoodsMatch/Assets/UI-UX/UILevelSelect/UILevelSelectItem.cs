@@ -37,7 +37,7 @@ public class UILevelSelectItem : MonoBehaviour
         img_bg.sprite = isUnlocked ? spr_UnlockBG : spr_LockBG;
         img_footer.sprite = isUnlocked ? spr_UnlockFooter : spr_LockFooter;
         img_icon.gameObject.SetActive(!isUnlocked);
-        panel_Star?.SetActive(isUnlocked);
+        panel_Star?.SetActive(level<=DataManager.UserData.level);
         txt_level.text = $"Level {level}";
         datumLevel = level;
         onLevelSelect = OnLevelSelect;
