@@ -112,12 +112,6 @@ public class UserData : UserAnalysic
             if (_limitedDateTime != value && value > 0)
             {
                 _limitedDateTime = value;
-#if USE_FIREBASE
-                FirebaseHelper.SetUser("Limited", _limitedDateTime);
-#endif
-#if USE_IRON || USE_MAX || USE_ADMOB
-                AdsManager.UpdateBannerArea();
-#endif
             }
         }
     }
@@ -493,7 +487,7 @@ public class UserAnalysic : UserBase
         try
         {
 #if USE_FIREBASE
-            FirebaseManager.SetUser(title.ToLower(), value.ToString());
+            Base.FirebaseManager.SetUser(title.ToLower(), value.ToString());
 #endif
         }
         catch (Exception ex)

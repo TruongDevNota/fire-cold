@@ -663,7 +663,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    7: USE_MAX;USE_ADMOB
+    7: USE_MAX;USE_ADMOB;USE_FIREBASE;USE_APPSFLYER
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

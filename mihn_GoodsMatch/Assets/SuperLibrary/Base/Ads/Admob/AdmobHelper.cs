@@ -464,7 +464,7 @@ namespace Base.Ads
                 try
                 {
 
-                    if (DebugMode.IsOn && args != null)
+                    if (DebugMode.IsDebugMode && args != null)
                     {
                         var error = args.LoadAdError;
                         var errorCode = error.GetCode();

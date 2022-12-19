@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "484737574060",
+    "project_id": "mascom-goodmatch",
+    "storage_bucket": "mascom-goodmatch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484737574060:android:32d0a2f7a88e116a1e2b09",
+        "android_client_info": {
+          "package_name": "com.falcon.p.mcom.goodsmatch.puzzle.triplemaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484737574060-4rfl7j0uts3nbk37is2ah0q8c51dh006.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMEwZA_LtjY7tnqNVbLRaeFHW3PM5jQiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484737574060-4rfl7j0uts3nbk37is2ah0q8c51dh006.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

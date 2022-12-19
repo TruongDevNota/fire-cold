@@ -1,4 +1,5 @@
-﻿using Base.Ads;
+﻿using Base;
+using Base.Ads;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -70,7 +71,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         yield return AdsManager.DOInit();
 
 #if USE_FIREBASE
-        yield return FirebaseHelper.DoCheckStatus(null, true);
+        yield return FirebaseManager.DoCheckStatus(null);
 #endif
 
 
@@ -78,15 +79,13 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         {
             user.VersionInstall = UIManager.BundleVersion;
 #if USE_FIREBASE
-            FirebaseHelper.SetUser("Type", "New");
-            AnalyticsManager.LogEvent("User_New");
+            FirebaseManager.SetUser("Type", "New");
 #endif
         }
         else if (user.VersionInstall != UIManager.BundleVersion)
         {
 #if USE_FIREBASE
-            FirebaseHelper.SetUser("Type", "Update");
-            AnalyticsManager.LogEvent("User_Update");
+            FirebaseManager.SetUser("Type", "Update");
 #endif
         }
         user.VersionCurrent = UIManager.BundleVersion;
@@ -112,8 +111,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
         int loadGameIn = (int)(DateTime.Now - startLoadTime).TotalSeconds;
         Debug.Log("loadGameIn: " + loadGameIn + "s");
-
-        AnalyticsManager.LogEvent("start_session", AnalyticsManager.logUser);
     }
 
     public void ForeUpdate()
