@@ -51,6 +51,6 @@ public class UIPopupPigProcess : MonoBehaviour
         DataManager.levelSelect++;
         btn_Continue.interactable = false;
         anim.Hide();
-        GameStateManager.LoadGame(null);
+        GameStateManager.Idle(null);
     }
 }

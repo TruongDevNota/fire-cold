@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Base.Ads;
+using Spine.Unity;
+using Animation = Spine.Animation;
 
 public class UIPopupReward : MonoBehaviour
 {
@@ -11,10 +13,10 @@ public class UIPopupReward : MonoBehaviour
     Button btn_Claim;
     [SerializeField]
     Button btn_x2Claim;
-    [SerializeField]
-    GameObject starChestObj;
-    [SerializeField]
-    GameObject levelChestObj;
+    //[SerializeField]
+    //GameObject starChestObj;
+    //[SerializeField]
+    //GameObject levelChestObj;
     [SerializeField]
     UIChestItem coinReward;
     [SerializeField]
@@ -22,22 +24,26 @@ public class UIPopupReward : MonoBehaviour
 
     [SerializeField]
     private UIPopupPigProcess popup_PigProcess;
+    [SerializeField]
+    public SkeletonAnimation skeletonAnimation;
+    [SerializeField]
+    Transform coinStarTf;
 
     private bool isStarChes;
     private int coinEarn;
     private int buffEarn;
+    private string starChestSkin = "chest2";
+    string levelChestSkin = "box";
 
     public void ShowStarChestReward(int coinNumber)
     {
         coinEarn = coinNumber;
         isStarChes = true;
 
-        starChestObj.gameObject.SetActive(true);
-        levelChestObj.gameObject.SetActive(false);
+        SetChestSkin(starChestSkin, true);
         buffIdeReward.gameObject.SetActive(false);
         coinReward.gameObject.SetActive(true);
         coinReward.Fill(coinNumber);
-
         anim.Show();
         SwitchActiveAllButton(true);
         btn_Claim.onClick.AddListener(BtnClaimSelect);
@@ -51,18 +57,26 @@ public class UIPopupReward : MonoBehaviour
         coinEarn = coinNumber;
         isStarChes = false;
         buffEarn = buffNum;
-
-        starChestObj.gameObject.SetActive(false);
-        levelChestObj.gameObject.SetActive(true);
+        SetChestSkin(levelChestSkin);
+        DOVirtual.DelayedCall(0.1f, () =>
+        {
+            SoundManager.Play("11._Tieng_mo_hop_o");
+        });
         buffIdeReward.gameObject.SetActive(true);
         buffIdeReward.Fill(buffNum);
         coinReward.gameObject.SetActive(true);
         coinReward.Fill(coinNumber);
-
         anim.Show();
         SwitchActiveAllButton(true);
         btn_Claim.onClick.AddListener(BtnClaimSelect);
         btn_x2Claim.onClick.AddListener(BtnX2ClaimSelect);
+    }
+
+    private void SetChestSkin(string name, bool isDelay = false)
+    {
+        skeletonAnimation.AnimationState.SetAnimation(0, name, false);
+        //skeletonAnimation.AnimationName = name;
+        skeletonAnimation.timeScale = isDelay ? 0 : 1;
     }
 
     public void OnHide()
@@ -74,7 +88,12 @@ public class UIPopupReward : MonoBehaviour
     {
         if (isStarChes)
         {
-            CoinManager.Add(coinEarn, btn_Claim.transform);
+            skeletonAnimation.timeScale = 1;
+            SoundManager.Play("10._Tieng_mo_hop_bac");
+            DOVirtual.DelayedCall(0.7f, () =>
+            {
+                CoinManager.Add(coinEarn, coinStarTf);
+            });
             UIMainScreen.Instance.FetchData();
             DOVirtual.DelayedCall(1.5f, () =>
             {

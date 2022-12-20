@@ -83,7 +83,7 @@ public class BoardGame : MonoBehaviour
         if(current == GameState.RebornContinue)
         {
             timeLimitInSeconds += DataManager.GameConfig.rebornTimeAdding;
-            GameStateManager.Ready(null);
+            GameStateManager.Play(null);
         }
     }
 

@@ -195,19 +195,24 @@ public class UIInGame : MonoBehaviour
         if (GameStateManager.CurrentState == GameState.Ready)
         {
             var wait1 = new WaitForSeconds(1);
-            this.PostEvent((int)EventID.OnGameReady, 3);
+            DoPlaySoundCount();
             ShowToastPerfect("3", 0.8f, true);
             yield return wait1;
-            this.PostEvent((int)EventID.OnGameReady, 2);
+            DoPlaySoundCount();
             ShowToastPerfect("2", 0.8f, true);
             yield return wait1;
-            this.PostEvent((int)EventID.OnGameReady, 1);
+            DoPlaySoundCount();
             ShowToastPerfect("1", 0.8f, true);
             yield return wait1;
-            this.PostEvent((int)EventID.OnGameReady, 0);
+            DoPlaySoundCount();
             ShowToastPerfect("go", 0.8f, true);
         }
         GameStateManager.Play(null);
+    }
+
+    private void DoPlaySoundCount()
+    {
+        SoundManager.Play("sfx_task");
     }
 
     public void ShowToastPerfect(string second, float timeAutoHide, bool waitAnimation)

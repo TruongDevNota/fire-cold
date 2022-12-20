@@ -115,7 +115,7 @@ public class UIInfo : MonoBehaviour
         comboTimeSlider.value = currentCoolDownTime;
         instance.comboCountText.text = $"X{instance.comboCount}";
         instance.comboCountText.transform.DOScale(2f, 0f);
-        instance.comboCountText.transform.DOScale(1f, currentCoolDownTime/2);
+        instance.comboCountText.transform.DOScale(1f, 0.5f);
         comboTimeSlider.DOValue(0, currentCoolDownTime).OnComplete(() =>
         {
             ComboCount = 0;

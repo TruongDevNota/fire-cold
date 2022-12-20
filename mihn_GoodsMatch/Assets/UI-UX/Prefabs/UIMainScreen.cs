@@ -27,8 +27,6 @@ public class UIMainScreen : MonoBehaviour
     [SerializeField]
     private UIMainButton btn_PiggyBank;
 
-    
-
     void Awake()
     {
         Instance = this;
@@ -80,10 +78,16 @@ public class UIMainScreen : MonoBehaviour
     #region ButtonHandle
     private void BtnStarChestClick()
     {
+        if (DataManager.GameConfig.isTestRewarPopup)
+        {
+            popupReward.ShowStarChestReward(DataManager.GameConfig.coinRewardByStarChest);
+            return;
+        }
+        
         if (DataManager.UserData.totalStar < DataManager.GameConfig.starCollectStage)
             return;
         StarManager.Add(-DataManager.GameConfig.starCollectStage);
         popupReward.ShowStarChestReward(DataManager.GameConfig.coinRewardByStarChest);
     }
-    #endregion
+#endregion
 }

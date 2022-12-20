@@ -484,12 +484,12 @@ public class UIGameOver : MonoBehaviour
             //Check to show reward popup
             if(DataManager.UserData.LevelChesPercent >= 100)
             {
-                popupReward.ShowLevelChestReward(DataManager.UserData.level * DataManager.GameConfig.coinRewardByLevel, DataManager.GameConfig.buffHintReward);
+                popupReward.ShowLevelChestReward(DataManager.levelSelect * DataManager.GameConfig.coinRewardByLevel, DataManager.GameConfig.buffHintReward);
             }
             else
             {
                 DataManager.levelSelect++;
-                GameStateManager.LoadGame(null);
+                GameStateManager.Idle(null);
             }
         });
     }

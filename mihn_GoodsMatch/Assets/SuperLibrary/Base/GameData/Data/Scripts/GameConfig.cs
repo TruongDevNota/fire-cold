@@ -39,6 +39,7 @@ public class GameConfig : GameConfigBase
     public int unlockChestEachLevel = 25;
     public int coinRewardByLevel = 10;
     public int buffHintReward = 1;
+    public bool isTestRewarPopup = false;
 
     #region MONEY
     [Header("Money")]
