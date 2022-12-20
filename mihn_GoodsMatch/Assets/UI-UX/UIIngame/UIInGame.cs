@@ -204,8 +204,8 @@ public class UIInGame : MonoBehaviour
             DoPlaySoundCount();
             ShowToastPerfect("1", 0.8f, true);
             yield return wait1;
-            DoPlaySoundCount();
-            ShowToastPerfect("go", 0.8f, true);
+            //DoPlaySoundCount();
+            //ShowToastPerfect("go", 0.8f, true);
         }
         GameStateManager.Play(null);
     }

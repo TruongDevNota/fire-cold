@@ -33,6 +33,7 @@ public class UILineRoullete : MonoBehaviour
 
     public void StartRoullete(System.Action<int> callback = null)
     {
+        valueAnchor.anchoredPosition = anchorOriginPos;
         RoulleteCoroutine = StartCoroutine(DoRoullete());
         scaleValueCallback = callback;
     }

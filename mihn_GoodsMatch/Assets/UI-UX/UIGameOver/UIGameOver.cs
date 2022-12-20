@@ -159,6 +159,8 @@ public class UIGameOver : MonoBehaviour
         rebornByAdsButton?.onClick.AddListener(Btn_RebornByAds_Handle);
         rebornBySkipButton?.onClick.AddListener(Btn_SkipCountDown_Handle);
         noThanksButton?.onClick.AddListener(Btn_NoReborn_Handle);
+        btnScaleStarClaim?.onClick.AddListener(Btn_ScaleStarClick);
+        btnStarClaim?.onClick.AddListener(Btn_StarClaimClick);
     }
     IEnumerator DelayShowButton(System.Action callback = null)
     {
@@ -257,7 +259,7 @@ public class UIGameOver : MonoBehaviour
             if (isWin)
                 animWin.Show(null, () => {
                     OnShowResult(true);
-                    lineRoullete.StartRoullete();
+                    lineRoullete.StartRoullete(OnStarScaleHandle);
                 });
             else
                 animLose.Show(null, () => OnShowResult(false));
@@ -274,40 +276,45 @@ public class UIGameOver : MonoBehaviour
         {
             btnStarClaim.interactable = true;
             btnScaleStarClaim.interactable = true;
-            btnScaleStarClaim?.onClick.RemoveAllListeners();
 
             DataManager.Save();
             btnStarClaim?.gameObject.SetActive(false);
             DOVirtual.DelayedCall(timeDelayBtnBack, () => {
                 btnStarClaim?.gameObject.SetActive(true);
-                btnStarClaim?.onClick.RemoveAllListeners();
-                btnStarClaim?.onClick.AddListener(() =>
-                {
-                    btnStarClaim.interactable = false;
-                    btnScaleStarClaim.interactable = false;
-                    lineRoullete.StopRoulelete();
-                    StarManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
-                    DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
-                });
             });
             txtScaleStar.text = $"{GameStatisticsManager.goldEarn * bonusAds}";
             btnScaleStarClaim?.gameObject.SetActive(true);
-            btnScaleStarClaim?.onClick.AddListener(() =>
-            {
-                btnStarClaim.interactable = false;
-                btnScaleStarClaim.interactable = false;
-                lineRoullete.StopRoulelete();
-                AdsManager.ShowVideoReward((e, t) =>
-                {
-                    if (e == AdEvent.ShowSuccess)
-                    {
-                        StarManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
-                    }
-                    DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
-                }, "ClaimStarScale", "star");
-            });
         }
     }
+
+    private void Btn_StarClaimClick()
+    {
+        btnStarClaim.interactable = false;
+        btnScaleStarClaim.interactable = false;
+        lineRoullete.StopRoulelete();
+        StarManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
+        DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
+    }
+
+    private void Btn_ScaleStarClick()
+    {
+        lineRoullete.StopRoulelete();
+        btnScaleStarClaim.interactable = false;
+        AdsManager.ShowVideoReward((e, t) =>
+        {
+            if (e == AdEvent.ShowSuccess)
+            {
+                StarManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
+                btnStarClaim.interactable = false;
+            }
+            else
+            {
+                
+            }
+            DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
+        }, "ClaimStarScale", "star");
+    }
+
     public virtual void ShowContinue()
     {
         Status = UIAnimStatus.IsAnimationShow;
@@ -460,6 +467,10 @@ public class UIGameOver : MonoBehaviour
             if (e == AdEvent.ShowSuccess)
             {
                 Reborn();
+            }
+            else
+            {
+                ShowResult(GameStateManager.CurrentState == GameState.Complete);
             }
         }, "ContinueWithAds", "TimePlay");
     }

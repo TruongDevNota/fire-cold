@@ -798,31 +798,42 @@ namespace Base.Ads
                     }
                     else
                     {
-                        if (rewardToInter && IronHelper.InterIsReady)
+                        if (rewardToInter)
                         {
-                            Debug.Log("[AdsManager] ShowVideoReward MAX Reward --> MAX Inter");
+                            if (IronHelper.InterIsReady)
+                            {
+                                Debug.Log("[AdsManager] ShowVideoReward MAX Reward --> MAX Inter");
 
-                            LogEvent("ad_" + AdType.Reward + "_" + AdType.Inter, ParamsBase(placementName, itemName, DefaultMediation));
+                                LogEvent("ad_" + AdType.Reward + "_" + AdType.Inter, ParamsBase(placementName, itemName, DefaultMediation));
 
-                            MaxHelper.ShowInterstitial(onSuccess, placementName, itemName);
+                                MaxHelper.ShowInterstitial(onSuccess, placementName, itemName);
+                            }
+                            else
+                            {
+                                Debug.Log("[AdsManager] ShowVideoReward MAX Inter --> NOT AVAIABLE --> Try show AdUseBackup: " + GameConfig.adUseBackup + " " + AdmobHelper.IsInitInter);
+
+                                MaxHelper.ShowRewarded(onSuccess, placementName, itemName);
+
+                                if (GameConfig.adUseBackup && AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.IsInitReward == false)
+                                {
+                                    Debug.Log("[AdsManager] ShowInterstitial MAX Reward --> NOT AVAIABLE --> ADMOB Init Reward");
+                                    instance.StartCoroutine(AdmobHelper.DOInit(IsDebug, AdmobHelper.InitReward));
+                                }
+                            }
                         }
                         else
                         {
-                            Debug.Log("[AdsManager] ShowVideoReward MAX Inter --> NOT AVAIABLE --> Try show AdUseBackup: " + GameConfig.adUseBackup + " " + AdmobHelper.IsInitInter);
+                            Debug.LogWarning("[AdsManager] ShowVideoReward --> NOT AVAIABLE ------------------------------");
 
-                            MaxHelper.ShowRewarded(onSuccess, placementName, itemName);
+                            onSuccess?.Invoke(AdEvent.ShowNotAvailable, AdType.Reward);
 
-                            if (GameConfig.adUseBackup && AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.IsInitReward == false)
-                            {
-                                Debug.Log("[AdsManager] ShowInterstitial MAX Reward --> NOT AVAIABLE --> ADMOB Init Reward");
-                                instance.StartCoroutine(AdmobHelper.DOInit(IsDebug, AdmobHelper.InitReward));
-                            }
+                            SetStatus(AdType.Reward, AdEvent.ShowNotAvailable, placementName, itemName, DefaultMediation);
                         }
                     }
                 }
                 else
                 {
-                    Debug.LogWarning("[AdsManager] ShowVideoReward --> NOT AVAIABLE ------------------------------");
+                    Debug.LogWarning("[AdsManager] ShowVideoReward --> NOT DefaultMediation ------------------------------");
 
                     onSuccess?.Invoke(AdEvent.ShowNotAvailable, AdType.Reward);
 

@@ -47,6 +47,10 @@ public class UIPopupPiggyBank : MonoBehaviour
                 CoinManager.Add(DataManager.UserData.totalBankCoin);
                 DataManager.UserData.totalBankCoin = 0;
             }
+            else
+            {
+
+            }
         }, "UIPopupPiggyBank_OnClaim");
     }
 }

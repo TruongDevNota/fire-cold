@@ -22,6 +22,7 @@ public class UIShopItem : MonoBehaviour
 
     int index;
     int value;
+
     public void Init(int index, int valueToBuy, float price, System.Action callback = null)
     {
         this.index = index;
@@ -30,6 +31,7 @@ public class UIShopItem : MonoBehaviour
         txt_Price.text = "$"+price.ToString("n2");
         btn_BuyWithCoin?.gameObject.SetActive(index > 0);
         btn_BuyWithAds?.gameObject.SetActive(index == 0);
+        btn_BuyWithAds.interactable = index == 0;
     }
 
     public void CheckTimeToBuy()
@@ -47,8 +49,12 @@ public class UIShopItem : MonoBehaviour
             if(e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 lastTimeViewAds = Time.realtimeSinceStartup;
-
                 CoinManager.Add(value, transform);
+                btn_BuyWithAds.interactable = false;
+            }
+            else
+            {
+
             }
         }, "ShopBuyCoinWithAds", "coin");
     }

@@ -48,6 +48,10 @@ public class PopupBuyBuff : MonoBehaviour
                 {
                     OnBuySuccess();
                 }
+                else
+                {
+                    OnHide();
+                }
             }, "BuyBuffInGame");
         });
     }

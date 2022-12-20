@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UIShop : MonoBehaviour
 {
     [SerializeField]
+    UIAnimation anim;
+    [SerializeField]
     UIShopItem uiItemPrefab;
     [SerializeField]
     ScrollRect scrollRect;
@@ -38,5 +40,11 @@ public class UIShop : MonoBehaviour
 
     public void OnShow()
     {
+        anim.Show();
+        Init();
+    }
+    public void OnHide()
+    {
+        anim.Hide();
     }
 }

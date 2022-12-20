@@ -35,6 +35,12 @@ public class UIPopupReward : MonoBehaviour
     private string starChestSkin = "chest2";
     string levelChestSkin = "box";
 
+    private void Start()
+    {
+        btn_Claim.onClick.AddListener(BtnClaimSelect);
+        btn_x2Claim.onClick.AddListener(BtnX2ClaimSelect);
+    }
+
     public void ShowStarChestReward(int coinNumber)
     {
         coinEarn = coinNumber;
@@ -44,10 +50,8 @@ public class UIPopupReward : MonoBehaviour
         buffIdeReward.gameObject.SetActive(false);
         coinReward.gameObject.SetActive(true);
         coinReward.Fill(coinNumber);
-        anim.Show();
         SwitchActiveAllButton(true);
-        btn_Claim.onClick.AddListener(BtnClaimSelect);
-        btn_x2Claim.onClick.AddListener(BtnX2ClaimSelect);
+        anim.Show();
     }
 
     public void ShowLevelChestReward(int coinNumber, int buffNum)
@@ -66,10 +70,8 @@ public class UIPopupReward : MonoBehaviour
         buffIdeReward.Fill(buffNum);
         coinReward.gameObject.SetActive(true);
         coinReward.Fill(coinNumber);
-        anim.Show();
         SwitchActiveAllButton(true);
-        btn_Claim.onClick.AddListener(BtnClaimSelect);
-        btn_x2Claim.onClick.AddListener(BtnX2ClaimSelect);
+        anim.Show();
     }
 
     private void SetChestSkin(string name, bool isDelay = false)
@@ -104,7 +106,7 @@ public class UIPopupReward : MonoBehaviour
         {
             //Show Pig Process
             popup_PigProcess.OnShow(coinEarn);
-            DataManager.UserData.totalHintBuff++;
+            DataManager.UserData.totalHintBuff += buffEarn;
             OnHide();
         }
     }
@@ -118,16 +120,20 @@ public class UIPopupReward : MonoBehaviour
     private void BtnX2ClaimSelect()
     {
         string placeAds = isStarChes ? "OpenIdleStarChestReward" : "UnlockLevelChestReward";
-        SwitchActiveAllButton(false);
         AdsManager.ShowVideoReward((e, t) =>
         {
             var lastValue = coinEarn;
             if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
+                SwitchActiveAllButton(false);
                 coinEarn *= 2;
                 buffEarn *= 2;
                 coinReward.DoTextAnim(lastValue, coinEarn);
                 OnClaimReward();
+            }
+            else
+            {
+                
             }
         }, placeAds, "coin");
     }
@@ -136,7 +142,5 @@ public class UIPopupReward : MonoBehaviour
     {
         btn_Claim.interactable = active;
         btn_x2Claim.interactable = active;
-        btn_Claim.onClick.RemoveAllListeners();
-        btn_x2Claim.onClick.RemoveAllListeners();
     }
 }
