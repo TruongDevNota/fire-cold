@@ -127,13 +127,8 @@ public class UIPopupReward : MonoBehaviour
                 coinEarn *= 2;
                 buffEarn *= 2;
                 coinReward.DoTextAnim(lastValue, coinEarn);
+                OnClaimReward();
             }
-            else
-            {
-                Debug.Log($"!!!!! video reward fail.");
-                UIToast.ShowNotice("view video reward fail!");
-            }
-            OnClaimReward();
         }, placeAds, "coin");
     }
 

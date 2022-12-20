@@ -454,6 +454,9 @@ MonoBehaviour:
   endPos: 0
   timeAnimationOut: 0.175
   timeDelayOut: 0
+  m_HideStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
   m_HideCompletedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -475,14 +478,14 @@ MonoBehaviour:
   itemNum: 8
   values: 320000006400000096000000c8000000fa0000002c0100005e01000090010000
   price:
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
+  - 4.99
+  - 9.99
+  - 14.99
+  - 19.99
+  - 24.99
+  - 29.99
+  - 34.99
+  - 39.99
 --- !u!1 &3448746564366501028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,6 +1059,7 @@ GameObject:
   - component: {fileID: 8899750714073894894}
   - component: {fileID: 3167162674350518213}
   - component: {fileID: 4350451012187017541}
+  - component: {fileID: 6163332133530546170}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -1122,6 +1126,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6163332133530546170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597998457345038863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48e95be431103745a49d3105173357c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
 --- !u!1 &8905110595094068057
 GameObject:
   m_ObjectHideFlags: 0

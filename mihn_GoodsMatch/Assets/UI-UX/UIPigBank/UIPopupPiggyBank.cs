@@ -47,11 +47,6 @@ public class UIPopupPiggyBank : MonoBehaviour
                 CoinManager.Add(DataManager.UserData.totalBankCoin);
                 DataManager.UserData.totalBankCoin = 0;
             }
-            else
-            {
-                Debug.Log($"!!!!! video reward fail.");
-                UIToast.ShowNotice("view video reward fail!");
-            }
         }, "UIPopupPiggyBank_OnClaim");
     }
 }

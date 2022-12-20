@@ -237,12 +237,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882146264}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectColor: {r: 0.764151, g: 0.46459103, b: 0, a: 1}
   m_EffectDistance: {x: 4, y: 4}
   m_UseGraphicAlpha: 1
 --- !u!114 &7169294559533264226
@@ -544,6 +544,7 @@ GameObject:
   - component: {fileID: 7589979481511368800}
   - component: {fileID: 5505806731320766631}
   - component: {fileID: 8636745478461312035}
+  - component: {fileID: 9196760818802956535}
   m_Layer: 5
   m_Name: Panel_Buff
   m_TagString: Untagged
@@ -648,6 +649,19 @@ MonoBehaviour:
   m_HideCompletedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9196760818802956535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328632367278325224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48e95be431103745a49d3105173357c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
 --- !u!1 &468132674399413335
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,8 +2412,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navigation: 0
-  dontPlayWithParent: 0
-  hideAtStart: 1
+  dontPlayWithParent: 1
+  hideAtStart: 0
   hideAtEnd: 1
   animationAtStart: 0
   status: 0

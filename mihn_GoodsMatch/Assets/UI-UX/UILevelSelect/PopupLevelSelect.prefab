@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2046097236143157527}
   - component: {fileID: 5481851801627398460}
   - component: {fileID: 6609206872861487036}
+  - component: {fileID: 8131229754235134011}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -77,6 +78,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8131229754235134011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051297837475407094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48e95be431103745a49d3105173357c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
 --- !u!1 &2049762768864265632
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 5204787043189274134}
   itemSelectPrefab: {fileID: 6190706601091407537, guid: fe5ef7d882232634a9edcbef87beeab2, type: 3}
-  totalLevel: 30
+  totalLevel: 50
   scrollRect: {fileID: 6157354883564320362}
   contentRect: {fileID: 6157354883174933029}
   isTest: 0
@@ -771,7 +785,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &4296684023959819625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -789,13 +803,13 @@ MonoBehaviour:
     m_Right: 5
     m_Top: 2
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 120, y: 176}
-  m_Spacing: {x: 8, y: 12}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_CellSize: {x: 110, y: 176}
+  m_Spacing: {x: 10, y: 12}
+  m_Constraint: 1
+  m_ConstraintCount: 3
 --- !u!114 &6470339360743356095
 MonoBehaviour:
   m_ObjectHideFlags: 0

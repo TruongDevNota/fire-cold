@@ -35,6 +35,7 @@ apply plugin: 'com.android.library'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.multidex:multidex:2.0.1"
 // Android Resolver Dependencies Start
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.1' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:12
     implementation 'androidx.lifecycle:lifecycle-process:2.4.1' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:17
@@ -46,14 +47,16 @@ dependencies {
     implementation 'com.android.support:customtabs:28.+' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:7
     implementation 'com.android.support:recyclerview-v7:28.+' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:6
     implementation 'com.android.support:support-v4:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
+    implementation 'com.applovin.mediation:adcolony-adapter:4.8.0.2' // Assets/MaxSdk/Mediation/AdColony/Editor/Dependencies.xml:4
     implementation 'com.applovin.mediation:bytedance-adapter:4.8.1.0.0' // Assets/MaxSdk/Mediation/ByteDance/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:facebook-adapter:[6.12.0.1]' // Assets/MaxSdk/Mediation/Facebook/Editor/Dependencies.xml:8
     implementation 'com.applovin.mediation:google-adapter:[21.4.0.0]' // Assets/MaxSdk/Mediation/Google/Editor/Dependencies.xml:5
     implementation 'com.applovin.mediation:google-ad-manager-adapter:[21.4.0.0]' // Assets/MaxSdk/Mediation/GoogleAdManager/Editor/Dependencies.xml:5
-    implementation 'com.applovin.mediation:hyprmx-adapter:6.0.3.1' // Assets/MaxSdk/Mediation/HyprMX/Editor/Dependencies.xml:4
     implementation 'com.applovin.mediation:inmobi-adapter:10.1.2.1' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:4
     implementation 'com.applovin.mediation:ironsource-adapter:7.2.6.0.0' // Assets/MaxSdk/Mediation/IronSource/Editor/Dependencies.xml:8
     implementation 'com.applovin.mediation:mintegral-adapter:16.3.21.0' // Assets/MaxSdk/Mediation/Mintegral/Editor/Dependencies.xml:8
     implementation 'com.applovin.mediation:smaato-adapter:21.8.6.0' // Assets/MaxSdk/Mediation/Smaato/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:unityads-adapter:4.5.0.0' // Assets/MaxSdk/Mediation/UnityAds/Editor/Dependencies.xml:4
     implementation 'com.applovin.mediation:vungle-adapter:6.12.0.4' // Assets/MaxSdk/Mediation/Vungle/Editor/Dependencies.xml:4
     implementation 'com.applovin:applovin-sdk:11.6.0' // Assets/MaxSdk/AppLovin/Editor/Dependencies.xml:4
     implementation 'com.appsflyer:af-android-sdk:6.9.4' // Assets/AppsFlyer/Editor/AppsFlyerDependencies.xml:6
@@ -63,7 +66,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-gamingservices:[15.1,16)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:9
     implementation 'com.facebook.android:facebook-login:[15.1,16)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:7
     implementation 'com.facebook.android:facebook-share:[15.1,16)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:8
-    implementation 'com.google.android.gms:play-services-ads:21.3.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
+    implementation 'com.google.android.gms:play-services-ads:21.0.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
     implementation 'com.google.android.gms:play-services-base:18.1.0' // Assets/Firebase/Editor/AppDependencies.xml:17
     implementation 'com.google.firebase:firebase-analytics:21.2.0' // Assets/Firebase/Editor/RemoteConfigDependencies.xml:15
     implementation 'com.google.firebase:firebase-analytics-unity:10.3.0' // Assets/Firebase/Editor/AnalyticsDependencies.xml:18

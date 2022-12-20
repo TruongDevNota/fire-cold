@@ -67,7 +67,6 @@ public class CoinManager : MonoBehaviour
             if (onSuccess == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 Add(CoinByAds, transform);
-                AdsManager.ShowNotice(onSuccess);
             }
             else
             {

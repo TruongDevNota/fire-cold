@@ -50,11 +50,6 @@ public class UIShopItem : MonoBehaviour
 
                 CoinManager.Add(value, transform);
             }
-            else
-            {
-                Debug.Log($"!!!!! video reward fail.");
-                UIToast.ShowNotice("view video reward fail!");
-            }
         }, "ShopBuyCoinWithAds", "coin");
     }
 }

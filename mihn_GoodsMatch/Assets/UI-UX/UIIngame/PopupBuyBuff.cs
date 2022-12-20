@@ -48,11 +48,6 @@ public class PopupBuyBuff : MonoBehaviour
                 {
                     OnBuySuccess();
                 }
-                else
-                {
-                    Debug.Log($"!!!!! video reward fail.");
-                    UIToast.ShowNotice("view video reward fail!");
-                }
             }, "BuyBuffInGame");
         });
     }

@@ -303,12 +303,6 @@ public class UIGameOver : MonoBehaviour
                     {
                         StarManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
                     }
-                    else
-                    {
-                        Debug.Log($"!!!!! video reward fail.");
-                        UIToast.ShowNotice("view video reward fail!");
-                        StarManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
-                    }
                     DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
                 }, "ClaimStarScale", "star");
             });
@@ -466,11 +460,6 @@ public class UIGameOver : MonoBehaviour
             if (e == AdEvent.ShowSuccess)
             {
                 Reborn();
-            }
-            else
-            {
-                Debug.Log($"!!!!! video reward fail.");
-                UIToast.ShowNotice("view video reward fail!");
             }
         }, "ContinueWithAds", "TimePlay");
     }
