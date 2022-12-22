@@ -126,7 +126,6 @@ public class UIInfo : MonoBehaviour
         var lastStar = GameStatisticsManager.starEarn;
         GameStatisticsManager.starEarn *= ComboCount;
         startText.DOText(lastStar, GameStatisticsManager.starEarn, comboCollectTimne);
-        UIPerfectToast.instance?.Show($"Combo X{ComboCount}".ToUpper(), comboCollectTimne, true);
         float t = 0;
         int remainTime = Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0));
         while (t< comboCollectTimne)

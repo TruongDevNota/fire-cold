@@ -292,7 +292,7 @@ public class UIGameOver : MonoBehaviour
         btnStarClaim.interactable = false;
         btnScaleStarClaim.interactable = false;
         lineRoullete.StopRoulelete();
-        StarManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
+        CoinManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
         DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
     }
 
@@ -304,7 +304,7 @@ public class UIGameOver : MonoBehaviour
         {
             if (e == AdEvent.ShowSuccess)
             {
-                StarManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
+                CoinManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
                 btnStarClaim.interactable = false;
             }
             else

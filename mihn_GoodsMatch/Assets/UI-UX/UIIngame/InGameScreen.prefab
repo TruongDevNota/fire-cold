@@ -319,7 +319,7 @@ MonoBehaviour:
   startText: {fileID: 4247731464492678438}
   comboTimeSlider: {fileID: 784619430625691728}
   comboCountText: {fileID: 629462814000821694}
-  comboTimeCooldown: 4
+  comboCollectTimne: 0
   starPrefab: {fileID: 1293701248151147880, guid: 576d4450b65fdb64092cf16f53c35772, type: 3}
   defaultTarget: {fileID: 1162727480251367131}
 --- !u!114 &4057370115634142019
@@ -2698,7 +2698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.00062561035, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
   m_SizeDelta: {x: 40, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &903342946056319091

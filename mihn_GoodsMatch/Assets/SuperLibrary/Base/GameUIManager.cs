@@ -19,8 +19,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     private UIMainScreen mainScreen = null;
     [SerializeField]
     private UIAnimation coinScreen;
-    [SerializeField]
-    private UIAnimation starScreen;
 
     public static UIMainScreen MainScreen => instance?.mainScreen;
 
@@ -211,7 +209,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         Time.timeScale = 1;
         LoadGameContent.PrepairDataToPlay(); 
         coinScreen.Hide();
-        starScreen.Hide();
     }
 
     public override void InitGame(object data)

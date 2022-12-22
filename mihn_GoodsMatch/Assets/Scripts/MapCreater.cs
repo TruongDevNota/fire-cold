@@ -19,6 +19,11 @@ public class MapCreater : MonoBehaviour
     [SerializeField] Vector2 shelfUnitSize = new Vector2(1f, 0.5f);
     [SerializeField] float shelfDistance = 0.5f;
 
+    [Header("Challenge")]
+    [SerializeField] eMapMovingType testMoveType;
+    [SerializeField] float startSpawX;
+    [SerializeField] float teleportOffsetX;
+
     [Header("Camera Config")]
     [SerializeField] Camera mainCamera;
     [SerializeField] Camera inGameUICam;

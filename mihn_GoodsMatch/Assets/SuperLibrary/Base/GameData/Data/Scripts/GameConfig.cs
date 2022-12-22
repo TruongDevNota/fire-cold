@@ -97,3 +97,13 @@ public class BossData
     public int health;
     public int damage;
 }
+
+[Serializable]
+public enum eMapMovingType
+{
+    None,
+    Left,
+    Right,
+    Up,
+    Down
+}
