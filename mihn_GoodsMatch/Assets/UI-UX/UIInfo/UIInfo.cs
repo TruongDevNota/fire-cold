@@ -14,7 +14,9 @@ public class UIInfo : MonoBehaviour
 
     [SerializeField] Slider comboTimeSlider = null;
     [SerializeField] Text comboCountText = null;
-    [SerializeField] float comboTimeCooldown = 3f;
+    [SerializeField] float comboCollectTimne;
+    float comboTimeCooldown;
+    private int matchCount;
 
     [Header("Star effect")]
     [SerializeField]
@@ -22,17 +24,21 @@ public class UIInfo : MonoBehaviour
     public Transform defaultTarget;
 
     float currentCoolDownTime;
-    int comboCount = 0;
+    int comboCount;
     public int ComboCount
     { 
         get { return instance.comboCount; }
         set
         {
-            if(value != instance.comboCount)
+            if (value != instance.comboCount)
                 instance.comboCount = value;
-            comboTimeSlider.gameObject.SetActive(instance.comboCount != 0);
-            if (instance.comboCount != 0)
+            if (value < 1)
+                instance.comboCountText.text = $"X1";
+            if (instance.comboCount > 0)
+            {
+                currentCoolDownTime = comboTimeCooldown;
                 instance.DoComboCountDown();
+            }
         }
     }
     Coroutine coolDownCoroutine;
@@ -76,14 +82,17 @@ public class UIInfo : MonoBehaviour
             case GameState.Init:
             case GameState.Restart:
                 this.timePlayed = 0;
-                timeLeftText.text = ("-:--");
+                timeLeftText.text = "-:--";
+                GameStatisticsManager.starEarn = 0;
+
+                comboCount = 3;
+                startText.text = "x3";
+                comboTimeCooldown = BoardGame.instance.pTimeLimitInSeconds / 3;
                 comboTimeSlider.minValue = 0;
                 comboTimeSlider.maxValue = comboTimeCooldown;
-                comboTimeSlider.value = 0;
+                comboTimeSlider.value = comboTimeCooldown;
                 currentCoolDownTime = comboTimeCooldown;
-                ComboCount = 0;
-                GameStatisticsManager.starEarn = 0;
-                startText.text = "0";
+                matchCount = 0;
                 break;
             case GameState.Ready:
                 timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
@@ -93,19 +102,51 @@ public class UIInfo : MonoBehaviour
                 DOTween.Kill(comboTimeSlider);
                 break;
             case GameState.Play:
-                if (last == GameState.Pause)
-                {
+                if(ComboCount > 0)
                     DoComboCountDown();
+                break;
+            case GameState.RebornContinue:
+                ComboCount = 0;
+                break;
+            case GameState.WaitComplete:
+                if (ComboCount > 1)
+                {
+                    currentCoolDownTime = comboTimeSlider.value;
+                    DOTween.Kill(comboTimeSlider);
+                    StartCoroutine(YieldShowBonus());
                 }
+                else
+                    GameStateManager.Complete(null);
                 break;
         }
     }
 
+    private IEnumerator YieldShowBonus()
+    {
+        var lastStar = GameStatisticsManager.starEarn;
+        GameStatisticsManager.starEarn *= ComboCount;
+        startText.DOText(lastStar, GameStatisticsManager.starEarn, comboCollectTimne);
+        UIPerfectToast.instance?.Show($"Combo X{ComboCount}".ToUpper(), comboCollectTimne, true);
+        float t = 0;
+        int remainTime = Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0));
+        while (t< comboCollectTimne)
+        {
+            var v = remainTime * (1 - t / comboCollectTimne);
+            timeLeftText.text = TimeSpan.FromSeconds(v).ToString("m':'ss");
+            t += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        timeLeftText.text = "0:00";
+
+        yield return new WaitForSeconds(0.2f);
+        GameStateManager.Complete(null);
+    }
+
     private void OnNewMatchSuccess(object obj)
     {
-        ComboCount++;
+        matchCount++;
         var lastStar = GameStatisticsManager.starEarn;
-        GameStatisticsManager.starEarn += DataManager.GameConfig.startPerMatch;
+        GameStatisticsManager.starEarn += matchCount % 9 + 1;
         startText.DOText(lastStar, GameStatisticsManager.starEarn, 1f);
     }
 
@@ -118,7 +159,7 @@ public class UIInfo : MonoBehaviour
         instance.comboCountText.transform.DOScale(1f, 0.5f);
         comboTimeSlider.DOValue(0, currentCoolDownTime).OnComplete(() =>
         {
-            ComboCount = 0;
+            ComboCount--;
             currentCoolDownTime = comboTimeCooldown;
         });
     }

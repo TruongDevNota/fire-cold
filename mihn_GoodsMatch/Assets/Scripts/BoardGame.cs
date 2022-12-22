@@ -38,6 +38,9 @@ public class BoardGame : MonoBehaviour
     public float timeLimitInSeconds;
     public float pTimeLimitInSeconds { get { return timeLimitInSeconds; } }
 
+    private int matchCount = 0;
+
+
     private bool gameSetupDone = false;
     public bool isPlayingGame = false;
     public bool isPausing = false;

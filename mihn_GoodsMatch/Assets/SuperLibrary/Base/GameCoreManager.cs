@@ -112,12 +112,13 @@ public class GameCoreManager : GameManagerBase<GameCoreManager>
 
     protected override void WaitingGameComplete(object data)
     {
-        float timeWaitDie = 2f;
-        DOVirtual.DelayedCall(timeWaitDie, () =>
-        {
-            if (GameStateManager.CurrentState == GameState.WaitComplete)
-                GameStateManager.Complete(null);
-        }).SetUpdate(false).SetId(this);
+        Debug.Log("Game Core goto WaitGameComplete");
+        //float timeWaitDie = 2f;
+        //DOVirtual.DelayedCall(timeWaitDie, () =>
+        //{
+        //    if (GameStateManager.CurrentState == GameState.WaitComplete)
+        //        GameStateManager.Complete(null);
+        //}).SetUpdate(false).SetId(this);
     }
 
     protected override void WaitingGameOver(object data)

@@ -4895,6 +4895,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 655595649}
     m_Modifications:
+    - target: {fileID: 1192510837, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: comboCollectTimne
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 286375332752740824, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: popupBuyBuff
       value: 
@@ -4995,6 +4999,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2113748676}
+    - target: {fileID: 4281145682688846922, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_Text
+      value: 'BONUS      '
+      objectReference: {fileID: 0}
     - target: {fileID: 6736125681113481279, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

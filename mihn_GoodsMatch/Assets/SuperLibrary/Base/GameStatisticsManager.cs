@@ -57,7 +57,6 @@ public class GameStatisticsManager : MonoBehaviour
                     }
                     userData.WinStreak++;
 
-                    goldEarn = 1000;
                     if(userData.level +1 == DataManager.levelSelect)
                         userData.level++;
 
