@@ -1,6 +1,7 @@
 ﻿using Base;
 using Base.Ads;
 using DG.Tweening;
+using MyBox;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,6 +36,34 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     private GameConfig gameConfig => DataManager.GameConfig;
     private UserData user => DataManager.UserData;
 
+    [Header("Hide Object in Game")]
+    [SerializeField]
+    protected Toggle hideObjectInGameToggle = null;
+    [SerializeField]
+    protected List<GameObject> hideObjectInGame = new List<GameObject>();
+
+    public static bool IsHideObjectInGame
+    {
+        get
+        {
+            if (instance != null && instance.hideObjectInGameToggle != null)
+                return instance.hideObjectInGameToggle.isOn;
+            return false;
+        }
+    }
+    public void CheckHideObject(bool isOn)
+    {
+        foreach (var i in hideObjectInGame)
+        {
+            if (i != null && i.gameObject != null)
+            {
+                var c = i.gameObject.GetOrAddComponent<CanvasGroup>();
+                c.alpha = isOn ? 0 : 1;
+            }
+        }
+
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -52,6 +81,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         base.Start();
         Input.multiTouchEnabled = false;
         StartCoroutine(LoadGameData());
+
+        if (hideObjectInGameToggle)
+        {
+            CheckHideObject(hideObjectInGameToggle.isOn);
+            hideObjectInGameToggle.onValueChanged.AddListener((isOn) => CheckHideObject(isOn));
+        }
     }
 
 
