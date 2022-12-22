@@ -10,14 +10,14 @@ public class MovingTF : MonoBehaviour
     public IEnumerator YiledMovingInSameTime(Vector3 targetPos, float duration = 0.1f, System.Action onDone = null)
     {
         float t = 0;
-        var starPos = transform.position;
+        var starPos = transform.localPosition;
         SoundManager.Play("4. Moving item");
         while(t < duration)
         {
-            transform.position = Vector3.Lerp(starPos, targetPos, t/duration);
+            transform.localPosition = Vector3.Lerp(starPos, targetPos, t/duration);
             t += Time.deltaTime;
             yield return null;
         }
-        transform.position = targetPos;
+        transform.localPosition = targetPos;
     }
 }

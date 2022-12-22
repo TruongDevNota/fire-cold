@@ -25,12 +25,12 @@ public class LoadGameContent : MonoBehaviour
 
     protected string randomTip => tips[UnityEngine.Random.Range(0, tips.Length)];
 
-    public static void PrepairDataToPlay()
+    public static void PrepairDataToPlay(object data)
     {
-        instance.StartCoroutine(instance.DoPrepairDataToPlay());
+        instance.StartCoroutine(instance.DoPrepairDataToPlay(data));
     }
 
-    private IEnumerator DoPrepairDataToPlay()
+    private IEnumerator DoPrepairDataToPlay(object data)
     {
         //GameStateManager.Init(null);
         //UIToast.ShowLoading(randomTip, 5f, UIToast.IconTip);
@@ -58,7 +58,7 @@ public class LoadGameContent : MonoBehaviour
             yield return null;
         }
 
-        GameStateManager.Init(null);
+        GameStateManager.Init(data);
     }
 
     public void ShowError(FileStatus status)

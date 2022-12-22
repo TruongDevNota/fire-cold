@@ -19,6 +19,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     private UIMainScreen mainScreen = null;
     [SerializeField]
     private UIAnimation coinScreen;
+    [SerializeField]
+    private UIPopupChallenge popupChallenge = null;
 
     public static UIMainScreen MainScreen => instance?.mainScreen;
 
@@ -183,6 +185,13 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             });
             inGameScreen.Hide();
             gameOverScreen.Hide();
+
+            if(DataManager.UserData.level == 1 || 
+            DataManager.UserData.level % DataManager.GameConfig.levelsToNextChallenge == 0  
+            && DataManager.UserData.level / DataManager.GameConfig.levelsToNextChallenge > DataManager.UserData.challengeLevel)
+            {
+                popupChallenge?.OnShow();
+            }
         };
 
         if(GameStateManager.LastState == GameState.Complete 
@@ -207,7 +216,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     public override void LoadGame(object data)
     {
         Time.timeScale = 1;
-        LoadGameContent.PrepairDataToPlay(); 
+        LoadGameContent.PrepairDataToPlay(data); 
         coinScreen.Hide();
     }
 

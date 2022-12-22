@@ -41,6 +41,9 @@ public class GameConfig : GameConfigBase
     public int buffHintReward = 1;
     public bool isTestRewarPopup = false;
 
+    [Header("Challenge")]
+    public int levelsToNextChallenge = 1;
+
     #region MONEY
     [Header("Money")]
     [SerializeField]

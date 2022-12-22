@@ -16,6 +16,7 @@ public class UserData : UserAnalysic
 
     [Header("Data")]
     public int level = 0;
+    public int challengeLevel = 0;
 
     [Header("Reward Unlock")]
     private int levelChestPercent = 0;

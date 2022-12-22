@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class MapCreater : MonoBehaviour
 {
     [Header("Test Map Data")]
-    [SerializeField] bool isTest = true;
+    [SerializeField] bool isMove = true;
     [SerializeField] TextAsset sampleMapTextAsset;
 
     [Header("Map Create Config")]
@@ -18,11 +18,13 @@ public class MapCreater : MonoBehaviour
     [SerializeField] Vector2 mapUnitSize = Vector2.one;
     [SerializeField] Vector2 shelfUnitSize = new Vector2(1f, 0.5f);
     [SerializeField] float shelfDistance = 0.5f;
+    [SerializeField] int defautShelfSize = 3;
 
     [Header("Challenge")]
     [SerializeField] eMapMovingType testMoveType;
     [SerializeField] float startSpawX;
-    [SerializeField] float teleportOffsetX;
+    [SerializeField] float moveLeftSpeed;
+    [SerializeField] float moveRightSpeed;
 
     [Header("Camera Config")]
     [SerializeField] Camera mainCamera;
@@ -33,6 +35,12 @@ public class MapCreater : MonoBehaviour
 
     private MapDatum currentMapDatum;
     public List<Goods_Item> itemCreated = new List<Goods_Item>();
+
+    [ButtonMethod]
+    public void CreateTestMap()
+    {
+        CreateMapFromTextAsset(sampleMapTextAsset.text, isMove);
+    }
 
     public void ChangeCameraSize(int mapCollume, int mapRow)
     {
@@ -54,13 +62,13 @@ public class MapCreater : MonoBehaviour
         inGameUICam.orthographicSize = camSize;
     }
 
-    public void CreateMapFromTextAsset(string mapData)
+    public void CreateMapFromTextAsset(string mapData, bool isMove = false)
     {
         var data = ReadMapTextData(mapData);
-        CreateMap(data);
+        CreateMap(data, isMove);
     }
 
-    public void CreateMap(MapDatum datum)
+    public void CreateMap(MapDatum datum, bool isMove)
     {
         int maxColumn = 0;
         currentMapDatum = datum;
@@ -78,17 +86,27 @@ public class MapCreater : MonoBehaviour
             maxColumn = Mathf.Max(maxColumn, line.lineSheves.Count);
             var linesPosition = (midIndexY - i) * mapUnitSize.y;
             Debug.Log($"lineSheves.Count: {line.lineSheves.Count}");
+
+            var leftMargin = -(defautShelfSize * line.lineSheves.Count + shelfDistance * (line.lineSheves.Count - 1)) * 0.5f;
+            var rightMargin = leftMargin + (line.lineSheves.Count - 1) * (defautShelfSize + shelfDistance);
+            var isMoveLeft = (i/2) % 2 == 0;
             for (int i2 = 0; i2 < line.lineSheves.Count; i2++)
             {
                 if (string.IsNullOrEmpty(line.lineSheves[i2]) || line.lineSheves[i2].Contains("-"))
                     continue;
 
                 var itemTypes = ConvertToShelfDatum(line.lineSheves[i2]);
-                var sizeX = itemTypes.Count * mapUnitSize.x;
-                float posX = -(sizeX * line.lineSheves.Count + shelfDistance * (line.lineSheves.Count - 1)) * 0.5f + i2 * (sizeX + shelfDistance);
+                float posX = leftMargin + i2 * (defautShelfSize + shelfDistance);
+                
                 var newShelf = shelfBasePrefab.Spawn().GetComponent<ShelfUnit>();
                 newShelf.transform.localScale = Vector3.one;
                 newShelf.transform.position = new Vector2(posX, linesPosition);
+                newShelf.MoveDir = !isMove ? eMapMovingType.None : isMoveLeft ? eMapMovingType.Left : eMapMovingType.Right;
+                newShelf.movingSpeed = !isMove ? 0 : isMoveLeft ? this.moveLeftSpeed : moveRightSpeed;
+
+                newShelf.teleportPosX = isMoveLeft ? leftMargin - (defautShelfSize + shelfDistance) : rightMargin + (defautShelfSize + shelfDistance);
+                newShelf.reStarPosX = isMoveLeft ? rightMargin : leftMargin;
+                
                 newShelf.cellAmount = itemTypes.Count;
                 newShelf.InitCells();
                 newShelf.transform.parent = transform;

@@ -40,10 +40,11 @@ public class BoardGame : MonoBehaviour
 
     private int matchCount = 0;
 
-
     private bool gameSetupDone = false;
     public bool isPlayingGame = false;
     public bool isPausing = false;
+
+    private bool isChallengeGame = false;
 
     public static BoardGame instance;
 
@@ -58,7 +59,6 @@ public class BoardGame : MonoBehaviour
     private void Start()
     {
         isDraggingItem = false;
-        PrepareSceneLevel();
     }
 
     private void OnEnable()
@@ -78,7 +78,10 @@ public class BoardGame : MonoBehaviour
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
     {
         if(current == GameState.Restart || current == GameState.Init)
-            PrepareSceneLevel();
+        {
+            isChallengeGame = data != null && (bool)data;
+            PrepareSceneLevel(isChallengeGame);
+        }
         if (current == GameState.Pause)
             PauseGame();
         if (current == GameState.Play)
@@ -92,6 +95,9 @@ public class BoardGame : MonoBehaviour
 
     private void Update()
     {
+        foreach (var s in shelves)
+            s.OnMovingFixUpdate();
+
         if (!isPlayingGame || isPausing)
             return;
         Vector3 touchPosition;
@@ -121,15 +127,15 @@ public class BoardGame : MonoBehaviour
             GameOverHandler();
     }
 
-    public void PrepareSceneLevel()
+    public void PrepareSceneLevel(bool isChallenge = false)
     {
-        currentLevel = DataManager.levelSelect <= 30 ? DataManager.levelSelect : Random.Range(20, 30);
+        currentLevel = isChallenge ? DataManager.UserData.challengeLevel : DataManager.levelSelect;
         if(prepareMapCoroutine != null)
             StopCoroutine(prepareMapCoroutine);
-        prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel));
+        prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel, isChallenge));
     }
 
-    private IEnumerator PrepareNewGame(int level)
+    private IEnumerator PrepareNewGame(int level, bool isChallenge)
     {
         Debug.Log($"Level Select: {level}");
         isPlayingGame = false;
@@ -138,33 +144,22 @@ public class BoardGame : MonoBehaviour
 
         ClearMap();
 
-        string path = $"Maps/Map_Level_{level}";
+        string path = !isChallenge ? $"Maps/Map_Level_{level}" : $"ChallengeMaps/Map_Challenge_{level+1}";
         var file = Resources.Load<TextAsset>(path);
-        if (file != null)
+        string configPath = $"ChallengeMaps/Config_Challenge_{level+1}";
+        var config = Resources.Load<TextAsset>(configPath);
+
+        if (file == null || config == null)
         {
-            string mapData = file.text;
-            mapCreater.CreateMapFromTextAsset(mapData);
-        }
-        else
-        {
-            Debug.Log($"Load map data fail - [{path}]");
+            Debug.Log($"Load text data fail - MapPath =[{path}] /n configPath = [{configPath}]");
             GameStateManager.Idle(null);
             yield break;
         }
-
-        string configPath = $"Configs/Config_Level_{level}";
-        var config = Resources.Load<TextAsset>(configPath);
-        if (config != null)
+        else
         {
             currentLevelConfig = JsonUtility.FromJson<LevelConfig>(config.text);
             timeLimitInSeconds = currentLevelConfig.time;
-        }
-        else
-        {
-            Debug.LogError($"Load level config fail - [{configPath}]");
-            timeLimitInSeconds = timeLimitDefault;
-            //GameStateManager.Idle(null);
-            //yield break;
+            mapCreater.CreateMapFromTextAsset(file.text, currentLevelConfig.moveHorizontal || currentLevelConfig.moveVertical);
         }
 
         GameStateManager.Ready(null);
@@ -209,7 +204,11 @@ public class BoardGame : MonoBehaviour
         if (dragingItem != null)
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
         dragingItem = null;
-        GameStateManager.WaitGameOver(null);
+
+        if(isChallengeGame)
+            GameStateManager.WaitComplete(null);
+        else
+            GameStateManager.WaitGameOver(null);
         //UI_Ingame_Manager.instance.OnGameOverHandle(false);
     }
 

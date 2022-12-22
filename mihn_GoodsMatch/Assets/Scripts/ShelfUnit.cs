@@ -12,6 +12,12 @@ public class ShelfUnit : MonoBehaviour
     public List<Cell> cells;
     public Vector2 init_position;
 
+    public eMapMovingType MoveDir = eMapMovingType.None;
+    public float movingSpeed;
+    public float teleportPosX;
+    public float reStarPosX;
+    public float PosY;
+
     public int CellAmount { get => cellAmount; }
     private List<Goods_Item> itemsOnShelf = new List<Goods_Item>();
     public List<Goods_Item> ItemsOnShelf 
@@ -35,8 +41,28 @@ public class ShelfUnit : MonoBehaviour
         }
     }
 
-    #region PutItemOn
+    #region ChallengeMove
+    public void OnMovingFixUpdate()
+    {
+        if (MoveDir == eMapMovingType.None)
+            return;
+        switch (MoveDir)
+        {
+            case eMapMovingType.Left:
+                transform.position += Vector3.left * movingSpeed * Time.deltaTime;
+                if (transform.position.x < teleportPosX)
+                    transform.position = new Vector3(reStarPosX, transform.position.y, transform.position.z);
+                break;
+            case eMapMovingType.Right:
+                transform.position += Vector3.right * movingSpeed * Time.deltaTime;
+                if(transform.position.x > teleportPosX)
+                    transform.position = new Vector3(reStarPosX, transform.position.y, transform.position.z);
+                break;
+        }
+    }
+    #endregion
 
+    #region PutItemOn
     public void DoPutItemFromWareHouse(Goods_Item item)
     {
         itemsOnShelf.Add(item);
@@ -56,7 +82,8 @@ public class ShelfUnit : MonoBehaviour
 
     private IEnumerator YieldPutItemOn(Goods_Item item)
     {
-        var itemPos = GetItemPositionOnShelf(item.size, item.pFirstLeftCellIndex);
+        item.transform.parent = transform;
+        var itemPos = GetItemPositionOnShelf(item.size, item.pFirstLeftCellIndex) - transform.position;
         for (int i = 0; i < (int)item.size.x; i++)
         {
             cells[item.pFirstLeftCellIndex + i].isEmpty = false;
