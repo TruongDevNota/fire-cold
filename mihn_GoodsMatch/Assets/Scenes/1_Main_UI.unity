@@ -6975,6 +6975,70 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 3644581032137870447}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: itemNum
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: price.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: values.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: price.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: price.Array.data[1]
+      value: 1.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: price.Array.data[2]
+      value: 3.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: price.Array.data[3]
+      value: 8.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: price.Array.data[4]
+      value: 18.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: price.Array.data[5]
+      value: 29.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: price.Array.data[6]
+      value: 39.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: values.Array.data[1]
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: values.Array.data[2]
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: values.Array.data[3]
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: values.Array.data[4]
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: values.Array.data[5]
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
+      propertyPath: values.Array.data[6]
+      value: 400
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
 --- !u!114 &3644581032137870447 stripped
