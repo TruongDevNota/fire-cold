@@ -144,9 +144,10 @@ public class BoardGame : MonoBehaviour
 
         ClearMap();
 
-        string path = $"Maps/Map_Level_{level}";
+        int levelIndex = level;
+        string path = $"Maps/Map_Level_{levelIndex}";
         var file = Resources.Load<TextAsset>(path);
-        string configPath = $"Configs/Config_Level_{level}";
+        string configPath = $"Configs/Config_Level_{levelIndex}";
         var config = Resources.Load<TextAsset>(configPath);
 
         if (file == null || config == null)

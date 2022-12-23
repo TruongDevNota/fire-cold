@@ -24,11 +24,11 @@ public class UIPopupChallenge : MonoBehaviour
 
     public void OnShow(object obj)
     {
-        btn_PlayWithCoin.interactable = DataManager.UserData.totalCoin >= DataManager.GameConfig.playChallengeCoinUse;
         txt_CoinPrice.text = DataManager.GameConfig.playChallengeCoinUse.ToString();
         btn_Close.gameObject.SetActive(false);
         anim.Show(null, onCompleted: () =>
         {
+            btn_PlayWithCoin.interactable = DataManager.UserData.totalCoin >= DataManager.GameConfig.playChallengeCoinUse;
             DOVirtual.DelayedCall(2f, () => btn_Close.gameObject.SetActive(true));
         });
     }
@@ -44,7 +44,7 @@ public class UIPopupChallenge : MonoBehaviour
     {
         AdsManager.ShowVideoReward((e, t) =>
         {
-            if(e == AdEvent.ShowSuccess)
+            if(e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 GameStateManager.LoadGame(true);
                 anim.Hide();

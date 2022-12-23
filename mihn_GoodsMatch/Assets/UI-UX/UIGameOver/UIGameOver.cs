@@ -302,7 +302,7 @@ public class UIGameOver : MonoBehaviour
         btnScaleStarClaim.interactable = false;
         AdsManager.ShowVideoReward((e, t) =>
         {
-            if (e == AdEvent.ShowSuccess)
+            if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 CoinManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
                 btnStarClaim.interactable = false;
@@ -464,7 +464,7 @@ public class UIGameOver : MonoBehaviour
     {
         AdsManager.ShowVideoReward((e, t) =>
         {
-            if (e == AdEvent.ShowSuccess)
+            if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 Reborn();
             }
