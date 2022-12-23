@@ -20,4 +20,6 @@ public enum EventID
     OnPlayMusic = 40,
 
     OnGameReady = 50,
+
+    OnGoToChallengeLevel = 60,
 }

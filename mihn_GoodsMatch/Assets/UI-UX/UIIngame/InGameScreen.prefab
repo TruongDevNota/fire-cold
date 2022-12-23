@@ -319,7 +319,7 @@ MonoBehaviour:
   startText: {fileID: 4247731464492678438}
   comboTimeSlider: {fileID: 784619430625691728}
   comboCountText: {fileID: 629462814000821694}
-  comboCollectTimne: 0
+  comboCollectTimne: 1.8
   starPrefab: {fileID: 1293701248151147880, guid: 576d4450b65fdb64092cf16f53c35772, type: 3}
   defaultTarget: {fileID: 1162727480251367131}
 --- !u!114 &4057370115634142019
@@ -4258,6 +4258,10 @@ PrefabInstance:
     - target: {fileID: 5967549979432020716, guid: 701bb3b24b6eb104c9f613bb9a5022dd, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908124771200582203, guid: 701bb3b24b6eb104c9f613bb9a5022dd, type: 3}
+      propertyPath: m_Text
+      value: 'BONUS      '
       objectReference: {fileID: 0}
     - target: {fileID: 7785444646430661583, guid: 701bb3b24b6eb104c9f613bb9a5022dd, type: 3}
       propertyPath: m_FontData.m_Alignment

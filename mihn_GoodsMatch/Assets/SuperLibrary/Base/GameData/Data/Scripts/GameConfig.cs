@@ -42,7 +42,8 @@ public class GameConfig : GameConfigBase
     public bool isTestRewarPopup = false;
 
     [Header("Challenge")]
-    public int levelsToNextChallenge = 1;
+    public int levelsToNextChallenge = 5;
+    public int playChallengeCoinUse = 100;
 
     #region MONEY
     [Header("Money")]

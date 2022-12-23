@@ -84,18 +84,18 @@ public class UIInfo : MonoBehaviour
                 this.timePlayed = 0;
                 timeLeftText.text = "-:--";
                 GameStatisticsManager.starEarn = 0;
-
+                startText.text = "0";
                 comboCount = 3;
-                startText.text = "x3";
+                comboCountText.text = "x3";
+                matchCount = 0;
+                break;
+            case GameState.Ready:
+                timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
                 comboTimeCooldown = BoardGame.instance.pTimeLimitInSeconds / 3;
                 comboTimeSlider.minValue = 0;
                 comboTimeSlider.maxValue = comboTimeCooldown;
                 comboTimeSlider.value = comboTimeCooldown;
                 currentCoolDownTime = comboTimeCooldown;
-                matchCount = 0;
-                break;
-            case GameState.Ready:
-                timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
                 break;
             case GameState.Pause:
                 currentCoolDownTime = comboTimeSlider.value;
@@ -113,10 +113,8 @@ public class UIInfo : MonoBehaviour
                 {
                     currentCoolDownTime = comboTimeSlider.value;
                     DOTween.Kill(comboTimeSlider);
-                    StartCoroutine(YieldShowBonus());
                 }
-                else
-                    GameStateManager.Complete(null);
+                StartCoroutine(YieldShowBonus());
                 break;
         }
     }
@@ -124,7 +122,7 @@ public class UIInfo : MonoBehaviour
     private IEnumerator YieldShowBonus()
     {
         var lastStar = GameStatisticsManager.starEarn;
-        GameStatisticsManager.starEarn *= ComboCount;
+        GameStatisticsManager.starEarn *= Mathf.Max(ComboCount, 1);
         startText.DOText(lastStar, GameStatisticsManager.starEarn, comboCollectTimne);
         float t = 0;
         int remainTime = Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0));
@@ -136,8 +134,6 @@ public class UIInfo : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         timeLeftText.text = "0:00";
-
-        yield return new WaitForSeconds(0.2f);
         GameStateManager.Complete(null);
     }
 

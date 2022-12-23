@@ -44,8 +44,13 @@ public class UILevelSelect : MonoBehaviour
     public void OnLevelSelectHandle(int level)
     {
         DataManager.levelSelect = level;
-        GameStateManager.LoadGame(null);
-        OnHide();
+        if (DataManager.levelSelect % DataManager.GameConfig.levelsToNextChallenge == 0)
+            this.PostEvent((int)EventID.OnGoToChallengeLevel);
+        else
+        {
+            GameStateManager.LoadGame(null);
+            OnHide();
+        }
     }
 
     public void OnHide()

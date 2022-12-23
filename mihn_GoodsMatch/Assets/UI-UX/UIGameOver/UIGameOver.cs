@@ -234,7 +234,7 @@ public class UIGameOver : MonoBehaviour
             txt_unlockValue.text = isItemUnlock ? $"New Item" : $"{DataManager.UserData.LevelChesPercent}%";
         }
 
-        btnScaleStarClaim?.gameObject.SetActive(false);
+        //btnScaleStarClaim?.gameObject.SetActive(false);
         
         Status = UIAnimStatus.IsAnimationShow;
         if (anim.Status != UIAnimStatus.IsShow)
@@ -470,28 +470,24 @@ public class UIGameOver : MonoBehaviour
             }
             else
             {
-                ShowResult(GameStateManager.CurrentState == GameState.Complete);
+                ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.levelSelect % DataManager.GameConfig.levelsToNextChallenge == 0);
             }
         }, "ContinueWithAds", "TimePlay");
     }
     public void Btn_Next_Handle()
     {
-        Hide(() =>
+        rebornCount = 0;
+        if (DataManager.UserData.LevelChesPercent >= 100)
         {
-            rebornCount = 0;
+            popupReward.ShowLevelChestReward(DataManager.levelSelect * DataManager.GameConfig.coinRewardByLevel, DataManager.GameConfig.buffHintReward);
+        }
+        else
+        {
             CheckToShowInterstitialAds("Next", null);
-
-            //Check to show reward popup
-            if(DataManager.UserData.LevelChesPercent >= 100)
-            {
-                popupReward.ShowLevelChestReward(DataManager.levelSelect * DataManager.GameConfig.coinRewardByLevel, DataManager.GameConfig.buffHintReward);
-            }
-            else
-            {
-                DataManager.levelSelect++;
-                GameStateManager.Idle(null);
-            }
-        });
+            DataManager.levelSelect++;
+            GameStateManager.Idle(null);
+            Hide();
+        }
     }
     protected void Btn_SkipCountDown_Handle()
     {
@@ -506,7 +502,7 @@ public class UIGameOver : MonoBehaviour
             {
                 Debug.Log("animContinue: Hide - GameStateManager: " + GameStateManager.CurrentState);
                 if (GameStateManager.CurrentState == GameState.GameOver)
-                    ShowResult(GameStateManager.CurrentState == GameState.Complete);
+                    ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.levelSelect % DataManager.GameConfig.levelsToNextChallenge == 0);
             });
         }
     }

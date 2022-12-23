@@ -73,7 +73,7 @@ public class Goods_Item : MonoBehaviour
         if (jumpCoroutine != null)
         {
             StopCoroutine(jumpCoroutine);
-            transform.position = defaultPos;
+            //transform.localPosition = defaultPos;
         }
     }
     private void StopRotate()
@@ -118,14 +118,15 @@ public class Goods_Item : MonoBehaviour
     }
     private IEnumerator YieldJumping(int index)
     {
-        defaultPos = transform.position;
+        defaultPos = transform.localPosition;
+        var worldPos = transform.position;
         yield return new WaitForSeconds(index * 0.2f);
         for (int i = 0; i < 2 ; i++)
         {
-            yield return transform.DOMoveY(defaultPos.y + deltaY, jumpAnim_Duration * 0.25f).WaitForCompletion();
+            yield return transform.DOLocalMoveY(defaultPos.y + deltaY, jumpAnim_Duration * 0.25f).WaitForCompletion();
             yield return new WaitForEndOfFrame();
-            yield return transform.DOMoveY(defaultPos.y, jumpAnim_Duration * 0.25f).WaitForCompletion();
+            yield return transform.DOLocalMoveY(defaultPos.y, jumpAnim_Duration * 0.25f).WaitForCompletion();
         }
-        transform.position = defaultPos;
+        transform.localPosition = defaultPos;
     }
 }

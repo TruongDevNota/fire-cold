@@ -129,13 +129,13 @@ public class BoardGame : MonoBehaviour
 
     public void PrepareSceneLevel(bool isChallenge = false)
     {
-        currentLevel = isChallenge ? DataManager.UserData.challengeLevel : DataManager.levelSelect;
+        currentLevel = DataManager.levelSelect;
         if(prepareMapCoroutine != null)
             StopCoroutine(prepareMapCoroutine);
-        prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel, isChallenge));
+        prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel));
     }
 
-    private IEnumerator PrepareNewGame(int level, bool isChallenge)
+    private IEnumerator PrepareNewGame(int level)
     {
         Debug.Log($"Level Select: {level}");
         isPlayingGame = false;
@@ -144,9 +144,9 @@ public class BoardGame : MonoBehaviour
 
         ClearMap();
 
-        string path = !isChallenge ? $"Maps/Map_Level_{level}" : $"ChallengeMaps/Map_Challenge_{level+1}";
+        string path = $"Maps/Map_Level_{level}";
         var file = Resources.Load<TextAsset>(path);
-        string configPath = $"ChallengeMaps/Config_Challenge_{level+1}";
+        string configPath = $"Configs/Config_Level_{level}";
         var config = Resources.Load<TextAsset>(configPath);
 
         if (file == null || config == null)
@@ -204,11 +204,7 @@ public class BoardGame : MonoBehaviour
         if (dragingItem != null)
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
         dragingItem = null;
-
-        if(isChallengeGame)
-            GameStateManager.WaitComplete(null);
-        else
-            GameStateManager.WaitGameOver(null);
+        GameStateManager.WaitGameOver(null);
         //UI_Ingame_Manager.instance.OnGameOverHandle(false);
     }
 

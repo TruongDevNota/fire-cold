@@ -26,6 +26,16 @@ public class UIMainScreen : MonoBehaviour
     private UIMainButton btn_RemoveAds;
     [SerializeField]
     private UIMainButton btn_PiggyBank;
+    [SerializeField]
+    private Button btn_Play;
+    [SerializeField]
+    private Text txt_LevelPlay;
+    [SerializeField]
+    private Button btn_PlayChallenge;
+    [SerializeField]
+    private Button btn_LockChallenge;
+    [SerializeField]
+    Text txt_LockChallenge;
 
     void Awake()
     {
@@ -35,7 +45,8 @@ public class UIMainScreen : MonoBehaviour
 
     private void Start()
     {
-        
+        btn_Play?.onClick.AddListener(Ins_BtnPlayClick);
+        btn_PlayChallenge?.onClick.AddListener(Ins_BtnChallengeClick);
     }
 
     private void OnEnable()
@@ -51,6 +62,12 @@ public class UIMainScreen : MonoBehaviour
         txt_StarCollected.text = $"{DataManager.UserData.totalStar}/{DataManager.GameConfig.starCollectStage}";
         img_starFill.fillAmount = DataManager.UserData.totalStar * 1f / DataManager.GameConfig.starCollectStage;
         btn_StarChest.Fill(DataManager.UserData.totalStar >= DataManager.GameConfig.starCollectStage, BtnStarChestClick);
+        txt_LevelPlay.text = $"LV. {DataManager.UserData.level + 1}";
+
+        btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToNextChallenge - 1);
+
+        btn_LockChallenge?.gameObject.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
+        txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
     }
 
     public void Show(TweenCallback onStart = null, TweenCallback onCompleted = null)
@@ -69,12 +86,6 @@ public class UIMainScreen : MonoBehaviour
         anim.Hide();
     }
 
-    public void Ins_BtnPlayClick()
-    {
-        if (GameStateManager.CurrentState == GameState.Idle)
-            GameStateManager.LoadGame(null);
-    }
-
     #region ButtonHandle
     private void BtnStarChestClick()
     {
@@ -89,5 +100,19 @@ public class UIMainScreen : MonoBehaviour
         StarManager.Add(-DataManager.GameConfig.starCollectStage);
         popupReward.ShowStarChestReward(DataManager.GameConfig.coinRewardByStarChest);
     }
-#endregion
+
+    public void Ins_BtnPlayClick()
+    {
+        Debug.Log($"Level data load: {DataManager.UserData.level + 1}");
+        DataManager.levelSelect = DataManager.UserData.level + 1;
+        GameStateManager.LoadGame(null);
+    }
+
+    private void Ins_BtnChallengeClick()
+    {
+        int lv = (DataManager.UserData.level + 1) - (DataManager.UserData.level + 1) % DataManager.GameConfig.levelsToNextChallenge;
+        DataManager.levelSelect = lv;
+        this.PostEvent((int)EventID.OnGoToChallengeLevel);
+    }
+    #endregion
 }

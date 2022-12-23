@@ -58,8 +58,12 @@ public class GameStatisticsManager : MonoBehaviour
                     userData.WinStreak++;
 
                     if(userData.level +1 == DataManager.levelSelect)
+                    {
                         userData.level++;
-
+                        if ((userData.level + 1) % DataManager.GameConfig.levelsToNextChallenge == 0)
+                            userData.level++;
+                    }
+                    
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.Complete:
