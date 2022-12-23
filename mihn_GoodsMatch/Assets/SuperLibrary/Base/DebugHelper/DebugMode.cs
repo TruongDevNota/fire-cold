@@ -224,4 +224,12 @@ internal class DebugMode : MonoBehaviour
         //GameCoreManager.IsAuto = IsAuto;
         UIToast.ShowNotice("Auto play is turned " + (IsAuto ? "ON" : "OFF") + "!");
     }
+
+    public void Ins_UnlockAllLevels()
+    {
+        DataManager.UserData.level = 9999;
+        DataManager.Save();
+
+        UIToast.ShowNotice("All Level is unlocked!!!");
+    }
 }
