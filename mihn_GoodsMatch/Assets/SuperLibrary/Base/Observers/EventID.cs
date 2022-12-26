@@ -22,4 +22,6 @@ public enum EventID
     OnGameReady = 50,
 
     OnGoToChallengeLevel = 60,
+
+    OnAlertTimeout = 70,
 }

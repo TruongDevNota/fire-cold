@@ -39,7 +39,17 @@ public class MapCreater : MonoBehaviour
     [ButtonMethod]
     public void CreateTestMap()
     {
-        CreateMapFromTextAsset(sampleMapTextAsset.text, isMove);
+        CreateMapFromTextAsset(sampleMapTextAsset.text, null);
+    }
+    [ButtonMethod]
+    public void PrintConfigText()
+    {
+        var sampleConfig = new LevelConfig()
+        {
+            time = 30,
+            rowsSpeed = new List<float> { 0.5f, -0.5f, 0.5f, -0.5f }
+        };
+        Debug.Log(JsonUtility.ToJson(sampleConfig));
     }
 
     public void ChangeCameraSize(int mapCollume, int mapRow)
@@ -62,13 +72,13 @@ public class MapCreater : MonoBehaviour
         inGameUICam.orthographicSize = camSize;
     }
 
-    public void CreateMapFromTextAsset(string mapData, bool isMove = false)
+    public void CreateMapFromTextAsset(string mapData, List<float> speeds = null)
     {
         var data = ReadMapTextData(mapData);
-        CreateMap(data, isMove);
+        CreateMap(data, speeds);
     }
 
-    public void CreateMap(MapDatum datum, bool isMove)
+    public void CreateMap(MapDatum datum, List<float> speeds = null)
     {
         int maxColumn = 0;
         currentMapDatum = datum;
@@ -89,7 +99,7 @@ public class MapCreater : MonoBehaviour
 
             var leftMargin = -(defautShelfSize * line.lineSheves.Count + shelfDistance * (line.lineSheves.Count - 1)) * 0.5f;
             var rightMargin = leftMargin + (line.lineSheves.Count - 1) * (defautShelfSize + shelfDistance);
-            var isMoveLeft = (i/2) % 2 == 0;
+            var lineSpeed = speeds == null ? 0 : i < speeds.Count ? speeds[i] : 0;
             for (int i2 = 0; i2 < line.lineSheves.Count; i2++)
             {
                 if (string.IsNullOrEmpty(line.lineSheves[i2]) || line.lineSheves[i2].Contains("-"))
@@ -101,11 +111,11 @@ public class MapCreater : MonoBehaviour
                 var newShelf = shelfBasePrefab.Spawn().GetComponent<ShelfUnit>();
                 newShelf.transform.localScale = Vector3.one;
                 newShelf.transform.position = new Vector2(posX, linesPosition);
-                newShelf.MoveDir = !isMove ? eMapMovingType.None : isMoveLeft ? eMapMovingType.Left : eMapMovingType.Right;
-                newShelf.movingSpeed = !isMove ? 0 : isMoveLeft ? this.moveLeftSpeed : moveRightSpeed;
+                newShelf.MoveDir = lineSpeed == 0 ? eMapMovingType.None : lineSpeed < 0 ? eMapMovingType.Left : eMapMovingType.Right;
+                newShelf.movingSpeed = lineSpeed;
 
-                newShelf.teleportPosX = isMoveLeft ? leftMargin - (defautShelfSize + shelfDistance) : rightMargin + (defautShelfSize + shelfDistance);
-                newShelf.reStarPosX = isMoveLeft ? rightMargin : leftMargin;
+                newShelf.teleportPosX = lineSpeed < 0 ? leftMargin - (defautShelfSize + shelfDistance) : rightMargin + (defautShelfSize + shelfDistance);
+                newShelf.reStarPosX = lineSpeed < 0 ? rightMargin : leftMargin;
                 
                 newShelf.cellAmount = itemTypes.Count;
                 newShelf.InitCells();

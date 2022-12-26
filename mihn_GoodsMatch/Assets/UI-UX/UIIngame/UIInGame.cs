@@ -26,6 +26,7 @@ public class UIInGame : MonoBehaviour
     [SerializeField]
     private PopupBuyBuff popupBuyBuff = null;
 
+    [Header("Buff")]
     [SerializeField]
     private Button buffHintButton = null;
     [SerializeField]
@@ -50,6 +51,10 @@ public class UIInGame : MonoBehaviour
     [SerializeField]
     private UIPerfectToast perfectToast = null;
 
+    [Header("Alert")]
+    [SerializeField] Image img_Alert;
+    [SerializeField] float fadeTime;
+
     private void Awake()
     {
         if (anim == null)
@@ -60,11 +65,13 @@ public class UIInGame : MonoBehaviour
     {
         UserData.OnHintBuffChanged += OnHintBuffChange;
         UserData.OnSwapBuffChanged += OnSwapBuffChange;
+        this.RegisterListener((int)EventID.OnAlertTimeout, DoAlert);
     }
     private void OnDisable()
     {
         UserData.OnHintBuffChanged -= OnHintBuffChange;
         UserData.OnSwapBuffChanged -= OnSwapBuffChange;
+        EventDispatcher.Instance?.RegisterListener((int)EventID.OnAlertTimeout, DoAlert);
     }
 
     private void Start()
@@ -145,6 +152,7 @@ public class UIInGame : MonoBehaviour
                 levelTxt.text = $"LEVEL {DataManager.levelSelect}";
                 uiTopAnim.Hide();
                 uiBottomAnim.Hide();
+                img_Alert?.gameObject.SetActive(false);
                 break;
             case GameState.Ready:
                 playButton?.gameObject.SetActive(true);
@@ -170,6 +178,9 @@ public class UIInGame : MonoBehaviour
                 backButton?.gameObject.SetActive(false);
                 break;
             case GameState.Complete:
+                break;
+            case GameState.RebornContinue:
+                img_Alert?.gameObject.SetActive(false);
                 break;
         }
     }
@@ -258,5 +269,26 @@ public class UIInGame : MonoBehaviour
     private void OnSwapBuffChange(int change, int current)
     {
         restartCountText.text = current > 0 ? current.ToString() : "+";
+    }
+
+    private void DoAlert(object obj)
+    {
+        StartCoroutine(YieldShowAlert());
+    }
+
+    private IEnumerator YieldShowAlert()
+    {
+        img_Alert.DOFade(0, 0);
+        img_Alert.gameObject.SetActive(true);
+        int count = 0;
+        while(GameStateManager.CurrentState == GameState.Play)
+        {
+            string soundName = count % 2 == 0 ? "12.Alert_chan" : "13.Alert_le";
+            SoundManager.Play(soundName);
+            yield return img_Alert.DOFade(1f, fadeTime*0.5f).WaitForCompletion();
+            yield return img_Alert.DOFade(0f, fadeTime * 0.5f).WaitForCompletion();
+            count++;
+        }
+        img_Alert.gameObject.SetActive(false);
     }
 }

@@ -10,12 +10,10 @@ using System.Linq;
 
 public class BoardGame : MonoBehaviour
 {
-    [Header("Sample Game")]
-    [SerializeField] List<GameObject> sampleStoragePrefabs;
-    [SerializeField] float timeLimitDefault;
     [SerializeField] MapCreater mapCreater;
-
     [SerializeField] ItemDefinitionAsset itemDefinitionAsset;
+    [SerializeField] float timeToAlert = 5f;
+    private bool isAlert = false;
 
     public Vector3 touchPositionOffset;
 
@@ -79,6 +77,7 @@ public class BoardGame : MonoBehaviour
     {
         if(current == GameState.Restart || current == GameState.Init)
         {
+            isAlert = false;
             isChallengeGame = data != null && (bool)data;
             PrepareSceneLevel(isChallengeGame);
         }
@@ -88,6 +87,7 @@ public class BoardGame : MonoBehaviour
             StartGamePlay();
         if(current == GameState.RebornContinue)
         {
+            isAlert = false;
             timeLimitInSeconds += DataManager.GameConfig.rebornTimeAdding;
             GameStateManager.Play(null);
         }
@@ -123,6 +123,11 @@ public class BoardGame : MonoBehaviour
     {
         if (!isPlayingGame)
             return;
+        if(timeLimitInSeconds - stopwatch.ElapsedMilliseconds / 1000 <= timeToAlert && !isAlert)
+        {
+            this.PostEvent((int)EventID.OnAlertTimeout);
+            isAlert = true;
+        }
         if (stopwatch.ElapsedMilliseconds / 1000 > timeLimitInSeconds)
             GameOverHandler();
     }
@@ -130,7 +135,7 @@ public class BoardGame : MonoBehaviour
     public void PrepareSceneLevel(bool isChallenge = false)
     {
         currentLevel = DataManager.levelSelect;
-        if(prepareMapCoroutine != null)
+        if (prepareMapCoroutine != null)
             StopCoroutine(prepareMapCoroutine);
         prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel));
     }
@@ -160,7 +165,7 @@ public class BoardGame : MonoBehaviour
         {
             currentLevelConfig = JsonUtility.FromJson<LevelConfig>(config.text);
             timeLimitInSeconds = currentLevelConfig.time;
-            mapCreater.CreateMapFromTextAsset(file.text, currentLevelConfig.moveHorizontal || currentLevelConfig.moveVertical);
+            mapCreater.CreateMapFromTextAsset(file.text, currentLevelConfig.rowsSpeed);
         }
 
         GameStateManager.Ready(null);

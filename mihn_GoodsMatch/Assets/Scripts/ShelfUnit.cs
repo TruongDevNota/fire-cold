@@ -49,7 +49,7 @@ public class ShelfUnit : MonoBehaviour
         switch (MoveDir)
         {
             case eMapMovingType.Left:
-                transform.position += Vector3.left * movingSpeed * Time.deltaTime;
+                transform.position += Vector3.right * movingSpeed * Time.deltaTime;
                 if (transform.position.x < teleportPosX)
                     transform.position = new Vector3(reStarPosX, transform.position.y, transform.position.z);
                 break;

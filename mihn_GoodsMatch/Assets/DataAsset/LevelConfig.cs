@@ -6,6 +6,5 @@ using UnityEngine;
 public class LevelConfig
 {
     public int time;
-    public bool moveHorizontal;
-    public bool moveVertical;
+    public List<float> rowsSpeed;
 }
