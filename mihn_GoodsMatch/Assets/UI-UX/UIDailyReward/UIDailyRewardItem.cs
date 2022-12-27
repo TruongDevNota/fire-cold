@@ -21,9 +21,24 @@ public class UIDailyRewardItem : MonoBehaviour
     
     System.Action<int> onSelect;
 
+    private void Start()
+    {
+        btn_Select?.onClick.AddListener(OnDaySelect);
+    }
+
     public void FillLayout(System.Action<int> onSelectDay = null)
     {
         onSelect = onSelectDay;
+
+        bool isClaimed = dayIndex <= DataManager.UserData.dailyRewardClaimCount;
+        bool canClaim = dayIndex == DataManager.UserData.dailyRewardClaimCount + 1 && (DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1 || DataManager.UserData.dailyRewardClaimCount ==0);
+        img_HeaderFade.gameObject.SetActive(isClaimed);
+        img_BodyFade.gameObject.SetActive(isClaimed);
+        if(dayIndex != 7)
+        {
+            img_HeaderBg.sprite = canClaim ? spr_ActiveHeader : spr_NormalHeader;
+            img_BodyBG.sprite = canClaim ? spr_ActiveBody : spr_NormalBodyBG;
+        }
     }
 
     public void OnDaySelect()

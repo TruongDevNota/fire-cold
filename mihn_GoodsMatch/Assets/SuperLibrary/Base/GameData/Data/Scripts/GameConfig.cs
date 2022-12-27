@@ -30,15 +30,18 @@ public class GameConfig : GameConfigBase
     public float removeAdsCost = 5.99f;
     public bool isAdsByPass = false;
 
+    [Header("Level Star Rating")]
+    public float threeStar = 0.75f;
+    public float twoStar = 0.9f;
+
     [Header("Rate")]
     public int promtRateAtWin = 5;
 
     [Header("Rewards")]
-    public int starCollectStage = 100;
-    public int coinRewardByStarChest = 50;
     public int unlockChestEachLevel = 25;
     public int coinRewardByLevel = 10;
     public int buffHintReward = 1;
+    public int buyCoinWithAdsCoolDownInSeconds = 300;
     public bool isTestRewarPopup = false;
 
     [Header("Challenge")]

@@ -194,12 +194,13 @@ public class BoardGame : MonoBehaviour
         stopwatch.Stop();
         isPlayingGame = false;
         DataManager.UserData.LevelChesPercent += DataManager.GameConfig.unlockChestEachLevel;
+
+        float timeUsePercent = (float)stopwatch.Elapsed.TotalSeconds / timeLimitInSeconds;
+        int starNum = timeUsePercent <= DataManager.GameConfig.threeStar ? 3 : timeUsePercent <= DataManager.GameConfig.twoStar ? 2 : 1;
+        Debug.Log($"Time used: [{stopwatch.Elapsed.TotalSeconds}] - Equal [{timeUsePercent:P1}] Percent - Got [{starNum}] stars");
+        
+        DataManager.LevelAsset.UpdateLevelStar(currentLevel, starNum);
         GameStateManager.WaitComplete(null);
-        //DOVirtual.DelayedCall(1f, () => 
-        //{ 
-        //    GameStateManager.WaitComplete(null); 
-        //});
-        //UI_Ingame_Manager.instance.OnGameOverHandle(true);
     }
 
     private void GameOverHandler()

@@ -12,13 +12,13 @@ public class DataManager : MonoBehaviour
     {
         get { return gameData?.user; }
     }
-    public static ExerciseData CurrentExercise
+    public static LevelData CurrentLevelData
     {
-        get => ExercisesAsset?.Current;
-        set => ExercisesAsset.Current = value;
+        get => LevelAsset?.Current;
+        set => LevelAsset.Current = value;
     }
 
-    public static ExercisesAsset ExercisesAsset { get; private set; }
+    public static LevelAsset LevelAsset { get; private set; }
     public static GameData gameData { get; private set; }
     private static DataManager instance { get; set; }
     #endregion
@@ -30,7 +30,7 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     protected ConfigAsset configAsset = null;
     [SerializeField]
-    protected ExercisesAsset exercisesAsset = null;
+    protected LevelAsset levelAsset = null;
 
     public static bool IsFirstTime = false;
 
@@ -55,7 +55,7 @@ public class DataManager : MonoBehaviour
         {
             var time = DateTime.Now;
             gameData.user.LastTimeUpdate = DateTime.Now;
-            gameData.exercises = ExercisesAsset.itemSaveList;
+            gameData.exercises = LevelAsset.itemSaveList;
 
             Debug.Log("ConvertData in " + (DateTime.Now - time).TotalMilliseconds + "ms");
             FileExtend.SaveData<GameData>("GameData", gameData);
@@ -79,7 +79,7 @@ public class DataManager : MonoBehaviour
             else
                 Debug.LogWarning("GameData not NULL");
 
-            while (gameData == null || ExercisesAsset == null)
+            while (gameData == null || LevelAsset == null)
             {
                 if (elapsedTime < 5)
                 {
@@ -99,11 +99,11 @@ public class DataManager : MonoBehaviour
             //Create default
             var tempData = new GameData();
 
-            if (ExercisesAsset == null)
+            if (LevelAsset == null)
             {
-                ExercisesAsset = ScriptableObject.CreateInstance("ExercisesAsset") as ExercisesAsset;
-                foreach (var i in instance.exercisesAsset.list)
-                    ExercisesAsset.list.Add(i);
+                LevelAsset = ScriptableObject.CreateInstance("LevelAsset") as LevelAsset;
+                foreach (var i in instance.levelAsset.list)
+                    LevelAsset.list.Add(i);
             }
             else
                 Debug.Log("ExercisesAsset is not NULL");
@@ -115,7 +115,7 @@ public class DataManager : MonoBehaviour
             if (loadData != null)
             {
                 if (loadData.exercises != null && loadData.exercises.Any())
-                    ExercisesAsset.ConvertToData(loadData.exercises);
+                    LevelAsset.ConvertToData(loadData.exercises);
 
                 if (loadData.user != null)
                 {
@@ -174,7 +174,7 @@ public class DataManager : MonoBehaviour
     {
         try
         {
-            exercisesAsset.ResetData();
+            levelAsset.ResetData();
 
             Reset();
             Debug.Log("Reset and Update data to BUILD!!!");

@@ -115,6 +115,7 @@ MonoBehaviour:
   txt_level: {fileID: 4119710585150609126}
   btn_Select: {fileID: 8930507116617621948}
   ing_ChallengeIcon: {fileID: 6042275292026422090}
+  starStageProcess: {fileID: 2088169451094533833}
 --- !u!1 &1784172977632841269
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -13}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.6, y: 4}
+  m_AnchoredPosition: {x: -4.6, y: 47.03}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2249938565671774621
@@ -676,6 +677,7 @@ GameObject:
   - component: {fileID: 7089941210981312529}
   - component: {fileID: 4079752093478090852}
   - component: {fileID: 5364839337627732821}
+  - component: {fileID: 2088169451094533833}
   m_Layer: 5
   m_Name: PanelStar
   m_TagString: Untagged
@@ -739,6 +741,24 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2088169451094533833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5863373237143330002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8909d2bc2546e4eb78b626e0dee859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stageImages:
+  - {fileID: 2410741245209503530}
+  - {fileID: 8914697580660865223}
+  - {fileID: 2284290903643449011}
+  _stageActiveSprite: {fileID: 21300000, guid: 98b93e9956680b949badc3b2f4eb1475, type: 3}
+  _stageDeactiveSprite: {fileID: 21300000, guid: 63836bb17fdd63541b7c5ef28bf55097, type: 3}
 --- !u!1 &7133996746858130373
 GameObject:
   m_ObjectHideFlags: 0

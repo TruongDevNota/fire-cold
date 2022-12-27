@@ -16,18 +16,23 @@ MonoBehaviour:
   - rewards:
     - type: 0
       amount: 20
+  - rewards:
     - type: 0
       amount: 30
+  - rewards:
     - type: 0
       amount: 40
+  - rewards:
     - type: 0
       amount: 50
+  - rewards:
     - type: 1
       amount: 1
+  - rewards:
     - type: 2
       amount: 1
-    - type: 0
-      amount: 50
+  - rewards:
     - type: 1
       amount: 1
-  - rewards: []
+    - type: 0
+      amount: 100

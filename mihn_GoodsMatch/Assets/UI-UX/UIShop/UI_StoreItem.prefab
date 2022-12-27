@@ -173,8 +173,9 @@ MonoBehaviour:
   txt_Price: {fileID: 3920001861213343727}
   btn_BuyWithCoin: {fileID: 4870267136282607507}
   btn_BuyWithAds: {fileID: 9133965928787836107}
-  adsTimeCoolDown: {fileID: 0}
-  coolDownInSeconds: 0
+  adsTimeCoolDown: {fileID: 806798930019126455}
+  img_adsIcon: {fileID: 9133522134294787083}
+  img_notify: {fileID: 863246565094226610}
 --- !u!1 &2321099060366624267
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,7 +748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 92331722793916892, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114006755243789142, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
       propertyPath: m_Enabled
@@ -919,7 +920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8387380528481032000, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
       propertyPath: m_Text
-      value: $ 1.99
+      value: 5:00
       objectReference: {fileID: 0}
     - target: {fileID: 8387380528481032000, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -995,3 +996,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224783373079388532, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
   m_PrefabInstance: {fileID: 9175984722765372407}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &806798930019126455 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8387380528481032000, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
+  m_PrefabInstance: {fileID: 9175984722765372407}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9133522134294787083 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114679614447136764, guid: d310f96ae8cdd1a45896c1989aa515d9, type: 3}
+  m_PrefabInstance: {fileID: 9175984722765372407}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

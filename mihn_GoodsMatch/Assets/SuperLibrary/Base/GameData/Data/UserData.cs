@@ -34,6 +34,7 @@ public class UserData : UserAnalysic
 
     public DateTime lastdayClaimed = DateTime.MinValue;
     public int dailyRewardClaimCount = 0;
+    public DateTime lastTimeBuyCoinWithAds = DateTime.MinValue;
 
     private string lastTimeUpdate = new DateTime(1999, 1, 1).ToString();
     public DateTime LastTimeUpdate

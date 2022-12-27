@@ -261,7 +261,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
     protected override void ReadyGame(object data)
     {
-        this.PostEvent((int)EventID.OnPlayMusic, "Bgm Gamepaly");
+        this.PostEvent((int)EventID.OnPlayMusic, "Bgm_Gameplay_loop_MP3");
         mainScreen.Hide();
         StartCoroutine(WaitForLoading(() =>
         {

@@ -20,7 +20,9 @@ public class UIPopupReward : MonoBehaviour
     [SerializeField]
     UIChestItem coinReward;
     [SerializeField]
-    UIChestItem buffIdeReward;
+    UIChestItem buffHintReward;
+    [SerializeField]
+    UIChestItem buffSwapReward;
 
     [SerializeField]
     private UIPopupPigProcess popup_PigProcess;
@@ -29,9 +31,10 @@ public class UIPopupReward : MonoBehaviour
     [SerializeField]
     Transform coinStarTf;
 
-    private bool isStarChes;
+    private bool isDailyRewardChest;
     private int coinEarn;
-    private int buffEarn;
+    private int buffHintEarn;
+    private int buffSwapEarn;
     private string starChestSkin = "chest2";
     string levelChestSkin = "box";
 
@@ -41,35 +44,49 @@ public class UIPopupReward : MonoBehaviour
         btn_x2Claim.onClick.AddListener(BtnX2ClaimSelect);
     }
 
-    public void ShowStarChestReward(int coinNumber)
+    public void ShowDailyChestReward(int coinNumber = 0, int buffHint = 0, int buffSwap = 0)
     {
+        isDailyRewardChest = true;
         coinEarn = coinNumber;
-        isStarChes = true;
-
+        buffHintEarn = buffHint;
+        buffSwapEarn = buffSwap;
         SetChestSkin(starChestSkin, true);
-        buffIdeReward.gameObject.SetActive(false);
+        coinReward.gameObject.SetActive(coinNumber > 0);
+        coinReward.Fill(coinNumber);
+        buffHintReward.gameObject.SetActive(buffHint > 0);
+        buffHintReward.Fill(buffHint);
+        buffSwapReward.gameObject.SetActive(buffSwap > 0);
+        buffSwapReward.Fill(buffSwap);
         coinReward.gameObject.SetActive(true);
         coinReward.Fill(coinNumber);
-        SwitchActiveAllButton(true);
-        anim.Show();
+        btn_Claim.gameObject.SetActive(false);
+        btn_x2Claim.gameObject.SetActive(false);
+        anim.Show(null, onCompleted: () =>
+        {
+            OnClaimReward();
+        });
     }
 
-    public void ShowLevelChestReward(int coinNumber, int buffNum)
+    public void ShowLevelChestReward(int coinNumber = 0, int buffHint = 0, int buffSwap = 0)
     {
         DataManager.UserData.LevelChesPercent = 0;
-
+        isDailyRewardChest = false;
         coinEarn = coinNumber;
-        isStarChes = false;
-        buffEarn = buffNum;
+        buffHintEarn = buffHint;
+        buffSwapEarn = buffSwap;
+
         SetChestSkin(levelChestSkin);
         DOVirtual.DelayedCall(0.1f, () =>
         {
             SoundManager.Play("11._Tieng_mo_hop_o");
         });
-        buffIdeReward.gameObject.SetActive(true);
-        buffIdeReward.Fill(buffNum);
-        coinReward.gameObject.SetActive(true);
+        coinReward.gameObject.SetActive(coinNumber > 0);
         coinReward.Fill(coinNumber);
+        buffHintReward.gameObject.SetActive(buffHint > 0);
+        buffHintReward.Fill(buffHint);
+        buffSwapReward.gameObject.SetActive(buffSwap > 0);
+        buffSwapReward.Fill(buffSwap);
+        buffSwapReward.gameObject.SetActive(buffSwap > 0);
         SwitchActiveAllButton(true);
         anim.Show();
     }
@@ -88,16 +105,18 @@ public class UIPopupReward : MonoBehaviour
 
     private void OnClaimReward()
     {
-        if (isStarChes)
+        if (isDailyRewardChest)
         {
             skeletonAnimation.timeScale = 1;
             SoundManager.Play("10._Tieng_mo_hop_bac");
             DOVirtual.DelayedCall(0.7f, () =>
             {
                 CoinManager.Add(coinEarn, coinStarTf);
+                DataManager.UserData.totalHintBuff += buffHintEarn;
+                DataManager.UserData.totalSwapBuff += buffSwapEarn;
             });
             UIMainScreen.Instance.FetchData();
-            DOVirtual.DelayedCall(1.5f, () =>
+            DOVirtual.DelayedCall(2.5f, () =>
             {
                 OnHide();
             });
@@ -106,7 +125,7 @@ public class UIPopupReward : MonoBehaviour
         {
             //Show Pig Process
             popup_PigProcess.OnShow(coinEarn);
-            DataManager.UserData.totalHintBuff += buffEarn;
+            DataManager.UserData.totalHintBuff += buffHintEarn;
             OnHide();
         }
     }
@@ -119,7 +138,7 @@ public class UIPopupReward : MonoBehaviour
 
     private void BtnX2ClaimSelect()
     {
-        string placeAds = isStarChes ? "OpenIdleStarChestReward" : "UnlockLevelChestReward";
+        string placeAds = isDailyRewardChest ? "OpenIdleStarChestReward" : "UnlockLevelChestReward";
         AdsManager.ShowVideoReward((e, t) =>
         {
             var lastValue = coinEarn;
@@ -127,7 +146,7 @@ public class UIPopupReward : MonoBehaviour
             {
                 SwitchActiveAllButton(false);
                 coinEarn *= 2;
-                buffEarn *= 2;
+                buffHintEarn *= 2;
                 coinReward.DoTextAnim(lastValue, coinEarn);
                 OnClaimReward();
             }
@@ -140,6 +159,8 @@ public class UIPopupReward : MonoBehaviour
 
     private void SwitchActiveAllButton(bool active)
     {
+        btn_Claim.gameObject.SetActive(true);
+        btn_x2Claim.gameObject.SetActive(true);
         btn_Claim.interactable = active;
         btn_x2Claim.interactable = active;
     }

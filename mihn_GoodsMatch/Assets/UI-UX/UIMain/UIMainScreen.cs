@@ -14,14 +14,12 @@ public class UIMainScreen : MonoBehaviour
 
     [SerializeField]
     private UIPopupReward popupReward;
+    [SerializeField]
+    private UIDailyReward popupDailyReward;
 
     [Header("Home Buttons")]
     [SerializeField]
-    private UIMainButton btn_StarChest;
-    [SerializeField]
-    private Text txt_StarCollected;
-    [SerializeField]
-    private Image img_starFill;
+    private UIMainButton btn_DailyReward;
     [SerializeField]
     private UIMainButton btn_RemoveAds;
     [SerializeField]
@@ -47,6 +45,7 @@ public class UIMainScreen : MonoBehaviour
     {
         btn_Play?.onClick.AddListener(Ins_BtnPlayClick);
         btn_PlayChallenge?.onClick.AddListener(Ins_BtnChallengeClick);
+        
     }
 
     private void OnEnable()
@@ -59,15 +58,14 @@ public class UIMainScreen : MonoBehaviour
 
     public void FetchData()
     {
-        txt_StarCollected.text = $"{DataManager.UserData.totalStar}/{DataManager.GameConfig.starCollectStage}";
-        img_starFill.fillAmount = DataManager.UserData.totalStar * 1f / DataManager.GameConfig.starCollectStage;
-        btn_StarChest.Fill(DataManager.UserData.totalStar >= DataManager.GameConfig.starCollectStage, BtnStarChestClick);
         txt_LevelPlay.text = $"LV. {DataManager.UserData.level + 1}";
 
         btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToNextChallenge - 1);
 
         btn_LockChallenge?.gameObject.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
         txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
+
+        btn_DailyReward?.Fill(DataManager.UserData.dailyRewardClaimCount == 0 || DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1, BtnDailyRewardClick);
     }
 
     public void Show(TweenCallback onStart = null, TweenCallback onCompleted = null)
@@ -87,18 +85,9 @@ public class UIMainScreen : MonoBehaviour
     }
 
     #region ButtonHandle
-    private void BtnStarChestClick()
+    private void BtnDailyRewardClick()
     {
-        if (DataManager.GameConfig.isTestRewarPopup)
-        {
-            popupReward.ShowStarChestReward(DataManager.GameConfig.coinRewardByStarChest);
-            return;
-        }
-        
-        if (DataManager.UserData.totalStar < DataManager.GameConfig.starCollectStage)
-            return;
-        StarManager.Add(-DataManager.GameConfig.starCollectStage);
-        popupReward.ShowStarChestReward(DataManager.GameConfig.coinRewardByStarChest);
+        popupDailyReward.OnShow();
     }
 
     public void Ins_BtnPlayClick()

@@ -46,11 +46,10 @@ MonoBehaviour:
     removeAdsCost: 5.99
     isAdsByPass: 1
     promtRateAtWin: 3
-    starCollectStage: 100
-    coinRewardByStarChest: 50
     unlockChestEachLevel: 25
     coinRewardByLevel: 10
     buffHintReward: 1
+    buyCoinWithAdsCoolDownInSeconds: 30
     isTestRewarPopup: 0
     levelsToNextChallenge: 10
     playChallengeCoinUse: 100

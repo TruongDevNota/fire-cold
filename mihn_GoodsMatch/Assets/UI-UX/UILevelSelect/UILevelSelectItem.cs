@@ -30,6 +30,8 @@ public class UILevelSelectItem : MonoBehaviour
     private Button btn_Select;
     [SerializeField]
     private Image ing_ChallengeIcon;
+    [SerializeField]
+    UIStageProcess starStageProcess;
 
     bool isUnlocked = false;
     private int datumLevel;
@@ -41,6 +43,7 @@ public class UILevelSelectItem : MonoBehaviour
         img_footer.sprite = isUnlocked ? spr_UnlockFooter : spr_LockFooter;
         img_icon.gameObject.SetActive(!isUnlocked);
         panel_Star?.SetActive(level<=DataManager.UserData.level && level % DataManager.GameConfig.levelsToNextChallenge != 0);
+        starStageProcess.FillStateView(DataManager.LevelAsset.GetLevelStar(level)-1);
         ing_ChallengeIcon?.gameObject.SetActive(level <= DataManager.UserData.level && level % DataManager.GameConfig.levelsToNextChallenge == 0);
         txt_level.text = $"Level {level}";
         datumLevel = level;

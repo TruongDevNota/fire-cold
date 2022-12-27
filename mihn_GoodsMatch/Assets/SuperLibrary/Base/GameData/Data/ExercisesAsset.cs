@@ -118,18 +118,18 @@ public class ExerciseData : SaveData
     public int level;
     public Sprite spIcon;
 
-    public float GetHealth()
-    {
-        return health * (1 + (level - 1) * DataManager.ExercisesAsset.upgradeStatsPercent);
-    }
-    public float GetPower()
-    {
-        return power * (1 + (level - 1) * DataManager.ExercisesAsset.upgradeStatsPercent);
-    }
-    public int GetPrice()
-    {
-        return Mathf.RoundToInt(priceUpgrate * (1 + (level - 1) * DataManager.ExercisesAsset.upgradeStatsPercent));
-    }
+    //public float GetHealth()
+    //{
+    //    return health * (1 + (level - 1) * DataManager.LevelAsset.upgradeStatsPercent);
+    //}
+    //public float GetPower()
+    //{
+    //    return power * (1 + (level - 1) * DataManager.LevelAsset.upgradeStatsPercent);
+    //}
+    //public int GetPrice()
+    //{
+    //    return Mathf.RoundToInt(priceUpgrate * (1 + (level - 1) * DataManager.LevelAsset.upgradeStatsPercent));
+    //}
     public int GetIncome()
     {
         return income + level - 1;
