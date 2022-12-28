@@ -778,6 +778,7 @@ namespace Base.Ads
                 {
                     if (MaxHelper.RewardIsReady && !instance.testForceBackup)
                     {
+                        Debug.Log("[AdsManager] ShowVideoReward MAX --> MAX");
                         MaxHelper.ShowRewarded(onSuccess, placementName, itemName);
                     }
                     else if (AdsNetwork.Contains(AdMediation.IRON) && IronHelper.RewardIsReady)
