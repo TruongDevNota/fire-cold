@@ -13,6 +13,7 @@ public class UIDailyRewardItem : MonoBehaviour
     [SerializeField] Image img_BodyBG;
     [SerializeField] Image img_HeaderFade;
     [SerializeField] Image img_BodyFade;
+    [SerializeField] Image img_Today;
 
     [SerializeField] Sprite spr_ActiveHeader;
     [SerializeField] Sprite spr_NormalHeader;
@@ -29,12 +30,14 @@ public class UIDailyRewardItem : MonoBehaviour
     public void FillLayout(System.Action<int> onSelectDay = null)
     {
         onSelect = onSelectDay;
-
+        bool isToday = DataManager.UserData.dailyRewardClaimCount == dayIndex - 1 && DataManager.UserData.lastdayClaimed.Day <= System.DateTime.Now.Day - 1
+            || DataManager.UserData.dailyRewardClaimCount == dayIndex && DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day;
         bool isClaimed = dayIndex <= DataManager.UserData.dailyRewardClaimCount;
         bool canClaim = dayIndex == DataManager.UserData.dailyRewardClaimCount + 1 && (DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1 || DataManager.UserData.dailyRewardClaimCount ==0);
         img_HeaderFade.gameObject.SetActive(isClaimed);
         img_BodyFade.gameObject.SetActive(isClaimed);
-        if(dayIndex != 7)
+        img_Today?.gameObject.SetActive(isToday);
+        if (dayIndex != 7)
         {
             img_HeaderBg.sprite = canClaim ? spr_ActiveHeader : spr_NormalHeader;
             img_BodyBG.sprite = canClaim ? spr_ActiveBody : spr_NormalBodyBG;

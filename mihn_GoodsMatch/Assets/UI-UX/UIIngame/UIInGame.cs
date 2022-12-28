@@ -207,13 +207,13 @@ public class UIInGame : MonoBehaviour
         {
             var wait1 = new WaitForSeconds(1);
             DoPlaySoundCount();
-            ShowToastPerfect("3", 0.7f, true);
+            ShowToastPerfect("3", 0.7f, false);
             yield return wait1;
             DoPlaySoundCount();
-            ShowToastPerfect("2", 0.7f, true);
+            ShowToastPerfect("2", 0.7f, false);
             yield return wait1;
             DoPlaySoundCount();
-            ShowToastPerfect("1", 0.7f, true);
+            ShowToastPerfect("1", 0.7f, false);
             yield return wait1;
             //DoPlaySoundCount();
             //ShowToastPerfect("go", 0.8f, true);
