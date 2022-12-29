@@ -5,5 +5,5 @@ using System.Collections.Generic;
 public class GameData
 {
     public UserData user = new UserData();
-    public List<SaveData> exercises = new List<SaveData>();
+    public List<LevelData> levelStars = new List<LevelData> ();
 }

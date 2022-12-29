@@ -881,6 +881,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8354840859661024593, guid: 03c94cc1af166dd4d86132f429728a78, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8354840859661024593, guid: 03c94cc1af166dd4d86132f429728a78, type: 3}
       propertyPath: m_WholeNumbers
       value: 0
       objectReference: {fileID: 0}

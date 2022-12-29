@@ -479,7 +479,7 @@ public class UIGameOver : MonoBehaviour
         rebornCount = 0;
         if (DataManager.UserData.LevelChesPercent >= 100)
         {
-            popupReward.ShowLevelChestReward(DataManager.levelSelect * DataManager.GameConfig.coinRewardByLevel, DataManager.GameConfig.buffHintReward);
+            popupReward.ShowLevelChestReward(DataManager.GameConfig.coinRewardByLevel[UnityEngine.Random.Range(0, DataManager.GameConfig.coinRewardByLevel.Count)], DataManager.GameConfig.buffHintReward);
         }
         else
         {

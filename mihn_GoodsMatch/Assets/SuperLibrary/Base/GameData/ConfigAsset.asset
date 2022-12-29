@@ -47,11 +47,12 @@ MonoBehaviour:
     isAdsByPass: 0
     threeStar: 0.75
     twoStar: 0.9
+    totalLevel: 100
     promtRateAtWin: 3
     unlockChestEachLevel: 25
-    coinRewardByLevel: 10
+    coinRewardByLevel: 19000000320000004b00000064000000
     buffHintReward: 1
-    buyCoinWithAdsCoolDownInSeconds: 30
+    buyCoinWithAdsCoolDownInSeconds: 300
     isTestRewarPopup: 0
     levelsToNextChallenge: 10
     playChallengeCoinUse: 100

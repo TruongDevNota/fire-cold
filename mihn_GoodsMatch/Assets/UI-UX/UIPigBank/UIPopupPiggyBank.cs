@@ -19,6 +19,8 @@ public class UIPopupPiggyBank : MonoBehaviour
     int[] stagesValues;
     [SerializeField]
     SkeletonGraphic pigSkeAnim;
+    [SerializeField]
+    Transform collectTf;
 
     int coinToWithdraw;
 
@@ -39,12 +41,18 @@ public class UIPopupPiggyBank : MonoBehaviour
     {
         string pigStateName = DataManager.UserData.totalBankCoin < DataManager.GameConfig.BankCoinStage.Last() ? "empty-idle" : "full-idle";
         SetPigSkin(pigStateName, false, true);
-        btn_Claim.interactable = DataManager.UserData.totalBankCoin >= DataManager.GameConfig.BankCoinStage[0];
         txt_BankValue.DOText(0, DataManager.UserData.totalBankCoin, 1f);
         slider.value = 0;
         slider.DOValue(DataManager.UserData.totalBankCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last(), 1f);
+        CheckWithdrawAmount();
+    }
+
+    private void CheckWithdrawAmount()
+    {
         coinToWithdraw = DataManager.UserData.totalBankCoin >= DataManager.GameConfig.BankCoinStage.Last() ? DataManager.GameConfig.BankCoinStage.Last()
             : DataManager.UserData.totalBankCoin >= DataManager.GameConfig.BankCoinStage[0] ? DataManager.GameConfig.BankCoinStage[0] : 0;
+
+        btn_Claim.interactable = coinToWithdraw > 0;
     }
 
     private void SetPigSkin(string name, bool isDelay = false, bool isloop = false)
@@ -61,10 +69,15 @@ public class UIPopupPiggyBank : MonoBehaviour
         {
             if(e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
-                CoinManager.Add(coinToWithdraw);
-                DataManager.UserData.totalBankCoin -= coinToWithdraw;
                 if (coinToWithdraw == DataManager.GameConfig.BankCoinStage.Last())
                     SetPigSkin("full-withdraw");
+
+                txt_BankValue.DOText(DataManager.UserData.totalBankCoin, DataManager.UserData.totalBankCoin - coinToWithdraw, 1f);
+                CoinManager.Add(coinToWithdraw, collectTf);
+                DataManager.UserData.totalBankCoin -= coinToWithdraw;
+                slider.DOValue(DataManager.UserData.totalBankCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last(), 1f);
+
+                CheckWithdrawAmount();
             }
             else
             {

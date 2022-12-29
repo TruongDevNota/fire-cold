@@ -55,7 +55,8 @@ public class DataManager : MonoBehaviour
         {
             var time = DateTime.Now;
             gameData.user.LastTimeUpdate = DateTime.Now;
-            gameData.exercises = LevelAsset.itemSaveList;
+            //gameData.exercises = LevelAsset.itemSaveList;
+            gameData.levelStars = LevelAsset.saveList;
 
             Debug.Log("ConvertData in " + (DateTime.Now - time).TotalMilliseconds + "ms");
             FileExtend.SaveData<GameData>("GameData", gameData);
@@ -114,8 +115,8 @@ public class DataManager : MonoBehaviour
             GameData loadData = FileExtend.LoadData<GameData>("GameData") as GameData;
             if (loadData != null)
             {
-                if (loadData.exercises != null && loadData.exercises.Any())
-                    LevelAsset.ConvertToData(loadData.exercises);
+                if (loadData.levelStars != null && loadData.levelStars.Any())
+                    LevelAsset.ConvertLevelStars(loadData.levelStars);
 
                 if (loadData.user != null)
                 {

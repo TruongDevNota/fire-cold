@@ -472,10 +472,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02af84dcc6942c244aab339dd0823fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   uiItemPrefab: {fileID: 648503586799784150, guid: 2edc025823f37624f8136d100107dff9, type: 3}
   scrollRect: {fileID: 3644581033401239699}
   contentParent: {fileID: 3644581032989514972}
-  itemNum: 8
+  itemNum: 1
   values: 320000006400000096000000c8000000fa0000002c0100005e01000090010000
   price:
   - 4.99

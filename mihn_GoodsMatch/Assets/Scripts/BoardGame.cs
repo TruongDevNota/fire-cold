@@ -7,6 +7,7 @@ using Debug = UnityEngine.Debug;
 using DG.Tweening;
 using Random = UnityEngine.Random;
 using System.Linq;
+using Base;
 
 public class BoardGame : MonoBehaviour
 {
@@ -174,6 +175,7 @@ public class BoardGame : MonoBehaviour
 
     public void StartGamePlay()
     {
+        FirebaseManager.LogLevelStart(currentLevel, $"level_{currentLevel}");
         isPlayingGame = true;
         isPausing = false;
         //stopwatch.Restart();
@@ -191,6 +193,7 @@ public class BoardGame : MonoBehaviour
     private void GameCompleteHandler()
     {
         Debug.Log("****  GameComplete  ****");
+        FirebaseManager.LogLevelEnd(currentLevel, $"Win_level_{currentLevel}");
         stopwatch.Stop();
         isPlayingGame = false;
         DataManager.UserData.LevelChesPercent += DataManager.GameConfig.unlockChestEachLevel;
@@ -206,6 +209,7 @@ public class BoardGame : MonoBehaviour
     private void GameOverHandler()
     {
         Debug.Log("###### GameOver #####");
+        FirebaseManager.LogLevelEnd(currentLevel, $"Lose_level_{currentLevel}");
         stopwatch.Stop();
         isPlayingGame = false;
         if (dragingItem != null)

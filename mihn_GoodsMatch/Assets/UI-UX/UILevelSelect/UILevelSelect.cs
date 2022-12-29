@@ -24,12 +24,12 @@ public class UILevelSelect : MonoBehaviour
 
     private void Awake()
     {
-        itemSelectPrefab.CreatePool(totalLevel);
+        itemSelectPrefab.CreatePool(DataManager.GameConfig.totalLevel);
     }
 
     public void OnShow()
     {
-        for(int i = 1; i<= totalLevel; i++)
+        for(int i = 1; i<= DataManager.GameConfig.totalLevel; i++)
         {
             var isExist = i <= selectItems.Count;
             var item = isExist ? selectItems[i-1] : itemSelectPrefab.Spawn(contentRect);
@@ -37,8 +37,8 @@ public class UILevelSelect : MonoBehaviour
                 selectItems.Add(item);
             item.Fill(i, OnLevelSelectHandle, isTest);
         }
-        scrollRect.verticalNormalizedPosition = 1f; // Mathf.Clamp01(DataManager.UserData.level * 1f / totalLevel);
-        anim.Show();
+        
+        anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (DataManager.UserData.level / 3) * 1f / (totalLevel/3); });
     }
 
     public void OnLevelSelectHandle(int level)

@@ -47,7 +47,6 @@ public class UIPopupPigProcess : MonoBehaviour
                 DOVirtual.DelayedCall(3f, () =>
                 {
                     btn_Continue.gameObject.SetActive(true);
-                    btn_Continue.interactable = true;
                     btn_Continue.onClick.AddListener(BtnContinueClick);
                     if(DataManager.UserData.totalBankCoin >= DataManager.GameConfig.BankCoinStage.Last())
                         SetPigSkin("full-idle", false, true);
@@ -66,8 +65,9 @@ public class UIPopupPigProcess : MonoBehaviour
 
     private void BtnContinueClick()
     {
+        if (GameStateManager.CurrentState == GameState.Idle)
+            return;
         DataManager.levelSelect++;
-        btn_Continue.interactable = false;
         anim.Hide();
         GameStateManager.Idle(null);
     }

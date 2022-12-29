@@ -145,7 +145,7 @@ public class UserData : UserAnalysic
                         totalCoinEarn += changed;
                     }
 
-                    coin = value;
+                    coin = Mathf.Max(0, value);
                     OnCoinChanged?.Invoke(changed, coin);
                 }
             }

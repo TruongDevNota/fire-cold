@@ -31,6 +31,7 @@ public class PopupBuyBuff : MonoBehaviour
         {
             if(DataManager.UserData.totalCoin >= DataManager.GameConfig.buffPrice)
             {
+                CoinManager.Add(-DataManager.GameConfig.buffPrice);
                 OnBuySuccess();
             }
             else
@@ -80,7 +81,6 @@ public class PopupBuyBuff : MonoBehaviour
 
     private void OnBuySuccess()
     {
-        CoinManager.Add(-DataManager.GameConfig.buffPrice);
         switch (eBuffType)
         {
             case BuffType.Hint:

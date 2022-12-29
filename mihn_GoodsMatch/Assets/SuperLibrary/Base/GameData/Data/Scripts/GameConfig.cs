@@ -33,13 +33,14 @@ public class GameConfig : GameConfigBase
     [Header("Level Star Rating")]
     public float threeStar = 0.75f;
     public float twoStar = 0.9f;
+    public int totalLevel = 100;
 
     [Header("Rate")]
     public int promtRateAtWin = 5;
 
     [Header("Rewards")]
     public int unlockChestEachLevel = 25;
-    public int coinRewardByLevel = 10;
+    public List<int> coinRewardByLevel = new List<int> { 25, 50, 75, 100 };
     public int buffHintReward = 1;
     public int buyCoinWithAdsCoolDownInSeconds = 300;
     public bool isTestRewarPopup = false;

@@ -76,7 +76,7 @@ public class BaseAsset<T> : ScriptableObject where T : SaveData
             .Select(x => new SaveData { id = x.id, isUnlocked = x.isUnlocked, isSelected = x.isSelected, count = x.count, unlockPay = x.unlockPay }).ToList();
     }
 
-    public void ConvertToData(List<SaveData> saveData)
+    public virtual void ConvertToData(List<SaveData> saveData)
     {
         foreach (var i in saveData)
         {

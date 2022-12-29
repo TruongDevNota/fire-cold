@@ -93,13 +93,13 @@ public class UIMainScreen : MonoBehaviour
     public void Ins_BtnPlayClick()
     {
         Debug.Log($"Level data load: {DataManager.UserData.level + 1}");
-        DataManager.levelSelect = DataManager.UserData.level % 50 + 1 ;
+        DataManager.levelSelect = DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1 ;
         GameStateManager.LoadGame(null);
     }
 
     private void Ins_BtnChallengeClick()
     {
-        int lv = (DataManager.UserData.level % 50 + 1) - (DataManager.UserData.level % 50 + 1) % DataManager.GameConfig.levelsToNextChallenge;
+        int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.levelsToNextChallenge;
         DataManager.levelSelect = lv;
         this.PostEvent((int)EventID.OnGoToChallengeLevel);
     }

@@ -1047,7 +1047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9023954986762870726, guid: b46abf96d95a62b4a9a83c177ab7c174, type: 3}
       propertyPath: m_Text
-      value: version 1.0.0 build 1002212281
+      value: version 1.0.0 build 1002212282
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b46abf96d95a62b4a9a83c177ab7c174, type: 3}
@@ -4048,7 +4048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SDKKey: CwIm/S/4a1i3IaxK6HzYBTV+J+HE7O5idunbFsBNENleoKCzmxHgOiB8QiSn1J+shvsM2GoTyAWwzT93ocU/EjDPz8izmvyOn5ups+0idjM=
-  bundleVersion: 1002212201
+  bundleVersion: 1002212293
   versionBuildTexts:
   - {fileID: 379268065}
   - {fileID: 1350732642}
@@ -9639,7 +9639,7 @@ PrefabInstance:
       objectReference: {fileID: 3644581032137870447}
     - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
       propertyPath: itemNum
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8003701104937666216, guid: 5ef39945b33686a4f8cc4f7432fd04a6, type: 3}
       propertyPath: price.Array.size
@@ -10625,7 +10625,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5498889099523264335, guid: e61e5c53a2f154c4bb874953beb09a72, type: 3}
       propertyPath: m_Text
-      value: version 1.0.0 build 1002212281
+      value: version 1.0.0 build 1002212282
       objectReference: {fileID: 0}
     - target: {fileID: 5515555636987257598, guid: e61e5c53a2f154c4bb874953beb09a72, type: 3}
       propertyPath: m_AnchorMax.y
@@ -11790,13 +11790,49 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
+      propertyPath: m_HideStartEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
       propertyPath: m_StartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 3751223}
+    - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
+      propertyPath: m_HideStartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
+      propertyPath: m_HideStartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3751223}
+    - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
+      propertyPath: m_StartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Show
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
+      propertyPath: m_HideStartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
+      propertyPath: m_HideStartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Hide
       objectReference: {fileID: 0}
     - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
       propertyPath: m_ShowCompletedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1417618852}
+    - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
+      propertyPath: m_StartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIAnimation, SuperLibrary
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
+      propertyPath: m_HideStartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIAnimation, SuperLibrary
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635387392215155926, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
+      propertyPath: m_HideStartEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a956f8128e95754e8b0a913cd59ddb8, type: 3}
 --- !u!1 &8345684943493220781
