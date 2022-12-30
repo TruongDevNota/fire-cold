@@ -9,6 +9,8 @@ using Base.Ads;
 
 public class UIGameOver : MonoBehaviour
 {
+    [SerializeField] DailyRewardAsset rewardsAsset;
+
     [Header("Base")]
     [SerializeField]
     protected UIAnimation anim = null;
@@ -41,6 +43,9 @@ public class UIGameOver : MonoBehaviour
     protected Text txt_unlockValue;
     [SerializeField]
     private UIPopupReward popupReward;
+    [SerializeField] GameObject ob_OneStar;
+    [SerializeField] GameObject ob_TwoStar;
+    [SerializeField] GameObject ob_ThreeStar;
     private bool isItemUnlock;
 
     [Header("Stage Info")]
@@ -227,6 +232,9 @@ public class UIGameOver : MonoBehaviour
         if (isWin)
         {
             //isItemUnlock = DataManager.UserData.level % 5 == 1;
+            ob_OneStar.SetActive(DataManager.levelStars == 1);
+            ob_TwoStar.SetActive(DataManager.levelStars == 2);
+            ob_ThreeStar.SetActive(DataManager.levelStars == 3);
             isItemUnlock = false;
             img_newItemUnlock.gameObject.SetActive(isItemUnlock);
             levelChest.gameObject.SetActive(!isItemUnlock);
@@ -274,6 +282,8 @@ public class UIGameOver : MonoBehaviour
     {
         if (isWin)
         {
+            
+
             btnStarClaim.interactable = true;
             btnScaleStarClaim.interactable = true;
 
@@ -479,7 +489,9 @@ public class UIGameOver : MonoBehaviour
         rebornCount = 0;
         if (DataManager.UserData.LevelChesPercent >= 100)
         {
-            popupReward.ShowLevelChestReward(DataManager.GameConfig.coinRewardByLevel[UnityEngine.Random.Range(0, DataManager.GameConfig.coinRewardByLevel.Count)], DataManager.GameConfig.buffHintReward);
+            var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
+
+            popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
         }
         else
         {

@@ -51,12 +51,7 @@ public class UIPopupReward : MonoBehaviour
         buffHintEarn = buffHint;
         buffSwapEarn = buffSwap;
         SetChestSkin(starChestSkin, true);
-        coinReward.gameObject.SetActive(coinNumber > 0);
-        coinReward.Fill(coinNumber);
-        buffHintReward.gameObject.SetActive(buffHint > 0);
-        buffHintReward.Fill(buffHint);
-        buffSwapReward.gameObject.SetActive(buffSwap > 0);
-        buffSwapReward.Fill(buffSwap);
+        SetActiveRewards();
         coinReward.gameObject.SetActive(true);
         coinReward.Fill(coinNumber);
         btn_Claim.gameObject.SetActive(false);
@@ -74,21 +69,25 @@ public class UIPopupReward : MonoBehaviour
         coinEarn = coinNumber;
         buffHintEarn = buffHint;
         buffSwapEarn = buffSwap;
-
         SetChestSkin(levelChestSkin);
         DOVirtual.DelayedCall(0.1f, () =>
         {
             SoundManager.Play("11._Tieng_mo_hop_o");
         });
-        coinReward.gameObject.SetActive(coinNumber > 0);
-        coinReward.Fill(coinNumber);
-        buffHintReward.gameObject.SetActive(buffHint > 0);
-        buffHintReward.Fill(buffHint);
-        buffSwapReward.gameObject.SetActive(buffSwap > 0);
-        buffSwapReward.Fill(buffSwap);
-        buffSwapReward.gameObject.SetActive(buffSwap > 0);
+
+        SetActiveRewards();
         SwitchActiveAllButton(true);
         anim.Show();
+    }
+
+    private void SetActiveRewards()
+    {
+        coinReward.gameObject.SetActive(coinEarn > 0);
+        coinReward.Fill(coinEarn);
+        buffHintReward.gameObject.SetActive(buffHintEarn > 0);
+        buffHintReward.Fill(buffHintEarn);
+        buffSwapReward.gameObject.SetActive(buffSwapEarn > 0);
+        buffSwapReward.Fill(buffSwapEarn);
     }
 
     private void SetChestSkin(string name, bool isDelay = false)
@@ -126,6 +125,7 @@ public class UIPopupReward : MonoBehaviour
             //Show Pig Process
             popup_PigProcess.OnShow(coinEarn);
             DataManager.UserData.totalHintBuff += buffHintEarn;
+            DataManager.UserData.totalSwapBuff += buffSwapEarn;
             OnHide();
         }
     }

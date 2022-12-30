@@ -17,6 +17,8 @@ public class UIPopupSetting : MonoBehaviour
     Button continueBtn;
     [SerializeField]
     Text txt_version;
+    [SerializeField]
+    Text txt_header;
 
     private void Start()
     {
@@ -29,6 +31,7 @@ public class UIPopupSetting : MonoBehaviour
     {
         panelButtonsIngame?.SetActive(GameStateManager.CurrentState != GameState.Idle);
         txt_version?.gameObject.SetActive(GameStateManager.CurrentState == GameState.Idle);
+        txt_header.text = GameStateManager.CurrentState == GameState.Idle ? "SETTING" : "PAUSE";
     }
 
     public void OnHomeBtnClick()

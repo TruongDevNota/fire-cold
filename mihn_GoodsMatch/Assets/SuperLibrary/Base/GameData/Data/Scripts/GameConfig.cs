@@ -40,7 +40,6 @@ public class GameConfig : GameConfigBase
 
     [Header("Rewards")]
     public int unlockChestEachLevel = 25;
-    public List<int> coinRewardByLevel = new List<int> { 25, 50, 75, 100 };
     public int buffHintReward = 1;
     public int buyCoinWithAdsCoolDownInSeconds = 300;
     public bool isTestRewarPopup = false;

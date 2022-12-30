@@ -24,6 +24,7 @@ public class DataManager : MonoBehaviour
     #endregion
 
     public static int levelSelect;
+    public static int levelStars = 1;
 
     [Space(10)]
     [Header("Default Data")]

@@ -204,7 +204,8 @@ public class BoardGame : MonoBehaviour
         int starNum = timeUsePercent <= DataManager.GameConfig.threeStar ? 3 : timeUsePercent <= DataManager.GameConfig.twoStar ? 2 : 1;
         Debug.Log($"Time used: [{stopwatch.Elapsed.TotalSeconds}] - Equal [{timeUsePercent:P1}] Percent - Got [{starNum}] stars");
         
-        DataManager.LevelAsset.UpdateLevelStar(currentLevel, starNum);
+        DataManager.LevelAsset.UpdateLevelStar(currentLevel-1, starNum);
+        DataManager.levelStars = starNum;
         GameStateManager.WaitComplete(null);
     }
 

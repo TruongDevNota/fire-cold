@@ -15,6 +15,38 @@ MonoBehaviour:
   list:
   - rewards:
     - type: 0
+      amount: 10
+  - rewards:
+    - type: 0
+      amount: 15
+  - rewards:
+    - type: 0
+      amount: 20
+  - rewards:
+    - type: 0
+      amount: 25
+  - rewards:
+    - type: 1
+      amount: 1
+    - type: 0
+      amount: 10
+  - rewards:
+    - type: 2
+      amount: 1
+    - type: 0
+      amount: 10
+  - rewards:
+    - type: 0
+      amount: 30
+  - rewards:
+    - type: 0
+      amount: 40
+  - rewards:
+    - type: 0
+      amount: 50
+  daySevenRewards:
+  - rewards:
+    - type: 0
       amount: 20
   - rewards:
     - type: 0
@@ -28,11 +60,36 @@ MonoBehaviour:
   - rewards:
     - type: 1
       amount: 1
+    - type: 0
+      amount: 10
   - rewards:
     - type: 2
       amount: 1
+    - type: 2
+      amount: 10
+  levelUnlockRewards:
+  - rewards:
+    - type: 0
+      amount: 10
+  - rewards:
+    - type: 0
+      amount: 20
+  - rewards:
+    - type: 0
+      amount: 25
+  - rewards:
+    - type: 0
+      amount: 30
+  - rewards:
+    - type: 0
+      amount: 50
   - rewards:
     - type: 1
       amount: 1
     - type: 0
-      amount: 100
+      amount: 20
+  - rewards:
+    - type: 2
+      amount: 1
+    - type: 0
+      amount: 20
