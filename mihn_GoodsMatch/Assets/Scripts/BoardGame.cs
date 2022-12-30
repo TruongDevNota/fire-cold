@@ -186,6 +186,8 @@ public class BoardGame : MonoBehaviour
 
     public void CheckGameComplete()
     {
+        if (!isPlayingGame)
+            return;
         if (items.Count <= 0)
             GameCompleteHandler();
     }
