@@ -235,6 +235,10 @@ public class UIGameOver : MonoBehaviour
             ob_OneStar.SetActive(DataManager.levelStars == 1);
             ob_TwoStar.SetActive(DataManager.levelStars == 2);
             ob_ThreeStar.SetActive(DataManager.levelStars == 3);
+            btnScaleStarClaim?.gameObject.SetActive(true);
+            btnScaleStarClaim.interactable = true;
+            btnStarClaim?.gameObject.SetActive(false);
+            btnStarClaim.interactable = true;
             isItemUnlock = false;
             img_newItemUnlock.gameObject.SetActive(isItemUnlock);
             levelChest.gameObject.SetActive(!isItemUnlock);
@@ -282,18 +286,17 @@ public class UIGameOver : MonoBehaviour
     {
         if (isWin)
         {
-            
-
-            btnStarClaim.interactable = true;
-            btnScaleStarClaim.interactable = true;
+            //btnScaleStarClaim?.gameObject.SetActive(true);
+            //btnScaleStarClaim.interactable = true;
 
             DataManager.Save();
-            btnStarClaim?.gameObject.SetActive(false);
+            //btnStarClaim?.gameObject.SetActive(false);
             DOVirtual.DelayedCall(timeDelayBtnBack, () => {
+                btnStarClaim.interactable = true;
                 btnStarClaim?.gameObject.SetActive(true);
             });
             txtScaleStar.text = $"{GameStatisticsManager.goldEarn * bonusAds}";
-            btnScaleStarClaim?.gameObject.SetActive(true);
+            
         }
     }
 
@@ -421,6 +424,11 @@ public class UIGameOver : MonoBehaviour
     }
     public void CheckToShowInterstitialAds(string itemId, Action onDone)
     {
+        if (DataManager.levelSelect <= 5)
+        {
+            onDone?.Invoke();
+            return;
+        }
 #if USE_IRON || USE_MAX || USE_ADMOB
         AdsManager.ShowInterstitial((s, adType) =>
         {
@@ -486,20 +494,40 @@ public class UIGameOver : MonoBehaviour
     }
     public void Btn_Next_Handle()
     {
+        DataManager.levelSelect++;
         rebornCount = 0;
         if (DataManager.UserData.LevelChesPercent >= 100)
         {
             var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
-
             popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
+            return;
         }
-        else
+
+        void PlayNextLevel()
         {
-            CheckToShowInterstitialAds("Next", null);
-            DataManager.levelSelect++;
-            GameStateManager.Idle(null);
-            Hide();
+            GameStateManager.LoadGame(null);
+            CheckToShowInterstitialAds("PlayNextLevel", null);
         }
+
+        void BackToHome()
+        {
+            GameStateManager.Idle(null);
+            CheckToShowInterstitialAds("GoToHome", null);
+        }
+
+        PopupMes.Show($"DO YOU WANT TO CONTINUE?", null, onConfirm: PlayNextLevel, onCancel: BackToHome);
+
+        //if ((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge != 0)
+        //{
+            
+        //    Hide();
+        //}
+        //else
+        //{
+        //    CheckToShowInterstitialAds("Next", null);
+        //    GameStateManager.Idle(null);
+        //    Hide();
+        //}
     }
     protected void Btn_SkipCountDown_Handle()
     {

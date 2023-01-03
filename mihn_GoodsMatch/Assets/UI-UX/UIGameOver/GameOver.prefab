@@ -5635,62 +5635,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.g
-      value: 0.703
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.b
-      value: 0.853
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.g
-      value: 0.916
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.g
-      value: 0.703
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.b
-      value: 0.853
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.g
-      value: 0.916
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.r
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
 --- !u!224 &735076355466269690 stripped
@@ -7066,6 +7010,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224476727122264912, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224476727122264912, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224476727122264912, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224476727122264912, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224476727122264912, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -80
       objectReference: {fileID: 0}
@@ -7084,62 +7044,6 @@ PrefabInstance:
     - target: {fileID: 224476727122264912, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.b
-      value: 0.46021748
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.b
-      value: 0.09803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.g
-      value: 0.09803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 6462044987008275573, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.r
-      value: 0.78431374
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.b
-      value: 0.46021748
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key0.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.b
-      value: 0.09803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.g
-      value: 0.09803922
-      objectReference: {fileID: 0}
-    - target: {fileID: 7374408081510186058, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
-      propertyPath: effectGradient.key1.r
-      value: 0.78431374
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}

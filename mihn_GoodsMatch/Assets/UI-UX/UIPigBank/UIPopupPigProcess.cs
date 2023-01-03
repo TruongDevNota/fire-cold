@@ -4,6 +4,8 @@ using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using Spine.Unity;
+using Base.Ads;
+using System;
 
 public class UIPopupPigProcess : MonoBehaviour
 {
@@ -67,8 +69,37 @@ public class UIPopupPigProcess : MonoBehaviour
     {
         if (GameStateManager.CurrentState == GameState.Idle)
             return;
-        DataManager.levelSelect++;
-        anim.Hide();
-        GameStateManager.Idle(null);
+        if ((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
+        {
+            GameStateManager.Idle(null);
+            anim.Hide();
+        }
+        else
+        {
+            void CheckToShowInterstitialAds(string itemId, Action onDone)
+            {
+                if (DataManager.levelSelect <= 5)
+                {
+                    onDone?.Invoke();
+                    return;
+                }
+                AdsManager.ShowInterstitial((s, adType) =>
+                {
+                    UIToast.Hide();
+                    onDone?.Invoke();
+                }, name, itemId);
+            }
+
+            PopupMes.Show($"DO YOU WANT TO CONTINUE?", null, onConfirm: () => {
+                GameStateManager.LoadGame(null);
+                anim.Hide();
+                CheckToShowInterstitialAds("PlayNextLevel", null);
+            }, 
+            onCancel: () => {
+                GameStateManager.Idle(null);
+                anim.Hide();
+                CheckToShowInterstitialAds("GoToHome", null);
+            });
+        }
     }
 }

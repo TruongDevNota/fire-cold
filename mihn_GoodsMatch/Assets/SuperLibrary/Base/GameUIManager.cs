@@ -214,6 +214,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         LoadGameContent.PrepairDataToPlay(data);
         popupLevelSelect.OnHide();
         coinScreen.Hide();
+        gameOverScreen.Hide();
     }
 
     public override void InitGame(object data)
