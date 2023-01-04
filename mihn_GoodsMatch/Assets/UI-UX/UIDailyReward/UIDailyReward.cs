@@ -123,6 +123,7 @@ public class UIDailyReward : MonoBehaviour
 
     private void OnClaimX2()
     {
+        SoundManager.Play("1. Click Button");
         AdsManager.ShowVideoReward((e, t) =>
         {
             if(e == AdEvent.ShowSuccess)
@@ -131,21 +132,22 @@ public class UIDailyReward : MonoBehaviour
                 buffHintEarn *= 2;
                 buffSwapEarn *= 2;
 
-                OnClaim();
+                DOClaim();
             }
         }, "ScaleDailyReward");
     }
 
     private void OnClaim()
     {
+        SoundManager.Play("1. Click Button");
+        DOClaim();
+    }
+
+    private void DOClaim()
+    {
         DataManager.UserData.dailyRewardClaimCount++;
         DataManager.UserData.lastdayClaimed = System.DateTime.Now;
         popupReward.ShowDailyChestReward(coinEarn, buffHintEarn, buffSwapEarn);
-        //btn_Claim.interactable = false;
-        //btn_ClaimX2.interactable = false;
-        //btn_Claim.gameObject.SetActive(false);
-        //btn_ClaimX2.gameObject.SetActive(false);
-        //FetchData();
         OnShow();
     }
 }

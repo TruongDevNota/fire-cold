@@ -259,6 +259,22 @@ PrefabInstance:
       propertyPath: m_FontData.m_MaxSize
       value: 36
       objectReference: {fileID: 0}
+    - target: {fileID: 8109670478645971051, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109670478645971051, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109670478645971051, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109670478645971051, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8416394888464773420, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -299,6 +315,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 58fb8633ee8f31a41aff4a5411bce26e, type: 3}
+    - target: {fileID: 9089202697105484169, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089202697105484169, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089202697105484169, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089202697105484169, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9089202697105484171, guid: 6c9bca470927508448bba6220a5ce813, type: 3}
       propertyPath: m_FontData.m_BestFit
       value: 1

@@ -52,6 +52,7 @@ public class PopupMes : MonoBehaviour
             instance.confirmButton.onClick.RemoveAllListeners();
             instance.confirmButton.onClick.AddListener(() =>
             {
+                SoundManager.Play("1. Click Button");
                 actionOnHide = onConfirm;
                 Hide();
             });
@@ -63,6 +64,7 @@ public class PopupMes : MonoBehaviour
                 instance.cancelButton.onClick.RemoveAllListeners();
                 instance.cancelButton.onClick.AddListener(() =>
                 {
+                    SoundManager.Play("1. Click Button");
                     actionOnHide = onCancel;
                     Hide();
                 });

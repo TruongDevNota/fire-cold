@@ -132,12 +132,14 @@ public class UIPopupReward : MonoBehaviour
 
     private void BtnClaimSelect()
     {
+        SoundManager.Play("1. Click Button");
         SwitchActiveAllButton(false);
         OnClaimReward();
     }
 
     private void BtnX2ClaimSelect()
     {
+        SoundManager.Play("1. Click Button");
         string placeAds = isDailyRewardChest ? "OpenIdleStarChestReward" : "UnlockLevelChestReward";
         AdsManager.ShowVideoReward((e, t) =>
         {

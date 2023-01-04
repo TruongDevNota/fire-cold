@@ -65,6 +65,7 @@ public class UIPopupPiggyBank : MonoBehaviour
     {
         if (coinToWithdraw <= 0)
             return;
+        SoundManager.Play("1. Click Button");
         AdsManager.ShowVideoReward((e, t) =>
         {
             if(e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)

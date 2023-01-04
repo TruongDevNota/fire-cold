@@ -75,6 +75,7 @@ public class UIShopItem : MonoBehaviour
 
     public void BuyWithAds()
     {
+        SoundManager.Play("1. Click Button");
         if (!IsCanBuyCoinWithAds())
             return;
 

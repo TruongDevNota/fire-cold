@@ -66,6 +66,7 @@ public class UILevelSelectItem : MonoBehaviour
     {
         if (!isUnlocked)
             return;
+        SoundManager.Play("1. Click Button");
         onLevelSelect?.Invoke(datumLevel);
     }
 }

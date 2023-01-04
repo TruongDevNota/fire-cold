@@ -23,7 +23,7 @@ public class DataManager : MonoBehaviour
     private static DataManager instance { get; set; }
     #endregion
 
-    public static int levelSelect;
+    public static int levelSelect = 0;
     public static int levelStars = 1;
 
     [Space(10)]

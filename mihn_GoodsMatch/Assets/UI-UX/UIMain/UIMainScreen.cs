@@ -87,11 +87,13 @@ public class UIMainScreen : MonoBehaviour
     #region ButtonHandle
     private void BtnDailyRewardClick()
     {
+        SoundManager.Play("1. Click Button");
         popupDailyReward.OnShow();
     }
 
     public void Ins_BtnPlayClick()
     {
+        SoundManager.Play("1. Click Button");
         Debug.Log($"Level data load: {DataManager.UserData.level + 1}");
         DataManager.levelSelect = DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1 ;
         GameStateManager.LoadGame(null);
@@ -99,6 +101,7 @@ public class UIMainScreen : MonoBehaviour
 
     private void Ins_BtnChallengeClick()
     {
+        SoundManager.Play("1. Click Button");
         int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.levelsToNextChallenge;
         DataManager.levelSelect = lv;
         this.PostEvent((int)EventID.OnGoToChallengeLevel);

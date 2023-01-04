@@ -302,6 +302,7 @@ public class UIGameOver : MonoBehaviour
 
     private void Btn_StarClaimClick()
     {
+        SoundManager.Play("1. Click Button");
         btnStarClaim.interactable = false;
         btnScaleStarClaim.interactable = false;
         lineRoullete.StopRoulelete();
@@ -311,6 +312,7 @@ public class UIGameOver : MonoBehaviour
 
     private void Btn_ScaleStarClick()
     {
+        SoundManager.Play("1. Click Button");
         lineRoullete.StopRoulelete();
         btnScaleStarClaim.interactable = false;
         AdsManager.ShowVideoReward((e, t) =>
@@ -319,12 +321,12 @@ public class UIGameOver : MonoBehaviour
             {
                 CoinManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
                 btnStarClaim.interactable = false;
+                DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
             }
             else
             {
                 
             }
-            DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
         }, "ClaimStarScale", "star");
     }
 
@@ -444,6 +446,7 @@ public class UIGameOver : MonoBehaviour
     #region Button Handle
     public void Btn_Back_Handle()
     {
+        SoundManager.Play("1. Click Button");
         //CoinManager.Add(GameStatisticsManager.goldEarn);
         rebornCount = 0;
         GameStateManager.Idle(null);
@@ -454,6 +457,7 @@ public class UIGameOver : MonoBehaviour
     }
     public void Btn_Restart_Handle()
     {
+        SoundManager.Play("1. Click Button");
         rebornCount = 0;
         
         GameStateManager.Restart(null);
@@ -480,6 +484,7 @@ public class UIGameOver : MonoBehaviour
     }
     public void Btn_RebornByAds_Handle()
     {
+        SoundManager.Play("1. Click Button");
         AdsManager.ShowVideoReward((e, t) =>
         {
             if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
@@ -494,6 +499,7 @@ public class UIGameOver : MonoBehaviour
     }
     public void Btn_Next_Handle()
     {
+        SoundManager.Play("1. Click Button");
         DataManager.levelSelect++;
         rebornCount = 0;
         if (DataManager.UserData.LevelChesPercent >= 100)
@@ -515,19 +521,14 @@ public class UIGameOver : MonoBehaviour
             CheckToShowInterstitialAds("GoToHome", null);
         }
 
-        PopupMes.Show($"DO YOU WANT TO CONTINUE?", null, onConfirm: PlayNextLevel, onCancel: BackToHome);
-
-        //if ((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge != 0)
-        //{
-            
-        //    Hide();
-        //}
-        //else
-        //{
-        //    CheckToShowInterstitialAds("Next", null);
-        //    GameStateManager.Idle(null);
-        //    Hide();
-        //}
+        if((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
+        {
+            this.PostEvent((int)EventID.OnGoToChallengeLevel);
+        }
+        else
+        {
+            PopupMes.Show($"PLAY NEXT LEVEL?", null, $"PLAY LV.{DataManager.levelSelect}", onConfirm: PlayNextLevel, "HOME", onCancel: BackToHome);
+        }
     }
     protected void Btn_SkipCountDown_Handle()
     {

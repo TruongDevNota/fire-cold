@@ -37,8 +37,8 @@ public class UILevelSelect : MonoBehaviour
                 selectItems.Add(item);
             item.Fill(i, OnLevelSelectHandle, isTest);
         }
-        
-        anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (DataManager.UserData.level / 3) * 1f / (totalLevel/3); });
+        int lastLevel = DataManager.levelSelect == 0 ? DataManager.UserData.level : DataManager.levelSelect - 1;
+        anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastLevel / 3) * 1f / (totalLevel/3); });
     }
 
     public void OnLevelSelectHandle(int level)

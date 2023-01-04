@@ -35,6 +35,7 @@ public class UIPopupChallenge : MonoBehaviour
 
     private void BtnPlayWithCoinClick()
     {
+        SoundManager.Play("1. Click Button");
         CoinManager.Add(-DataManager.GameConfig.playChallengeCoinUse);
         GameStateManager.LoadGame(true);
         anim.Hide();
@@ -42,6 +43,7 @@ public class UIPopupChallenge : MonoBehaviour
 
     private void BtnPlayWithAdsClick()
     {
+        SoundManager.Play("1. Click Button");
         AdsManager.ShowVideoReward((e, t) =>
         {
             if(e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
@@ -55,5 +57,7 @@ public class UIPopupChallenge : MonoBehaviour
     private void OnSkip()
     {
         anim.Hide();
+        if (GameStateManager.CurrentState != GameState.Idle)
+            GameStateManager.Idle(null);
     }
 }

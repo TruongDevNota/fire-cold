@@ -117,7 +117,8 @@ public class UIInGame : MonoBehaviour
 
     private void BuffHintButtonOnclick()
     {
-        if(DataManager.UserData.totalHintBuff > 0)
+        SoundManager.Play("1. Click Button");
+        if (DataManager.UserData.totalHintBuff > 0)
         {
             this.PostEvent((int)EventID.OnBuffHint);
             DataManager.UserData.totalHintBuff--;
@@ -130,6 +131,7 @@ public class UIInGame : MonoBehaviour
 
     private void BuffSwapClick()
     {
+        SoundManager.Play("1. Click Button");
         if (DataManager.UserData.totalSwapBuff > 0)
         {
             this.PostEvent((int)EventID.OnBuffSwap);

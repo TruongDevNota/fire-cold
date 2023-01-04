@@ -36,19 +36,22 @@ public class UIPopupSetting : MonoBehaviour
 
     public void OnHomeBtnClick()
     {
+        SoundManager.Play("1. Click Button");
         GameStateManager.Idle(null);
         anim.Hide();
     }
 
     public void OnRestartBtnClick()
     {
+        SoundManager.Play("1. Click Button");
         GameStateManager.LoadGame(null);
         anim.Hide();
     }
 
     public void OnContinueBtnClick()
     {
-        if(GameStateManager.CurrentState != GameState.Idle)
+        SoundManager.Play("1. Click Button");
+        if (GameStateManager.CurrentState != GameState.Idle)
             GameStateManager.Play(null);
         anim.Hide();
     }

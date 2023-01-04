@@ -29,7 +29,8 @@ public class PopupBuyBuff : MonoBehaviour
     {
         btn_BuyWithCoin?.onClick.AddListener(() =>
         {
-            if(DataManager.UserData.totalCoin >= DataManager.GameConfig.buffPrice)
+            SoundManager.Play("1. Click Button");
+            if (DataManager.UserData.totalCoin >= DataManager.GameConfig.buffPrice)
             {
                 CoinManager.Add(-DataManager.GameConfig.buffPrice);
                 OnBuySuccess();
@@ -43,6 +44,7 @@ public class PopupBuyBuff : MonoBehaviour
 
         btn_BuyWithAds?.onClick.AddListener(() =>
         {
+            SoundManager.Play("1. Click Button");
             AdsManager.ShowVideoReward((e, t) =>
             {
                 if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
