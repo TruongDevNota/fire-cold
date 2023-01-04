@@ -29,7 +29,8 @@ public class UILevelSelect : MonoBehaviour
 
     public void OnShow()
     {
-        for(int i = 1; i<= DataManager.GameConfig.totalLevel; i++)
+        SoundManager.Play("1. Click Button");
+        for (int i = 1; i<= DataManager.GameConfig.totalLevel; i++)
         {
             var isExist = i <= selectItems.Count;
             var item = isExist ? selectItems[i-1] : itemSelectPrefab.Spawn(contentRect);

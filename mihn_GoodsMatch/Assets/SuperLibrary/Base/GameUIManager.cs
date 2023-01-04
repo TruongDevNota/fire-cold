@@ -309,6 +309,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void RebornContinueGame(object data)
     {
         gameOverScreen.Hide();
+        this.PostEvent((int)EventID.OnPlayMusic, "Bgm_Gameplay_loop_MP3");
         //inGameScreen.ShowTapToPlay();
         //GameStateManager.Init(null);
         //StartCoroutine(WaitToAutoPlay());

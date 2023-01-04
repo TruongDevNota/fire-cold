@@ -40,6 +40,7 @@ public class UIShop : MonoBehaviour
 
     public void OnShow()
     {
+        SoundManager.Play("1. Click Button");
         anim.Show();
         Init();
     }

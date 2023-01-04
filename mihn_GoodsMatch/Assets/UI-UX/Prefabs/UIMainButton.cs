@@ -33,6 +33,7 @@ public class UIMainButton : MonoBehaviour
 
     public void OnButtonClick()
     {
+        SoundManager.Play("1. Click Button");
         OnButtonClicked?.Invoke();
     }
 }
