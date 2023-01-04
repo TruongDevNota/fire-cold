@@ -493,7 +493,7 @@ public class UIGameOver : MonoBehaviour
             }
             else
             {
-                ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.levelSelect % DataManager.GameConfig.levelsToNextChallenge == 0);
+                //ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.levelSelect % DataManager.GameConfig.levelsToNextChallenge == 0);
             }
         }, "ContinueWithAds", "TimePlay");
     }
