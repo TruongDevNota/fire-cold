@@ -58,7 +58,7 @@ public class UIMainScreen : MonoBehaviour
 
     public void FetchData()
     {
-        txt_LevelPlay.text = $"LV. {DataManager.UserData.level + 1}";
+        txt_LevelPlay.text = $"LV. {Mathf.Clamp(DataManager.UserData.level + 1, 1, DataManager.GameConfig.totalLevel-1)}";
 
         btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToNextChallenge - 1);
 
@@ -95,7 +95,7 @@ public class UIMainScreen : MonoBehaviour
     {
         SoundManager.Play("1. Click Button");
         Debug.Log($"Level data load: {DataManager.UserData.level + 1}");
-        DataManager.levelSelect = DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1 ;
+        DataManager.levelSelect = Mathf.Clamp(DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1, 1, DataManager.GameConfig.totalLevel - 1);
         GameStateManager.LoadGame(null);
     }
 

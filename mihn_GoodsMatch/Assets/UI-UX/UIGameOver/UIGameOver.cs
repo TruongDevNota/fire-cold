@@ -280,23 +280,18 @@ public class UIGameOver : MonoBehaviour
     public void OnShowResult(bool isWin)
     {
         Status = UIAnimStatus.IsShow;
+        DataManager.Save();
         OnShowButton(isWin);
     }
     public void OnShowButton(bool isWin)
     {
         if (isWin)
         {
-            //btnScaleStarClaim?.gameObject.SetActive(true);
-            //btnScaleStarClaim.interactable = true;
-
-            DataManager.Save();
-            //btnStarClaim?.gameObject.SetActive(false);
             DOVirtual.DelayedCall(timeDelayBtnBack, () => {
-                btnStarClaim.interactable = true;
+                //btnStarClaim.interactable = true;
                 btnStarClaim?.gameObject.SetActive(true);
-            });
+            }).SetId("DelayShowNormalClaimButton");
             txtScaleStar.text = $"{GameStatisticsManager.goldEarn * bonusAds}";
-            
         }
     }
 
@@ -321,6 +316,7 @@ public class UIGameOver : MonoBehaviour
             {
                 CoinManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleStarClaim.transform);
                 btnStarClaim.interactable = false;
+                DOTween.Kill("DelayShowNormalClaimButton");
                 DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
             }
             else
@@ -519,6 +515,13 @@ public class UIGameOver : MonoBehaviour
         {
             GameStateManager.Idle(null);
             CheckToShowInterstitialAds("GoToHome", null);
+        }
+
+        if (DataManager.levelSelect > DataManager.GameConfig.totalLevel)
+        {
+            DataManager.levelSelect = DataManager.GameConfig.totalLevel;
+            BackToHome();
+            return;
         }
 
         if((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)

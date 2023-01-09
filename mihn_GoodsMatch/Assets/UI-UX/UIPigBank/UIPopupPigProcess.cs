@@ -70,6 +70,15 @@ public class UIPopupPigProcess : MonoBehaviour
         if (GameStateManager.CurrentState == GameState.Idle)
             return;
         SoundManager.Play("1. Click Button");
+
+        if(DataManager.levelSelect > DataManager.GameConfig.totalLevel)
+        {
+            DataManager.levelSelect = DataManager.GameConfig.totalLevel;
+            anim.Hide();
+            GameStateManager.Idle(null);
+            return;
+        }
+
         if ((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
         {
             //GameStateManager.Idle(null);

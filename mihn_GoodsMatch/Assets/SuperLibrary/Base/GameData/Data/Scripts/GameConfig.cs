@@ -78,6 +78,7 @@ public class GameConfig : GameConfigBase
     #region LEVEL DESIGN
     public float rebornTimeAdding;
     public int buffPrice = 500;
+    public int maxLevel = 100;
     #endregion
 }
 
