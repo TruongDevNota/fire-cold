@@ -128,6 +128,7 @@ public class UIPopupReward : MonoBehaviour
             DataManager.UserData.totalSwapBuff += buffSwapEarn;
             OnHide();
         }
+        DataManager.Save();
     }
 
     private void BtnClaimSelect()

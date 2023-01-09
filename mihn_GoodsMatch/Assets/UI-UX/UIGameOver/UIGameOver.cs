@@ -303,6 +303,7 @@ public class UIGameOver : MonoBehaviour
         lineRoullete.StopRoulelete();
         CoinManager.Add(GameStatisticsManager.starEarn, btnStarClaim.transform);
         DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
+        DataManager.Save();
     }
 
     private void Btn_ScaleStarClick()
@@ -318,6 +319,7 @@ public class UIGameOver : MonoBehaviour
                 btnStarClaim.interactable = false;
                 DOTween.Kill("DelayShowNormalClaimButton");
                 DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
+                DataManager.Save();
             }
             else
             {

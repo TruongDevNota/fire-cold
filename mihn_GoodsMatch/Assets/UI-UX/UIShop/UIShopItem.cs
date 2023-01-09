@@ -88,6 +88,7 @@ public class UIShopItem : MonoBehaviour
                 btn_BuyWithAds.interactable = false;
                 DataManager.UserData.lastTimeBuyCoinWithAds = System.DateTime.Now;
                 CheckTimeToBuy();
+                DataManager.Save();
             }
             else
             {

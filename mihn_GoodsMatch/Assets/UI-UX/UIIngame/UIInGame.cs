@@ -118,10 +118,12 @@ public class UIInGame : MonoBehaviour
     private void BuffHintButtonOnclick()
     {
         SoundManager.Play("1. Click Button");
+
         if (DataManager.UserData.totalHintBuff > 0)
         {
             this.PostEvent((int)EventID.OnBuffHint);
             DataManager.UserData.totalHintBuff--;
+            DataManager.Save();
         }
         else
         {

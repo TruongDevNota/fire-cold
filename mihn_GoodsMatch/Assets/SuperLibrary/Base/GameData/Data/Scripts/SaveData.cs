@@ -48,6 +48,7 @@ public static class ItemExtend
     public static int totalCoin => DataManager.UserData.totalCoin;
     public static int totalDiamond => DataManager.UserData.totalDiamond;
     public static int userLevel => DataManager.UserData.level;
+    public static int dailyRewardClaimed => DataManager.UserData.dailyRewardClaimCount;
 
     public static bool IsCanUnlock(this SaveData item)
     {

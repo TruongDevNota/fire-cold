@@ -92,6 +92,7 @@ public class PopupBuyBuff : MonoBehaviour
                 DataManager.UserData.totalSwapBuff++;
                 break;
         }
+        DataManager.Save();
         OnHide();
     }
 }
