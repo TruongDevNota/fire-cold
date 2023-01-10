@@ -163,7 +163,6 @@ public class UIInGame : MonoBehaviour
                 uiTopAnim.Hide();
                 uiBottomAnim?.Hide();
                 img_Alert?.gameObject.SetActive(false);
-                
                 buffHintButton.interactable = hintUnlocked;
                 buffRestartButton.interactable = swapUnlocked;
                 obj_IdleIcon?.SetActive(hintUnlocked);
@@ -179,7 +178,6 @@ public class UIInGame : MonoBehaviour
                 CountDown();
                 break;
             case GameState.Play:
-                
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
