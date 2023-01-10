@@ -71,7 +71,7 @@ public class UIPopupPigProcess : MonoBehaviour
             return;
         SoundManager.Play("1. Click Button");
 
-        if(DataManager.levelSelect > DataManager.GameConfig.totalLevel)
+        if (DataManager.levelSelect > DataManager.GameConfig.totalLevel)
         {
             DataManager.levelSelect = DataManager.GameConfig.totalLevel;
             anim.Hide();
@@ -83,34 +83,42 @@ public class UIPopupPigProcess : MonoBehaviour
         {
             //GameStateManager.Idle(null);
             this.PostEvent((int)EventID.OnGoToChallengeLevel);
-            anim.Hide();
         }
-        else
-        {
-            void CheckToShowInterstitialAds(string itemId, Action onDone)
-            {
-                if (DataManager.levelSelect <= 5)
-                {
-                    onDone?.Invoke();
-                    return;
-                }
-                AdsManager.ShowInterstitial((s, adType) =>
-                {
-                    UIToast.Hide();
-                    onDone?.Invoke();
-                }, name, itemId);
-            }
+        anim.Hide();
+        return;
+       
+        //if ((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
+        //{
+        //    //GameStateManager.Idle(null);
+        //    this.PostEvent((int)EventID.OnGoToChallengeLevel);
+        //    anim.Hide();
+        //}
+        //else
+        //{
+        //    void CheckToShowInterstitialAds(string itemId, Action onDone)
+        //    {
+        //        if (DataManager.levelSelect <= 5)
+        //        {
+        //            onDone?.Invoke();
+        //            return;
+        //        }
+        //        AdsManager.ShowInterstitial((s, adType) =>
+        //        {
+        //            UIToast.Hide();
+        //            onDone?.Invoke();
+        //        }, name, itemId);
+        //    }
 
-            PopupMes.Show($"PLAY NEXT LEVEL?", null, $"PLAY LV.{DataManager.levelSelect}", onConfirm: () => {
-                GameStateManager.LoadGame(null);
-                anim.Hide();
-                CheckToShowInterstitialAds("PlayNextLevel", null);
-            },
-            "HOME", onCancel: () => {
-                GameStateManager.Idle(null);
-                anim.Hide();
-                CheckToShowInterstitialAds("GoToHome", null);
-            });
-        }
+        //    PopupMes.Show($"PLAY NEXT LEVEL?", null, $"PLAY LV.{DataManager.levelSelect}", onConfirm: () => {
+        //        GameStateManager.LoadGame(null);
+        //        anim.Hide();
+        //        CheckToShowInterstitialAds("PlayNextLevel", null);
+        //    },
+        //    "HOME", onCancel: () => {
+        //        GameStateManager.Idle(null);
+        //        anim.Hide();
+        //        CheckToShowInterstitialAds("GoToHome", null);
+        //    });
+        //}
     }
 }

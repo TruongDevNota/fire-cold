@@ -35,6 +35,10 @@ public class UIInGame : MonoBehaviour
     private Button buffRestartButton = null;
     [SerializeField]
     private Text restartCountText = null;
+    [SerializeField] GameObject obj_IdleIcon;
+    [SerializeField] GameObject obj_IdleLockIcon;
+    [SerializeField] GameObject obj_SwapIcon;
+    [SerializeField] GameObject obj_SwapLockIcon;
 
     [SerializeField]
     private GameObject touchPanel = null;
@@ -147,6 +151,8 @@ public class UIInGame : MonoBehaviour
 
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
     {
+        bool hintUnlocked = DataManager.UserData.level >= 4;
+        bool swapUnlocked = DataManager.UserData.level >= 9;
         switch (current)
         {
             case GameState.Init:
@@ -155,8 +161,17 @@ public class UIInGame : MonoBehaviour
                 ingameBG.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Count)];
                 levelTxt.text = $"LEVEL {DataManager.levelSelect}";
                 uiTopAnim.Hide();
-                uiBottomAnim.Hide();
+                uiBottomAnim?.Hide();
                 img_Alert?.gameObject.SetActive(false);
+                
+                buffHintButton.interactable = hintUnlocked;
+                buffRestartButton.interactable = swapUnlocked;
+                obj_IdleIcon?.SetActive(hintUnlocked);
+                obj_IdleLockIcon?.SetActive(!hintUnlocked);
+                obj_SwapIcon?.SetActive(swapUnlocked);
+                obj_SwapLockIcon?.SetActive(!swapUnlocked);
+                hintCountText.text = !hintUnlocked ? "lv.5" : DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
+                restartCountText.text = !swapUnlocked ? "lv.10" : DataManager.UserData.totalSwapBuff > 0 ? DataManager.UserData.totalSwapBuff.ToString() : "+";
                 break;
             case GameState.Ready:
                 playButton?.gameObject.SetActive(true);
@@ -164,8 +179,7 @@ public class UIInGame : MonoBehaviour
                 CountDown();
                 break;
             case GameState.Play:
-                hintCountText.text = DataManager.UserData.totalHintBuff > 0 ? DataManager.UserData.totalHintBuff.ToString() : "+";
-                restartCountText.text = DataManager.UserData.totalSwapBuff > 0 ? DataManager.UserData.totalSwapBuff.ToString() : "+";
+                
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
@@ -209,16 +223,18 @@ public class UIInGame : MonoBehaviour
     {
         if (GameStateManager.CurrentState == GameState.Ready)
         {
-            var wait1 = new WaitForSeconds(1);
-            DoPlaySoundCount();
-            ShowToastPerfect("3", 0.7f, false);
-            yield return wait1;
-            DoPlaySoundCount();
-            ShowToastPerfect("2", 0.7f, false);
-            yield return wait1;
-            DoPlaySoundCount();
-            ShowToastPerfect("1", 0.7f, false);
-            yield return wait1;
+            yield return new WaitForSeconds(1f);
+
+            //var wait1 = new WaitForSeconds(1);
+            //DoPlaySoundCount();
+            //ShowToastPerfect("3", 0.7f, false);
+            //yield return wait1;
+            //DoPlaySoundCount();
+            //ShowToastPerfect("2", 0.7f, false);
+            //yield return wait1;
+            //DoPlaySoundCount();
+            //ShowToastPerfect("1", 0.7f, false);
+            //yield return wait1;
             //DoPlaySoundCount();
             //ShowToastPerfect("go", 0.8f, true);
         }

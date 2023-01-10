@@ -57,10 +57,13 @@ public class UIPopupChallenge : MonoBehaviour
     private void OnSkip()
     {
         anim.Hide();
-        AdsManager.ShowInterstitial((s, adType) =>
+        if (DataManager.levelSelect >= 21 || DataManager.levelSelect % 2 == 0)
         {
-            UIToast.Hide();
-        }, name, "GiveUpChallenge");
+            AdsManager.ShowInterstitial((s, adType) =>
+            {
+                UIToast.Hide();
+            }, name, "GiveUpChallenge");
+        } 
         if (GameStateManager.CurrentState != GameState.Idle)
             GameStateManager.Idle(null);
     }

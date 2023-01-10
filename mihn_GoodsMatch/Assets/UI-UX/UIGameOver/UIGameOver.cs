@@ -43,10 +43,14 @@ public class UIGameOver : MonoBehaviour
     protected Text txt_unlockValue;
     [SerializeField]
     private UIPopupReward popupReward;
+    [SerializeField] Text txt_nextLevel;
+    [SerializeField] Button btn_GoToNextLevel;
+    [SerializeField] Button btn_GoToHome;
     [SerializeField] GameObject ob_OneStar;
     [SerializeField] GameObject ob_TwoStar;
     [SerializeField] GameObject ob_ThreeStar;
     private bool isItemUnlock;
+    
 
     [Header("Stage Info")]
     [SerializeField]
@@ -166,6 +170,8 @@ public class UIGameOver : MonoBehaviour
         noThanksButton?.onClick.AddListener(Btn_NoReborn_Handle);
         btnScaleStarClaim?.onClick.AddListener(Btn_ScaleStarClick);
         btnStarClaim?.onClick.AddListener(Btn_StarClaimClick);
+        btn_GoToHome?.onClick.AddListener(Btn_Back_Handle);
+        btn_GoToNextLevel?.onClick.AddListener(Btn_NextLevel_Handle);
     }
     IEnumerator DelayShowButton(System.Action callback = null)
     {
@@ -239,6 +245,10 @@ public class UIGameOver : MonoBehaviour
             btnScaleStarClaim.interactable = true;
             btnStarClaim?.gameObject.SetActive(false);
             btnStarClaim.interactable = true;
+            btn_GoToHome.gameObject.SetActive(false);
+            btn_GoToHome.interactable = true;
+            btn_GoToNextLevel.gameObject.SetActive(false);
+            btn_GoToNextLevel.interactable = true;
             isItemUnlock = false;
             img_newItemUnlock.gameObject.SetActive(isItemUnlock);
             levelChest.gameObject.SetActive(!isItemUnlock);
@@ -424,7 +434,7 @@ public class UIGameOver : MonoBehaviour
     }
     public void CheckToShowInterstitialAds(string itemId, Action onDone)
     {
-        if (DataManager.levelSelect <= 5)
+        if (DataManager.levelSelect <= 5 || (DataManager.levelSelect < 21 && DataManager.levelSelect % 2 == 0))
         {
             onDone?.Invoke();
             return;
@@ -444,8 +454,8 @@ public class UIGameOver : MonoBehaviour
     #region Button Handle
     public void Btn_Back_Handle()
     {
+        btn_GoToNextLevel.interactable = false;
         SoundManager.Play("1. Click Button");
-        //CoinManager.Add(GameStatisticsManager.goldEarn);
         rebornCount = 0;
         GameStateManager.Idle(null);
         Hide(() =>
@@ -495,45 +505,38 @@ public class UIGameOver : MonoBehaviour
             }
         }, "ContinueWithAds", "TimePlay");
     }
+
+    public void Btn_NextLevel_Handle()
+    {
+        btn_GoToHome.interactable = false;
+        GameStateManager.LoadGame(null);
+        CheckToShowInterstitialAds("PlayNextLevel", null);
+    }
+
     public void Btn_Next_Handle()
     {
         SoundManager.Play("1. Click Button");
         DataManager.levelSelect++;
         rebornCount = 0;
+
         if (DataManager.UserData.LevelChesPercent >= 100)
         {
             var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
             popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
-            return;
         }
-
-        void PlayNextLevel()
+        else if((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
         {
-            GameStateManager.LoadGame(null);
-            CheckToShowInterstitialAds("PlayNextLevel", null);
-        }
-
-        void BackToHome()
-        {
-            GameStateManager.Idle(null);
-            CheckToShowInterstitialAds("GoToHome", null);
-        }
-
-        if (DataManager.levelSelect > DataManager.GameConfig.totalLevel)
-        {
-            DataManager.levelSelect = DataManager.GameConfig.totalLevel;
-            BackToHome();
-            return;
-        }
-
-        if((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
-        {
+            //GameStateManager.Idle(null);
             this.PostEvent((int)EventID.OnGoToChallengeLevel);
         }
-        else
-        {
-            PopupMes.Show($"PLAY NEXT LEVEL?", null, $"PLAY LV.{DataManager.levelSelect}", onConfirm: PlayNextLevel, "HOME", onCancel: BackToHome);
-        }
+
+        btnStarClaim?.gameObject.SetActive(false);
+        btnScaleStarClaim?.gameObject.SetActive(false);
+        btn_GoToHome.gameObject.SetActive(false);
+        txt_nextLevel.text = $"PLAY LV.{DataManager.levelSelect}";
+        btn_GoToHome.gameObject.SetActive(true);
+        btn_GoToNextLevel.gameObject.SetActive(true);
+        
     }
     protected void Btn_SkipCountDown_Handle()
     {

@@ -150,6 +150,7 @@ public class UIPopupReward : MonoBehaviour
                 SwitchActiveAllButton(false);
                 coinEarn *= 2;
                 buffHintEarn *= 2;
+                buffSwapEarn *= 2;
                 coinReward.DoTextAnim(lastValue, coinEarn);
                 OnClaimReward();
             }

@@ -60,10 +60,13 @@ public class GameStatisticsManager : MonoBehaviour
                     if(userData.level +1 == DataManager.levelSelect)
                     {
                         userData.level++;
+                        CheckToGiveStartingBuff();
                         if ((userData.level + 1) % DataManager.GameConfig.levelsToNextChallenge == 0)
+                        {
                             userData.level++;
+                            CheckToGiveStartingBuff();
+                        }
                     }
-                    
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.Complete:
@@ -75,6 +78,14 @@ public class GameStatisticsManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void CheckToGiveStartingBuff()
+    {
+        if (userData.level == 4)
+            userData.totalHintBuff += 3;
+        if (userData.level == 9)
+            userData.totalSwapBuff += 3;
     }
     #endregion
 
