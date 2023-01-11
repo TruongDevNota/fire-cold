@@ -245,10 +245,10 @@ public class UIGameOver : MonoBehaviour
             btnScaleStarClaim.interactable = true;
             btnStarClaim?.gameObject.SetActive(false);
             btnStarClaim.interactable = true;
-            btn_GoToHome.gameObject.SetActive(false);
-            btn_GoToHome.interactable = true;
-            btn_GoToNextLevel.gameObject.SetActive(false);
-            btn_GoToNextLevel.interactable = true;
+            //btn_GoToHome.gameObject.SetActive(false);
+            //btn_GoToHome.interactable = true;
+            //btn_GoToNextLevel.gameObject.SetActive(false);
+            //btn_GoToNextLevel.interactable = true;
             isItemUnlock = false;
             img_newItemUnlock.gameObject.SetActive(isItemUnlock);
             levelChest.gameObject.SetActive(!isItemUnlock);
@@ -454,7 +454,7 @@ public class UIGameOver : MonoBehaviour
     #region Button Handle
     public void Btn_Back_Handle()
     {
-        btn_GoToNextLevel.interactable = false;
+        //btn_GoToNextLevel.interactable = false;
         SoundManager.Play("1. Click Button");
         rebornCount = 0;
         GameStateManager.Idle(null);
@@ -508,7 +508,7 @@ public class UIGameOver : MonoBehaviour
 
     public void Btn_NextLevel_Handle()
     {
-        btn_GoToHome.interactable = false;
+        //btn_GoToHome.interactable = false;
         GameStateManager.LoadGame(null);
         CheckToShowInterstitialAds("PlayNextLevel", null);
     }
@@ -529,13 +529,18 @@ public class UIGameOver : MonoBehaviour
             //GameStateManager.Idle(null);
             this.PostEvent((int)EventID.OnGoToChallengeLevel);
         }
+        else
+        {
+            GameStateManager.LoadGame(null);
+            CheckToShowInterstitialAds("PlayNextLevel", null);
+        }
 
-        btnStarClaim?.gameObject.SetActive(false);
-        btnScaleStarClaim?.gameObject.SetActive(false);
-        btn_GoToHome.gameObject.SetActive(false);
-        txt_nextLevel.text = $"PLAY LV.{DataManager.levelSelect}";
-        btn_GoToHome.gameObject.SetActive(true);
-        btn_GoToNextLevel.gameObject.SetActive(true);
+        //btnStarClaim?.gameObject.SetActive(false);
+        //btnScaleStarClaim?.gameObject.SetActive(false);
+        //btn_GoToHome.gameObject.SetActive(false);
+        //txt_nextLevel.text = $"PLAY LV.{DataManager.levelSelect}";
+        //btn_GoToHome.gameObject.SetActive(true);
+        //btn_GoToNextLevel.gameObject.SetActive(true);
         
     }
     protected void Btn_SkipCountDown_Handle()

@@ -3896,7 +3896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SDKKey: CwIm/S/4a1i3IaxK6HzYBTV+J+HE7O5idunbFsBNENleoKCzmxHgOiB8QiSn1J+shvsM2GoTyAWwzT93ocU/EjDPz8izmvyOn5ups+0idjM=
-  bundleVersion: 1022301103
+  bundleVersion: 1022301111
   versionBuildTexts:
   - {fileID: 379268065}
   - {fileID: 1350732642}
@@ -7048,7 +7048,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Give up
+  m_Text: SKIP
 --- !u!222 &1836569592
 CanvasRenderer:
   m_ObjectHideFlags: 0

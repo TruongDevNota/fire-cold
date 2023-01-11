@@ -84,9 +84,12 @@ public class UIPopupPigProcess : MonoBehaviour
             //GameStateManager.Idle(null);
             this.PostEvent((int)EventID.OnGoToChallengeLevel);
         }
+        else
+        {
+            GameStateManager.LoadGame(null);
+        }
         anim.Hide();
-        return;
-       
+        
         //if ((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
         //{
         //    //GameStateManager.Idle(null);
