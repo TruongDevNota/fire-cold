@@ -7,30 +7,27 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:484737574060:android:32d0a2f7a88e116a1e2b09",
+        "mobilesdk_app_id": "1:484737574060:ios:417b02e1efbc8f591e2b09",
         "android_client_info": {
           "package_name": "com.falcon.p.mcom.goodsmatch.puzzle.triplemaster"
         }
       },
       "oauth_client": [
         {
-          "client_id": "484737574060-4rfl7j0uts3nbk37is2ah0q8c51dh006.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "484737574060-9b760e5qkq9ohfqik9qneahk57i8ecn9.apps.googleusercontent.com"
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCMEwZA_LtjY7tnqNVbLRaeFHW3PM5jQiA"
+          "current_key": "AIzaSyAm3z_go-WRBpzcryiV7tO2oe0GuyWNjiU"
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 0
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "484737574060-4rfl7j0uts3nbk37is2ah0q8c51dh006.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1
         }
       }
     }
