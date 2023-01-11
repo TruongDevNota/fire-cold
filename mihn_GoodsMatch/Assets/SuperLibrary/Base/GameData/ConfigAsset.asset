@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ConfigAsset
   m_EditorClassIdentifier: Assembly-CSharp::ConfigData
   gameConfig:
-    buildVersion: 999999999
+    buildVersion: 1002212304
     _timePlayToShowAd: 15
     _timePlayToShowAdReduce: -5
     _timeToWaitOpenAd: 5
@@ -38,7 +38,6 @@ MonoBehaviour:
     timePlayReduceToShowAds: 0
     rebornType: 0
     rebornBy: 3
-    suggestUpdateVersion: 0
     adRewardNotToInter: 1
     adInterNotToReward: 1
     adInterViewToReward: 5
@@ -50,7 +49,6 @@ MonoBehaviour:
     totalLevel: 100
     promtRateAtWin: 3
     unlockChestEachLevel: 25
-    coinRewardByLevel: 19000000320000004b00000064000000
     buffHintReward: 1
     buyCoinWithAdsCoolDownInSeconds: 300
     isTestRewarPopup: 0

@@ -108,9 +108,38 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         yield return AdsManager.DOInit();
 
 #if USE_FIREBASE
-        yield return FirebaseManager.DoCheckStatus(null);
-#endif
+        var remote = new GameConfig();
+        FirebaseManager.DefaultRemoteConfig = new Dictionary<string, object>
+        {
+            { "suggestUpdateVersion", gameConfig.suggestUpdateVersion},
 
+            { "adInterNotToReward", gameConfig.adInterNotToReward},
+            { "adRewardNotToInter", gameConfig.adRewardNotToInter},
+            { "adInterViewToReward", gameConfig.adInterViewToReward},
+        };
+
+        yield return FirebaseManager.DoCheckStatus(null);
+
+        yield return FirebaseManager.DoFetchRemoteData((status) =>
+        {
+            if (status == FirebaseStatus.Success && user != null && gameConfig != null)
+            {
+                gameConfig.suggestUpdateVersion = FirebaseManager.RemoteGetValueInt("suggestUpdateVersion");
+
+                gameConfig.adInterNotToReward = FirebaseManager.RemoteGetValueInt("autoInterToReward");
+                gameConfig.adRewardNotToInter = FirebaseManager.RemoteGetValueInt("adRewardNotToInter");
+                gameConfig.adInterViewToReward = FirebaseManager.RemoteGetValueInt("adInterViewToReward");
+            }
+
+            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+            {
+                FirebaseManager.LogEvent("DoFetchRemoteData_" + status.ToString());
+                Debug.Log("DoFetchRemoteData_" + status.ToString());
+            });
+
+            DebugMode.Log(JsonUtility.ToJson(gameConfig));
+        });
+#endif
 
         if (user.VersionInstall == 0)
         {
@@ -157,8 +186,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         PopupMes.Show(title, body,
             "Update", () =>
             {
-                if (!string.IsNullOrEmpty(UIManager.shareUrl))
-                    Application.OpenURL(UIManager.shareUrl);
+                if (!string.IsNullOrEmpty(UIManager.UrlAndroid))
+                    Application.OpenURL(UIManager.UrlAndroid);
             },
             "Later", () =>
             {

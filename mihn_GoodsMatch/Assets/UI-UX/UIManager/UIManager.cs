@@ -58,6 +58,8 @@ public class UIManager : MonoBehaviour
 
     public static string appVersion => Application.version;
     public static string appVerstionDetail => "ver " + appVersion + " build " + BundleVersion;
+    public static string UrlAndroid => instance.urlAndroid;
+    public static string UrlIOS => instance.urlIOS;
 
     private string urlAndroid => "http://play.google.com/store/apps/details?id=" + appIdDROI;
     private string urlIOS => "http://apps.apple.com/app/id" + appIdIOS;

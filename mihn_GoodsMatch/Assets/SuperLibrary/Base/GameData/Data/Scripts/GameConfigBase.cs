@@ -4,11 +4,6 @@ using UnityEngine;
 [Serializable]
 public class GameConfigBase
 {
-    /// <summary>
-    /// Use remote config in case Apple review for hidden feature :)
-    /// </summary>
-    public int buildVersion = 999999999;
-
     [Header("Ads Config")]
     [SerializeField]
     protected int _timePlayToShowAd = 15;
