@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public class GameConfigBase
 {
+    public int suggestUpdateVersion = 0;
     [Header("Ads Config")]
     [SerializeField]
     protected int _timePlayToShowAd = 15;

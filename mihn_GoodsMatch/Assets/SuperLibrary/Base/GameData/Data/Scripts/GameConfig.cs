@@ -22,7 +22,6 @@ public class GameConfig : GameConfigBase
     public float timePlayReduceToShowAds = 15;
     public RebornType rebornType = RebornType.Continue;
     public RebornBy rebornBy = RebornBy.Ads;
-    public int suggestUpdateVersion = 0;
     public int adRewardNotToInter = 1;
     public int adInterNotToReward = 1;
     public int adInterViewToReward = 5;

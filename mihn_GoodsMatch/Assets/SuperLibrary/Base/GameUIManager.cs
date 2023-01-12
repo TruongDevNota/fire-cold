@@ -109,36 +109,56 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
 #if USE_FIREBASE
         var remote = new GameConfig();
-        FirebaseManager.DefaultRemoteConfig = new Dictionary<string, object>
+        var defaultRemoteConfig = new Dictionary<string, object>
         {
-            { "suggestUpdateVersion", gameConfig.suggestUpdateVersion},
-
-            { "adInterNotToReward", gameConfig.adInterNotToReward},
-            { "adRewardNotToInter", gameConfig.adRewardNotToInter},
-            { "adInterViewToReward", gameConfig.adInterViewToReward},
+            {"suggestUpdateVersion" , gameConfig.suggestUpdateVersion },
+            {"timePlayToShowAd" , gameConfig.timePlayToShowAd },
+            {"timePlayToShowAdReduce" , gameConfig.timePlayToShowAdReduce },
+            {"timePlayToShowOpenAd" , gameConfig.timePlayToShowOpenAd },
+            {"timeToWaitOpenAd" , gameConfig.timeToWaitOpenAd },
+            {"adShowFromLevel" , gameConfig.adShowFromLevel },
+            {"adInterOnComplete" , gameConfig.adInterOnComplete },
+            {"adUseBackup" , gameConfig.adUseBackup },
+            {"adUseOpenBackup" , gameConfig.adUseOpenBackup },
+            {"adUseNative" , gameConfig.adUseNative },
+            {"adUseInPlay" , gameConfig.adUseInPlay },
+            {"forceInterToReward" , gameConfig.forceInterToReward },
+            {"forceRewardToInter" , gameConfig.forceRewardToInter },
+            {"forceInterEverywhere" , gameConfig.forceInterEverywhere }
         };
 
-        yield return FirebaseManager.DoCheckStatus(null);
+        yield return FirebaseManager.DoCheckStatus(defaultRemoteConfig);
 
+        var cacheExpirationHours = 12;
+#if UNITY_EDITOR
+        cacheExpirationHours = 0;
+#endif
         yield return FirebaseManager.DoFetchRemoteData((status) =>
         {
             if (status == FirebaseStatus.Success && user != null && gameConfig != null)
             {
                 gameConfig.suggestUpdateVersion = FirebaseManager.RemoteGetValueInt("suggestUpdateVersion");
-
-                gameConfig.adInterNotToReward = FirebaseManager.RemoteGetValueInt("autoInterToReward");
-                gameConfig.adRewardNotToInter = FirebaseManager.RemoteGetValueInt("adRewardNotToInter");
-                gameConfig.adInterViewToReward = FirebaseManager.RemoteGetValueInt("adInterViewToReward");
+                gameConfig.timePlayToShowAd = FirebaseManager.RemoteGetValueInt("timePlayToShowAd");
+                gameConfig.timePlayToShowAdReduce = FirebaseManager.RemoteGetValueInt("timePlayToShowAdReduce");
+                gameConfig.timePlayToShowOpenAd = FirebaseManager.RemoteGetValueInt("timePlayToShowOpenAd");
+                gameConfig.timeToWaitOpenAd = FirebaseManager.RemoteGetValueInt("timeToWaitOpenAd");
+                gameConfig.adInterOnComplete = FirebaseManager.RemoteGetValueBoolean("adInterOnComplete");
+                gameConfig.adShowFromLevel = FirebaseManager.RemoteGetValueInt("adShowFromLevel");
+                gameConfig.adUseBackup = FirebaseManager.RemoteGetValueBoolean("adUseBackup");
+                gameConfig.adUseOpenBackup = FirebaseManager.RemoteGetValueBoolean("adUseOpenBackup");
+                gameConfig.adUseNative = FirebaseManager.RemoteGetValueBoolean("adUseNative");
+                gameConfig.adUseInPlay = FirebaseManager.RemoteGetValueBoolean("adUseInPlay");
+                gameConfig.forceInterToReward = FirebaseManager.RemoteGetValueBoolean("forceInterToReward");
+                gameConfig.forceRewardToInter = FirebaseManager.RemoteGetValueBoolean("forceRewardToInter");
+                gameConfig.forceInterEverywhere = FirebaseManager.RemoteGetValueBoolean("forceInterEverywhere");
             }
 
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
-                FirebaseManager.LogEvent("DoFetchRemoteData_" + status.ToString());
                 Debug.Log("DoFetchRemoteData_" + status.ToString());
+                DebugMode.Log(JsonUtility.ToJson(gameConfig));
             });
-
-            DebugMode.Log(JsonUtility.ToJson(gameConfig));
-        });
+        }, cacheExpirationHours);
 #endif
 
         if (user.VersionInstall == 0)
