@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEditor.Callbacks;
-
-#if UNITY_IPHONE
 using UnityEditor.iOS.Xcode;
 
 namespace Facebook.Unity.PostProcess
@@ -37,4 +35,3 @@ namespace Facebook.Unity.PostProcess
          }
     }
 }
-#endif
