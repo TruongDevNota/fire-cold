@@ -1470,7 +1470,14 @@ public class MaxSdkiOS : MaxSdkBase
     [MonoPInvokeCallback(typeof(ALUnityBackgroundCallback))]
     internal static void BackgroundCallback(string propsStr)
     {
-        MaxSdkCallbacks.Instance.ForwardEvent(propsStr);
+        try
+        {
+            MaxSdkCallbacks.Instance.ForwardEvent(propsStr);
+        }
+        catch (Exception exception)
+        {
+            MaxSdkLogger.UserError("Unable to notify ad delegate due to exception: " + exception.Message);
+        }
     }
 
     #endregion

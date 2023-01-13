@@ -121,8 +121,7 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
 
         public static readonly string GradleTemplatePath = Path.Combine("Assets/Plugins/Android", "mainTemplate.gradle");
         public static readonly string DefaultPluginExportPath = Path.Combine("Assets", "MaxSdk");
-        private const string DefaultMaxSdkAssetExportPath = "MaxSdk/Scripts/MaxSdk.cs";
-        private static readonly string MaxSdkAssetExportPath = Path.Combine("MaxSdk", "Scripts/MaxSdk.cs");
+        private const string MaxSdkAssetExportPath = "MaxSdk/Scripts/MaxSdk.cs";
 
         /// <summary>
         /// Some publishers might re-export our plugin via Unity Package Manager and the plugin will not be under the Assets folder. This means that the mediation adapters, settings files should not be moved to the packages folder,
@@ -164,16 +163,10 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
             {
                 // Search for the asset with the default exported path first, In most cases, we should be able to find the asset.
                 // In some cases where we don't, use the platform specific export path to search for the asset (in case of migrating a project from Windows to Mac or vice versa).
-                var maxSdkScriptAssetPath = MaxSdkUtils.GetAssetPathForExportPath(DefaultMaxSdkAssetExportPath);
-                if (File.Exists(maxSdkScriptAssetPath))
-                {
-                    // maxSdkScriptAssetPath will always have AltDirectorySeparatorChar (/) as the path separator. Convert to platform specific path.
-                    return maxSdkScriptAssetPath.Replace(DefaultMaxSdkAssetExportPath, "")
-                        .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-                }
-
-                // We should never reach this line but leaving this in out of paranoia.
-                return MaxSdkUtils.GetAssetPathForExportPath(MaxSdkAssetExportPath).Replace(MaxSdkAssetExportPath, "")
+                var maxSdkScriptAssetPath = MaxSdkUtils.GetAssetPathForExportPath(MaxSdkAssetExportPath);
+                
+                // maxSdkScriptAssetPath will always have AltDirectorySeparatorChar (/) as the path separator. Convert to platform specific path.
+                return maxSdkScriptAssetPath.Replace(MaxSdkAssetExportPath, "")
                     .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
             }
         }
@@ -478,6 +471,25 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
             }
 
             MaxSdkLogger.UserError(message);
+        }
+
+        /// <summary>
+        /// Checks whether or not an adapter with the given version or newer exists.
+        /// </summary>
+        /// <param name="adapterName">The name of the network (the root adapter folder name in "MaxSdk/Mediation/" folder.</param>
+        /// <param name="version">The min adapter version to check for. Can be <c>null</c> if we want to check for any version.</param>
+        /// <returns><c>true</c> if an adapter with the min version is installed.</returns>
+        public static bool IsAdapterInstalled(string adapterName, string version = null)
+        {
+            var dependencyFilePath = MaxSdkUtils.GetAssetPathForExportPath("MaxSdk/Mediation/" + adapterName + "/Editor/Dependencies.xml");
+            if (!File.Exists(dependencyFilePath)) return false;
+
+            // If version is null, we just need the adapter installed. We don't have to check for a specific version.
+            if (version == null) return true;
+
+            var currentVersion = AppLovinIntegrationManager.GetCurrentVersions(dependencyFilePath);
+            var iosVersionComparison = MaxSdkUtils.CompareVersions(currentVersion.Ios, version);
+            return iosVersionComparison != MaxSdkUtils.VersionComparisonResult.Lesser;
         }
 
         #region Utility Methods

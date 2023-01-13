@@ -55,6 +55,7 @@ namespace AppLovinMax.Scripts.Editor
 
         private static readonly List<string> DynamicLibrariesToEmbed = new List<string>
         {
+            "DTBiOSSDK.xcframework",
             "FBSDKCoreKit_Basics.xcframework",
             "HyprMX.xcframework",
             "MobileFuseSDK.xcframework",
@@ -69,12 +70,12 @@ namespace AppLovinMax.Scripts.Editor
             get
             {
                 var swiftLanguageNetworks = new List<string>();
-                if (IsAdapterInstalled("Facebook", "6.9.0.0"))
+                if (AppLovinIntegrationManager.IsAdapterInstalled("Facebook", "6.9.0.0"))
                 {
                     swiftLanguageNetworks.Add("Facebook");
                 }
 
-                if (IsAdapterInstalled("UnityAds", "4.4.0.0"))
+                if (AppLovinIntegrationManager.IsAdapterInstalled("UnityAds", "4.4.0.0"))
                 {
                     swiftLanguageNetworks.Add("UnityAds");
                 }
@@ -334,6 +335,8 @@ namespace AppLovinMax.Scripts.Editor
 
 #if UNITY_2018_2_OR_NEWER
             EnableVerboseLoggingIfNeeded(plist);
+            AddGoogleApplicationIdIfNeeded(plist);
+            AddGoogleAdManagerAppIfNeeded(plist);
 #endif
             EnableConsentFlowIfNeeded(plist);
             AddSkAdNetworksInfoIfNeeded(plist);
@@ -376,6 +379,38 @@ namespace AppLovinMax.Scripts.Editor
             {
                 plist.root.values.Remove(AppLovinVerboseLoggingOnKey);
             }
+        }
+
+        private static void AddGoogleApplicationIdIfNeeded(PlistDocument plist)
+        {
+            const string googleApplicationIdentifier = "GADApplicationIdentifier";
+            if (!AppLovinIntegrationManager.IsAdapterInstalled("Google"))
+            {
+                plist.root.values.Remove(googleApplicationIdentifier);
+                return;
+            }
+
+            var appId = AppLovinSettings.Instance.AdMobIosAppId;
+            // Log error if the App ID is not set.
+            if (string.IsNullOrEmpty(appId) || !appId.StartsWith("ca-app-pub-"))
+            {
+                Debug.LogError("[AppLovin MAX] AdMob App ID is not set. Please enter a valid app ID within the AppLovin Integration Manager window.");
+                return;
+            }
+            
+            plist.root.SetString(googleApplicationIdentifier, appId);
+        }
+
+        private static void AddGoogleAdManagerAppIfNeeded(PlistDocument plist)
+        {
+            const string googleAdManagerApp = "GADIsAdManagerApp";
+            if (!AppLovinIntegrationManager.IsAdapterInstalled("GoogleAdManager"))
+            {
+                plist.root.values.Remove(googleAdManagerApp);
+                return;
+            }
+
+            plist.root.SetBoolean(googleAdManagerApp, true);
         }
 #endif
 
@@ -543,25 +578,6 @@ namespace AppLovinMax.Scripts.Editor
                 MaxSdkLogger.UserDebug("Removing NSAllowsArbitraryLoadsInWebContent");
                 atsRootDict.Remove("NSAllowsArbitraryLoadsInWebContent");
             }
-        }
-
-        /// <summary>
-        /// Checks whether or not an adapter with the given version or newer exists.
-        /// </summary>
-        /// <param name="adapterName">The name of the network (the root adapter folder name in "MaxSdk/Mediation/" folder.</param>
-        /// <param name="version">The min adapter version to check for. Can be <c>null</c> if we want to check for any version.</param>
-        /// <returns><c>true</c> if an adapter with the min version is installed.</returns>
-        private static bool IsAdapterInstalled(string adapterName, string version = null)
-        {
-            var dependencyFilePath = Path.Combine(PluginMediationDirectory, adapterName + "/Editor/Dependencies.xml");
-            if (!File.Exists(dependencyFilePath)) return false;
-
-            // If version is null, we just need the adapter installed. We don't have to check for a specific version.
-            if (version == null) return true;
-
-            var currentVersion = AppLovinIntegrationManager.GetCurrentVersions(dependencyFilePath);
-            var iosVersionComparison = MaxSdkUtils.CompareVersions(currentVersion.Ios, version);
-            return iosVersionComparison != MaxSdkUtils.VersionComparisonResult.Lesser;
         }
 
 #if UNITY_2019_3_OR_NEWER

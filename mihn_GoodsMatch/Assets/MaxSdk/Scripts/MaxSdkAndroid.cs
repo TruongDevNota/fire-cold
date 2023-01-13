@@ -1213,7 +1213,14 @@ public class MaxSdkAndroid : MaxSdkBase
 
         public void onEvent(string propsStr)
         {
-            MaxSdkCallbacks.Instance.ForwardEvent(propsStr);
+            try
+            {
+                MaxSdkCallbacks.Instance.ForwardEvent(propsStr);
+            }
+            catch (Exception exception)
+            {
+                MaxSdkLogger.UserError("Unable to notify ad delegate due to exception: " + exception.Message);
+            }
         }
     }
 }
