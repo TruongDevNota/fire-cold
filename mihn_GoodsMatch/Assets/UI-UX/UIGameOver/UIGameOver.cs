@@ -458,10 +458,6 @@ public class UIGameOver : MonoBehaviour
         SoundManager.Play("1. Click Button");
         rebornCount = 0;
         GameStateManager.Idle(null);
-        Hide(() =>
-        {
-            CheckToShowInterstitialAds("Back", null);
-        });
     }
     public void Btn_Restart_Handle()
     {
