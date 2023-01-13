@@ -73,7 +73,7 @@ namespace Base.Ads
                     else
                         adUnitId = Settings.openAnroidUnitId?.Trim();
 
-                    if (TestForceBackup || DebugMode.IsOn)
+                    if (TestForceBackup || DebugMode.IsDebugMode)
                     {
                         if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
                             adUnitId = "ca-app-pub-3940256099942544/5662855259";
@@ -209,7 +209,7 @@ namespace Base.Ads
                                 LogEvent(AdType.AppOpen, AdEvent.LoadNoInternet, logParams);
                             }
 
-                            if (DebugMode.IsOn)
+                            if (DebugMode.IsDebugMode)
                             {
                                 var error = args.LoadAdError;
                                 var errorDescription = error.GetMessage();
@@ -387,9 +387,9 @@ namespace Base.Ads
                 var currency = adValue.CurrencyCode;
                 var revenue = adValue.Value;
 
-                if (UnityMainThreadDispatcher.IsExist)
+                if (UnityMainThreadDispatcher.Exists())
                 {
-                    UnityMainThreadDispatcher.Enqueue(() =>
+                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
                     {
                         Debug.LogFormat(TAG + "Received paid event. (currency: {0}, value: {1}", currency, revenue);
                         LogImpressionData(AdMediation.APPOPEN, args, placementName);

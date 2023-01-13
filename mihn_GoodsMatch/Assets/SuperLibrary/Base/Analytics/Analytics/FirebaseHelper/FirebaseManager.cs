@@ -85,7 +85,7 @@ namespace Base
                 yield break;
             }
 
-#if USE_FIREBASE
+#if USE_FIREBASE && !UNITY_EDITOR
             var elapsedTime = 0f;
             Status = FirebaseStatus.Checking;
 
