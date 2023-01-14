@@ -215,9 +215,9 @@ public class MusicManager : MonoBehaviour
     {
         if (instance == null)
             return;
-        if (fadeTime > 0)
-            AudioSourceReal.volume = 0;
-        AudioSourceReal.DOFade(MaxVolume, fadeTime).SetId("AudioSourceReal");
+        //if (fadeTime > 0)
+        //    AudioSourceReal.volume = 0;
+        //AudioSourceReal.DOFade(MaxVolume, fadeTime).SetId("AudioSourceReal");
         AudioSourceReal.UnPause();
     }
 

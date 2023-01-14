@@ -434,7 +434,7 @@ public class UIGameOver : MonoBehaviour
     }
     public void CheckToShowInterstitialAds(string itemId, Action onDone)
     {
-        if (DataManager.levelSelect <= 5 || (DataManager.levelSelect < 21 && DataManager.levelSelect % 2 == 0))
+        if (!GameUtilities.IsShowAdsInter(DataManager.levelSelect))
         {
             onDone?.Invoke();
             return;

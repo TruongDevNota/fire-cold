@@ -59,7 +59,7 @@ public class UIPopupChallenge : MonoBehaviour
         anim.Hide();
         if (GameStateManager.CurrentState == GameState.Idle)
             return;
-        if (DataManager.levelSelect >= 21 || DataManager.levelSelect % 2 == 0)
+        if (GameUtilities.IsShowAdsInter(DataManager.levelSelect))
         {
             AdsManager.ShowInterstitial((s, adType) =>
             {
