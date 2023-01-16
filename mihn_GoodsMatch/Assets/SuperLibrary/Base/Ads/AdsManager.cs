@@ -442,7 +442,7 @@ namespace Base.Ads
                         yield return new WaitForSeconds(0.125f);
                     }
 
-                    ShowInterstitial((status, type) => { }, "app_open_inter", itemName);
+                    //ShowInterstitial((status, type) => { }, "app_open_inter", itemName);
                 }
             }
         }
@@ -1311,7 +1311,7 @@ namespace Base.Ads
 
                     if (GameConfig.timeToWaitOpenInter > 0 && InterIsReady)
                     {
-                        ShowInterstitial((status, type) => { }, "app_pause_inter", itemName);
+                        //ShowInterstitial((status, type) => { }, "app_pause_inter", itemName);
                     }
 
                     CheckLostConnection();

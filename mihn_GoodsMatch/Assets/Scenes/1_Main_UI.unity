@@ -3892,7 +3892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SDKKey: CwIm/S/4a1i3IaxK6HzYBTV+J+HE7O5idunbFsBNENleoKCzmxHgOiB8QiSn1J+shvsM2GoTyAWwzT93ocU/EjDPz8izmvyOn5ups+0idjM=
-  bundleVersion: 1022301141
+  bundleVersion: 1032301161
   versionBuildTexts:
   - {fileID: 379268065}
   - {fileID: 1350732642}
@@ -8044,6 +8044,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5314571882118183983}
+    - target: {fileID: 7250860349023888104, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7508627959191960307, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_Name
       value: InGameScreen

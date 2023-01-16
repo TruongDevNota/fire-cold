@@ -86,13 +86,6 @@ public class UIPopupPigProcess : MonoBehaviour
         }
         else
         {
-            if (GameUtilities.IsShowAdsInter(DataManager.levelSelect))
-            {
-                AdsManager.ShowInterstitial((s, adType) =>
-                {
-                    UIToast.Hide();
-                }, name, "PlayNextLevel");
-            }
             GameStateManager.LoadGame(null);
         }
         anim.Hide();

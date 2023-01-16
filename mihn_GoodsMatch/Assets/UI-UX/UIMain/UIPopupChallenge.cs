@@ -59,13 +59,6 @@ public class UIPopupChallenge : MonoBehaviour
         anim.Hide();
         if (GameStateManager.CurrentState == GameState.Idle)
             return;
-        if (GameUtilities.IsShowAdsInter(DataManager.levelSelect))
-        {
-            AdsManager.ShowInterstitial((s, adType) =>
-            {
-                UIToast.Hide();
-            }, name, "GiveUpChallenge");
-        }
         if (DataManager.levelSelect < DataManager.GameConfig.totalLevel && DataManager.levelSelect <= DataManager.UserData.level + 1)
         {
             DataManager.levelSelect++;

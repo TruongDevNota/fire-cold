@@ -166,14 +166,14 @@ public class UIInfo : MonoBehaviour
         {
             var item = instance.starPrefab.Spawn();
             item.transform.position = fromTrans.position;
-            item.transform.DOScale(1f, 0);
-            item.transform.DOScale(0.8f, 0.8f);
+            item.transform.DOScale(1f, 0).SetUpdate(true);
+            item.transform.DOScale(0.8f, 0.8f).SetUpdate(true);
             item.transform.DOMove(instance.defaultTarget.position, 1f).OnComplete(() =>
             {
                 item.Recycle();
-            });
+            }).SetUpdate(true);
         }
-        DOVirtual.DelayedCall(1f,() => SoundManager.Play("5. Star to target"));
+        DOVirtual.DelayedCall(1f,() => SoundManager.Play("5. Star to target")).SetUpdate(true);
     }
 
 }

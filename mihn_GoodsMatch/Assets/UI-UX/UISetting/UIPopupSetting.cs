@@ -1,3 +1,4 @@
+using Base.Ads;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,6 +47,19 @@ public class UIPopupSetting : MonoBehaviour
         SoundManager.Play("1. Click Button");
         GameStateManager.LoadGame(null);
         anim.Hide();
+
+        if (GameUtilities.IsShowAdsInter(DataManager.levelSelect))
+        {
+#if USE_IRON || USE_MAX || USE_ADMOB
+            AdsManager.ShowInterstitial((s, adType) =>
+            {
+                UIToast.Hide();
+            }, name, "RestartFromGameSetting");
+#else
+        UIToast.Hide();
+        onDone?.Invoke();
+#endif
+        }
     }
 
     public void OnContinueBtnClick()

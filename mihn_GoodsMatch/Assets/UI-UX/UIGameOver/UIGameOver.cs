@@ -184,8 +184,12 @@ public class UIGameOver : MonoBehaviour
     {
         Status = UIAnimStatus.IsAnimationShow;
 
+        string adsID = gameState == GameState.Complete ? "LevelComplete" : "LevelFail";
+        CheckToShowInterstitialAds(adsID, null);
+
+
 #if USE_IRON || USE_MAX || USE_ADMOB
-        // AdsManager.TotalTimePlay += GameStatisticsManager.TimePlayInGameEnd;
+        //AdsManager.TotalTimePlay += GameStatisticsManager.TimePlayInGameEnd;
 #endif
 
         if (gameState == GameState.GameOver)
@@ -465,10 +469,7 @@ public class UIGameOver : MonoBehaviour
         rebornCount = 0;
         
         GameStateManager.Restart(null);
-        Hide(() =>
-        {
-            CheckToShowInterstitialAds("Restart", null);
-        });
+        Hide();
     }
     public void Btn_RebornByFree_Handle()
     {
@@ -506,7 +507,6 @@ public class UIGameOver : MonoBehaviour
     {
         //btn_GoToHome.interactable = false;
         GameStateManager.LoadGame(null);
-        CheckToShowInterstitialAds("PlayNextLevel", null);
     }
 
     public void Btn_Next_Handle()
@@ -528,16 +528,7 @@ public class UIGameOver : MonoBehaviour
         else
         {
             GameStateManager.LoadGame(null);
-            CheckToShowInterstitialAds("PlayNextLevel", null);
         }
-
-        //btnStarClaim?.gameObject.SetActive(false);
-        //btnScaleStarClaim?.gameObject.SetActive(false);
-        //btn_GoToHome.gameObject.SetActive(false);
-        //txt_nextLevel.text = $"PLAY LV.{DataManager.levelSelect}";
-        //btn_GoToHome.gameObject.SetActive(true);
-        //btn_GoToNextLevel.gameObject.SetActive(true);
-        
     }
     protected void Btn_SkipCountDown_Handle()
     {
