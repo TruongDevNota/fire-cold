@@ -59,6 +59,8 @@ public class UIInGame : MonoBehaviour
     [SerializeField] Image img_Alert;
     [SerializeField] float fadeTime;
 
+    [SerializeField] UIPopupSetting popupSetting;
+
     private void Awake()
     {
         if (anim == null)
@@ -82,7 +84,11 @@ public class UIInGame : MonoBehaviour
     {
         settingButton?.onClick.AddListener(() =>
         {
-            GameStateManager.Pause(null);
+            if(GameStateManager.CurrentState == GameState.Play)
+            {
+                GameStateManager.Pause(null);
+                popupSetting.OnShow();
+            }
         });
 
         backButton?.onClick.AddListener(backButtonOnClick);

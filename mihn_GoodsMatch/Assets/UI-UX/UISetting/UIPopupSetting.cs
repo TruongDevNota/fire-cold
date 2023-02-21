@@ -33,6 +33,8 @@ public class UIPopupSetting : MonoBehaviour
         panelButtonsIngame?.SetActive(GameStateManager.CurrentState != GameState.Idle);
         txt_version?.gameObject.SetActive(GameStateManager.CurrentState == GameState.Idle);
         txt_header.text = GameStateManager.CurrentState == GameState.Idle ? "SETTING" : "PAUSE";
+
+        anim.Show();
     }
 
     public void OnHomeBtnClick()
@@ -48,24 +50,21 @@ public class UIPopupSetting : MonoBehaviour
         GameStateManager.LoadGame(null);
         anim.Hide();
 
-        if (GameUtilities.IsShowAdsInter(DataManager.levelSelect))
-        {
 #if USE_IRON || USE_MAX || USE_ADMOB
-            AdsManager.ShowInterstitial((s, adType) =>
-            {
-                UIToast.Hide();
-            }, name, "RestartFromGameSetting");
+        AdsManager.ShowInterstitial((s, adType) =>
+        {
+            GameStateManager.LoadGame(null);
+            UIToast.Hide();
+        }, name, "RestartFromGameSetting");
 #else
         UIToast.Hide();
-        onDone?.Invoke();
 #endif
-        }
     }
 
     public void OnContinueBtnClick()
     {
         SoundManager.Play("1. Click Button");
-        if (GameStateManager.CurrentState != GameState.Idle)
+        if (GameStateManager.CurrentState == GameState.Pause)
             GameStateManager.Play(null);
         anim.Hide();
     }

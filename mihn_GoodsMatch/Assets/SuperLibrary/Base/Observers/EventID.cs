@@ -24,4 +24,6 @@ public enum EventID
     OnGoToChallengeLevel = 60,
 
     OnAlertTimeout = 70,
+
+    OnPauseAppByAds = 1000,
 }
