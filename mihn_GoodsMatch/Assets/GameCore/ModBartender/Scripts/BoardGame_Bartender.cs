@@ -24,9 +24,41 @@ public class BoardGame_Bartender : MonoBehaviour
     private List<eItemType> typpGroup3 = new List<eItemType>();
     private List<eItemType> typeGroup4 = new List<eItemType>();
 
+    private void Awake()
+    {
+        GameStateManager.OnStateChanged += OnGameStateChangeHandler;
+    }
+    private void OnDestroy()
+    {
+        GameStateManager.OnStateChanged -= OnGameStateChangeHandler;
+    }
+
     private void Start()
     {
-        StartCoroutine(YieldInit(0));
+        
+    }
+
+    private void OnGameStateChangeHandler(GameState current, GameState last, object data)
+    {
+        if (current == GameState.Restart || current == GameState.Init)
+        {
+            isAlert = false;
+            StartCoroutine(YieldInit(0));
+        }
+        if (current == GameState.Pause)
+        {
+
+        }
+        if (current == GameState.Play)
+        {
+
+        }
+        if (current == GameState.RebornContinue)
+        {
+            isAlert = false;
+            
+            GameStateManager.Play(null);
+        }
     }
 
     private IEnumerator YieldInit(int level)
@@ -42,7 +74,10 @@ public class BoardGame_Bartender : MonoBehaviour
         typpGroup3.Clear();
         typeGroup4.Clear();
         foreach (var item in items)
-            item.Recycle();
+        {
+            if(item != null)
+                item.Recycle();
+        }
         items.Clear();
         yield return new WaitForEndOfFrame();
         var allItemUnlocked = NextList(gameItemAsset.unlockedList);
@@ -75,6 +110,9 @@ public class BoardGame_Bartender : MonoBehaviour
             startShelfIndex += 2;
             yield return new WaitForEndOfFrame();
         }
+
+        GameStateManager.Ready(null);
+        UIToast.Hide();
     }
 
     private void InitItems(List<ItemDatum> allItemUnlocked)

@@ -4847,6 +4847,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 778617515}
     m_Modifications:
+    - target: {fileID: 3494559277520697042, guid: e5f1259ba1e25ef4495151756e636e25, type: 3}
+      propertyPath: defaultScene
+      value: 3_Battle_Bartender
+      objectReference: {fileID: 0}
     - target: {fileID: 3494559277520697043, guid: e5f1259ba1e25ef4495151756e636e25, type: 3}
       propertyPath: m_Name
       value: LoadGameContentHelper
