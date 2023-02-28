@@ -38,6 +38,8 @@
     <package>com.google.firebase:firebase-common:20.2.0</package>
     <package>com.google.firebase:firebase-config:21.2.0</package>
     <package>com.google.firebase:firebase-config-unity:10.3.0</package>
+    <package>com.google.firebase:firebase-crashlytics-ndk:18.3.2</package>
+    <package>com.google.firebase:firebase-crashlytics-unity:10.3.0</package>
     <package>com.google.firebase:firebase-iid:21.1.0</package>
     <package>com.google.firebase:firebase-messaging:23.1.1</package>
     <package>com.google.firebase:firebase-messaging-unity:10.3.0</package>
@@ -51,6 +53,8 @@
     <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-app-unity/10.3.0/firebase-app-unity-10.3.0.pom</file>
     <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-config-unity/10.3.0/firebase-config-unity-10.3.0.aar</file>
     <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-config-unity/10.3.0/firebase-config-unity-10.3.0.pom</file>
+    <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-crashlytics-unity/10.3.0/firebase-crashlytics-unity-10.3.0.aar</file>
+    <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-crashlytics-unity/10.3.0/firebase-crashlytics-unity-10.3.0.pom</file>
     <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-messaging-unity/10.3.0/firebase-messaging-unity-10.3.0.aar</file>
     <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-messaging-unity/10.3.0/firebase-messaging-unity-10.3.0.pom</file>
   </files>

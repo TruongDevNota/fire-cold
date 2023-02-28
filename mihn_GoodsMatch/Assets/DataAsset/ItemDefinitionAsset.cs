@@ -10,10 +10,21 @@ public class ItemDefinitionAsset : ScriptableObject
 {
     [Header("Item Definitions")]
     [SerializeField] List<ItemDefinitions> definitions;
-
     [SerializeField] List<GameObject> itemPrefabs;
 
     public List<ItemDefinitions> pDefinitions { get => definitions; }
+    public List<ItemDefinitions> unlockedList
+    {
+        get
+        {
+            return definitions?.Where(x => x.unlocked).ToList();
+        }
+    }
+    public List<ItemDefinitions> itemSaveList
+    {
+        get => definitions.Where(x => x.unlocked)
+            .Select(x => new ItemDefinitions { id = x.id, unlocked = x.unlocked }).ToList();
+    }
 
     public ItemDefinitions GetDefinitionByType(eItemType type)
     {
@@ -31,7 +42,7 @@ public class ItemDefinitionAsset : ScriptableObject
             var newDefinition = new ItemDefinitions()
             {
                 id = itemPrefabs[i].name.ToLower(),
-                index = i,
+                unlocked = i < 18,
                 itemType = datum.Type,
                 itemPrefabs = itemPrefabs[i],
                 matchAmount = datum.matchAmount,
@@ -49,8 +60,8 @@ public class ItemDefinitionAsset : ScriptableObject
 public class ItemDefinitions
 {
     public string id;
-    public int index;
     public eItemType itemType;
+    public bool unlocked;
     public GameObject itemPrefabs;
     public int matchAmount;
     public int slotNeed;

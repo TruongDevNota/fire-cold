@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadGameContent : MonoBehaviour
 {
+    [SerializeField] string defaultScene;
     private static LoadGameContent instance { get; set; }
 
     private string[] tips = new string[]
@@ -46,8 +47,9 @@ public class LoadGameContent : MonoBehaviour
         //    UIToast.ShowLoading(randomTip, 5f, UIToast.IconTip);
 
         MusicManager.Stop(null, false, 0.25f);
+        string sceneName = string.IsNullOrEmpty(defaultScene) ? "3_Battle" : defaultScene;
 
-        yield return SceneHelper.DoLoadSceneAsync("3_Battle");
+        yield return SceneHelper.DoLoadSceneAsync(sceneName);
 
         while (!SceneHelper.isLoaded)
             yield return null;

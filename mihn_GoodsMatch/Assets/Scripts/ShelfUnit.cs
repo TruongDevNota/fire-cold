@@ -89,7 +89,7 @@ public class ShelfUnit : MonoBehaviour
             cells[item.pFirstLeftCellIndex + i].isEmpty = false;
         }
         item.OnPutUpShelf();
-        yield return item.tfMoving.YiledMovingInSameTime(itemPos);
+        yield return item.tfMoving.YiledMovingLocalPosition(itemPos);
         CheckMatch(item.Type);
     }
 

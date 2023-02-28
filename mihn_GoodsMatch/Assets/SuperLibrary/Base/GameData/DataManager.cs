@@ -17,6 +17,7 @@ public class DataManager : MonoBehaviour
         get => LevelAsset?.Current;
         set => LevelAsset.Current = value;
     }
+    public static GameItemAsset GameItemData => instance.gameItemAsset;
 
     public static LevelAsset LevelAsset { get; private set; }
     public static GameData gameData { get; private set; }
@@ -32,6 +33,8 @@ public class DataManager : MonoBehaviour
     protected ConfigAsset configAsset = null;
     [SerializeField]
     protected LevelAsset levelAsset = null;
+    [SerializeField]
+    protected GameItemAsset gameItemAsset = null;
 
     public static bool IsFirstTime = false;
 

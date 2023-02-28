@@ -32,6 +32,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     [SerializeField]
     private UIGameOver gameOverScreen = null;
     public static UIGameOver GameOverScreen => instance?.gameOverScreen;
+    private UIGameOver_Bartender gameOver_Bar_Screen = null;
+    public static UIGameOver_Bartender GameOver_Bar_Screen => instance?.gameOver_Bar_Screen;
 
     private DateTime startLoadTime = DateTime.Now;
 
@@ -345,8 +347,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
         DOVirtual.DelayedCall(timeWaitDie, () =>
         {
-            if (GameStateManager.CurrentState == GameState.WaitGameOver)
-                GameStateManager.GameOver(data);
+            GameStateManager.GameOver(data);
         }).SetUpdate(false).SetId(this);
     }
 

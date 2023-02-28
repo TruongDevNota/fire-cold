@@ -15,8 +15,6 @@ public enum EventID
     OnBuffHint = 20,
     OnBuffSwap = 21,
 
-    OnNewMatchSuccess = 30,
-
     OnPlayMusic = 40,
 
     OnGameReady = 50,
@@ -24,6 +22,13 @@ public enum EventID
     OnGoToChallengeLevel = 60,
 
     OnAlertTimeout = 70,
+
+    OnNewMatchSuccess = 100,
+    OnMatchedWrongRequest = 101,
+    OnMatchedRightRequest = 102,
+
+    OnNewRequestCreated = 200,
+    OnRequestTimeout = 201,
 
     OnPauseAppByAds = 1000,
 }
