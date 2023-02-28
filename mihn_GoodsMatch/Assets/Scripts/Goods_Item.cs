@@ -105,7 +105,7 @@ public class Goods_Item : MonoBehaviour
         StartCoroutine(YieldExplode(index));
     }
 
-    private IEnumerator YieldExplode(int index = 0)
+    public IEnumerator YieldExplode(int index = 0)
     {
         StopRotate();
         yield return new WaitForSeconds(index * 0.2f);

@@ -285,7 +285,9 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             UILoadGame.Process();
             yield return null;
         }
-        
+
+        yield return new WaitForSeconds(1f);
+
         onComplete?.Invoke();
     }
 
@@ -318,6 +320,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         StartCoroutine(WaitForLoading(() =>
         {
             UILoadGame.Hide();
+            GameStateManager.Play(data);
         }));
     }
 

@@ -99,15 +99,10 @@ public class RequestManager : MonoBehaviour
         request.waitTime = waitTime + (itemCount -1) * waitTime * 0.5f;
         for (int i = 0; i < itemCount; i++)
         {
-            var requestType = GetTypeRequest();
+            var requestType = boardGame.GetItemTypeByGroup(GetGroupTypeIndex());
             request.types.Add(requestType);
         }
         return request;
-    }
-
-    private eItemType GetTypeRequest()
-    {
-        return boardGame.GetItemTypeByGroup(GetGroupTypeIndex());
     }
 
     private int GetGroupTypeIndex()

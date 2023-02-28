@@ -7948,6 +7948,30 @@ PrefabInstance:
       propertyPath: popupSetting
       value: 
       objectReference: {fileID: 1866255698}
+    - target: {fileID: 1162727480251367131, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162727480251367131, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162727480251367131, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162727480251367131, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162727480251367131, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162727480251367131, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -38
+      objectReference: {fileID: 0}
     - target: {fileID: 1982694554221685972, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -10128,6 +10152,10 @@ PrefabInstance:
       propertyPath: levelAsset
       value: 
       objectReference: {fileID: 11400000, guid: 388ac3ab686947947b1cabfe6647f696, type: 2}
+    - target: {fileID: 4727119641731156177, guid: 096dd6a785d64e74b81c75b0e6b1b231, type: 3}
+      propertyPath: gameItemAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 74792362903f1b04981b1c9fb6472570, type: 2}
     - target: {fileID: 4727119641731156183, guid: 096dd6a785d64e74b81c75b0e6b1b231, type: 3}
       propertyPath: m_Name
       value: DataManager

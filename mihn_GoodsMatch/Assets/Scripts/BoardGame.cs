@@ -65,6 +65,7 @@ public class BoardGame : MonoBehaviour
         GameStateManager.OnStateChanged += OnGameStateChangeHandler;
         this.RegisterListener((int)EventID.OnBuffHint, DoBuffHint);
         this.RegisterListener((int)EventID.OnBuffSwap, DoBuffSwap);
+        this.RegisterListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
     }
 
     private void OnDisable()
@@ -72,6 +73,7 @@ public class BoardGame : MonoBehaviour
         GameStateManager.OnStateChanged -= OnGameStateChangeHandler;
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffHint, DoBuffHint);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffSwap, DoBuffSwap);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
     }
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
@@ -349,6 +351,17 @@ public class BoardGame : MonoBehaviour
                 break;
         }
 
+    }
+    #endregion
+
+    #region matchedHandle
+    private void OnNewMatchSuccess(object obj)
+    {
+        SoundManager.Play("3. Scoring");
+        var datum = (NewMatchDatum)obj;
+        foreach(var item in datum.items)
+            items.Remove(item);
+        CheckGameComplete();
     }
     #endregion
 

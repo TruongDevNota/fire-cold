@@ -12,7 +12,6 @@ using Base;
 public class BoardGame_Bartender : MonoBehaviour
 {
     [SerializeField] GameItemAsset gameItemAsset;
-    [SerializeField] ItemDefinitionAsset itemDefinitionAsset;
     
     public Vector3 touchPositionOffset;
 
@@ -87,6 +86,7 @@ public class BoardGame_Bartender : MonoBehaviour
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffHint, DoBuffHint);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffSwap, DoBuffSwap);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewRequestCreated, OnNewRequestCreated);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
     }
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
@@ -448,9 +448,9 @@ public class BoardGame_Bartender : MonoBehaviour
 
     private void DoBuffHint(object obj)
     {
-        var definition = itemDefinitionAsset.GetDefinitionByType(items[Random.Range(0, items.Count)].Type);
-        var hintItems = items.FindAll(x => x.Type == definition.itemType).ToList();
-        for(int i = 0; i < definition.matchAmount; i++)
+        var itemDatum = gameItemAsset.GetItemByType(items[Random.Range(0, items.Count)].Type);
+        var hintItems = items.FindAll(x => x.Type == itemDatum.itemProp.Type).ToList();
+        for(int i = 0; i < itemDatum.itemProp.matchAmount; i++)
         {
             var item = hintItems[i];
             item.jump(i);

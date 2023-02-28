@@ -34,6 +34,7 @@ public class UIMainScreen : MonoBehaviour
     private Button btn_LockChallenge;
     [SerializeField]
     Text txt_LockChallenge;
+    [SerializeField] Button PlayBartenderBtn;
 
     void Awake()
     {
@@ -45,7 +46,7 @@ public class UIMainScreen : MonoBehaviour
     {
         btn_Play?.onClick.AddListener(Ins_BtnPlayClick);
         btn_PlayChallenge?.onClick.AddListener(Ins_BtnChallengeClick);
-        
+        PlayBartenderBtn?.onClick.AddListener(BtnPlayBartenderClicked);
     }
 
     private void OnEnable()
@@ -90,21 +91,27 @@ public class UIMainScreen : MonoBehaviour
         SoundManager.Play("1. Click Button");
         popupDailyReward.OnShow();
     }
-
     public void Ins_BtnPlayClick()
     {
         SoundManager.Play("1. Click Button");
         Debug.Log($"Level data load: {DataManager.UserData.level + 1}");
         DataManager.levelSelect = Mathf.Clamp(DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1, 1, DataManager.GameConfig.totalLevel - 1);
+        DataManager.currGameMode = eGameMode.Normal;
         GameStateManager.LoadGame(null);
     }
-
     private void Ins_BtnChallengeClick()
     {
         SoundManager.Play("1. Click Button");
         int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.levelsToNextChallenge;
         DataManager.levelSelect = lv;
+        DataManager.currGameMode = eGameMode.Normal;
         this.PostEvent((int)EventID.OnGoToChallengeLevel);
+    }
+    private void BtnPlayBartenderClicked()
+    {
+        SoundManager.Play("1. Click Button");
+        DataManager.currGameMode = eGameMode.Bartender;
+        GameStateManager.LoadGame(null);
     }
     #endregion
 }

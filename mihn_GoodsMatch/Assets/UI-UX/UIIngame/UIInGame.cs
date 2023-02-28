@@ -19,12 +19,16 @@ public class UIInGame : MonoBehaviour
     Image ingameBG;
     [SerializeField] 
     Text levelTxt = null;
-    [SerializeField]
-    private UIAnimation uiTopAnim = null;
-    [SerializeField]
-    private UIAnimation uiBottomAnim = null;
+    
     [SerializeField]
     private PopupBuyBuff popupBuyBuff = null;
+
+    [Header("UIInformation Bartender")]
+    [SerializeField] UIInfo uiInforNormal = null;
+    [SerializeField] UIAnimation uiBottomAnim = null;
+
+    [Header("UIInformation Bartender")]
+    [SerializeField] UIInfo_Bartender uiInfor_Bartender = null;
 
     [Header("Buff")]
     [SerializeField]
@@ -101,7 +105,7 @@ public class UIInGame : MonoBehaviour
         playButton?.onClick.AddListener(PlayButtonOnClick);
         buffHintButton?.onClick.AddListener(BuffHintButtonOnclick);
         buffRestartButton?.onClick.AddListener(BuffSwapClick);
-        
+
         GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
     }
 
@@ -165,9 +169,11 @@ public class UIInGame : MonoBehaviour
             case GameState.Restart:
                 playButton?.gameObject.SetActive(true);
                 ingameBG.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Count)];
-                levelTxt.text = $"LEVEL {DataManager.levelSelect}";
-                uiTopAnim.Hide();
+                levelTxt.text = DataManager.currGameMode == eGameMode.Normal ? $"LEVEL {DataManager.levelSelect}" 
+                    : DataManager.UserData.bartenderLevel % 2 == 0 ? $"DAY {DataManager.UserData.bartenderLevel/2 + 1}" : $"NIGHT {DataManager.UserData.bartenderLevel / 2 + 1}";
+                uiInforNormal.Hide();
                 uiBottomAnim?.Hide();
+                uiInfor_Bartender?.Hide();
                 img_Alert?.gameObject.SetActive(false);
                 buffHintButton.interactable = hintUnlocked;
                 buffRestartButton.interactable = swapUnlocked;
@@ -181,16 +187,23 @@ public class UIInGame : MonoBehaviour
             case GameState.Ready:
                 playButton?.gameObject.SetActive(true);
                 anim.Show();
-                CountDown();
                 break;
             case GameState.Play:
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
-                uiBottomAnim.Show();
-                uiTopAnim.Show();
+                if(DataManager.currGameMode == eGameMode.Normal)
+                {
+                    uiBottomAnim.Show();
+                    uiInforNormal.Show();
+                }
+                else
+                {
+                    uiInfor_Bartender.Show();
+                }
                 break;
             case GameState.Pause:
+                popupSetting.OnShow();
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(true);
@@ -216,46 +229,6 @@ public class UIInGame : MonoBehaviour
     {
         anim.Hide();
     }
-
-    #region Ready
-    public void CountDown()
-    {
-        StartCoroutine(DOStartCountDown());
-    }
-
-    public IEnumerator DOStartCountDown()
-    {
-        if (GameStateManager.CurrentState == GameState.Ready)
-        {
-            yield return new WaitForSeconds(1f);
-
-            //var wait1 = new WaitForSeconds(1);
-            //DoPlaySoundCount();
-            //ShowToastPerfect("3", 0.7f, false);
-            //yield return wait1;
-            //DoPlaySoundCount();
-            //ShowToastPerfect("2", 0.7f, false);
-            //yield return wait1;
-            //DoPlaySoundCount();
-            //ShowToastPerfect("1", 0.7f, false);
-            //yield return wait1;
-            //DoPlaySoundCount();
-            //ShowToastPerfect("go", 0.8f, true);
-        }
-        GameStateManager.Play(null);
-    }
-
-    private void DoPlaySoundCount()
-    {
-        SoundManager.Play("sfx_task");
-    }
-
-    public void ShowToastPerfect(string second, float timeAutoHide, bool waitAnimation)
-    {
-        if (perfectToast != null)
-            perfectToast.Show(second.ToUpper(), timeAutoHide, waitAnimation);
-    }
-    #endregion
 
     public void ShowTapToPlay()
     {

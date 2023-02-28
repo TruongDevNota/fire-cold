@@ -152,18 +152,7 @@ public class ShelfUnit : MonoBehaviour
             return;
         if(matchItems.Count == matchItems[0].matchAmount)
         {
-            this.PostEvent((int)EventID.OnNewMatchSuccess);
-            SoundManager.Play("3. Scoring");
-            int index = -1;
-            foreach (var item in matchItems)
-            {
-                index++;
-                PickItemUpHandler(item);
-                itemsOnShelf.Remove(item);
-                BoardGame.instance?.items.Remove(item);
-                BoardGame.instance.CheckGameComplete();
-                item.Explode(index);
-            }
+            this.PostEvent((int)EventID.OnNewMatchSuccess, new NewMatchDatum(matchItems[0].Type, matchItems));
             Debug.Log($"New match item type: {type}");
         }
     }

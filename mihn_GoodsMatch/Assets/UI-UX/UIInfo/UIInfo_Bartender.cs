@@ -10,14 +10,18 @@ public class UIInfo_Bartender : MonoBehaviour
 {
     private static UIInfo_Bartender instance;
 
-    [SerializeField] Text startText;
-    
+    [Header("Base")]
+    [SerializeField] UIAnimation anim;
+    [SerializeField] Button settingButton;
+    [SerializeField] Text coinEarnText;
+
     [Header("Level data")]
     [SerializeField] Slider timeLeftSlider;
     [SerializeField] int maxRequestMissed = 5;
     [ReadOnly, SerializeField] float totalTime = 180f;
     [SerializeField] Text requestMissText;
     [SerializeField] float baseLevelTime = 60f;
+    [SerializeField] Text timeLeftTxt = null;
     float timePlayed = 0;
     int currRequestMissed = 0;
 
@@ -37,14 +41,14 @@ public class UIInfo_Bartender : MonoBehaviour
             if (instance.comboCount > 0)
             {
                 currentComboTimeLeft = comboTimeCooldown;
-                instance.DoComboCountDown();
+                //instance.DoComboCountDown();
             }
         }
     }
     Coroutine comboCooldownCoroutine;
 
     [Header("COIN ")]
-    [SerializeField] GameObject starPrefab;
+    [SerializeField] GameObject coinPrefab;
     [SerializeField] float animCollectDelay = 1f;
     public Transform defaultTarget;
     int currentEarn;
@@ -54,19 +58,30 @@ public class UIInfo_Bartender : MonoBehaviour
 
     private void Awake()
     {
-        GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
+        
         instance = this;
-        starPrefab.CreatePool(10);
+        coinPrefab.CreatePool(10);
     }
-
+    private void Start()
+    {
+        settingButton?.onClick.AddListener(() =>
+        {
+            if (GameStateManager.CurrentState == GameState.Play)
+            {
+                GameStateManager.Pause(null);
+            }
+        });
+    }
     private void OnEnable()
     {
+        GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
         this.RegisterListener((int)EventID.OnMatchedRightRequest, OnNewMatchSuccess);
         this.RegisterListener((int)EventID.OnRequestTimeout, OnRequestMissed);
     }
 
     private void OnDisable()
     {
+        GameStateManager.OnStateChanged -= GameStateManager_OnStateChanged;
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnMatchedRightRequest, OnNewMatchSuccess);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnRequestTimeout, OnRequestMissed);
     }
@@ -81,7 +96,8 @@ public class UIInfo_Bartender : MonoBehaviour
             return;
         }
         timePlayed += Time.deltaTime;
-        timeLeftSlider.value = totalTime - timePlayed;
+        timeLeftTxt.text = TimeSpan.FromSeconds(Mathf.CeilToInt(Mathf.Max(totalTime - timePlayed, 0))).ToString("m':'ss");
+        //timeLeftSlider.value = totalTime - timePlayed;
     }
 
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
@@ -91,31 +107,30 @@ public class UIInfo_Bartender : MonoBehaviour
             case GameState.Init:
             case GameState.Restart:
                 GameStatisticsManager.starEarn = 0;
-                startText.text = "0";
+                coinEarnText.text = "0";
 
                 totalTime = Mathf.Min(300f, baseLevelTime + DataManager.UserData.level * 10f);
-                timeLeftSlider.minValue = 0;
-                timeLeftSlider.maxValue = totalTime;
-                timeLeftSlider.value = totalTime;
                 timePlayed = 0;
+                timeLeftTxt.text = TimeSpan.FromSeconds(Mathf.CeilToInt(totalTime)).ToString("m':'ss");
+
+                if (timeLeftSlider != null)
+                {
+                    timeLeftSlider.minValue = 0;
+                    timeLeftSlider.maxValue = totalTime;
+                    timeLeftSlider.value = totalTime;
+                }
+
                 currRequestMissed = 0;
                 requestMissText.text = $"{currRequestMissed}/{maxRequestMissed}";
 
                 ComboCount = 0;
-                comboCountText.text = "x0";
-                comboTimeSlider.minValue = 0;
-                comboTimeSlider.maxValue = comboTimeCooldown;
-                comboTimeSlider.value = comboTimeCooldown;
-                currentComboTimeLeft = comboTimeCooldown;
-                comboTimeSlider.gameObject.SetActive(false);
-
                 currRequestComplete = 0;
                 break;
             case GameState.Ready:
                 break;
             case GameState.Pause:
-                currentComboTimeLeft = comboTimeSlider.value;
-                DOTween.Kill(comboTimeSlider);
+                //currentComboTimeLeft = comboTimeSlider.value;
+                //DOTween.Kill(comboTimeSlider);
                 break;
             case GameState.Play:
                 break;
@@ -123,24 +138,34 @@ public class UIInfo_Bartender : MonoBehaviour
                 ComboCount = 0;
                 break;
             case GameState.WaitComplete:
-                DOTween.Kill(comboTimeSlider);
+                //DOTween.Kill(comboTimeSlider);
                 DOTween.Kill(this);
                 StopAllCoroutines();
                 break;
             case GameState.WaitGameOver:
-                DOTween.Kill(comboTimeSlider);
+                //DOTween.Kill(comboTimeSlider);
                 DOTween.Kill(this);
                 StopAllCoroutines();
                 break;
         }
     }
+
+    public void Show()
+    {
+        anim.Show();
+    }
+    public void Hide()
+    {
+        anim.Hide();
+    }
+
     private void OnNewMatchSuccess(object obj)
     {
         var item = (Goods_Item)obj;
         int coinEarn = DataManager.GameItemData.GetItemByType(item.Type).earnValue;
         var lastStar = GameStatisticsManager.starEarn;
         GameStatisticsManager.starEarn += 5;
-        startText.DOText(lastStar, GameStatisticsManager.starEarn, 1f, 1f);
+        coinEarnText.DOText(lastStar, GameStatisticsManager.starEarn, 1f, 1f);
         ComboCount++;
         currRequestComplete++;
         Debug.Log($"Matched request item at position: {item.transform.position}");
@@ -181,7 +206,7 @@ public class UIInfo_Bartender : MonoBehaviour
         var endPos = toTrans != null ? toTrans.position : instance.defaultTarget.position;
         for (int i = 0; i < numb; i++)
         {
-            var item = instance.starPrefab.Spawn();
+            var item = instance.coinPrefab.Spawn();
             item.transform.position = fromPos;
             item.transform.DOScale(0.8f, 0).SetId($"Collect-coin-{item.name}");
             item.transform.DOMove(endPos, 1f).OnComplete(() => { 

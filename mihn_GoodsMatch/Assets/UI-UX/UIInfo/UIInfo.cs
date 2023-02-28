@@ -9,6 +9,10 @@ public class UIInfo : MonoBehaviour
 {
     private static UIInfo instance;
 
+    [Header("Base")]
+    [SerializeField] UIAnimation anim;
+    [SerializeField] Button settingButton;
+    
     [SerializeField] Text timeLeftText;
     [SerializeField] Text startText;
 
@@ -20,7 +24,7 @@ public class UIInfo : MonoBehaviour
 
     [Header("Star effect")]
     [SerializeField]
-    GameObject starPrefab;
+    GameObject coinPrefab;
     public Transform defaultTarget;
 
     float currentCoolDownTime;
@@ -48,18 +52,20 @@ public class UIInfo : MonoBehaviour
 
     private void Awake()
     {
-        GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
+        
         instance = this;
-        starPrefab.CreatePool(10);
+        coinPrefab.CreatePool(10);
     }
 
     private void OnEnable()
     {
+        GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
         this.RegisterListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
     }
 
     private void OnDisable()
     {
+        GameStateManager.OnStateChanged -= GameStateManager_OnStateChanged;
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
     }
 
@@ -118,7 +124,14 @@ public class UIInfo : MonoBehaviour
                 break;
         }
     }
-
+    public void Show()
+    {
+        anim.Show();
+    }
+    public void Hide()
+    {
+        anim.Hide();
+    }
     private IEnumerator YieldShowBonus()
     {
         var lastStar = GameStatisticsManager.starEarn;
@@ -142,7 +155,21 @@ public class UIInfo : MonoBehaviour
         matchCount++;
         var lastStar = GameStatisticsManager.starEarn;
         GameStatisticsManager.starEarn += matchCount % 9 + 1;
-        startText.DOText(lastStar, GameStatisticsManager.starEarn, 1f);
+        startText.DOText(lastStar, GameStatisticsManager.starEarn, 1f, 1.2f);
+        StartCoroutine(YieldCollectCoin(obj));
+    }
+
+    private IEnumerator YieldCollectCoin(object obj)
+    {
+        var datum = (NewMatchDatum)obj;
+        var shelf = datum.items[0].pCurrentShelf;
+        for (int i = 0; i < datum.items.Count; i++)
+        {
+            var posIndex = datum.items[i].pFirstLeftCellIndex;
+            shelf.PickItemUpHandler(datum.items[i]);
+            datum.items[i].Explode();
+            yield return CollectStars(1, datum.items[i].transform.position);
+        };
     }
 
     private void DoComboCountDown()
@@ -158,13 +185,11 @@ public class UIInfo : MonoBehaviour
             currentCoolDownTime = comboTimeCooldown;
         });
     }
-
     public static void CollectStars(int numb, Transform fromTrans, Transform toTrans = null)
     {
-        
         for(int i = 0; i < numb; i++)
         {
-            var item = instance.starPrefab.Spawn();
+            var item = instance.coinPrefab.Spawn();
             item.transform.position = fromTrans.position;
             item.transform.DOScale(1f, 0).SetUpdate(true);
             item.transform.DOScale(0.8f, 0.8f).SetUpdate(true);
@@ -175,5 +200,19 @@ public class UIInfo : MonoBehaviour
         }
         DOVirtual.DelayedCall(1f,() => SoundManager.Play("5. Star to target")).SetUpdate(true);
     }
-
+    public IEnumerator CollectStars(int numb, Vector3 fromPos, Transform toTrans = null)
+    {
+        yield return new WaitForSeconds(0.2f);
+        var endPos = toTrans != null ? toTrans.position : instance.defaultTarget.position;
+        for (int i = 0; i < numb; i++)
+        {
+            var item = instance.coinPrefab.Spawn();
+            item.transform.position = fromPos;
+            item.transform.DOScale(0.8f, 0).SetId($"Collect-coin-{item.name}");
+            item.transform.DOMove(endPos, 1f).OnComplete(() => {
+                item.Recycle();
+                SoundManager.Play("5. Star to target");
+            }).SetId("CollectCoinIngame").SetUpdate(true);
+        }
+    }
 }

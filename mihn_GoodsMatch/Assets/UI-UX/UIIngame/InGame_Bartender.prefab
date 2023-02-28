@@ -2400,17 +2400,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d333482481734f4caae0253193c95e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeLeftText: {fileID: 0}
   startText: {fileID: 7968910883206034690}
-  timeLeftSlider: {fileID: 6052548965990544250}
-  maxRequestMissed: 5
-  totalTime: 360
-  requestMissText: {fileID: 9038894783773341239}
-  baseLevelTime: 60
   comboTimeSlider: {fileID: 6811197800005025908}
   comboCountText: {fileID: 6690649617802902938}
-  comboTimeCooldown: 10
+  comboCollectTimne: 0
   starPrefab: {fileID: 1293701248151147880, guid: 576d4450b65fdb64092cf16f53c35772, type: 3}
-  animCollectDelay: 0.5
   defaultTarget: {fileID: 4920020978729170687}
 --- !u!114 &7794349862253761383
 MonoBehaviour:

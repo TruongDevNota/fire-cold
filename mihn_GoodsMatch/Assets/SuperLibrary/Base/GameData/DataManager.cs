@@ -26,6 +26,7 @@ public class DataManager : MonoBehaviour
 
     public static int levelSelect = 0;
     public static int levelStars = 1;
+    public static eGameMode currGameMode = eGameMode.Normal;
 
     [Space(10)]
     [Header("Default Data")]
