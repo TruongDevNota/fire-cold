@@ -5,7 +5,6 @@ using System.Linq;
 
 public class StorageController : MonoBehaviour
 {
-    [SerializeField] ItemDefinitionAsset itemDefinitionAsset;
     [SerializeField] int fillSlotPercent;
     [SerializeField] public int maxSetOfItems;
     [SerializeField] Transform Goods_Container;
@@ -47,21 +46,21 @@ public class StorageController : MonoBehaviour
         int slotUse = 0;
 
         itemsInWareHouse.Clear();
-        while (setOfItems < maxSetOfItems && slotUse < totalCellSlot* fillSlotPercent/100)
-        {
-            var definition = itemDefinitionAsset.pDefinitions[typeCreatedCount % itemDefinitionAsset.pDefinitions.Count];
-            typeCreatedCount++;
-            setOfItems++;
-            slotUse += definition.slotNeed * definition.matchAmount;
-            if (slotUse > totalCellSlot * fillSlotPercent / 100)
-                break;
-            for (int i = 0; i < definition.matchAmount; i++)
-            {
-                var newItem = GameObject.Instantiate(definition.itemPrefabs, Goods_Container).GetComponent<Goods_Item>();
-                itemsInWareHouse.Add(newItem);
-                newItem.gameObject.SetActive(false);
-            }
-        }
+        //while (setOfItems < maxSetOfItems && slotUse < totalCellSlot* fillSlotPercent/100)
+        //{
+        //    var definition = itemDefinitionAsset.pDefinitions[typeCreatedCount % itemDefinitionAsset.pDefinitions.Count];
+        //    typeCreatedCount++;
+        //    setOfItems++;
+        //    slotUse += definition.slotNeed * definition.matchAmount;
+        //    if (slotUse > totalCellSlot * fillSlotPercent / 100)
+        //        break;
+        //    for (int i = 0; i < definition.matchAmount; i++)
+        //    {
+        //        var newItem = GameObject.Instantiate(definition.itemPrefabs, Goods_Container).GetComponent<Goods_Item>();
+        //        itemsInWareHouse.Add(newItem);
+        //        newItem.gameObject.SetActive(false);
+        //    }
+        //}
         Debug.Log($"Total item in stock created: {itemsInWareHouse.Count}");
         int putItemTurn = 1;
         while(itemsInWareHouse.Count > 0)

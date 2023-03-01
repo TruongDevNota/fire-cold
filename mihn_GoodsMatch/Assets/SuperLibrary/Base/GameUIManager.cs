@@ -29,10 +29,9 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     [SerializeField]
     private UIInGame inGameScreen = null;
 
-    [SerializeField]
-    private UIGameOver gameOverScreen = null;
+    [SerializeField] private UIGameOver gameOverScreen = null;
+    [SerializeField] private UIGameOver_Bartender gameOver_Bar_Screen = null;
     public static UIGameOver GameOverScreen => instance?.gameOverScreen;
-    private UIGameOver_Bartender gameOver_Bar_Screen = null;
     public static UIGameOver_Bartender GameOver_Bar_Screen => instance?.gameOver_Bar_Screen;
 
     private DateTime startLoadTime = DateTime.Now;
@@ -238,6 +237,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             });
             inGameScreen.Hide();
             gameOverScreen.Hide();
+            gameOver_Bar_Screen.Hide();
         };
 
         if(GameStateManager.LastState == GameState.Complete 
@@ -266,6 +266,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         popupLevelSelect.OnHide();
         coinScreen.Hide();
         gameOverScreen.Hide();
+        gameOver_Bar_Screen.Hide();
     }
 
     public override void InitGame(object data)
@@ -304,13 +305,19 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void GameOver(object data)
     {
         //inGameScreen.Hide();
-        gameOverScreen.Show(GameState.GameOver, data);
+        if (DataManager.currGameMode == eGameMode.Normal)
+            gameOverScreen.Show(GameState.GameOver, data);
+        else
+            gameOver_Bar_Screen.Show(GameState.GameOver, data);
     }
 
     protected override void CompleteGame(object data)
     {
         //inGameScreen.Hide();
-        gameOverScreen.Show(GameState.Complete, data);
+        if(DataManager.currGameMode == eGameMode.Normal)
+            gameOverScreen.Show(GameState.Complete, data);
+        else
+            gameOver_Bar_Screen.Show(GameState.Complete, data);
     }
 
     protected override void ReadyGame(object data)
@@ -362,6 +369,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void RebornContinueGame(object data)
     {
         gameOverScreen.Hide();
+        gameOver_Bar_Screen.Hide();
         this.PostEvent((int)EventID.OnPlayMusic, "Bgm_Gameplay_loop_MP3");
         //inGameScreen.ShowTapToPlay();
         //GameStateManager.Init(null);
@@ -371,6 +379,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void RebornCheckPointGame(object data)
     {
         gameOverScreen.Hide();
+        gameOver_Bar_Screen.Hide();
         GameStateManager.Init(null);
         StartCoroutine(WaitToAutoPlay());
     }

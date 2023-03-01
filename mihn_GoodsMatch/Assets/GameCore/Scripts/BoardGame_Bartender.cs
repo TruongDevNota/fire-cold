@@ -320,7 +320,7 @@ public class BoardGame_Bartender : MonoBehaviour
             items.Remove(datum.items[i]);
             if (!isFitRequest && datum.items[i] != null)
                 datum.items[i].Explode();
-            else
+            else if(datum.items[i] != null)
                 StartCoroutine(datum.items[i].YieldMoveThenHide(requestingItem.transform.position));
 
             yield return new WaitForSeconds(0.2f);

@@ -189,7 +189,7 @@ public class UIGameOver_Bartender : MonoBehaviour
     public virtual void ShowResult(bool isWin)
     {
         if (levelTxt)
-            levelTxt.text = !isWin ? $"DAY {DataManager.UserData.level + 1}" : $"DAY {DataManager.UserData.level}"; ;
+            levelTxt.text = DataManager.UserData.bartenderLevel % 2 == 0 ? $"DAY {DataManager.UserData.bartenderLevel / 2 + 1}" : $"NIGHT {DataManager.UserData.bartenderLevel / 2 + 1}";
         if (txtCoinEarn)
             txtCoinEarn.text = $"{GameStatisticsManager.starEarn}";
 

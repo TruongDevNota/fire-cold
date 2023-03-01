@@ -31,6 +31,7 @@ public class Goods_Item : MonoBehaviour
     private Coroutine jumpCoroutine;
     private Vector3 defaultPos;
 
+    public Sprite itemIcon => spriteRenderer.sprite;
     public eItemType Type { get => type; }
 
     [SerializeField] private ShelfUnit currentShelf;

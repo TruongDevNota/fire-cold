@@ -49,24 +49,28 @@ public class GameStatisticsManager : MonoBehaviour
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.WaitComplete:
-
-                    if (userData.LoseStreak > 0)
+                    if (DataManager.currGameMode == eGameMode.Normal)
                     {
-                        userData.LoseStreak = 0;
-                        userData.WinStreak = 1;
-                    }
-                    userData.WinStreak++;
+                        if (userData.LoseStreak > 0)
+                        {
+                            userData.LoseStreak = 0;
+                            userData.WinStreak = 1;
+                        }
+                        userData.WinStreak++;
 
-                    if(userData.level +1 == DataManager.levelSelect)
-                    {
-                        userData.level++;
-                        CheckToGiveStartingBuff();
-                        if ((userData.level + 1) % DataManager.GameConfig.levelsToNextChallenge == 0)
+                        if (userData.level + 1 == DataManager.levelSelect)
                         {
                             userData.level++;
                             CheckToGiveStartingBuff();
+                            if ((userData.level + 1) % DataManager.GameConfig.levelsToNextChallenge == 0)
+                            {
+                                userData.level++;
+                                CheckToGiveStartingBuff();
+                            }
                         }
                     }
+                    else
+                        userData.bartenderLevel++;
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.Complete:

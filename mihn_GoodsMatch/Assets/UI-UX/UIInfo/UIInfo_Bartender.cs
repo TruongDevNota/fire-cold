@@ -106,27 +106,9 @@ public class UIInfo_Bartender : MonoBehaviour
         {
             case GameState.Init:
             case GameState.Restart:
-                GameStatisticsManager.starEarn = 0;
-                coinEarnText.text = "0";
-
-                totalTime = Mathf.Min(300f, baseLevelTime + DataManager.UserData.level * 10f);
-                timePlayed = 0;
-                timeLeftTxt.text = TimeSpan.FromSeconds(Mathf.CeilToInt(totalTime)).ToString("m':'ss");
-
-                if (timeLeftSlider != null)
-                {
-                    timeLeftSlider.minValue = 0;
-                    timeLeftSlider.maxValue = totalTime;
-                    timeLeftSlider.value = totalTime;
-                }
-
-                currRequestMissed = 0;
-                requestMissText.text = $"{currRequestMissed}/{maxRequestMissed}";
-
-                ComboCount = 0;
-                currRequestComplete = 0;
                 break;
             case GameState.Ready:
+                
                 break;
             case GameState.Pause:
                 //currentComboTimeLeft = comboTimeSlider.value;
@@ -149,9 +131,30 @@ public class UIInfo_Bartender : MonoBehaviour
                 break;
         }
     }
+    private void OnNewGameStart()
+    {
+        GameStatisticsManager.starEarn = 0;
+        coinEarnText.text = "0";
 
+        totalTime = Mathf.Min(300, baseLevelTime + DataManager.UserData.bartenderLevel * 10f);
+        timePlayed = 0;
+        timeLeftTxt.text = TimeSpan.FromSeconds(Mathf.CeilToInt(totalTime)).ToString("m':'ss");
+
+        if (timeLeftSlider != null)
+        {
+            timeLeftSlider.minValue = 0;
+            timeLeftSlider.maxValue = totalTime;
+            timeLeftSlider.value = totalTime;
+        }
+
+        ComboCount = 0;
+        currRequestComplete = 0;
+        currRequestMissed = 0;
+        requestMissText.text = $"{currRequestMissed}/{maxRequestMissed}";
+    }
     public void Show()
     {
+        OnNewGameStart();
         anim.Show();
     }
     public void Hide()

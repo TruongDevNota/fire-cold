@@ -23,6 +23,23 @@ public class BarRequest : MonoBehaviour
     [SerializeField] SpriteRenderer processBG;
     [SerializeField] SpriteRenderer waitTimeProcess;
     [SerializeField] float fillProcessFullWidth;
+    [SerializeField] Color bgMissedColor;
+    [SerializeField] Color bgNormalColor;
+    [SerializeField] SpriteRenderer iconTick;
+    [SerializeField] SpriteRenderer iconMiss;
+
+    [Header("VFX")]
+    [SerializeField] ParticleSystem completeParticle;
+
+    [Header("Guest Config")]
+    [SerializeField] GuestController guestPrefab;
+    [SerializeField] Vector3 posOutSide;
+    [SerializeField] Vector3 postInside;
+    [SerializeField] float guestMovingTime = 1f;
+    private GuestController currGuestController = null;
+
+    [Header("Debug")]
+    [ReadOnly, SerializeField] int currId;
 
     public List<Goods_Item> requestingItems = new List<Goods_Item>();
     public bool IsRequesting;
@@ -30,13 +47,16 @@ public class BarRequest : MonoBehaviour
     public RequestDatum CurrRequest { get => currDatum; }
     private float elapsedTime;
 
-    [Header("Debug")]
-    [ReadOnly, SerializeField] int currId;
-
     private void Awake()
     {
         if(requestManager == null)
             requestManager = GetComponentInParent<RequestManager>();
+        guestPrefab.CreatePool(2);
+    }
+    private void Start()
+    {
+        iconTick.gameObject.SetActive(false);
+        iconMiss.gameObject.SetActive(false);
     }
     private void OnEnable()
     {
@@ -46,6 +66,7 @@ public class BarRequest : MonoBehaviour
     {
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnMatchedRightRequest, OnMatchedRequest);
         StopAllCoroutines();
+        HideAll();
     }
     private void LateUpdate()
     {
@@ -68,6 +89,8 @@ public class BarRequest : MonoBehaviour
     }
     private IEnumerator YieldInitItems(List<eItemType> types)
     {
+        bgSR.DOColor(bgNormalColor, 0);
+        yield return YieldInitGuest();
         yield return bgSR.DOFade(1f, 0.25f).SetUpdate(false).WaitForCompletion();
         for (int i = 0; i < types.Count; i++)
         {
@@ -101,10 +124,10 @@ public class BarRequest : MonoBehaviour
     }
     private void OnTimeOut()
     {
+        IsRequesting = false;
         this.PostEvent((int)EventID.OnRequestTimeout, this.currDatum);
         BoardGame_Bartender.instance?.OnRequestTimeout(this.requestingItems);
         StartCoroutine(YieldLeave(false));
-        IsRequesting = false;
     }
     public void OnLevelEnd(bool isWin)
     {
@@ -116,12 +139,30 @@ public class BarRequest : MonoBehaviour
         if (!winRequest)
         {
             //Show angry anim then leave
-            yield return new WaitForSeconds(waitMissedFXTime);
+            bgSR.DOColor(bgMissedColor, 0.25f);
+            iconMiss.gameObject.SetActive(true);
+            iconMiss.transform.localScale = Vector3.one;
+            yield return iconMiss.transform.DOScale(1.2f, waitMatchedFXTime * 0.5f).OnComplete(() =>
+            {
+                iconTick.gameObject.SetActive(false);
+            }).WaitForCompletion();
+            if (currGuestController != null)
+                currGuestController.Move(currGuestController.transform.position, posOutSide + transform.position, true);
+            yield return new WaitForSeconds(waitMatchedFXTime * 0.5f);
         }
         else
         {
             //Show happy anim then leave
-            yield return new WaitForSeconds(waitMatchedFXTime);
+            completeParticle.Play();
+            iconTick.gameObject.SetActive(true);
+            iconTick.transform.localScale = Vector3.one;
+            yield return iconTick.transform.DOScale(1.2f, waitMatchedFXTime * 0.5f).OnComplete(() =>
+              {
+                  iconTick.gameObject.SetActive(false);
+              }).WaitForCompletion();
+            if (currGuestController != null)
+                currGuestController.Move(currGuestController.transform.position, posOutSide + transform.position, true);
+            yield return new WaitForSeconds(waitMatchedFXTime * 0.5f);
         }
         ClearAll();
         yield return new WaitForEndOfFrame();
@@ -132,6 +173,9 @@ public class BarRequest : MonoBehaviour
         bgSR.SetAlpha(0f);
         processBG.SetAlpha(0f);
         waitTimeProcess.SetAlpha(0f);
+        iconTick.gameObject.SetActive(false);
+        iconMiss.gameObject.SetActive(false);
+        completeParticle.Stop();
     }
     private Vector3 GetPosOnBar(int totalItems, int index)
     {
@@ -148,13 +192,26 @@ public class BarRequest : MonoBehaviour
     }
     public void ClearAll()
     {
-        IsRequesting = false;
+        currGuestController = null;
         foreach (var item in requestingItems)
         {
             if(item.gameObject != null)
             item.Recycle();
         }
         requestingItems.Clear();
+        IsRequesting = false;
         HideAll();
     }
+
+    #region Guest Controller
+    private IEnumerator YieldInitGuest()
+    {
+        currGuestController = null;
+        currGuestController = guestPrefab.Spawn(this.transform);
+        currGuestController.ChangeSkin("default");
+        yield return currGuestController.YieldMove(posOutSide + transform.position, postInside + transform.position, callback: () => {
+            currGuestController.ChangeAnim(GuestAnimations.idleAnims[0]);
+        });
+    }
+    #endregion
 }

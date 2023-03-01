@@ -13,7 +13,6 @@ public class MapCreater : MonoBehaviour
     [SerializeField] TextAsset sampleMapTextAsset;
 
     [Header("Map Create Config")]
-    [SerializeField] ItemDefinitionAsset itemDefinitionAsset;
     [SerializeField] GameObject shelfBasePrefab;
     [SerializeField] Vector2 mapUnitSize = Vector2.one;
     [SerializeField] Vector2 shelfUnitSize = new Vector2(1f, 0.5f);
@@ -124,13 +123,13 @@ public class MapCreater : MonoBehaviour
                 {
                     if (itemTypes[i3] == eItemType.None)
                         continue;
-                    var definition = itemDefinitionAsset.pDefinitions.FirstOrDefault(x => x.itemType == itemTypes[i3]);
-                    if(definition == null)
+                    var itemDatum = DataManager.GameItemData.GetItemByType(itemTypes[i3]);
+                    if(itemDatum == null)
                     {
                         Debug.Log($"Could not found item definition of type: [{itemTypes[i3]}]");
                         return;
                     }
-                    var newItem = definition.itemPrefabs.Spawn().GetComponent<Goods_Item>();
+                    var newItem = itemDatum.itemProp.Spawn();
                     newItem.pFirstLeftCellIndex = i3;
                     newShelf.DoPutItemFromWareHouse(newItem);
                     newItem.transform.parent = newShelf.transform;

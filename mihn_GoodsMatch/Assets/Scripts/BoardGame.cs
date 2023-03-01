@@ -12,7 +12,6 @@ using Base;
 public class BoardGame : MonoBehaviour
 {
     [SerializeField] MapCreater mapCreater;
-    [SerializeField] ItemDefinitionAsset itemDefinitionAsset;
     [SerializeField] float timeToAlert = 5f;
     private bool isAlert = false;
 
@@ -305,9 +304,9 @@ public class BoardGame : MonoBehaviour
 
     private void DoBuffHint(object obj)
     {
-        var definition = itemDefinitionAsset.GetDefinitionByType(items[Random.Range(0, items.Count)].Type);
-        var hintItems = items.FindAll(x => x.Type == definition.itemType).ToList();
-        for(int i = 0; i < definition.matchAmount; i++)
+        var prop = DataManager.GameItemData.GetItemByType(items[Random.Range(0, items.Count)].Type).itemProp;
+        var hintItems = items.FindAll(x => x.Type == prop.Type).ToList();
+        for(int i = 0; i < prop.matchAmount; i++)
         {
             var item = hintItems[i];
             item.jump(i);

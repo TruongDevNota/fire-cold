@@ -31,6 +31,16 @@ public class GameItemAsset : ScriptableObject
     {
         return list?.FirstOrDefault(x => x.itemProp.Type == type);
     }
+    public void UnlockNewItem(eItemType type)
+    {
+        var item = GetItemByType(type);
+        if (item == null || item.unlocked)
+            return;
+        item.unlocked = true;
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
+#endif
+    }
 
     [ButtonMethod]
     public void ResetData()
