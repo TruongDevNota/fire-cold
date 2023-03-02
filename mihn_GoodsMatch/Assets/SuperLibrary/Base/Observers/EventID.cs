@@ -29,6 +29,8 @@ public enum EventID
 
     OnNewRequestCreated = 200,
     OnRequestTimeout = 201,
+    
+    OnClearLastLevel = 300,
 
     OnPauseAppByAds = 1000,
 }

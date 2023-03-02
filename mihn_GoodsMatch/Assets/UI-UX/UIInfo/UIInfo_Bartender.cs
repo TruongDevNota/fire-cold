@@ -52,8 +52,11 @@ public class UIInfo_Bartender : MonoBehaviour
     [SerializeField] float animCollectDelay = 1f;
     public Transform defaultTarget;
     int currentEarn;
-    int currRequestComplete;
 
+    [Header("DEBUG ")]
+    [ReadOnly, SerializeField] int currLevel;
+
+    int currRequestComplete;
     private Coroutine collectCoinCoroutine = null;
 
     private void Awake()
@@ -75,14 +78,14 @@ public class UIInfo_Bartender : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
-        this.RegisterListener((int)EventID.OnMatchedRightRequest, OnNewMatchSuccess);
+        this.RegisterListener((int)EventID.OnMatchedRightRequest, OnNewRequestSuccess);
         this.RegisterListener((int)EventID.OnRequestTimeout, OnRequestMissed);
     }
 
     private void OnDisable()
     {
         GameStateManager.OnStateChanged -= GameStateManager_OnStateChanged;
-        EventDispatcher.Instance?.RemoveListener((int)EventID.OnMatchedRightRequest, OnNewMatchSuccess);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnMatchedRightRequest, OnNewRequestSuccess);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnRequestTimeout, OnRequestMissed);
     }
 
@@ -108,7 +111,6 @@ public class UIInfo_Bartender : MonoBehaviour
             case GameState.Restart:
                 break;
             case GameState.Ready:
-                
                 break;
             case GameState.Pause:
                 //currentComboTimeLeft = comboTimeSlider.value;
@@ -133,10 +135,11 @@ public class UIInfo_Bartender : MonoBehaviour
     }
     private void OnNewGameStart()
     {
-        GameStatisticsManager.starEarn = 0;
+        currLevel = DataManager.UserData.bartenderLevel;
+        GameStatisticsManager.goldEarn = 0;
         coinEarnText.text = "0";
 
-        totalTime = Mathf.Min(300, baseLevelTime + DataManager.UserData.bartenderLevel * 10f);
+        totalTime = Mathf.Min(30, baseLevelTime + DataManager.UserData.bartenderLevel * 10f);
         timePlayed = 0;
         timeLeftTxt.text = TimeSpan.FromSeconds(Mathf.CeilToInt(totalTime)).ToString("m':'ss");
 
@@ -162,13 +165,13 @@ public class UIInfo_Bartender : MonoBehaviour
         anim.Hide();
     }
 
-    private void OnNewMatchSuccess(object obj)
+    private void OnNewRequestSuccess(object obj)
     {
         var item = (Goods_Item)obj;
-        int coinEarn = DataManager.GameItemData.GetItemByType(item.Type).earnValue;
-        var lastStar = GameStatisticsManager.starEarn;
-        GameStatisticsManager.starEarn += 5;
-        coinEarnText.DOText(lastStar, GameStatisticsManager.starEarn, 1f, 1f);
+        int coinEarn = DataManager.UserData.bartenderLevel % 2 == 0 ? DataManager.GameConfig.coinEarnInDay : DataManager.GameConfig.coinEarnInNight;
+        var lastStar = GameStatisticsManager.goldEarn;
+        GameStatisticsManager.goldEarn += coinEarn;
+        coinEarnText.DOText(lastStar, GameStatisticsManager.goldEarn, 1f, 1f);
         ComboCount++;
         currRequestComplete++;
         Debug.Log($"Matched request item at position: {item.transform.position}");

@@ -1,3 +1,4 @@
+using Base.Ads;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,18 @@ public class UINewItemUnlock : MonoBehaviour
     [SerializeField] Image itemIcon;
     [SerializeField] Text priceText = null;
 
-    private eItemType currType;
+    private string itemId;
     private int price = 100;
+
+    private void Awake()
+    {
+        unlockByCoinBtn?.onClick.AddListener(OnClaimButtonClick);
+        unlockByAdsBtn?.onClick.AddListener(OnClaimByAdsClick);
+    }
 
     public void Init(ItemDatum datum)
     {
-        this.currType = datum.itemProp.Type;
+        this.itemId = datum.id;
         price = datum.unlockValue;
         itemIcon.sprite = datum.itemProp.itemIcon;
 
@@ -24,7 +31,8 @@ public class UINewItemUnlock : MonoBehaviour
         if(unlockByCoinBtn)
             unlockByCoinBtn.interactable = CoinManager.totalCoin >= datum.unlockValue;
         unlockByAdsBtn?.gameObject.SetActive(true);
-        unlockByAdsBtn.interactable = true;
+        if (unlockByAdsBtn)
+            unlockByAdsBtn.interactable = true;
         claimedButton.SetActive(false);
 
         if (priceText)
@@ -43,13 +51,23 @@ public class UINewItemUnlock : MonoBehaviour
 
     private void OnClaimByAdsClick()
     {
-        //show ads
+        AdsManager.ShowVideoReward((e, t) =>
+        {
+            if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
+            {
+                OnItemUnlocked();
+            }
+            else
+            {
+
+            }
+        }, "UnlockNewItem", "newItem");
     }
 
     private void OnItemUnlocked()
     {
         CoinManager.Add(-price);
-        DataManager.GameItemData.UnlockNewItem(currType);
+        DataManager.ItemsAsset.UnlockNewItemById(itemId);
         DataManager.Save();
         claimedButton.SetActive(true);
         unlockByCoinBtn?.gameObject.SetActive(false);

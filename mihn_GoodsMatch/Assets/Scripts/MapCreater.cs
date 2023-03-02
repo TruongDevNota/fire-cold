@@ -123,7 +123,7 @@ public class MapCreater : MonoBehaviour
                 {
                     if (itemTypes[i3] == eItemType.None)
                         continue;
-                    var itemDatum = DataManager.GameItemData.GetItemByType(itemTypes[i3]);
+                    var itemDatum = DataManager.ItemsAsset.GetItemByType(itemTypes[i3]);
                     if(itemDatum == null)
                     {
                         Debug.Log($"Could not found item definition of type: [{itemTypes[i3]}]");

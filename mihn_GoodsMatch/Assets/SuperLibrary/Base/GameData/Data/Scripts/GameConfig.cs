@@ -47,6 +47,11 @@ public class GameConfig : GameConfigBase
     public int levelsToNextChallenge = 5;
     public int playChallengeCoinUse = 100;
 
+    [Header("Bartender")]
+    public int levelsToUnlockBartender = 6;
+    public int coinEarnInDay = 3;
+    public int coinEarnInNight = 5;
+
     #region MONEY
     [Header("Money")]
     [SerializeField]

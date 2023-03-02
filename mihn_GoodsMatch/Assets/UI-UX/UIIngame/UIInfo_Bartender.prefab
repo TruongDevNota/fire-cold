@@ -184,6 +184,7 @@ MonoBehaviour:
   coinPrefab: {fileID: 1293701248151147880, guid: 576d4450b65fdb64092cf16f53c35772, type: 3}
   animCollectDelay: 1
   defaultTarget: {fileID: 3834974727610137174}
+  currLevel: 0
 --- !u!1 &3076664734696558990
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,7 +750,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b7e46ace03649014f9d956ec8325d65a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db46b4eb8e16f3746830ef2278b87cc2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

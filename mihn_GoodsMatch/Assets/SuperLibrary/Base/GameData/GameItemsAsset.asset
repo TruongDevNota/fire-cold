@@ -16,123 +16,123 @@ MonoBehaviour:
   - id: drink_1
     unlocked: 1
     itemProp: {fileID: 4629048590207952902, guid: 7cf25eae688941d46b27d5f8cb834f31, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_2
     unlocked: 1
     itemProp: {fileID: 4300722510773625064, guid: fbe73cc0662f964489168495a978efe2, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_3
     unlocked: 1
     itemProp: {fileID: 1240754615638817360, guid: b7084ac965b5e99428f9a8636c5c30c9, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_4
     unlocked: 1
     itemProp: {fileID: 1240754615638817360, guid: 3b8d3d58691607b4f88b33e7b22e3a48, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_5
     unlocked: 1
     itemProp: {fileID: 7120200131035272129, guid: d43872a7df0fdac44a1155bfe9826984, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_6
     unlocked: 1
     itemProp: {fileID: 3499278893221558174, guid: 6e66104682a63ef4eaf315dc85b394d7, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_7
     unlocked: 1
     itemProp: {fileID: 3499278893221558174, guid: 8283aee7b56d4ec4b9c5986bf4cc5911, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_8
     unlocked: 1
     itemProp: {fileID: 3499278893221558174, guid: a30f95619e3e2b24285808babd6a6604, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_9
     unlocked: 1
     itemProp: {fileID: 3499278893221558174, guid: a560673d7e486d34fbed4d4a5e12d312, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_10
     unlocked: 1
     itemProp: {fileID: 3499278893221558174, guid: 57889b5110d12a341a75f4720d5f708f, type: 3}
-    earnValue: 5
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 3
+    earnNightFee: 3
   - id: drink_11
     unlocked: 1
     itemProp: {fileID: 6445086616528182227, guid: 3049ea8ab967c514dbcc3805e64387a2, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   - id: drink_12
     unlocked: 1
     itemProp: {fileID: 6445086616528182227, guid: da215e4a7e92eea4b824f585221bc9f4, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   - id: drink_13
     unlocked: 1
     itemProp: {fileID: 6445086616528182227, guid: 099c84dc0e049f646b2db0d8df69619f, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   - id: drink_14
     unlocked: 1
     itemProp: {fileID: 6445086616528182227, guid: 64b71da0a41c7b547a08a12730d8127c, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   - id: drink_15
     unlocked: 1
     itemProp: {fileID: 6445086616528182227, guid: ea8abd3473612364f92ffec587eac84c, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   - id: drink_16
     unlocked: 1
     itemProp: {fileID: 6445086616528182227, guid: 601db0c74fe2fc749baafe0a55c115df, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   - id: drink_17
     unlocked: 1
     itemProp: {fileID: 6445086616528182227, guid: 86dede67ae3442a4aa7ceca157d3af49, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   - id: drink_18
     unlocked: 1
     itemProp: {fileID: 6445086616528182227, guid: 7ad8ecf30dc6d154098fda3e60e4b2c9, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   - id: drink_19
     unlocked: 0
     itemProp: {fileID: 6445086616528182227, guid: 009e7227d7b591d42a25caaeb6e99167, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   - id: drink_20
     unlocked: 0
     itemProp: {fileID: 6445086616528182227, guid: b437c128f7e572e4ebaa1eb6eecd1963, type: 3}
-    earnValue: 6
+    earnDayValue: 5
     unlockValue: 100
-    cleanFee: 4
+    earnNightFee: 4
   itemModels:
   - {fileID: 4629048590207952902, guid: 7cf25eae688941d46b27d5f8cb834f31, type: 3}
   - {fileID: 4300722510773625064, guid: fbe73cc0662f964489168495a978efe2, type: 3}

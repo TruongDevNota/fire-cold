@@ -18,23 +18,17 @@ public class UIMainScreen : MonoBehaviour
     private UIDailyReward popupDailyReward;
 
     [Header("Home Buttons")]
-    [SerializeField]
-    private UIMainButton btn_DailyReward;
-    [SerializeField]
-    private UIMainButton btn_RemoveAds;
-    [SerializeField]
-    private UIMainButton btn_PiggyBank;
-    [SerializeField]
-    private Button btn_Play;
-    [SerializeField]
-    private Text txt_LevelPlay;
-    [SerializeField]
-    private Button btn_PlayChallenge;
-    [SerializeField]
-    private Button btn_LockChallenge;
-    [SerializeField]
-    Text txt_LockChallenge;
+    [SerializeField] private UIMainButton btn_DailyReward;
+    [SerializeField] private UIMainButton btn_RemoveAds;
+    [SerializeField] private UIMainButton btn_PiggyBank;
+    [SerializeField] private Button btn_Play;
+    [SerializeField] private Text txt_LevelPlay;
+    [SerializeField] private Button btn_PlayChallenge;
+    [SerializeField] private GameObject lockChallengeBtn;
+    [SerializeField] Text txt_LockChallenge;
     [SerializeField] Button PlayBartenderBtn;
+    [SerializeField] GameObject lockBartenderBtn;
+    [SerializeField] Text txt_LockBartender;
 
     void Awake()
     {
@@ -62,9 +56,12 @@ public class UIMainScreen : MonoBehaviour
         txt_LevelPlay.text = $"LV. {Mathf.Clamp(DataManager.UserData.level + 1, 1, DataManager.GameConfig.totalLevel-1)}";
 
         btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToNextChallenge - 1);
-
-        btn_LockChallenge?.gameObject.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
+        lockChallengeBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
         txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
+
+        PlayBartenderBtn?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToUnlockBartender - 1);
+        lockBartenderBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1);
+        txt_LockBartender.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToUnlockBartender}";
 
         btn_DailyReward?.Fill(DataManager.UserData.dailyRewardClaimCount == 0 || DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1, BtnDailyRewardClick);
     }

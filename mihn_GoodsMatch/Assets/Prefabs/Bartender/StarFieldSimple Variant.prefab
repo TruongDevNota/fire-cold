@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 186908, guid: 07014c6862cc6bd4facec707d0923fe2, type: 3}
       propertyPath: m_Name
-      value: StarFieldSimple
+      value: StarFieldSimple Variant
       objectReference: {fileID: 0}
     - target: {fileID: 468366, guid: 07014c6862cc6bd4facec707d0923fe2, type: 3}
       propertyPath: m_RootOrder
@@ -54,6 +54,14 @@ PrefabInstance:
     - target: {fileID: 468366, guid: 07014c6862cc6bd4facec707d0923fe2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19896564, guid: 07014c6862cc6bd4facec707d0923fe2, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19896564, guid: 07014c6862cc6bd4facec707d0923fe2, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07014c6862cc6bd4facec707d0923fe2, type: 3}

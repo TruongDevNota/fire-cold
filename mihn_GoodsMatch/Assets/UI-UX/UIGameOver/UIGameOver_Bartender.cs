@@ -14,11 +14,14 @@ public class UIGameOver_Bartender : MonoBehaviour
     [Header("Base")]
     [SerializeField]
     protected UIAnimation anim = null;
+    [SerializeField] protected UIAnimation animClose = null;
+    [SerializeField] protected UIUnlockNewItemScreen unlockItemScreen = null;
     public UIAnimStatus Status = UIAnimStatus.IsHide;
 
     [Header("Result")]
     [SerializeField] protected UIAnimation animLose = null;
     [SerializeField] protected UIAnimation animWin = null;
+    [SerializeField] protected GameObject resultInforPanel = null;
     [SerializeField] protected Text requestSuccessTxt = null;
     [SerializeField] protected Text requestFailTxt = null;
     [SerializeField] Text levelTxt = null;
@@ -166,14 +169,24 @@ public class UIGameOver_Bartender : MonoBehaviour
     }
     public void Hide(Action onHideDone = null)
     {
+        if(anim.Status != UIAnimStatus.IsHide && anim.Status != UIAnimStatus.IsAnimationHide)
+            StartCoroutine(YieldHide(onHideDone));
+    }
+    private IEnumerator YieldHide(Action onHideDone = null)
+    {
         Status = UIAnimStatus.IsAnimationHide;
         animLose.Hide();
         animContinue.Hide();
         animWin.Hide();
-        anim.Hide(() =>
+        resultInforPanel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        animClose.Hide(onCompleted: () =>
         {
-            onHideDone?.Invoke();
-            Status = UIAnimStatus.IsHide;
+            anim.Hide(() =>
+            {
+                onHideDone?.Invoke();
+                Status = UIAnimStatus.IsHide;
+            });
         });
     }
 
@@ -181,17 +194,19 @@ public class UIGameOver_Bartender : MonoBehaviour
     private void OnStarScaleHandle(int scaleValue)
     {
         //bonusAds = scaleValue;
-        txtCoinEarn.text = GameStatisticsManager.starEarn.ToString();
-        txtScaleCoinEarn.text = (GameStatisticsManager.starEarn * scaleValue).ToString();
+        txtCoinEarn.text = GameStatisticsManager.goldEarn.ToString();
+        txtScaleCoinEarn.text = (GameStatisticsManager.goldEarn * scaleValue).ToString();
     }
     #endregion
 
     public virtual void ShowResult(bool isWin)
     {
+        resultInforPanel.gameObject.SetActive(true);
+
         if (levelTxt)
             levelTxt.text = DataManager.UserData.bartenderLevel % 2 == 0 ? $"DAY {DataManager.UserData.bartenderLevel / 2 + 1}" : $"NIGHT {DataManager.UserData.bartenderLevel / 2 + 1}";
         if (txtCoinEarn)
-            txtCoinEarn.text = $"{GameStatisticsManager.starEarn}";
+            txtCoinEarn.text = $"{GameStatisticsManager.goldEarn}";
 
         if (isWin)
         {
@@ -251,7 +266,7 @@ public class UIGameOver_Bartender : MonoBehaviour
         SoundManager.Play("1. Click Button");
         btnNormalClaim.interactable = false;
         btnScaleCoinClaim.interactable = false;
-        CoinManager.Add(GameStatisticsManager.starEarn, btnNormalClaim.transform);
+        CoinManager.Add(GameStatisticsManager.goldEarn, btnNormalClaim.transform);
         DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
         DataManager.Save();
     }
@@ -264,8 +279,8 @@ public class UIGameOver_Bartender : MonoBehaviour
         {
             if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
-                txtCoinEarn.DOText(GameStatisticsManager.starEarn, GameStatisticsManager.starEarn * bonusAds, 1.5f);
-                DOVirtual.DelayedCall(1.5f, () => CoinManager.Add(GameStatisticsManager.starEarn * bonusAds, btnScaleCoinClaim.transform));
+                txtCoinEarn.DOText(GameStatisticsManager.goldEarn, GameStatisticsManager.goldEarn * bonusAds, 1.5f);
+                DOVirtual.DelayedCall(1.5f, () => CoinManager.Add(GameStatisticsManager.goldEarn * bonusAds, btnScaleCoinClaim.transform));
                 btnNormalClaim.interactable = false;
                 DOTween.Kill("DelayShowNormalClaimButton");
                 DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
@@ -449,8 +464,14 @@ public class UIGameOver_Bartender : MonoBehaviour
         //UILoadGame.Init(true, null);
         SoundManager.Play("1. Click Button");
         rebornCount = 0;
-        Hide();
-        GameStateManager.Init(null);
+        animClose.Show(null, () => 
+        {
+            this.PostEvent((int)EventID.OnClearLastLevel);
+            unlockItemScreen.Show(() =>
+            {
+                Hide(() => GameStateManager.Init(null));
+            });
+        }, null);
     }
     protected void Btn_SkipCountDown_Handle()
     {

@@ -6,4 +6,5 @@ public class GameData
 {
     public UserData user = new UserData();
     public List<LevelData> levelStars = new List<LevelData> ();
+    public List<ItemDatum> itemData = new List<ItemDatum> ();
 }

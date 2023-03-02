@@ -17,9 +17,9 @@ public class DataManager : MonoBehaviour
         get => LevelAsset?.Current;
         set => LevelAsset.Current = value;
     }
-    public static GameItemAsset GameItemData => instance.gameItemAsset;
-
+    
     public static LevelAsset LevelAsset { get; private set; }
+    public static GameItemAsset ItemsAsset { get; private set; }
     public static GameData gameData { get; private set; }
     private static DataManager instance { get; set; }
     #endregion
@@ -60,8 +60,8 @@ public class DataManager : MonoBehaviour
         {
             var time = DateTime.Now;
             gameData.user.LastTimeUpdate = DateTime.Now;
-            //gameData.exercises = LevelAsset.itemSaveList;
             gameData.levelStars = LevelAsset.saveList;
+            gameData.itemData = ItemsAsset.itemSaveList;
 
             Debug.Log("ConvertData in " + (DateTime.Now - time).TotalMilliseconds + "ms");
             FileExtend.SaveData<GameData>("GameData", gameData);
@@ -112,9 +112,16 @@ public class DataManager : MonoBehaviour
                     LevelAsset.list.Add(i);
             }
             else
-                Debug.Log("ExercisesAsset is not NULL");
+                Debug.Log("LevelAsset is not NULL");
 
-
+            if(ItemsAsset == null)
+            {
+                ItemsAsset = ScriptableObject.CreateInstance("GameItemAsset") as GameItemAsset;
+                foreach (var i in instance.gameItemAsset.list)
+                    ItemsAsset.list.Add(i);
+            }
+            else
+                Debug.Log("GameItemAsset is not NULL");
 
             //Load gamedata
             GameData loadData = FileExtend.LoadData<GameData>("GameData") as GameData;
@@ -122,6 +129,9 @@ public class DataManager : MonoBehaviour
             {
                 if (loadData.levelStars != null && loadData.levelStars.Any())
                     LevelAsset.ConvertLevelStars(loadData.levelStars);
+
+                if (loadData.itemData != null && loadData.itemData.Any())
+                    ItemsAsset.ConvertItemData(loadData.itemData);
 
                 if (loadData.user != null)
                 {
@@ -181,7 +191,7 @@ public class DataManager : MonoBehaviour
         try
         {
             levelAsset.ResetData();
-
+            gameItemAsset.ResetData();
             Reset();
             Debug.Log("Reset and Update data to BUILD!!!");
         }

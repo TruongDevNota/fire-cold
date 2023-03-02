@@ -19,15 +19,18 @@ public class ShelfUnit : MonoBehaviour
     public float PosY;
 
     public int CellAmount { get => cellAmount; }
+    [SerializeField]
     private List<Goods_Item> itemsOnShelf = new List<Goods_Item>();
     public List<Goods_Item> ItemsOnShelf 
     {
         get { return itemsOnShelf; }
     }
 
+
     public void InitCells()
     {
         cells.Clear();
+        itemsOnShelf.Clear();
         for (int i = 0; i < cellAmount; i++)
         {
             var go = GameObject.Instantiate(cellPrefab);

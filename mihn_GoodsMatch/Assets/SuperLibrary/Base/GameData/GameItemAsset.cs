@@ -8,7 +8,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "GameItemsAsset", menuName = "DataAsset/GameItemAsset")]
 public class GameItemAsset : ScriptableObject
 {
-    [SerializeField] List<ItemDatum> list;
+    public List<ItemDatum> list;
     [SerializeField] List<Goods_Item> itemModels;
 
     public List<ItemDatum> unlockedList
@@ -16,6 +16,13 @@ public class GameItemAsset : ScriptableObject
         get
         {
             return list?.Where(x => x.unlocked).ToList();
+        }
+    }
+    public List<ItemDatum> lockedList
+    {
+        get
+        {
+            return list?.Where(x => !x.unlocked).ToList();
         }
     }
     public List<ItemDatum> itemSaveList
@@ -31,9 +38,9 @@ public class GameItemAsset : ScriptableObject
     {
         return list?.FirstOrDefault(x => x.itemProp.Type == type);
     }
-    public void UnlockNewItem(eItemType type)
+    public void UnlockNewItemById(string id)
     {
-        var item = GetItemByType(type);
+        var item = GetItemDatumById(id);
         if (item == null || item.unlocked)
             return;
         item.unlocked = true;
@@ -41,6 +48,20 @@ public class GameItemAsset : ScriptableObject
         EditorUtility.SetDirty(this);
 #endif
     }
+
+    public void ConvertItemData(List<ItemDatum> saveData)
+    {
+        foreach (var i in saveData)
+        {
+            var temp = list.FirstOrDefault(x => x.id == i.id);
+            if (temp != null)
+            {
+                if (i.unlocked)
+                    temp.unlocked = i.unlocked;
+            }
+        }
+    }
+
 
     [ButtonMethod]
     public void ResetData()
@@ -54,9 +75,7 @@ public class GameItemAsset : ScriptableObject
                 id = itemModels[i].name.ToLower(),
                 unlocked = i < 18,
                 itemProp = itemModels[i],
-                earnValue = 5 + i/10,
                 unlockValue = 100,
-                cleanFee = 3 + i / 10,
             };
             list.Add(datum);
         }
@@ -72,7 +91,5 @@ public class ItemDatum
     public string id;
     public bool unlocked;
     public Goods_Item itemProp;
-    public int earnValue;
     public int unlockValue;
-    public int cleanFee;
 }

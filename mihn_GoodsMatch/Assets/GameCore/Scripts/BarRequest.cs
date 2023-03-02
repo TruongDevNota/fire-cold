@@ -10,6 +10,14 @@ public class BarRequest : MonoBehaviour
     [SerializeField] GameItemAsset gameItemAsset;
     [SerializeField] RequestManager requestManager;
 
+    [Header("Visual")]
+    [SerializeField] Sprite[] outsideSprs;
+    [SerializeField] Sprite[] alertSprs;
+    [SerializeField] float[] processPosition;
+    [SerializeField] Transform processContainer;
+    [SerializeField] SpriteRenderer outsideSR;
+    [SerializeField] SpriteRenderer alertSR;
+
     [Header("Items on Bar")]
     [SerializeField] Vector3 startPosOffset;
     [SerializeField] float itemDistance = 1.2f;
@@ -22,7 +30,7 @@ public class BarRequest : MonoBehaviour
     [SerializeField] SpriteRenderer bgSR;
     [SerializeField] SpriteRenderer processBG;
     [SerializeField] SpriteRenderer waitTimeProcess;
-    [SerializeField] float fillProcessFullWidth;
+    [SerializeField] float fillProcessFullHeight;
     [SerializeField] Color bgMissedColor;
     [SerializeField] Color bgNormalColor;
     [SerializeField] SpriteRenderer iconTick;
@@ -30,6 +38,8 @@ public class BarRequest : MonoBehaviour
 
     [Header("VFX")]
     [SerializeField] ParticleSystem completeParticle;
+    [SerializeField] float alertTime = 5f;
+    [SerializeField] float alertSingleTime = 1f;
 
     [Header("Guest Config")]
     [SerializeField] GuestController guestPrefab;
@@ -73,7 +83,9 @@ public class BarRequest : MonoBehaviour
         if(!IsRequesting)
             return;
         elapsedTime += Time.deltaTime;
-        waitTimeProcess.SetSizeX(fillProcessFullWidth * Mathf.Max(0,  (currDatum.waitTime - elapsedTime)/ currDatum.waitTime));
+        waitTimeProcess.SetSizeY(fillProcessFullHeight * Mathf.Max(0,  (currDatum.waitTime - elapsedTime)/ currDatum.waitTime));
+        if (elapsedTime >= currDatum.waitTime - alertTime && !alertSR.gameObject.activeSelf)
+            StartCoroutine(YieldAlert());
         if(elapsedTime >= currDatum.waitTime && requestingItems.Count > 0)
         {
             OnTimeOut();
@@ -81,8 +93,12 @@ public class BarRequest : MonoBehaviour
     }
     public void ShowRequestItem(RequestDatum datum)
     {
+        outsideSR.sprite = outsideSprs[datum.types.Count - 1];
+        alertSR.sprite = alertSprs[datum.types.Count - 1];
+        alertSR.gameObject.SetActive(false);
+        processContainer.SetLocalX(processPosition[datum.types.Count - 1]);
         gameObject.SetActive(true);
-        waitTimeProcess.SetSizeX(fillProcessFullWidth);
+        waitTimeProcess.SetSizeY(fillProcessFullHeight);
         currDatum = datum;
         currId = datum.id;
         StartCoroutine(YieldInitItems(datum.types));
@@ -118,7 +134,9 @@ public class BarRequest : MonoBehaviour
         }
         if(requestingItems.Count == 0)
         {
-            IsRequesting=false;
+            IsRequesting = false;
+            StopCoroutine(YieldAlert());
+            alertSR.gameObject.SetActive(false);
             StartCoroutine(YieldLeave(true));
         }
     }
@@ -154,20 +172,32 @@ public class BarRequest : MonoBehaviour
         {
             //Show happy anim then leave
             completeParticle.Play();
-            iconTick.gameObject.SetActive(true);
-            iconTick.transform.localScale = Vector3.one;
-            yield return iconTick.transform.DOScale(1.2f, waitMatchedFXTime * 0.5f).OnComplete(() =>
-              {
-                  iconTick.gameObject.SetActive(false);
-              }).WaitForCompletion();
+            //iconTick.gameObject.SetActive(true);
+            //iconTick.transform.localScale = Vector3.one;
+            //yield return iconTick.transform.DOScale(1.2f, waitMatchedFXTime * 0.5f).OnComplete(() =>
+            //  {
+            //      iconTick.gameObject.SetActive(false);
+            //  }).WaitForCompletion();
+            yield return new WaitForSeconds(waitMatchedFXTime);
             if (currGuestController != null)
                 currGuestController.Move(currGuestController.transform.position, posOutSide + transform.position, true);
-            yield return new WaitForSeconds(waitMatchedFXTime * 0.5f);
         }
         ClearAll();
         yield return new WaitForEndOfFrame();
         gameObject.SetActive(false);
     }
+    private IEnumerator YieldAlert()
+    {
+        alertSR.gameObject.SetActive(true);
+        int count = Mathf.FloorToInt(alertTime / alertSingleTime);
+        for(int i = 0; i < count-1; i++)
+        {
+            yield return alertSR.DOFade(1f, alertSingleTime*0.5f).WaitForCompletion();
+            yield return alertSR.DOFade(0.25f, alertSingleTime * 0.5f).WaitForCompletion();
+        }
+        yield return alertSR.DOFade(1f, alertSingleTime * 0.5f).WaitForCompletion();
+    }
+
     private void HideAll()
     {
         bgSR.SetAlpha(0f);
@@ -176,6 +206,7 @@ public class BarRequest : MonoBehaviour
         iconTick.gameObject.SetActive(false);
         iconMiss.gameObject.SetActive(false);
         completeParticle.Stop();
+        alertSR.gameObject.SetActive(false);
     }
     private Vector3 GetPosOnBar(int totalItems, int index)
     {

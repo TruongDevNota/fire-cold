@@ -304,7 +304,7 @@ public class BoardGame : MonoBehaviour
 
     private void DoBuffHint(object obj)
     {
-        var prop = DataManager.GameItemData.GetItemByType(items[Random.Range(0, items.Count)].Type).itemProp;
+        var prop = DataManager.ItemsAsset.GetItemByType(items[Random.Range(0, items.Count)].Type).itemProp;
         var hintItems = items.FindAll(x => x.Type == prop.Type).ToList();
         for(int i = 0; i < prop.matchAmount; i++)
         {

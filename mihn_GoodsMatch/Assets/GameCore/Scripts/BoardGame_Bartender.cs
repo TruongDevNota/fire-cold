@@ -77,16 +77,17 @@ public class BoardGame_Bartender : MonoBehaviour
         this.RegisterListener((int)EventID.OnBuffSwap, DoBuffSwap);
         this.RegisterListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
         this.RegisterListener((int)EventID.OnNewRequestCreated, OnNewRequestCreated);
+        this.RegisterListener((int)EventID.OnClearLastLevel, ClearMap);
     }
 
     private void OnDisable()
     {
-        
         GameStateManager.OnStateChanged -= OnGameStateChangeHandler;
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffHint, DoBuffHint);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffSwap, DoBuffSwap);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewRequestCreated, OnNewRequestCreated);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnClearLastLevel, ClearMap);
     }
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
@@ -160,6 +161,7 @@ public class BoardGame_Bartender : MonoBehaviour
     {
         int emptyCount = 0;
         int startShelfIndex = UnityEngine.Random.Range(0, shelves.Count);
+        currentLevel = DataManager.UserData.bartenderLevel+1;
 
         foreach (var shelf in shelves)
             shelf.InitCells();
@@ -346,14 +348,14 @@ public class BoardGame_Bartender : MonoBehaviour
     #region GameStateHanlde
     public void StartGamePlay()
     {
-        FirebaseManager.LogLevelStart(currentLevel, $"level_{currentLevel}");
+        FirebaseManager.LogLevelStart(currentLevel, $"Bartender_level_{currentLevel}");
         isPlayingGame = true;
         isPausing = false;
         isDraggingItem = false;
     }
     public void GameCompleteHandler(object resultData)
     {
-        FirebaseManager.LogLevelEnd(currentLevel, $"Win_level_{currentLevel}");
+        FirebaseManager.LogLevelEnd(currentLevel, $"Win_level_Bartender_{currentLevel}");
         isPlayingGame = false;
         if (dragingItem != null)
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
@@ -363,7 +365,7 @@ public class BoardGame_Bartender : MonoBehaviour
     }
     public void GameOverHandler(object resultData)
     {
-        FirebaseManager.LogLevelEnd(currentLevel, $"Lose_level_{currentLevel}");
+        FirebaseManager.LogLevelEnd(currentLevel, $"Lose_level_Bartender_{currentLevel}");
         isPlayingGame = false;
         if (dragingItem != null)
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
@@ -497,18 +499,11 @@ public class BoardGame_Bartender : MonoBehaviour
     }
     #endregion
 
-    private void ClearMap()
+    private void ClearMap(object obj)
     {
         foreach(var item in items)
             item.Recycle();
-        foreach(var shelf in shelves)
-            shelf.Recycle();
 
-        //for (int num = transform.childCount - 1; num >= 0; num--)
-        //{
-        //    Destroy(transform.GetChild(num).gameObject);
-        //}
         items.Clear();
-        shelves.Clear();
     }
 }
