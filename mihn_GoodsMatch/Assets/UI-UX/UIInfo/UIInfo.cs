@@ -52,9 +52,15 @@ public class UIInfo : MonoBehaviour
 
     private void Awake()
     {
-        
         instance = this;
         coinPrefab.CreatePool(10);
+        settingButton?.onClick.AddListener(() =>
+        {
+            if (GameStateManager.CurrentState == GameState.Play)
+            {
+                GameStateManager.Pause(null);
+            }
+        });
     }
 
     private void OnEnable()
@@ -147,7 +153,6 @@ public class UIInfo : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         timeLeftText.text = "0:00";
-        GameStateManager.Complete(null);
     }
 
     private void OnNewMatchSuccess(object obj)
@@ -202,7 +207,7 @@ public class UIInfo : MonoBehaviour
     }
     public IEnumerator CollectStars(int numb, Vector3 fromPos, Transform toTrans = null)
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         var endPos = toTrans != null ? toTrans.position : instance.defaultTarget.position;
         for (int i = 0; i < numb; i++)
         {

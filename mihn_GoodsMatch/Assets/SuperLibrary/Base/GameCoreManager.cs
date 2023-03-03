@@ -113,7 +113,7 @@ public class GameCoreManager : GameManagerBase<GameCoreManager>
     protected override void WaitingGameComplete(object data)
     {
         Debug.Log("Game Core goto WaitGameComplete");
-        float timeWait = 1f;
+        float timeWait = 1.75f;
         DOVirtual.DelayedCall(timeWait, () =>
         {
             if (GameStateManager.CurrentState == GameState.WaitComplete)

@@ -42,6 +42,7 @@ public class EffectManager : MonoBehaviour
         int comboCount = (int)obj;
         var sprite = comboSprites[Mathf.Min(comboCount-1, comboSprites.Length -1)];
         var comboOB = comboFXPrefab.Spawn(transform);
+        SoundManager.Play(GameConstants.soundsCombo[Mathf.Min(comboCount - 1, GameConstants.soundsCombo.Length-1)]);
         comboOB.ShowFX(comboStartPos, comboEndPos, sprite, comboFXShowTime, true, 0.75f, 1f);
     }
 }

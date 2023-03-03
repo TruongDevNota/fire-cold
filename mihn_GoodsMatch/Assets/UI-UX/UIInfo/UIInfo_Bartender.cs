@@ -39,7 +39,7 @@ public class UIInfo_Bartender : MonoBehaviour
             instance.comboCount = value;
             if (instance.comboCount > 0)
             {
-                currentComboTimeLeft = comboTimeCooldown;
+                currentComboTimeLeft = config.timeComboEslap;
                 if(instance.comboCount > 1)
                 {
                     this.PostEvent((int)EventID.OnNewCombo, ComboCount-1);
@@ -213,13 +213,14 @@ public class UIInfo_Bartender : MonoBehaviour
         comboTimeSlider.DOValue(0, currentComboTimeLeft).OnComplete(() =>
         {
             ComboCount = 0;
-            currentComboTimeLeft = comboTimeCooldown;
+            currentComboTimeLeft = config.timeComboEslap; ;
             comboTimeSlider.gameObject.SetActive(false);
         });
     }
 
     public IEnumerator CollectStars(int numb, Vector3 fromPos, Transform toTrans = null)
     {
+        numb = Mathf.Min(5, numb);
         yield return new WaitForSeconds(animCollectDelay);
         var endPos = toTrans != null ? toTrans.position : instance.defaultTarget.position;
         for (int i = 0; i < numb; i++)

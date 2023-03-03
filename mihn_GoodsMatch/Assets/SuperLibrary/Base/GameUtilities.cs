@@ -8,4 +8,9 @@ public class GameUtilities
     {
         return level >= 5 && (level >= 21 || level % 2 == 0);
     }
+
+    public static bool GetRandomBool()
+    {
+        return Random.value > 0.5f;
+    }
 }

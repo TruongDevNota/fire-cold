@@ -297,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameItemAsset: {fileID: 11400000, guid: 74792362903f1b04981b1c9fb6472570, type: 2}
   requestManager: {fileID: 0}
+  boardGame: {fileID: 0}
   outsideSprs:
   - {fileID: 21300000, guid: 695285424ec1a4141bd541f819e95b4a, type: 3}
   - {fileID: 21300000, guid: 969fcca51e3abe14da550245c769de56, type: 3}
@@ -316,7 +317,7 @@ MonoBehaviour:
   itemDistance: 1.2
   waitMatchedFXTime: 1.5
   waitMissedFXTime: 1
-  bgSR: {fileID: 1164593798071626190}
+  bgSR: {fileID: 1693556358}
   processBG: {fileID: 1693556358}
   waitTimeProcess: {fileID: 1690470958}
   fillProcessFullHeight: 1.8

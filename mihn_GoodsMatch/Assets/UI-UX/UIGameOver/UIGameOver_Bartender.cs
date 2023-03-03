@@ -180,6 +180,7 @@ public class UIGameOver_Bartender : MonoBehaviour
         animWin.Hide();
         resultInforPanel.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.25f);
+        SoundManager.Play(GameConstants.sound_doorOpenUp);
         animClose.Hide(onCompleted: () =>
         {
             anim.Hide(() =>
@@ -464,6 +465,7 @@ public class UIGameOver_Bartender : MonoBehaviour
         //UILoadGame.Init(true, null);
         SoundManager.Play("1. Click Button");
         rebornCount = 0;
+        SoundManager.Play(GameConstants.sound_doorCloseDown);
         animClose.Show(null, () => 
         {
             this.PostEvent((int)EventID.OnClearLastLevel);

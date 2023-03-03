@@ -81,8 +81,7 @@ public class RequestManager : MonoBehaviour
             var validBar = bars.FirstOrDefault(bar => !bar.gameObject.activeInHierarchy);
             if(validBar != null)
             {
-                var newRequest = CreateRequest();
-                validBar.ShowRequestItem(newRequest);
+                validBar.ShowRequestItem();
             }
             yield return new WaitForSeconds(config.timeToCheckRequest);
         }
@@ -104,7 +103,7 @@ public class RequestManager : MonoBehaviour
         return request;
     }
 
-    private int GetGroupTypeIndex()
+    public int GetGroupTypeIndex()
     {
         if (requestCount < config.minEasyRequest)
             return 0;
@@ -114,7 +113,7 @@ public class RequestManager : MonoBehaviour
         return GetRandomIndexByRatio(groupPercent, totalPercentOfGroupType);
     }
 
-    private int GetAmountItemOfRequest()
+    public int GetAmountItemOfRequest()
     {
         if (DataManager.UserData.level + 1 < config.levelToRequestx2)
             return 1;

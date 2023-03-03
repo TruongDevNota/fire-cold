@@ -33,6 +33,7 @@ public class GuestController : MonoBehaviour
     public void ChangeAnim(string animName)
     {
         anim.AnimationName = animName;
+        anim.loop = false;
         anim.Initialize(true);
     }
     public void Move(Vector2 startPos, Vector2 endPos, bool autoHide = false, float duration = 1f, System.Action callback = null)

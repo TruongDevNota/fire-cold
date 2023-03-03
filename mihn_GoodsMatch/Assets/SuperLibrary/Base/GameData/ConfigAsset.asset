@@ -54,9 +54,19 @@ MonoBehaviour:
     isTestRewarPopup: 0
     levelsToNextChallenge: 10
     playChallengeCoinUse: 100
-    levelsToUnlockBartender: 0
+    levelsToUnlockBartender: 6
     coinEarnInDay: 3
     coinEarnInNight: 5
+    requestMissLimit: 3
+    levelTimeBase_bartender: 60
+    levelTimeIncrease_bartender: 10
+    maxLevelTime_bartender: 300
+    timeWaitOfSingleRequest: 15
+    timeWaitOfDoubleRequest: 25
+    timeComboEslap: 8
+    timeToCheckRequest: 5
+    minEasyRequest: 20
+    levelToRequestx2: 10
     _goldByAds: 150
     startPerMatch: 5
     bankCoinStage: d007000088130000

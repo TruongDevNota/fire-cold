@@ -4030,7 +4030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SDKKey: CwIm/S/4a1i3IaxK6HzYBTV+J+HE7O5idunbFsBNENleoKCzmxHgOiB8QiSn1J+shvsM2GoTyAWwzT93ocU/EjDPz8izmvyOn5ups+0idjM=
-  bundleVersion: 1022301162
+  bundleVersion: 1032303031
   versionBuildTexts:
   - {fileID: 379268065}
   - {fileID: 1350732642}
@@ -8126,6 +8126,10 @@ PrefabInstance:
     - target: {fileID: 2390403620489707930, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483151251223371200, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3586303550669143066, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
