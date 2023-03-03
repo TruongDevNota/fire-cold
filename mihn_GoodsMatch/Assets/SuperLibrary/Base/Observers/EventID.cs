@@ -26,6 +26,7 @@ public enum EventID
     OnNewMatchSuccess = 100,
     OnMatchedWrongRequest = 101,
     OnMatchedRightRequest = 102,
+    OnNewCombo = 103,
 
     OnNewRequestCreated = 200,
     OnRequestTimeout = 201,

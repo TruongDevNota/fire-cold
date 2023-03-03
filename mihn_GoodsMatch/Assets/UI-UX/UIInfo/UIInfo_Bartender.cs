@@ -9,6 +9,7 @@ using MyBox;
 public class UIInfo_Bartender : MonoBehaviour
 {
     private static UIInfo_Bartender instance;
+    private GameConfig config => DataManager.GameConfig;
 
     [Header("Base")]
     [SerializeField] UIAnimation anim;
@@ -16,11 +17,10 @@ public class UIInfo_Bartender : MonoBehaviour
     [SerializeField] Text coinEarnText;
 
     [Header("Level data")]
-    [SerializeField] Slider timeLeftSlider;
-    [SerializeField] int maxRequestMissed = 5;
+    [SerializeField] Slider timeLeftSlider = null;
+    [ReadOnly, SerializeField] int maxRequestMissed = 3;
     [ReadOnly, SerializeField] float totalTime = 180f;
     [SerializeField] Text requestMissText;
-    [SerializeField] float baseLevelTime = 60f;
     [SerializeField] Text timeLeftTxt = null;
     float timePlayed = 0;
     int currRequestMissed = 0;
@@ -28,7 +28,7 @@ public class UIInfo_Bartender : MonoBehaviour
     [Header("Combo")]
     [SerializeField] Slider comboTimeSlider = null;
     [SerializeField] Text comboCountText = null;
-    [SerializeField] float comboTimeCooldown = 8f;
+    [ReadOnly, SerializeField] float comboTimeCooldown = 8f;
     float currentComboTimeLeft;
     int comboCount;
     public int ComboCount
@@ -36,12 +36,15 @@ public class UIInfo_Bartender : MonoBehaviour
         get { return instance.comboCount; }
         set
         {
-            if (value != instance.comboCount)
-                instance.comboCount = value;
+            instance.comboCount = value;
             if (instance.comboCount > 0)
             {
                 currentComboTimeLeft = comboTimeCooldown;
-                //instance.DoComboCountDown();
+                if(instance.comboCount > 1)
+                {
+                    this.PostEvent((int)EventID.OnNewCombo, ComboCount-1);
+                    Debug.Log($"MATCH COMBO - COUNT = {ComboCount - 1}");
+                }
             }
         }
     }
@@ -51,17 +54,16 @@ public class UIInfo_Bartender : MonoBehaviour
     [SerializeField] GameObject coinPrefab;
     [SerializeField] float animCollectDelay = 1f;
     public Transform defaultTarget;
-    int currentEarn;
-
+    
     [Header("DEBUG ")]
     [ReadOnly, SerializeField] int currLevel;
+    [ReadOnly, SerializeField] float comboTime;
 
     int currRequestComplete;
     private Coroutine collectCoinCoroutine = null;
-
+    
     private void Awake()
     {
-        
         instance = this;
         coinPrefab.CreatePool(10);
     }
@@ -101,6 +103,12 @@ public class UIInfo_Bartender : MonoBehaviour
         timePlayed += Time.deltaTime;
         timeLeftTxt.text = TimeSpan.FromSeconds(Mathf.CeilToInt(Mathf.Max(totalTime - timePlayed, 0))).ToString("m':'ss");
         //timeLeftSlider.value = totalTime - timePlayed;
+        if (currentComboTimeLeft < 0)
+            ComboCount = 0;
+        if (ComboCount > 0)
+            currentComboTimeLeft -= Time.deltaTime;
+        comboTime = currentComboTimeLeft;
+        
     }
 
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
@@ -139,9 +147,13 @@ public class UIInfo_Bartender : MonoBehaviour
         GameStatisticsManager.goldEarn = 0;
         coinEarnText.text = "0";
 
-        totalTime = Mathf.Min(30, baseLevelTime + DataManager.UserData.bartenderLevel * 10f);
+        totalTime = Mathf.Min(config.maxLevelTime_bartender, config.levelTimeBase_bartender + DataManager.UserData.bartenderLevel * config.levelTimeIncrease_bartender);
         timePlayed = 0;
         timeLeftTxt.text = TimeSpan.FromSeconds(Mathf.CeilToInt(totalTime)).ToString("m':'ss");
+
+        maxRequestMissed = config.requestMissLimit;
+        comboTimeCooldown = config.timeComboEslap;
+
 
         if (timeLeftSlider != null)
         {
@@ -168,13 +180,13 @@ public class UIInfo_Bartender : MonoBehaviour
     private void OnNewRequestSuccess(object obj)
     {
         var item = (Goods_Item)obj;
-        int coinEarn = DataManager.UserData.bartenderLevel % 2 == 0 ? DataManager.GameConfig.coinEarnInDay : DataManager.GameConfig.coinEarnInNight;
-        var lastStar = GameStatisticsManager.goldEarn;
-        GameStatisticsManager.goldEarn += coinEarn;
-        coinEarnText.DOText(lastStar, GameStatisticsManager.goldEarn, 1f, 1f);
         ComboCount++;
+        int coinEarn = DataManager.UserData.bartenderLevel % 2 == 0 ? DataManager.GameConfig.coinEarnInDay : DataManager.GameConfig.coinEarnInNight;
+        coinEarn = Mathf.Max(coinEarn, coinEarn * ComboCount);
+        var lastcoin = GameStatisticsManager.goldEarn;
+        GameStatisticsManager.goldEarn += coinEarn;
+        coinEarnText.DOText(lastcoin, GameStatisticsManager.goldEarn, 1f, 1f);
         currRequestComplete++;
-        Debug.Log($"Matched request item at position: {item.transform.position}");
         StartCoroutine(CollectStars(coinEarn, item.transform.position));
     }
     private void OnRequestMissed(object obj)

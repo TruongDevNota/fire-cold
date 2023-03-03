@@ -11,4 +11,9 @@ public static class GameConstants
     public static char[] shelfSplitChars = new char[] { ',', ';' };
     public static char itemSplittChar = '|';
     #endregion
+
+    #region soundName
+
+    #endregion
+
 }

@@ -6,29 +6,16 @@ using MyBox;
 using UnityEditor;
 
 [CreateAssetMenu(fileName = "GameItemsAsset", menuName = "DataAsset/GameItemAsset")]
-public class GameItemAsset : ScriptableObject
+public class GameItemAsset : BaseAsset<ItemDatum>
 {
-    public List<ItemDatum> list;
     [SerializeField] List<Goods_Item> itemModels;
 
-    public List<ItemDatum> unlockedList
-    {
-        get
-        {
-            return list?.Where(x => x.unlocked).ToList();
-        }
-    }
     public List<ItemDatum> lockedList
     {
         get
         {
-            return list?.Where(x => !x.unlocked).ToList();
+            return list?.Where(x => !x.isUnlocked).ToList();
         }
-    }
-    public List<ItemDatum> itemSaveList
-    {
-        get => list?.Where(x => x.unlocked)
-            .Select(x => new ItemDatum { id = x.id, unlocked = x.unlocked }).ToList();
     }
     public ItemDatum GetItemDatumById(string id)
     {
@@ -41,30 +28,30 @@ public class GameItemAsset : ScriptableObject
     public void UnlockNewItemById(string id)
     {
         var item = GetItemDatumById(id);
-        if (item == null || item.unlocked)
+        if (item == null || item.isUnlocked)
             return;
-        item.unlocked = true;
+        item.isUnlocked = true;
 #if UNITY_EDITOR
         EditorUtility.SetDirty(this);
 #endif
     }
 
-    public void ConvertItemData(List<ItemDatum> saveData)
+    public void ConvertItemData(List<SaveData> saveData)
     {
         foreach (var i in saveData)
         {
             var temp = list.FirstOrDefault(x => x.id == i.id);
             if (temp != null)
             {
-                if (i.unlocked)
-                    temp.unlocked = i.unlocked;
+                if (i.isUnlocked)
+                    temp.isUnlocked = i.isUnlocked;
             }
         }
     }
 
 
     [ButtonMethod]
-    public void ResetData()
+    public override void ResetData()
     {
         list.Clear();
 
@@ -73,7 +60,7 @@ public class GameItemAsset : ScriptableObject
             var datum = new ItemDatum()
             {
                 id = itemModels[i].name.ToLower(),
-                unlocked = i < 18,
+                isUnlocked = i < 15,
                 itemProp = itemModels[i],
                 unlockValue = 100,
             };
@@ -86,10 +73,8 @@ public class GameItemAsset : ScriptableObject
 }
 
 [System.Serializable]
-public class ItemDatum
+public class ItemDatum : SaveData
 {
-    public string id;
-    public bool unlocked;
     public Goods_Item itemProp;
     public int unlockValue;
 }

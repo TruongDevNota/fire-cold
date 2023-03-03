@@ -42,7 +42,7 @@ public class ItemDefinitionAsset : ScriptableObject
             var newDefinition = new ItemDefinitions()
             {
                 id = itemPrefabs[i].name.ToLower(),
-                unlocked = i < 18,
+                unlocked = i < 30,
                 itemType = datum.Type,
                 itemPrefabs = itemPrefabs[i],
                 matchAmount = datum.matchAmount,

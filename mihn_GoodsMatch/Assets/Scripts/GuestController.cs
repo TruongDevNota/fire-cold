@@ -33,6 +33,7 @@ public class GuestController : MonoBehaviour
     public void ChangeAnim(string animName)
     {
         anim.AnimationName = animName;
+        anim.Initialize(true);
     }
     public void Move(Vector2 startPos, Vector2 endPos, bool autoHide = false, float duration = 1f, System.Action callback = null)
     {
@@ -44,12 +45,21 @@ public class GuestController : MonoBehaviour
         anim.initialFlipX = dirX < 0;
         anim.Initialize(true);
         this.transform.position = startPos;
-        ChangeAnim(GuestAnimations.moveAnims[0]);
+        ChangeAnim(GuestAnimations.moveAnims[Random.Range(0, GuestAnimations.moveAnims.Length)]);
         yield return this.transform.DOMove(endPos, duration).OnComplete(() =>
         {
             callback?.Invoke();
             if (autoHide)
                 this.Recycle();
         }).SetId($"guest_{name}_Move") .WaitForCompletion();
+    }
+    
+    [ButtonMethod]
+    public void AddSkinIndexes()
+    {
+        ingameSkinIndex = new int[13] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(this);
+#endif
     }
 }

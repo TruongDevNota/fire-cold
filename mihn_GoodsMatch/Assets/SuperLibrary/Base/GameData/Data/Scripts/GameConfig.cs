@@ -51,6 +51,16 @@ public class GameConfig : GameConfigBase
     public int levelsToUnlockBartender = 6;
     public int coinEarnInDay = 3;
     public int coinEarnInNight = 5;
+    public int requestMissLimit = 3;
+    public int levelTimeBase_bartender = 60;
+    public int levelTimeIncrease_bartender = 10;
+    public int maxLevelTime_bartender = 300;
+    public float timeWaitOfSingleRequest = 15f;
+    public float timeWaitOfDoubleRequest = 25f;
+    public float timeComboEslap = 10f;
+    public float timeToCheckRequest = 5f;
+    public int minEasyRequest = 20;
+    public int levelToRequestx2 = 10;
 
     #region MONEY
     [Header("Money")]

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2748385545455601461}
   - component: {fileID: 2748385545455601460}
   m_Layer: 0
-  m_Name: Item
+  m_Name: ItemBase
   m_TagString: Goods_Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 110
+  m_SortingOrder: 20
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -134,6 +134,8 @@ MonoBehaviour:
   rotateAngle: 10
   jumpAnim_Duration: 2
   deltaY: 0.35
+  currentShelf: {fileID: 0}
+  firstLeftCellIndex: 0
   canPick: 0
 --- !u!114 &2748385545455601460
 MonoBehaviour:

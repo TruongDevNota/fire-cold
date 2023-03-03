@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: ConfigAsset
   m_EditorClassIdentifier: Assembly-CSharp::ConfigData
   gameConfig:
-    buildVersion: 1002212304
-    _timePlayToShowAd: 15
-    _timePlayToShowAdReduce: -5
-    _timeToWaitOpenAd: 5
-    _timePlayToShowOpenAd: 5
-    _adShowFromLevel: 1
-    _adInterOnComplete: 1
+    suggestUpdateVersion: 1022301110
+    _timePlayToShowAd: 0
+    _timePlayToShowAdReduce: 0
+    _timeToWaitOpenAd: 0
+    _timePlayToShowOpenAd: 0
+    _adShowFromLevel: 0
+    _adInterOnComplete: 0
     _reviceCountDown: 5
     _reviceCountMax: 3
     _reviceNoThankCountDown: 2
@@ -54,8 +54,12 @@ MonoBehaviour:
     isTestRewarPopup: 0
     levelsToNextChallenge: 10
     playChallengeCoinUse: 100
+    levelsToUnlockBartender: 0
+    coinEarnInDay: 3
+    coinEarnInNight: 5
     _goldByAds: 150
     startPerMatch: 5
     bankCoinStage: d007000088130000
     rebornTimeAdding: 30.5
     buffPrice: 500
+    maxLevel: 100

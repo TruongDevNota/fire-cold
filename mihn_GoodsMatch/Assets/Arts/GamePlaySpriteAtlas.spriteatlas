@@ -50,21 +50,31 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: c1d62d712a071994ab05df43d2089261, type: 3}
+  - {fileID: 21300000, guid: 70533202118c6414ab3ce8a63db8c2d0, type: 3}
+  - {fileID: 21300000, guid: 43c4da62ff3c4924d9817cf9271d3e4c, type: 3}
   - {fileID: 21300000, guid: 1a546e62fe571be4a9d5ae14b2877135, type: 3}
   - {fileID: 21300000, guid: ac533d131b7a8cb4eb45545fc9324171, type: 3}
   - {fileID: 21300000, guid: 697e0373d2100e046be0daaaf70e7d8e, type: 3}
+  - {fileID: 21300000, guid: 3d244473c66cd5148b75c313c07f1184, type: 3}
   - {fileID: 21300000, guid: 2632bd6471daf8e40b71399bb164c9aa, type: 3}
   - {fileID: 21300000, guid: 7574c2359c3058c47bba06d64efddad6, type: 3}
+  - {fileID: 21300000, guid: 0e398b352e94a614d934f0a160b909a3, type: 3}
   - {fileID: 21300000, guid: 822fe7f5ff9aeb84b84db992ba22f409, type: 3}
+  - {fileID: 21300000, guid: 97bc3016212f6a34987c9d1da7adc365, type: 3}
   - {fileID: 21300000, guid: e237fa76c6a322a4782ea4011634c715, type: 3}
   - {fileID: 21300000, guid: 59bfbd86be23db34187ed8e29c6bfdee, type: 3}
   - {fileID: 21300000, guid: 56dfb317a65285045ac36bb54ba09d67, type: 3}
   - {fileID: 21300000, guid: e8806888d5ef9ba4fb984a81f1117e51, type: 3}
+  - {fileID: 21300000, guid: b1dd88d8026533e4a982e8d4e0bb919c, type: 3}
   - {fileID: 21300000, guid: 375375f88719a2c4db12d132d63d79d6, type: 3}
   - {fileID: 21300000, guid: d15a2f998f22ec0479e04622c1818b9c, type: 3}
+  - {fileID: 21300000, guid: c966c75a6db009e48925761764736c1d, type: 3}
   - {fileID: 21300000, guid: ac142a6bea5b6484aa08be6c5c1e5b46, type: 3}
   - {fileID: 21300000, guid: 0d12480ce03b0cc42bf866426d9961bd, type: 3}
   - {fileID: 21300000, guid: 4404e32c5482970438bd68ef2bb17b92, type: 3}
+  - {fileID: 21300000, guid: cf502bac448865845b840269b98e410d, type: 3}
+  - {fileID: 21300000, guid: f15164bcf5c519145ae48e4e35273c53, type: 3}
   - {fileID: 21300000, guid: aa60b9ec20f37ba44a03f57a2945f64a, type: 3}
   - {fileID: 21300000, guid: f31c287e2b35e32479bacc8cc34a451d, type: 3}
   - {fileID: 21300000, guid: 2e993eaeff3023f42a4d204d53bdb842, type: 3}
@@ -72,21 +82,31 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8e1a82fe66efa76438220cf61c8bb0d3, type: 3}
   - {fileID: 21300000, guid: 6f769cafe2ecd524e85a980a206e3fde, type: 3}
   m_PackedSpriteNamesToIndex:
+  - 24-popcorn
+  - 26 - noodle box
+  - 25-noodle cup
   - drink_9_green-pina-colada
   - drink_10_pina-colada
   - drink_18_strawberry-smoothie
+  - 23 - fry chicken -cheese
   - drink_16_cocktail-2
   - drink_15_cocktail
+  - 28 - fry chicken
   - drink_7_whiskey
+  - 30 - milk
   - drink_6_soda
   - drink_13_blueberry-smoothie
   - drink_8_whiskey-2
   - drink_5_coke
+  - 22-beer
   - drink_12_mojito-pink
   - drink_17_mint-choco
+  - 29 - fry potato
   - plate
   - drink_3_apple-lime-tea
   - drink_19_mango-smoothie
+  - 27 - beer2
+  - 21-banana mlik
   - drink_11_mojito-blue
   - drink_4_honey-tea
   - drink_14_ice-coffee

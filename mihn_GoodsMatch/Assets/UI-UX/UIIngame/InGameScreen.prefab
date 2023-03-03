@@ -2327,6 +2327,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2390403620489707930}
     m_Modifications:
+    - target: {fileID: 1503485910829827629, guid: 494831f4c024d584582ba68c46030d42, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a18bd0517caaba34faecfe6840b49943, type: 3}
     - target: {fileID: 2673527711417139705, guid: 494831f4c024d584582ba68c46030d42, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2774,10 +2778,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1767381882324710, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775180426065408, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114271021141075772, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114271021141075772, guid: 3872eb99040dfa04b8536d2460b009d4, type: 3}

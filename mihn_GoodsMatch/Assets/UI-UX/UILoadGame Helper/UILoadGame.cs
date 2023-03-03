@@ -19,6 +19,10 @@ public class UILoadGame : MonoBehaviour
     [SerializeField]
     private Slider processSlider = null;
 
+    [Header("Slider")]
+    [SerializeField] private GameObject defaultLogo = null;
+    [SerializeField] private GameObject bartenderLogo = null;
+
     [SerializeField]
     private UIAnimation anim = null;
     public static UILoadGame instance = null;
@@ -76,6 +80,9 @@ public class UILoadGame : MonoBehaviour
 
     public static void Init(bool show, TweenCallback actionOnDone)
     {
+        instance.defaultLogo?.SetActive(DataManager.currGameMode == eGameMode.Normal);
+        instance.bartenderLogo?.SetActive(DataManager.currGameMode == eGameMode.Bartender);
+
         if (!show)
         {
             instance.anim.Hide(actionOnDone);

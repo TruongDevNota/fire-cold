@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3971103570268323173
+--- !u!1001 &3744586709552125152
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,39 +9,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2748385545455601458, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_Size.y
-      value: 1.4
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601458, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_Offset.y
-      value: 0.7
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601458, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601458, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1
+      value: 0.98229164
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601458, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.3203125
+      value: 1.5716666
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601459, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0d12480ce03b0cc42bf866426d9961bd, type: 3}
+      objectReference: {fileID: 21300000, guid: 43c4da62ff3c4924d9817cf9271d3e4c, type: 3}
     - target: {fileID: 2748385545455601461, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: type
-      value: 3
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601461, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
-      propertyPath: matchAmount
-      value: 3
+      propertyPath: size.y
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601462, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_Name
-      value: Drink_3
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601463, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_RootOrder

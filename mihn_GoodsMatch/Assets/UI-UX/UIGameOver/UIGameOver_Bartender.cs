@@ -136,7 +136,7 @@ public class UIGameOver_Bartender : MonoBehaviour
     {
         Status = UIAnimStatus.IsAnimationShow;
 
-        string adsID = gameState == GameState.Complete ? "LevelComplete" : "LevelFail";
+        string adsID = gameState == GameState.Complete ? "Bartender_LevelComplete" : "Bartender_LevelFail";
         CheckToShowInterstitialAds(adsID, null);
 
         var isWin = gameState == GameState.Complete;
@@ -202,9 +202,9 @@ public class UIGameOver_Bartender : MonoBehaviour
     public virtual void ShowResult(bool isWin)
     {
         resultInforPanel.gameObject.SetActive(true);
-
+        int lastLevel = isWin ? DataManager.UserData.bartenderLevel - 1 : DataManager.UserData.bartenderLevel;
         if (levelTxt)
-            levelTxt.text = DataManager.UserData.bartenderLevel % 2 == 0 ? $"DAY {DataManager.UserData.bartenderLevel / 2 + 1}" : $"NIGHT {DataManager.UserData.bartenderLevel / 2 + 1}";
+            levelTxt.text = lastLevel % 2 == 0 ? $"DAY {lastLevel / 2 + 1}" : $"NIGHT {lastLevel / 2 + 1}";
         if (txtCoinEarn)
             txtCoinEarn.text = $"{GameStatisticsManager.goldEarn}";
 
@@ -388,7 +388,7 @@ public class UIGameOver_Bartender : MonoBehaviour
     }
     public void CheckToShowInterstitialAds(string itemId, Action onDone)
     {
-        if (!GameUtilities.IsShowAdsInter(DataManager.UserData.level))
+        if (!GameUtilities.IsShowAdsInter(DataManager.UserData.bartenderLevel + 5))
         {
             onDone?.Invoke();
             return;

@@ -107,6 +107,9 @@ public class BarRequest : MonoBehaviour
     {
         bgSR.DOColor(bgNormalColor, 0);
         yield return YieldInitGuest();
+        
+        
+        
         yield return bgSR.DOFade(1f, 0.25f).SetUpdate(false).WaitForCompletion();
         for (int i = 0; i < types.Count; i++)
         {
@@ -123,6 +126,11 @@ public class BarRequest : MonoBehaviour
         waitTimeProcess.SetAlpha(1f);
         this.PostEvent((int)EventID.OnNewRequestCreated, requestingItems);
     }
+    private void SetVision(bool canView)
+    {
+        outsideSR.gameObject.SetActive(canView);
+        processContainer.gameObject.SetActive(canView);
+    }
     private void OnMatchedRequest(object obj)
     {
         if (!IsRequesting)
@@ -130,6 +138,8 @@ public class BarRequest : MonoBehaviour
         var item = (Goods_Item)obj;
         if (requestingItems.Contains(item))
         {
+            if (currGuestController != null)
+                currGuestController.ChangeAnim(GuestAnimations.happy);
             requestingItems.Remove(item);
         }
         if(requestingItems.Count == 0)
@@ -145,6 +155,8 @@ public class BarRequest : MonoBehaviour
         IsRequesting = false;
         this.PostEvent((int)EventID.OnRequestTimeout, this.currDatum);
         BoardGame_Bartender.instance?.OnRequestTimeout(this.requestingItems);
+        if (currGuestController != null)
+            currGuestController.ChangeAnim(GuestAnimations.angryLeaveAnim);
         StartCoroutine(YieldLeave(false));
     }
     public void OnLevelEnd(bool isWin)
@@ -165,22 +177,20 @@ public class BarRequest : MonoBehaviour
                 iconTick.gameObject.SetActive(false);
             }).WaitForCompletion();
             if (currGuestController != null)
+            {
                 currGuestController.Move(currGuestController.transform.position, posOutSide + transform.position, true);
+            }
             yield return new WaitForSeconds(waitMatchedFXTime * 0.5f);
         }
         else
         {
             //Show happy anim then leave
             completeParticle.Play();
-            //iconTick.gameObject.SetActive(true);
-            //iconTick.transform.localScale = Vector3.one;
-            //yield return iconTick.transform.DOScale(1.2f, waitMatchedFXTime * 0.5f).OnComplete(() =>
-            //  {
-            //      iconTick.gameObject.SetActive(false);
-            //  }).WaitForCompletion();
-            yield return new WaitForSeconds(waitMatchedFXTime);
+            yield return new WaitForSeconds(waitMatchedFXTime * 0.5f);
             if (currGuestController != null)
                 currGuestController.Move(currGuestController.transform.position, posOutSide + transform.position, true);
+            currGuestController = null;
+            yield return new WaitForSeconds(waitMatchedFXTime * 0.5f);
         }
         ClearAll();
         yield return new WaitForEndOfFrame();
@@ -189,6 +199,8 @@ public class BarRequest : MonoBehaviour
     private IEnumerator YieldAlert()
     {
         alertSR.gameObject.SetActive(true);
+        if (currGuestController != null)
+            currGuestController.ChangeAnim(GuestAnimations.angryWaitAnim);
         int count = Mathf.FloorToInt(alertTime / alertSingleTime);
         for(int i = 0; i < count-1; i++)
         {
@@ -239,9 +251,9 @@ public class BarRequest : MonoBehaviour
     {
         currGuestController = null;
         currGuestController = guestPrefab.Spawn(this.transform);
-        currGuestController.ChangeSkin("default");
-        yield return currGuestController.YieldMove(posOutSide + transform.position, postInside + transform.position, callback: () => {
-            currGuestController.ChangeAnim(GuestAnimations.idleAnims[0]);
+        currGuestController.ChangeSkin();
+        yield return currGuestController.YieldMove(posOutSide + transform.position, postInside + transform.position, false, guestMovingTime, callback: () => {
+            currGuestController.ChangeAnim(GuestAnimations.idleAnims[UnityEngine.Random.Range(0, GuestAnimations.idleAnims.Length)]);
         });
     }
     #endregion

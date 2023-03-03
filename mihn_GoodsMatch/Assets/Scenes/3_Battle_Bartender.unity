@@ -1778,6 +1778,9 @@ MonoBehaviour:
   - {fileID: 143927400}
   requestManager: {fileID: 844902979}
   requestingItems: []
+  bgImage: {fileID: 1033378743}
+  daySprite: {fileID: 21300000, guid: 06529c0e90a5a4b4ba7ae04b8cb12411, type: 3}
+  nightSprite: {fileID: 21300000, guid: e3a3d15f74bccd048b3b2fb9885f7c76, type: 3}
 --- !u!4 &1947759902
 Transform:
   m_ObjectHideFlags: 0

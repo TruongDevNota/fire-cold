@@ -27,13 +27,8 @@ public class BoardGame_Bartender : MonoBehaviour
         set { itemCount = value; } 
     }
 
-    private int matchCount = 0;
-
-    private bool gameSetupDone = false;
     public bool isPlayingGame = false;
     public bool isPausing = false;
-
-    private bool isChallengeGame = false;
 
     public static BoardGame_Bartender instance;
 
@@ -49,6 +44,11 @@ public class BoardGame_Bartender : MonoBehaviour
     [SerializeField] RequestManager requestManager;
     [SerializeField] private List<Goods_Item> requestingItems = new List<Goods_Item>();
     private List<eItemType> requestingTypes = new List<eItemType>();
+
+    [Header("Decor")]
+    [SerializeField] UnityEngine.UI.Image bgImage;
+    [SerializeField] Sprite daySprite;
+    [SerializeField] Sprite nightSprite;
 
     private void Awake()
     {
@@ -72,6 +72,8 @@ public class BoardGame_Bartender : MonoBehaviour
         }
         instance = this;
 
+        bgImage.sprite = DataManager.UserData.bartenderLevel % 2 == 0 ? daySprite : nightSprite;
+
         GameStateManager.OnStateChanged += OnGameStateChangeHandler;
         this.RegisterListener((int)EventID.OnBuffHint, DoBuffHint);
         this.RegisterListener((int)EventID.OnBuffSwap, DoBuffSwap);
@@ -94,6 +96,7 @@ public class BoardGame_Bartender : MonoBehaviour
     {
         if(current == GameState.Restart || current == GameState.Init)
         {
+            bgImage.sprite = DataManager.UserData.bartenderLevel % 2 == 0 ? daySprite : nightSprite;
             StartCoroutine(YieldInit(0));
         }
         else if (current == GameState.Pause)

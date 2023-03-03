@@ -6,8 +6,9 @@ using System.Linq;
 public class RequestManager : MonoBehaviour
 {
     [SerializeField] GameItemAsset gameItemAsset;
+    private GameConfig config => DataManager.GameConfig;
+    public BoardGame_Bartender boardGame;
 
-    [SerializeField] BoardGame_Bartender boardGame;
     [SerializeField] BarRequest[] bars;
     [SerializeField] float waitTime = 10f;
     [SerializeField] int[] groupPercent;
@@ -15,8 +16,6 @@ public class RequestManager : MonoBehaviour
 
     [Header("Request create config")]
     [SerializeField] float nextRequestTime = 10f;
-    [SerializeField] int minEasyRequest = 20;
-    [SerializeField] int levelToRequestx2 = 10;
 
     int totalPercentOfGroupType;
     int totalPercentOfItemInRequet;
@@ -85,7 +84,7 @@ public class RequestManager : MonoBehaviour
                 var newRequest = CreateRequest();
                 validBar.ShowRequestItem(newRequest);
             }
-            yield return new WaitForSeconds(nextRequestTime);
+            yield return new WaitForSeconds(config.timeToCheckRequest);
         }
     }
 
@@ -107,7 +106,7 @@ public class RequestManager : MonoBehaviour
 
     private int GetGroupTypeIndex()
     {
-        if (requestCount < minEasyRequest)
+        if (requestCount < config.minEasyRequest)
             return 0;
         totalPercentOfGroupType = 0;
         foreach (var percent in groupPercent)
@@ -117,7 +116,7 @@ public class RequestManager : MonoBehaviour
 
     private int GetAmountItemOfRequest()
     {
-        if (DataManager.UserData.level + 1 < levelToRequestx2)
+        if (DataManager.UserData.level + 1 < config.levelToRequestx2)
             return 1;
 
         totalPercentOfItemInRequet = 0;

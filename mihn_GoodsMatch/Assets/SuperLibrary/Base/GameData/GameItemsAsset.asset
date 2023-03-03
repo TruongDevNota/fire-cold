@@ -12,127 +12,428 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721a8c9f9e111e6439be8ac515ee19e6, type: 3}
   m_Name: GameItemsAsset
   m_EditorClassIdentifier: 
+  useRandom: 0
   list:
-  - id: drink_1
-    unlocked: 1
+  - name: 
+    id: 1
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 4629048590207952902, guid: 7cf25eae688941d46b27d5f8cb834f31, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_2
-    unlocked: 1
+  - name: 
+    id: 2
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 4300722510773625064, guid: fbe73cc0662f964489168495a978efe2, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_3
-    unlocked: 1
+  - name: 
+    id: 3
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 1240754615638817360, guid: b7084ac965b5e99428f9a8636c5c30c9, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_4
-    unlocked: 1
+  - name: 
+    id: 4
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 1240754615638817360, guid: 3b8d3d58691607b4f88b33e7b22e3a48, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_5
-    unlocked: 1
+  - name: 
+    id: 5
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 7120200131035272129, guid: d43872a7df0fdac44a1155bfe9826984, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_6
-    unlocked: 1
+  - name: 
+    id: 6
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 3499278893221558174, guid: 6e66104682a63ef4eaf315dc85b394d7, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_7
-    unlocked: 1
+  - name: 
+    id: 7
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 3499278893221558174, guid: 8283aee7b56d4ec4b9c5986bf4cc5911, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_8
-    unlocked: 1
+  - name: 
+    id: 8
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 3499278893221558174, guid: a30f95619e3e2b24285808babd6a6604, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_9
-    unlocked: 1
+  - name: 
+    id: 9
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 3499278893221558174, guid: a560673d7e486d34fbed4d4a5e12d312, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_10
-    unlocked: 1
+  - name: 
+    id: 10
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 3499278893221558174, guid: 57889b5110d12a341a75f4720d5f708f, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 3
-  - id: drink_11
-    unlocked: 1
+  - name: 
+    id: 11
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 3049ea8ab967c514dbcc3805e64387a2, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
-  - id: drink_12
-    unlocked: 1
+  - name: 
+    id: 12
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: da215e4a7e92eea4b824f585221bc9f4, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
-  - id: drink_13
-    unlocked: 1
+  - name: 
+    id: 13
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 099c84dc0e049f646b2db0d8df69619f, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
-  - id: drink_14
-    unlocked: 1
+  - name: 
+    id: 14
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 64b71da0a41c7b547a08a12730d8127c, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
-  - id: drink_15
-    unlocked: 1
+  - name: 
+    id: 15
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: ea8abd3473612364f92ffec587eac84c, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
-  - id: drink_16
-    unlocked: 1
+  - name: 
+    id: 16
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 601db0c74fe2fc749baafe0a55c115df, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
-  - id: drink_17
-    unlocked: 1
+  - name: 
+    id: 17
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 86dede67ae3442a4aa7ceca157d3af49, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
-  - id: drink_18
-    unlocked: 1
+  - name: 
+    id: 18
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 7ad8ecf30dc6d154098fda3e60e4b2c9, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
-  - id: drink_19
-    unlocked: 0
+  - name: 
+    id: 19
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 009e7227d7b591d42a25caaeb6e99167, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
-  - id: drink_20
-    unlocked: 0
+  - name: 
+    id: 20
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: b437c128f7e572e4ebaa1eb6eecd1963, type: 3}
-    earnDayValue: 5
     unlockValue: 100
-    earnNightFee: 4
+  - name: 
+    id: 21
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 1182912510849778049, guid: 5ee3dfc57203b534d9c7f3b7e63609bc, type: 3}
+    unlockValue: 100
+  - name: 
+    id: 22
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 8144408658858786922, guid: bf9ad7ab1373ead4a80b5301428ed0ed, type: 3}
+    unlockValue: 100
+  - name: 
+    id: 23
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 3522582487027277590, guid: bddb80d3324ab8b418522307fcd14bc3, type: 3}
+    unlockValue: 100
+  - name: 
+    id: 24
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 2694887516892077907, guid: c60b715e30a11c54b9c304b10f555d0e, type: 3}
+    unlockValue: 100
+  - name: 
+    id: 25
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 1572684061325120469, guid: 45d5ee475af39cf41bca8f6d7fd68664, type: 3}
+    unlockValue: 100
+  - name: 
+    id: 26
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 7229711238993653208, guid: 7e1ea27914f309e478ea5e69f0a47764, type: 3}
+    unlockValue: 100
+  - name: 
+    id: 27
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 4551706158984661071, guid: 44d514e805774b84380e0710aa77b1d4, type: 3}
+    unlockValue: 100
+  - name: 
+    id: 28
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 1929544765853458730, guid: 39f00e0b7ddf7104f9da49943f3823b1, type: 3}
+    unlockValue: 100
+  - name: 
+    id: 29
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 2665953312281712558, guid: 797905c0bf5e9d042a438b05926c2346, type: 3}
+    unlockValue: 100
+  - name: 
+    id: 30
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    itemProp: {fileID: 4515534427678685729, guid: 87955e1e5cd52964281cea2f2dbdaead, type: 3}
+    unlockValue: 100
   itemModels:
   - {fileID: 4629048590207952902, guid: 7cf25eae688941d46b27d5f8cb834f31, type: 3}
   - {fileID: 4300722510773625064, guid: fbe73cc0662f964489168495a978efe2, type: 3}
@@ -154,3 +455,13 @@ MonoBehaviour:
   - {fileID: 6445086616528182227, guid: 7ad8ecf30dc6d154098fda3e60e4b2c9, type: 3}
   - {fileID: 6445086616528182227, guid: 009e7227d7b591d42a25caaeb6e99167, type: 3}
   - {fileID: 6445086616528182227, guid: b437c128f7e572e4ebaa1eb6eecd1963, type: 3}
+  - {fileID: 1182912510849778049, guid: 5ee3dfc57203b534d9c7f3b7e63609bc, type: 3}
+  - {fileID: 8144408658858786922, guid: bf9ad7ab1373ead4a80b5301428ed0ed, type: 3}
+  - {fileID: 3522582487027277590, guid: bddb80d3324ab8b418522307fcd14bc3, type: 3}
+  - {fileID: 2694887516892077907, guid: c60b715e30a11c54b9c304b10f555d0e, type: 3}
+  - {fileID: 1572684061325120469, guid: 45d5ee475af39cf41bca8f6d7fd68664, type: 3}
+  - {fileID: 7229711238993653208, guid: 7e1ea27914f309e478ea5e69f0a47764, type: 3}
+  - {fileID: 4551706158984661071, guid: 44d514e805774b84380e0710aa77b1d4, type: 3}
+  - {fileID: 1929544765853458730, guid: 39f00e0b7ddf7104f9da49943f3823b1, type: 3}
+  - {fileID: 2665953312281712558, guid: 797905c0bf5e9d042a438b05926c2346, type: 3}
+  - {fileID: 4515534427678685729, guid: 87955e1e5cd52964281cea2f2dbdaead, type: 3}
