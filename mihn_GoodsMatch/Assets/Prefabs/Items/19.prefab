@@ -41,7 +41,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601462, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_Name
-      value: Drink_19
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601463, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_RootOrder
@@ -85,6 +85,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601463, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267228868396392210, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

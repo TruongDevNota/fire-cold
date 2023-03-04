@@ -107,6 +107,7 @@ public class BarRequest : MonoBehaviour
     {
         outsideSR.DOColor(bgNormalColor, 0);
 
+        yield return YieldInitGuest();
         //Create request datum
         var datum = requestManager.CreateRequest();
         currDatum = datum;
@@ -116,20 +117,16 @@ public class BarRequest : MonoBehaviour
         alertSR.gameObject.SetActive(false);
         processContainer.SetLocalX(processPosition[datum.types.Count - 1]);
         waitTimeProcess.SetSizeY(fillProcessFullHeight);
-
-        yield return YieldInitGuest();
+        outsideSR.SetAlpha(1f);
         SetElemetsActive(true);
 
-        yield return outsideSR.DOFade(1f, 0.25f).SetUpdate(false).WaitForCompletion();
+        SoundManager.Play(GameConstants.sound_ItemSpawn);
         for (int i = 0; i < datum.types.Count; i++)
         {
-            var item = gameItemAsset.GetItemByType(datum.types[i]).itemProp.Spawn();
-            item.transform.parent = transform;
+            var item = gameItemAsset.GetItemByType(datum.types[i]).itemProp.Spawn(transform);
             item.transform.localPosition = GetPosOnBar(datum.types.Count, i);
-            item.OnInit(active: false);
-            SoundManager.Play(GameConstants.sound_ItemSpawn);
+            item.OnInit(active: false, delay: i * 0.15f);
             requestingItems.Add(item);
-            yield return new WaitForSeconds(0.1f);
         }
         elapsedTime = 0;
         IsRequesting = true;
@@ -155,6 +152,7 @@ public class BarRequest : MonoBehaviour
                 string soundName = GameUtilities.GetRandomBool() ? GameConstants.sound_CatHappy1 : GameConstants.sound_CatHappy2;
                 SoundManager.Play(soundName);
             }
+            item.OnHighLight(delay: 0.2f);
             requestingItems.Remove(item);
         }
         if(requestingItems.Count == 0)

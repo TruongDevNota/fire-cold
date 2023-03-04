@@ -12,6 +12,8 @@ public class Goods_Item : MonoBehaviour
     [SerializeField]
     protected SpriteRenderer spriteRenderer;
     [SerializeField]
+    protected SpriteRenderer outlineSR;
+    [SerializeField]
     public MovingTF tfMoving;
     [SerializeField] 
     protected eItemType type;
@@ -54,9 +56,16 @@ public class Goods_Item : MonoBehaviour
     {
         canPick = true;
     }
+    private void OnEnable()
+    {
+        outlineSR?.gameObject.SetActive(false);
+    }
     private void OnDisable()
     {
         DOTween.Kill(this.gameObject);
+        DOTween.Kill($"DOScaleHightlight_{name}");
+        transform.localScale = Vector3.one;
+        StopAllCoroutines();
     }
     public void OnPutUpShelf()
     {
@@ -136,15 +145,17 @@ public class Goods_Item : MonoBehaviour
         transform.localPosition = defaultPos;
     }
 
-    public void OnInit(float dur = 0.5f, bool active = true)
+    public void OnInit(float dur = 0.5f, bool active = true, float delay= 0)
     {
-        StartCoroutine(YieldInitShow(dur, active));
+        StartCoroutine(YieldInitShow(dur, active, delay));
     }
-    private IEnumerator YieldInitShow(float dur, bool active)
+    private IEnumerator YieldInitShow(float dur, bool active, float delay=0)
     {
         canPick = false;
         spriteRenderer.SetAlpha(0);
         transform.SetScale(0.25f);
+        if(delay > 0)
+            yield return new WaitForSeconds(delay);
         transform.DOScale(1f, dur).SetUpdate(true);
         yield return spriteRenderer.DOFade(1f, dur + 0.1f).SetUpdate(true).WaitForCompletion();
         canPick = active;
@@ -154,5 +165,18 @@ public class Goods_Item : MonoBehaviour
     {
         yield return tfMoving.YieldMoveToWorldPosition(desPos, dur);
         this.Recycle();
+    }
+
+    public void OnHighLight(float scale = 1.4f, float duration = 1f, float delay = 0f)
+    {
+        StartCoroutine(YieldHightLightShow(scale, duration, delay));
+    }
+
+    public IEnumerator YieldHightLightShow(float scale, float duration, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        outlineSR?.gameObject.SetActive(true);
+        transform.DOLocalMoveY(0.5f, duration * 0.5f);
+        transform.DOScale(scale, duration).SetId($"DOScaleHightlight_{name}");
     }
 }

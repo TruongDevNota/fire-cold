@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601462, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_Name
-      value: Drink_1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601463, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_RootOrder
@@ -90,6 +90,22 @@ PrefabInstance:
     - target: {fileID: 2748385545455601463, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819531542533146340, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c44388a07d911274189f98b839ccd883, type: 3}
+    - target: {fileID: 8819531542533146340, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5229619
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819531542533146340, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819531542533146340, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
+      propertyPath: m_Color.r
+      value: 0.65612316
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}

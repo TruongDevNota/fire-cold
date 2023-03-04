@@ -453,7 +453,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 0, y: 120}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &507298715
 MonoBehaviour:
@@ -696,8 +696,6 @@ MonoBehaviour:
   groupPercent: 5f000000050000000000000000000000
   itemRequestPercent: 5f0000000500000000000000
   nextRequestTime: 5
-  minEasyRequest: 20
-  levelToRequestx2: 10
 --- !u!1 &1033378741
 GameObject:
   m_ObjectHideFlags: 0

@@ -176,15 +176,15 @@ MonoBehaviour:
   maxRequestMissed: 5
   totalTime: 180
   requestMissText: {fileID: 869026344185543326}
-  baseLevelTime: 60
   timeLeftTxt: {fileID: 8432891680988034112}
   comboTimeSlider: {fileID: 0}
   comboCountText: {fileID: 0}
   comboTimeCooldown: 10
   coinPrefab: {fileID: 1293701248151147880, guid: 576d4450b65fdb64092cf16f53c35772, type: 3}
-  animCollectDelay: 1
+  animCollectDelay: 0.25
   defaultTarget: {fileID: 3834974727610137174}
   currLevel: 0
+  comboTime: 0
 --- !u!1 &3076664734696558990
 GameObject:
   m_ObjectHideFlags: 0

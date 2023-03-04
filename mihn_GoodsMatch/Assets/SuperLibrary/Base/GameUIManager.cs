@@ -96,7 +96,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     public IEnumerator LoadGameData()
     {
         yield return DataManager.DoLoad();
-        UIToast.ShowLoading("Loading... please wait!!");
+        //UIToast.ShowLoading("Loading... please wait!!");
 
         while (user == null)
         {

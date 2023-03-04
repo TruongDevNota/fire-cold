@@ -181,14 +181,25 @@ public class UIGameOver_Bartender : MonoBehaviour
         resultInforPanel.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.25f);
         SoundManager.Play(GameConstants.sound_doorOpenUp);
-        animClose.Hide(onCompleted: () =>
+        if(animClose.Status == UIAnimStatus.IsShow || animClose.Status == UIAnimStatus.IsAnimationShow)
+        {
+            animClose.Hide(onCompleted: () =>
+            {
+                anim.Hide(() =>
+                {
+                    onHideDone?.Invoke();
+                    Status = UIAnimStatus.IsHide;
+                });
+            });
+        }
+        else
         {
             anim.Hide(() =>
             {
                 onHideDone?.Invoke();
                 Status = UIAnimStatus.IsHide;
             });
-        });
+        }
     }
 
     #region GameComplete
@@ -418,7 +429,7 @@ public class UIGameOver_Bartender : MonoBehaviour
     {
         SoundManager.Play("1. Click Button");
         rebornCount = 0;
-        
+
         GameStateManager.Init(null);
         Hide();
     }

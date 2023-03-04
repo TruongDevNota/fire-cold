@@ -317,7 +317,6 @@ MonoBehaviour:
   itemDistance: 1.2
   waitMatchedFXTime: 1.5
   waitMissedFXTime: 1
-  bgSR: {fileID: 1693556358}
   processBG: {fileID: 1693556358}
   waitTimeProcess: {fileID: 1690470958}
   fillProcessFullHeight: 1.8
@@ -646,7 +645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8324655581201342649, guid: 47bc4b76f2dfc974f9250004006b511d, type: 3}
       propertyPath: m_SortingOrder
-      value: 15
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8324655581201342649, guid: 47bc4b76f2dfc974f9250004006b511d, type: 3}
       propertyPath: m_MinParticleSize
@@ -659,6 +658,10 @@ PrefabInstance:
     - target: {fileID: 8324655581201378805, guid: 47bc4b76f2dfc974f9250004006b511d, type: 3}
       propertyPath: m_MinParticleSize
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8324655581214805007, guid: 47bc4b76f2dfc974f9250004006b511d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8324655581214838997, guid: 47bc4b76f2dfc974f9250004006b511d, type: 3}
       propertyPath: m_IsActive
