@@ -93,15 +93,16 @@ public class UIInfo : MonoBehaviour
         {
             case GameState.Init:
             case GameState.Restart:
+                break;
+            case GameState.Ready:
                 this.timePlayed = 0;
                 timeLeftText.text = "-:--";
                 GameStatisticsManager.starEarn = 0;
                 startText.text = "0";
                 comboCount = 3;
-                comboCountText.text = "x3";
+                comboCountText.text = $"x{comboCount}";
                 matchCount = 0;
-                break;
-            case GameState.Ready:
+
                 timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
                 comboTimeCooldown = BoardGame.instance.pTimeLimitInSeconds / 3;
                 comboTimeSlider.minValue = 0;
@@ -160,7 +161,7 @@ public class UIInfo : MonoBehaviour
         matchCount++;
         var lastStar = GameStatisticsManager.starEarn;
         GameStatisticsManager.starEarn += matchCount % 9 + 1;
-        startText.DOText(lastStar, GameStatisticsManager.starEarn, 1f, 1.2f);
+        startText.DOText(lastStar, GameStatisticsManager.starEarn, 0.3f, 1f);
         StartCoroutine(YieldCollectCoin(obj));
     }
 
