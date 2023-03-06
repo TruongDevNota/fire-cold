@@ -791,10 +791,14 @@ namespace Base
                   new Parameter[] {
                     new Parameter(FirebaseAnalytics.ParameterLevel, index),
                     new Parameter(FirebaseAnalytics.ParameterLevelName, name) });
+
+            string eventName = DataManager.currGameMode == eGameMode.Normal ? $"level_start_{index}"
+                : $"level_bartender_start_{index}";
+            FirebaseAnalytics.LogEvent(eventName);
 #endif
         }
 
-        public static void LogLevelEnd(int index, string name)
+        public static void LogLevelEnd(int index, string name, bool isWin)
         {
 #if USE_FIREBASE
             if (instance == null || AnalyticStatus != FirebaseStatus.Initialized)
@@ -815,6 +819,11 @@ namespace Base
                   new Parameter[] {
                     new Parameter(FirebaseAnalytics.ParameterLevel, index),
                     new Parameter(FirebaseAnalytics.ParameterLevelName, name) });
+
+            string eventName = string.Format("{0}_{1}_{2}", DataManager.currGameMode == eGameMode.Normal ? "level" : "level_bartender",
+                isWin ? "completed" : "failed", index.ToString());
+
+            FirebaseAnalytics.LogEvent(eventName);
 #endif
         }
 

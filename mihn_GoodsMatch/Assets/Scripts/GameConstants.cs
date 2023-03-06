@@ -13,6 +13,8 @@ public static class GameConstants
     #endregion
 
     #region soundName
+    public const string sound_Button_Clicked = "1. Click Button";
+
     public const string sound_ItemSpawn = "ItemSpawn";
     public const string sound_CatAngryLeave1 = "Cat_AngryAndLeave_1";
     public const string sound_CatAngryLeave2 = "Cat_AngryAndLeave_2";

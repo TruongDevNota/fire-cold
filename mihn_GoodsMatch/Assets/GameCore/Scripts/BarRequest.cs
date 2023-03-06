@@ -79,7 +79,7 @@ public class BarRequest : MonoBehaviour
     {
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnMatchedRightRequest, OnMatchedRequest);
         StopAllCoroutines();
-        HideAll();
+        ClearAll();
     }
     private void LateUpdate()
     {
@@ -180,6 +180,12 @@ public class BarRequest : MonoBehaviour
     public void OnLevelEnd(bool isWin)
     {
         IsRequesting = false;
+        foreach (var item in requestingItems)
+        {
+            if (item.gameObject != null)
+                item.Recycle();
+        }
+        requestingItems.Clear();
         StartCoroutine(YieldLeave(isWin));
     }
     public IEnumerator YieldLeave(bool winRequest)

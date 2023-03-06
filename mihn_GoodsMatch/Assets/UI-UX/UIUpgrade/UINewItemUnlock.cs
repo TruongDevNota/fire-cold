@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MyBox;
 
 public class UINewItemUnlock : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class UINewItemUnlock : MonoBehaviour
     [SerializeField] Image itemIcon;
     [SerializeField] Text priceText = null;
 
+    [SerializeField] ParticleSystem unlockFx = null;
+
     private string itemId;
     private int price = 100;
 
@@ -19,6 +22,15 @@ public class UINewItemUnlock : MonoBehaviour
     {
         unlockByCoinBtn?.onClick.AddListener(OnClaimButtonClick);
         unlockByAdsBtn?.onClick.AddListener(OnClaimByAdsClick);
+    }
+
+    private void OnEnable()
+    {
+        UserData.OnCoinChanged += OnTotalCoinChanged;
+    }
+    private void OnDisable()
+    {
+        UserData.OnCoinChanged -= OnTotalCoinChanged;
     }
 
     public void Init(ItemDatum datum)
@@ -46,11 +58,13 @@ public class UINewItemUnlock : MonoBehaviour
             unlockByCoinBtn.interactable = false;
             return;
         }
+        CoinManager.Add(-price);
         OnItemUnlocked();
     }
 
     private void OnClaimByAdsClick()
     {
+        SoundManager.Play(GameConstants.sound_Button_Clicked);
         AdsManager.ShowVideoReward((e, t) =>
         {
             if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
@@ -66,11 +80,24 @@ public class UINewItemUnlock : MonoBehaviour
 
     private void OnItemUnlocked()
     {
-        CoinManager.Add(-price);
         DataManager.ItemsAsset.UnlockNewItemById(itemId);
         DataManager.Save();
         claimedButton.SetActive(true);
         unlockByCoinBtn?.gameObject.SetActive(false);
         unlockByAdsBtn?.gameObject.SetActive(false);
+        ShowItemUnlockFX();
+    }
+
+    private void OnTotalCoinChanged(int change, int current)
+    {
+        if (unlockByCoinBtn)
+            unlockByCoinBtn.interactable = current >= price;
+    }
+
+    [ButtonMethod]
+    private void ShowItemUnlockFX()
+    {
+        if(unlockFx)
+            unlockFx.Play();
     }
 }

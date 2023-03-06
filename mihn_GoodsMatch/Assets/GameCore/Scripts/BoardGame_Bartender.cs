@@ -358,7 +358,7 @@ public class BoardGame_Bartender : MonoBehaviour
     }
     public void GameCompleteHandler(object resultData)
     {
-        FirebaseManager.LogLevelEnd(currentLevel, $"Win_level_Bartender_{currentLevel}");
+        FirebaseManager.LogLevelEnd(currentLevel, $"Win_level_Bartender_{currentLevel}", true);
         isPlayingGame = false;
         if (dragingItem != null)
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
@@ -368,7 +368,7 @@ public class BoardGame_Bartender : MonoBehaviour
     }
     public void GameOverHandler(object resultData)
     {
-        FirebaseManager.LogLevelEnd(currentLevel, $"Lose_level_Bartender_{currentLevel}");
+        FirebaseManager.LogLevelEnd(currentLevel, $"Lose_level_Bartender_{currentLevel}", false);
         isPlayingGame = false;
         if (dragingItem != null)
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);

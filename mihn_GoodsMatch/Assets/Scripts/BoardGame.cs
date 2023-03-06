@@ -196,7 +196,7 @@ public class BoardGame : MonoBehaviour
     private void GameCompleteHandler()
     {
         Debug.Log("****  GameComplete  ****");
-        FirebaseManager.LogLevelEnd(currentLevel, $"Win_level_{currentLevel}");
+        FirebaseManager.LogLevelEnd(currentLevel, $"Win_level_{currentLevel}", true);
         stopwatch.Stop();
         isPlayingGame = false;
         DataManager.UserData.LevelChesPercent += DataManager.GameConfig.unlockChestEachLevel;
@@ -212,8 +212,7 @@ public class BoardGame : MonoBehaviour
 
     private void GameOverHandler()
     {
-        Debug.Log("###### GameOver #####");
-        FirebaseManager.LogLevelEnd(currentLevel, $"Lose_level_{currentLevel}");
+        FirebaseManager.LogLevelEnd(currentLevel, $"Lose_level_{currentLevel}", false);
         stopwatch.Stop();
         isPlayingGame = false;
         if (dragingItem != null)

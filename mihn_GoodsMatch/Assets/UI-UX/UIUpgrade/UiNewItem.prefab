@@ -110,6 +110,7 @@ RectTransform:
   - {fileID: 1393561599699997761}
   - {fileID: 1393561598958308138}
   - {fileID: 1393561600428846029}
+  - {fileID: 5784660051713922198}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -143,6 +144,7 @@ MonoBehaviour:
   claimedButton: {fileID: 1393561600428846066}
   itemIcon: {fileID: 4085895637648500736}
   priceText: {fileID: 1393561600511534586}
+  unlockFx: {fileID: 5784660051732260176}
 --- !u!1 &4085895637648500738
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +391,81 @@ MonoBehaviour:
   m_EffectColor: {r: 0.36078432, g: 0.054901965, b: 0.0627451, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!1001 &3456915120672935718
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4085895637511560656}
+    m_Modifications:
+    - target: {fileID: 9204883025981757780, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025981775690, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_Name
+      value: StarBurst2D
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025981775690, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+--- !u!4 &5784660051713922198 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9204883025982004144, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+  m_PrefabInstance: {fileID: 3456915120672935718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5784660051732260176 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 9204883025996278390, guid: ef4ccb61f9240bd4bafd3c7a7ac31341, type: 3}
+  m_PrefabInstance: {fileID: 3456915120672935718}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4085895636827065468
 PrefabInstance:
   m_ObjectHideFlags: 0
