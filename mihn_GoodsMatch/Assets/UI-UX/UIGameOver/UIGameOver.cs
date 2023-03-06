@@ -525,6 +525,10 @@ public class UIGameOver : MonoBehaviour
             //GameStateManager.Idle(null);
             this.PostEvent((int)EventID.OnGoToChallengeLevel);
         }
+        else if (DataManager.UserData.level == 5)
+        {
+            this.PostEvent((int)EventID.OnModeBartenderUnlocked);
+        }
         else
         {
             GameStateManager.LoadGame(null);

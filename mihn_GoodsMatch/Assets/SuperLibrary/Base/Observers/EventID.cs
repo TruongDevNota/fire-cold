@@ -20,6 +20,7 @@ public enum EventID
     OnGameReady = 50,
 
     OnGoToChallengeLevel = 60,
+    OnModeBartenderUnlocked = 61,
 
     OnAlertTimeout = 70,
 

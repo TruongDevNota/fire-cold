@@ -30,6 +30,10 @@ public class UIMainScreen : MonoBehaviour
     [SerializeField] GameObject lockBartenderBtn;
     [SerializeField] Text txt_LockBartender;
 
+    [Header("Suggestion")]
+    [SerializeField] GameObject suggestFadeImg = null;
+    [SerializeField] GameObject suggestBartenderOb = null;
+
     void Awake()
     {
         Instance = this;
@@ -64,6 +68,19 @@ public class UIMainScreen : MonoBehaviour
         txt_LockBartender.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToUnlockBartender}";
 
         btn_DailyReward?.Fill(DataManager.UserData.dailyRewardClaimCount == 0 || DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1, BtnDailyRewardClick);
+
+        if(DataManager.UserData.level >= 5 && !DataManager.UserData.isModeBartenderSuguested)
+        {
+            suggestFadeImg?.SetActive(true);
+            suggestBartenderOb.SetActive(true);
+            DataManager.UserData.isModeBartenderSuguested = true;
+            DataManager.Save();
+        }
+        else
+        {
+            suggestFadeImg?.SetActive(false);
+            suggestBartenderOb.SetActive(false);
+        }
     }
 
     public void Show(TweenCallback onStart = null, TweenCallback onCompleted = null)
@@ -74,7 +91,6 @@ public class UIMainScreen : MonoBehaviour
         {
             onCompleted?.Invoke();
         });
-        
     }
 
     public void Hide()
