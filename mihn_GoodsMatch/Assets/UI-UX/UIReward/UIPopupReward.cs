@@ -123,10 +123,13 @@ public class UIPopupReward : MonoBehaviour
         else
         {
             //Show Pig Process
-            popup_PigProcess.OnShow(coinEarn);
             DataManager.UserData.totalHintBuff += buffHintEarn;
             DataManager.UserData.totalSwapBuff += buffSwapEarn;
-            OnHide();
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                OnHide();
+                popup_PigProcess.OnShow(coinEarn);
+            });
         }
         DataManager.Save();
     }

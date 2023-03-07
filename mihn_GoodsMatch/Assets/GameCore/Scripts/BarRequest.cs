@@ -71,6 +71,11 @@ public class BarRequest : MonoBehaviour
         iconTick.gameObject.SetActive(false);
         iconMiss.gameObject.SetActive(false);
     }
+    private void OnDestroy()
+    {
+        DOTween.Kill($"{name}_OutSideFadeIn");
+        DOTween.Kill($"{name}_OutSideFadeOut");
+    }
     private void OnEnable()
     {
         this.RegisterListener((int)EventID.OnMatchedRightRequest, OnMatchedRequest);
@@ -78,6 +83,8 @@ public class BarRequest : MonoBehaviour
     private void OnDisable()
     {
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnMatchedRightRequest, OnMatchedRequest);
+        DOTween.Kill($"{name}_OutSideFadeIn");
+        DOTween.Kill($"{name}_OutSideFadeOut");
         StopAllCoroutines();
         ClearAll();
     }
@@ -117,7 +124,8 @@ public class BarRequest : MonoBehaviour
         alertSR.gameObject.SetActive(false);
         processContainer.SetLocalX(processPosition[datum.types.Count - 1]);
         waitTimeProcess.SetSizeY(fillProcessFullHeight);
-        outsideSR.SetAlpha(1f);
+        outsideSR.SetAlpha(0);
+        outsideSR.DOFade(1f, 0.15f).SetId($"{name}_OutSideFadeIn");
         SetElemetsActive(true);
 
         SoundManager.Play(GameConstants.sound_ItemSpawn);
@@ -160,6 +168,7 @@ public class BarRequest : MonoBehaviour
             IsRequesting = false;
             StopCoroutine(YieldAlert());
             alertSR.gameObject.SetActive(false);
+            completeParticle.Play();
             StartCoroutine(YieldLeave(true));
         }
     }
@@ -180,29 +189,22 @@ public class BarRequest : MonoBehaviour
     public void OnLevelEnd(bool isWin)
     {
         IsRequesting = false;
-        foreach (var item in requestingItems)
-        {
-            if (item.gameObject != null)
-                item.Recycle();
-        }
-        requestingItems.Clear();
         StartCoroutine(YieldLeave(isWin));
     }
     public IEnumerator YieldLeave(bool winRequest)
     {
         if (!winRequest)
         {
-            //Show angry anim then leave
+            //wait angry anim done then leave
             outsideSR.DOColor(bgMissedColor, 0.25f);
             iconMiss.gameObject.SetActive(true);
             iconMiss.transform.localScale = Vector3.one;
-            yield return iconMiss.transform.DOScale(1.2f, waitMatchedFXTime).OnComplete(() =>
+            yield return iconMiss.transform.DOScale(1.2f, waitMatchedFXTime*0.75f).OnComplete(() =>
             {
                 iconTick.gameObject.SetActive(false);
             }).WaitForCompletion();
-
             HideAll();
-
+            yield return new WaitForSeconds(waitMatchedFXTime * 0.25f);
             if (currGuestController != null)
             {
                 currGuestController.Move(currGuestController.transform.position, posOutSide + transform.position, true);
@@ -211,17 +213,15 @@ public class BarRequest : MonoBehaviour
         }
         else
         {
-            //Show happy anim then leave
-            completeParticle.Play();
-            yield return new WaitForSeconds(waitMatchedFXTime * 0.5f);
+            //wait happy anim done then leave
+            yield return new WaitForSeconds(waitMatchedFXTime * 0.75f);
+            HideAll();
+            yield return new WaitForSeconds(waitMatchedFXTime * 0.25f);
             if (currGuestController != null)
             {
                 currGuestController.Move(currGuestController.transform.position, posOutSide + transform.position, true);
                 currGuestController.transform.SetParent(null, true);
             }
-            yield return new WaitForSeconds(waitMatchedFXTime * 0.25f);
-            HideAll();
-            yield return new WaitForSeconds(waitMatchedFXTime * 0.25f);
         }
         ClearAll();
         yield return new WaitForEndOfFrame();
@@ -245,7 +245,12 @@ public class BarRequest : MonoBehaviour
 
     private void HideAll()
     {
-        outsideSR.SetAlpha(0f);
+        foreach (var item in requestingItems)
+        {
+            if (item.gameObject != null)
+                item.Recycle();
+        }
+        outsideSR.DOFade(0f, 0.25f).SetId($"{name}_OutSideFadeOut");
         processBG.SetAlpha(0f);
         waitTimeProcess.SetAlpha(0f);
         iconTick.gameObject.SetActive(false);
@@ -270,11 +275,6 @@ public class BarRequest : MonoBehaviour
     {
         if(currGuestController)
             currGuestController = null;
-        foreach (var item in requestingItems)
-        {
-            if(item.gameObject != null)
-            item.Recycle();
-        }
         requestingItems.Clear();
         IsRequesting = false;
         HideAll();

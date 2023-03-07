@@ -13,12 +13,14 @@ public class UIPopupChallenge : MonoBehaviour
     [SerializeField] Text txt_CoinPrice;
     [SerializeField] Button btn_PlayWithAds;
     [SerializeField] Button btn_Close;
+    [SerializeField] Button btn_PlayFree;
 
     private void Start()
     {
         btn_PlayWithCoin?.onClick.AddListener(BtnPlayWithCoinClick);
         btn_PlayWithAds?.onClick.AddListener(BtnPlayWithAdsClick);
         btn_Close?.onClick.AddListener(OnSkip);
+        btn_PlayFree?.onClick.AddListener(BtnPlayFreeClick);
         this.RegisterListener((int)EventID.OnGoToChallengeLevel, OnShow);
     }
 
@@ -26,10 +28,14 @@ public class UIPopupChallenge : MonoBehaviour
     {
         txt_CoinPrice.text = DataManager.GameConfig.playChallengeCoinUse.ToString();
         btn_Close.gameObject.SetActive(false);
+        btn_PlayWithAds?.gameObject.SetActive(DataManager.UserData.isChallengePlayed);
+        btn_PlayWithCoin?.gameObject.SetActive(DataManager.UserData.isChallengePlayed);
+        btn_PlayFree?.gameObject.SetActive(!DataManager.UserData.isChallengePlayed);
         anim.Show(null, onCompleted: () =>
         {
             btn_PlayWithCoin.interactable = DataManager.UserData.totalCoin >= DataManager.GameConfig.playChallengeCoinUse;
-            DOVirtual.DelayedCall(2f, () => btn_Close.gameObject.SetActive(true));
+            if(DataManager.UserData.isChallengePlayed)
+                DOVirtual.DelayedCall(2f, () => btn_Close.gameObject.SetActive(true));
         });
     }
 
@@ -37,6 +43,7 @@ public class UIPopupChallenge : MonoBehaviour
     {
         SoundManager.Play("1. Click Button");
         CoinManager.Add(-DataManager.GameConfig.playChallengeCoinUse);
+        DataManager.currGameMode = eGameMode.Normal;
         GameStateManager.LoadGame(true);
         anim.Hide();
     }
@@ -48,10 +55,21 @@ public class UIPopupChallenge : MonoBehaviour
         {
             if(e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
+                DataManager.currGameMode = eGameMode.Normal;
                 GameStateManager.LoadGame(true);
                 anim.Hide();
             }
         }, "PlayChallenge");
+    }
+
+    private void BtnPlayFreeClick()
+    {
+        SoundManager.Play("1. Click Button");
+        DataManager.currGameMode = eGameMode.Normal;
+        DataManager.UserData.isChallengePlayed = true;
+        GameStateManager.LoadGame(true);
+        DataManager.Save();
+        anim.Hide();
     }
 
     private void OnSkip()
@@ -62,6 +80,7 @@ public class UIPopupChallenge : MonoBehaviour
         if (DataManager.levelSelect < DataManager.GameConfig.totalLevel && DataManager.levelSelect <= DataManager.UserData.level + 1)
         {
             DataManager.levelSelect++;
+            DataManager.currGameMode = eGameMode.Normal;
             GameStateManager.LoadGame(null);
         }
         else

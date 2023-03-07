@@ -80,6 +80,7 @@ public class UINewItemUnlock : MonoBehaviour
 
     private void OnItemUnlocked()
     {
+        SoundManager.Play(GameConstants.sound_Item_unlocked);
         DataManager.ItemsAsset.UnlockNewItemById(itemId);
         DataManager.Save();
         claimedButton.SetActive(true);

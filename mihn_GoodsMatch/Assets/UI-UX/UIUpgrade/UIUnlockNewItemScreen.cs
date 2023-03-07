@@ -39,14 +39,14 @@ public class UIUnlockNewItemScreen : MonoBehaviour
             OnCloseHandle?.Invoke();
             yield break;
         }
-
-        for (int i = 0; i < uiNewItem.Length; i++)
+        anim.Show(() =>
         {
-            uiNewItem[i].gameObject.SetActive(i < itemsToUnlock.Count);
-            if (i < itemsToUnlock.Count)
-                uiNewItem[i].Init(itemsToUnlock[i]);
-            yield return new WaitForEndOfFrame();
-        }
-        anim.Show();
+            for (int i = 0; i < uiNewItem.Length; i++)
+            {
+                uiNewItem[i].gameObject.SetActive(i < itemsToUnlock.Count);
+                if (i < itemsToUnlock.Count)
+                    uiNewItem[i].Init(itemsToUnlock[i]);
+            }
+        });
     }
 }

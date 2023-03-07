@@ -18,6 +18,7 @@ public class UserData : UserAnalysic
     public int level = 0;
     public int bartenderLevel = 0;
     public bool isModeBartenderSuguested = false;
+    public bool isChallengePlayed = false;
 
     [Header("Reward Unlock")]
     private int levelChestPercent = 0;

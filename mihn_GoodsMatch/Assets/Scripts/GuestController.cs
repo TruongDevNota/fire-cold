@@ -13,16 +13,21 @@ public class GuestController : MonoBehaviour
     [SerializeField] int[] ingameSkinIndex;
     [SerializeField] string gameoverSkinName;
 
+
+    private void OnDestroy()
+    {
+        DOTween.Kill($"guest_{name}_Move");
+        StopAllCoroutines();
+    }
     private void OnEnable()
     {
         
     }
     private void OnDisable()
     {
-        DOTween.Kill(this);
+        DOTween.Kill($"guest_{name}_Move");
         StopAllCoroutines();
     }
-
     public void ChangeSkin(string newskin = null)
     {
         if (string.IsNullOrEmpty(newskin))

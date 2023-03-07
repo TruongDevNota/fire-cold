@@ -86,42 +86,9 @@ public class UIPopupPigProcess : MonoBehaviour
         }
         else
         {
+            DataManager.currGameMode = eGameMode.Normal;
             GameStateManager.LoadGame(null);
         }
         anim.Hide();
-        
-        //if ((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
-        //{
-        //    //GameStateManager.Idle(null);
-        //    this.PostEvent((int)EventID.OnGoToChallengeLevel);
-        //    anim.Hide();
-        //}
-        //else
-        //{
-        //    void CheckToShowInterstitialAds(string itemId, Action onDone)
-        //    {
-        //        if (DataManager.levelSelect <= 5)
-        //        {
-        //            onDone?.Invoke();
-        //            return;
-        //        }
-        //        AdsManager.ShowInterstitial((s, adType) =>
-        //        {
-        //            UIToast.Hide();
-        //            onDone?.Invoke();
-        //        }, name, itemId);
-        //    }
-
-        //    PopupMes.Show($"PLAY NEXT LEVEL?", null, $"PLAY LV.{DataManager.levelSelect}", onConfirm: () => {
-        //        GameStateManager.LoadGame(null);
-        //        anim.Hide();
-        //        CheckToShowInterstitialAds("PlayNextLevel", null);
-        //    },
-        //    "HOME", onCancel: () => {
-        //        GameStateManager.Idle(null);
-        //        anim.Hide();
-        //        CheckToShowInterstitialAds("GoToHome", null);
-        //    });
-        //}
     }
 }

@@ -36,7 +36,7 @@ public class UIInfo_Bartender : MonoBehaviour
         get { return instance.comboCount; }
         set
         {
-            instance.comboCount = value;
+            instance.comboCount = Mathf.Min(value, DataManager.GameConfig.maxCombo_bartender);
             if (instance.comboCount > 0)
             {
                 currentComboTimeLeft = config.timeComboEslap;
@@ -154,7 +154,6 @@ public class UIInfo_Bartender : MonoBehaviour
         maxRequestMissed = config.requestMissLimit;
         comboTimeCooldown = config.timeComboEslap;
 
-
         if (timeLeftSlider != null)
         {
             timeLeftSlider.minValue = 0;
@@ -165,7 +164,7 @@ public class UIInfo_Bartender : MonoBehaviour
         ComboCount = 0;
         currRequestComplete = 0;
         currRequestMissed = 0;
-        requestMissText.text = $"{currRequestMissed}/{maxRequestMissed}";
+        requestMissText.text = $"{maxRequestMissed}/{maxRequestMissed}";
     }
     public void Show()
     {
@@ -195,7 +194,7 @@ public class UIInfo_Bartender : MonoBehaviour
             return;
 
         currRequestMissed++;
-        requestMissText.text = $"{currRequestMissed}/{maxRequestMissed}";
+        requestMissText.text = $"{Mathf.Max(0,  maxRequestMissed - currRequestMissed)}/{maxRequestMissed}";
 
         if (currRequestMissed >= maxRequestMissed)
         {

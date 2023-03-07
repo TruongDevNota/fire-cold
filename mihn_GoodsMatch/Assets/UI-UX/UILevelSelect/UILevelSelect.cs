@@ -49,6 +49,7 @@ public class UILevelSelect : MonoBehaviour
             this.PostEvent((int)EventID.OnGoToChallengeLevel);
         else
         {
+            DataManager.currGameMode = eGameMode.Normal;
             GameStateManager.LoadGame(null);
             OnHide();
         }

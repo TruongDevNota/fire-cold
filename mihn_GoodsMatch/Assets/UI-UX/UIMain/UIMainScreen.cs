@@ -27,7 +27,6 @@ public class UIMainScreen : MonoBehaviour
     [SerializeField] private GameObject lockChallengeBtn;
     [SerializeField] Text txt_LockChallenge;
     [SerializeField] Button PlayBartenderBtn;
-    [SerializeField] GameObject lockBartenderBtn;
     [SerializeField] Text txt_LockBartender;
 
     [Header("Suggestion")]
@@ -63,9 +62,10 @@ public class UIMainScreen : MonoBehaviour
         lockChallengeBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
         txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
 
-        PlayBartenderBtn?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToUnlockBartender - 1);
-        lockBartenderBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1);
-        txt_LockBartender.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToUnlockBartender}";
+        PlayBartenderBtn?.gameObject.SetActive(true);
+        //lockBartenderBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1);
+        txt_LockBartender.text = $"Unlock at lv.{DataManager.GameConfig.levelsToUnlockBartender}";
+        txt_LockBartender.gameObject.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender && !DataManager.UserData.isModeBartenderSuguested);
 
         btn_DailyReward?.Fill(DataManager.UserData.dailyRewardClaimCount == 0 || DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1, BtnDailyRewardClick);
 
@@ -123,8 +123,13 @@ public class UIMainScreen : MonoBehaviour
     private void BtnPlayBartenderClicked()
     {
         SoundManager.Play("1. Click Button");
-        DataManager.currGameMode = eGameMode.Bartender;
-        GameStateManager.LoadGame(null);
+        if (!DataManager.UserData.isModeBartenderSuguested)
+            this.PostEvent((int)EventID.OnModeBartenderUnlocked);
+        else
+        {
+            DataManager.currGameMode = eGameMode.Bartender;
+            GameStateManager.LoadGame(null);
+        }
     }
     #endregion
 }

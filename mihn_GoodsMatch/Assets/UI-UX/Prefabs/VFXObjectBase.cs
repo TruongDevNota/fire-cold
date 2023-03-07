@@ -19,13 +19,13 @@ public class VFXObjectBase : MonoBehaviour
     {
         StopAllCoroutines();
     }
-    public void ShowFX(Vector2 startPos, Vector2 endPos, Sprite sprite = null, float duration = 1.5f, bool hideAtEnd = true, float startScale = 1f, float endScale = 1f, float startFade = 1f, float endFade = 1f, System.Action callback = null)
+    public void ShowFX(Vector2 startPos, Vector2 endPos, Sprite sprite = null, float duration = 1.5f, float startDelay = 0f, float endDelay = 0f, bool hideAtEnd = true, float startScale = 1f, float endScale = 1f, float startFade = 1f, float endFade = 1f, System.Action callback = null)
     {
         if (showCoroutine != null)
             StopCoroutine(showCoroutine);
-        showCoroutine = StartCoroutine(YieldShow(startPos, endPos, sprite, duration, hideAtEnd, startScale, endScale, startFade, endFade, callback));
+        showCoroutine = StartCoroutine(YieldShow(startPos, endPos, sprite, duration, startDelay, endDelay, hideAtEnd, startScale, endScale, startFade, endFade, callback));
     }
-    public IEnumerator YieldShow(Vector2 startPos, Vector2 endPos, Sprite sprite = null, float duration = 1.5f, bool hideAtEnd = true, float startScale = 1f, float endScale = 1f, float startFade = 1f, float endFade = 1f, System.Action callback = null)
+    public IEnumerator YieldShow(Vector2 startPos, Vector2 endPos, Sprite sprite = null, float duration = 1.5f, float startDelay = 0f, float endDelay = 0f, bool hideAtEnd = true, float startScale = 1f, float endScale = 1f, float startFade = 1f, float endFade = 1f, System.Action callback = null)
     {
         if(objectSR == null)
             yield break;
@@ -36,6 +36,14 @@ public class VFXObjectBase : MonoBehaviour
         var fromScale = Vector3.one * startScale;
         var toScale = Vector3.one * endScale;
         transform.localScale = fromScale;
+
+        var color = objectSR.GetColor();
+        color.a = startFade;
+        objectSR.color = color;
+
+        if(startDelay!=0)
+            yield return new WaitForSeconds(startDelay);
+
         float t = 0;
         while(t < duration)
         {
@@ -44,13 +52,17 @@ public class VFXObjectBase : MonoBehaviour
             transform.position = Vector3.Lerp(startPos, endPos, process);
             if(endFade != startFade)
             {
-                var color = objectSR.GetColor();
+                color = objectSR.GetColor();
                 color.a = startFade + (endFade - startFade) * process;
                 objectSR.color = color;
             }
             t += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        if (endDelay != 0)
+            yield return new WaitForSeconds(endDelay);
+
         callback?.Invoke();
         if (hideAtEnd)
             this.Recycle();

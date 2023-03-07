@@ -240,9 +240,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             gameOver_Bar_Screen.Hide();
         };
 
-        if(GameStateManager.LastState == GameState.Complete 
-            || GameStateManager.LastState == GameState.GameOver
-            || GameStateManager.LastState == GameState.Next)
+        if(GameStateManager.LastState == GameState.Complete || GameStateManager.LastState == GameState.GameOver
+            || GameStateManager.LastState == GameState.Next || GameStateManager.LastState == GameState.Pause)
         {
             UILoadGame.Init(true, null);
             StartCoroutine(WaitForLoading(callback, 0.5f));
