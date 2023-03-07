@@ -250,6 +250,7 @@ public class BarRequest : MonoBehaviour
             if (item.gameObject != null)
                 item.Recycle();
         }
+        requestingItems.Clear();
         outsideSR.DOFade(0f, 0.25f).SetId($"{name}_OutSideFadeOut");
         processBG.SetAlpha(0f);
         waitTimeProcess.SetAlpha(0f);
@@ -275,7 +276,6 @@ public class BarRequest : MonoBehaviour
     {
         if(currGuestController)
             currGuestController = null;
-        requestingItems.Clear();
         IsRequesting = false;
         HideAll();
     }

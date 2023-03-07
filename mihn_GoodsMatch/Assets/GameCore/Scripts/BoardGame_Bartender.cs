@@ -112,11 +112,11 @@ public class BoardGame_Bartender : MonoBehaviour
         }
         else if (current == GameState.GameOver)
         {
-            StopAllCoroutines();
+            //StopAllCoroutines();
         }
         else if (current == GameState.Complete)
         {
-            StopAllCoroutines();
+            //StopAllCoroutines();
         }
     }
 
@@ -317,6 +317,8 @@ public class BoardGame_Bartender : MonoBehaviour
         }
         else
             this.PostEvent((int)EventID.OnMatchedWrongRequest);
+
+        var desPos = isFitRequest ? requestingItem.transform.position : Vector3.zero;
         for (int i = 0; i < datum.items.Count; i++)
         {
             var posIndex = datum.items[i].pFirstLeftCellIndex;
@@ -326,7 +328,7 @@ public class BoardGame_Bartender : MonoBehaviour
             if (!isFitRequest && datum.items[i] != null)
                 datum.items[i].Explode();
             else if(datum.items[i] != null)
-                StartCoroutine(datum.items[i].YieldMoveThenHide(requestingItem.transform.position));
+                StartCoroutine(datum.items[i].YieldMoveThenHide(desPos));
 
             yield return new WaitForSeconds(0.2f);
             SpawnItemInGroup(i + 1, shelf, posIndex);
