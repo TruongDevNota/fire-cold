@@ -6147,6 +6147,10 @@ PrefabInstance:
       propertyPath: initialSkinName
       value: skin2
       objectReference: {fileID: 0}
+    - target: {fileID: 4192978213112823840, guid: e3c302b354eb4df48b886ea3999e5942, type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 50637c1408d17e94c90792df53141bad, type: 2}
     - target: {fileID: 9203504985922391961, guid: e3c302b354eb4df48b886ea3999e5942, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

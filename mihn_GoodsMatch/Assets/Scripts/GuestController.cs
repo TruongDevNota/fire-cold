@@ -25,8 +25,6 @@ public class GuestController : MonoBehaviour
     }
     private void OnDisable()
     {
-        DOTween.Kill($"guest_{name}_Move");
-        StopAllCoroutines();
     }
     public void ChangeSkin(string newskin = null)
     {
@@ -57,7 +55,7 @@ public class GuestController : MonoBehaviour
             callback?.Invoke();
             if (autoHide)
                 this.Recycle();
-        }).SetId($"guest_{name}_Move") .WaitForCompletion();
+        }).SetId($"guest_{name}_Move").WaitForCompletion();
     }
     
     [ButtonMethod]
