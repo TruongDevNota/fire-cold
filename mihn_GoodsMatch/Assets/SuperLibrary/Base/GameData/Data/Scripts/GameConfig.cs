@@ -62,6 +62,7 @@ public class GameConfig : GameConfigBase
     public int minEasyRequest = 20;
     public int levelToRequestx2 = 10;
     public int maxCombo_bartender = 5;
+    public int doubleRequestRepeat = 20;
 
     #region MONEY
     [Header("Money")]

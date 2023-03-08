@@ -25,6 +25,7 @@ public class GuestController : MonoBehaviour
     }
     private void OnDisable()
     {
+        StopAllCoroutines();
     }
     public void ChangeSkin(string newskin = null)
     {
@@ -53,7 +54,7 @@ public class GuestController : MonoBehaviour
         yield return this.transform.DOMove(endPos, duration).OnComplete(() =>
         {
             callback?.Invoke();
-            if (autoHide)
+            if (autoHide && this.gameObject!=null)
                 this.Recycle();
         }).SetId($"guest_{name}_Move").WaitForCompletion();
     }

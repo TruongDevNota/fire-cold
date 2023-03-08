@@ -114,6 +114,11 @@ public class BarRequest : MonoBehaviour
     {
         outsideSR.DOColor(bgNormalColor, 0);
 
+        var guests = GetComponentsInChildren<GuestController>();
+        if(guests != null && guests.Length > 0)
+            foreach(var guest in guests)
+                guest.Recycle();
+
         yield return YieldInitGuest();
         //Create request datum
         var datum = requestManager.CreateRequest();

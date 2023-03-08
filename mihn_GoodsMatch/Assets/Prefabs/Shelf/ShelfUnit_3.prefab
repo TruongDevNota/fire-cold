@@ -96,6 +96,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellAmount: 3
-  cellPrefab: {fileID: 2412341582575133295, guid: e6b5c833fa449d44bb56a94e2bbab41e, type: 3}
+  cellPrefab: {fileID: 2412341582575133288, guid: e6b5c833fa449d44bb56a94e2bbab41e, type: 3}
+  cellWidth: 1.1
   cells: []
   init_position: {x: 0, y: 0}
+  MoveDir: 0
+  movingSpeed: 0
+  teleportPosX: 0
+  reStarPosX: 0
+  PosY: 0
+  itemsOnShelf: []

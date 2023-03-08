@@ -106,10 +106,6 @@ public class BoardGame_Bartender : MonoBehaviour
             StartGamePlay();
             requestManager?.StartRequest();
         }
-        else if(current == GameState.RebornContinue)
-        {
-            GameStateManager.Play(null);
-        }
         else if (current == GameState.GameOver)
         {
             //StopAllCoroutines();

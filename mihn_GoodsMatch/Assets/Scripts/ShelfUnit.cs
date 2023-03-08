@@ -6,10 +6,10 @@ using MyBox;
 public class ShelfUnit : MonoBehaviour
 {
     public int cellAmount;
-    [SerializeField] GameObject cellPrefab;
+    [SerializeField] Cell cellPrefab;
     [SerializeField] float cellWidth = 1.1f;
 
-    public List<Cell> cells;
+    public List<Cell> cells = new List<Cell>();
     public Vector2 init_position;
 
     public eMapMovingType MoveDir = eMapMovingType.None;
@@ -29,18 +29,26 @@ public class ShelfUnit : MonoBehaviour
 
     public void InitCells()
     {
-        cells.Clear();
         itemsOnShelf.Clear();
         for (int i = 0; i < cellAmount; i++)
         {
-            var go = GameObject.Instantiate(cellPrefab);
+            var exist = i < cells.Count;
+            var go = exist ? cells[i] : cellPrefab.Spawn();
+
+            //var go = GameObject.Instantiate(cellPrefab);
             go.transform.position = new Vector3(transform.position.x + i*cellWidth, transform.position.y, transform.position.z);
             go.transform.parent = transform;
-            var newCell = go.GetComponent<Cell>();
-            newCell.isEmpty = true;
-            newCell.shelfUnit = this;
-            newCell.index = i;
-            cells.Add(newCell);
+            //var newCell = go.GetComponent<Cell>();
+            go.isEmpty = true;
+            go.shelfUnit = this;
+            go.index = i;
+            if(!exist)
+                cells.Add(go);
+            while(cells.Count > cellAmount)
+            {
+                cells[cells.Count-1].Recycle();
+                cells.RemoveAt(cells.Count-1);
+            }
         }
     }
 

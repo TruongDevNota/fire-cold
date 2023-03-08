@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UIBackgroundAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 810a038e736727c4190945ff6183e355, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 5f00d6019e29de644b4c7fe322a848fc, type: 3}
+  - {fileID: 21300000, guid: 695285424ec1a4141bd541f819e95b4a, type: 3}
+  - {fileID: 21300000, guid: f98dc3b2669e4764583f364b7f2c11da, type: 3}
+  - {fileID: 21300000, guid: 969fcca51e3abe14da550245c769de56, type: 3}
+  - {fileID: 21300000, guid: 966153562328e8b429984d18850c7262, type: 3}
+  - {fileID: 21300000, guid: 95f128686867dc34e84cfbbe7139d1c7, type: 3}
+  - {fileID: 21300000, guid: 1791a50d0842b7c4eb6800bd3d4cda0d, type: 3}
+  - {fileID: 21300000, guid: 06529c0e90a5a4b4ba7ae04b8cb12411, type: 3}
+  - {fileID: 21300000, guid: e3a3d15f74bccd048b3b2fb9885f7c76, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - rooftop
+  - think1
+  - canh_bao_2
+  - think2
+  - canh_bao_1
+  - under_stalls
+  - tu
+  - day
+  - night
+  m_RenderDataMap: {}
+  m_Tag: UIBackgroundAtlas
+  m_IsVariant: 0

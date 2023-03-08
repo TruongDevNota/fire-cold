@@ -37,11 +37,7 @@ public class RequestManager : MonoBehaviour
 
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
     {
-        if (current == GameState.Play)
-        {
-            
-        }
-        else if (current == GameState.RebornContinue)
+        if(current == GameState.Play)
         {
             
         }
@@ -68,6 +64,15 @@ public class RequestManager : MonoBehaviour
     }
     public void StartRequest()
     {
+        foreach(var bar in bars)
+        {
+            if (bar.gameObject.activeInHierarchy)
+            {
+                bar.ClearAll();
+                bar.gameObject.SetActive(false);
+            }  
+        }
+
         if (spawnRequestCoroutine != null)
             StopCoroutine(spawnRequestCoroutine);
         spawnRequestCoroutine = StartCoroutine(YieldSpawnRequest());
@@ -90,7 +95,7 @@ public class RequestManager : MonoBehaviour
     public RequestDatum CreateRequest()
     {
         requestCount++;
-        var itemCount = GetAmountItemOfRequest();
+        var itemCount = DataManager.UserData.bartenderLevel > config.levelToRequestx2 && requestCount % config.doubleRequestRepeat == 0 ? 2 : 1;
         var request = new RequestDatum();
         request.id = requestCount;
         request.types = new List<eItemType>();
@@ -115,7 +120,7 @@ public class RequestManager : MonoBehaviour
 
     public int GetAmountItemOfRequest()
     {
-        if (DataManager.UserData.level + 1 < config.levelToRequestx2)
+        if (DataManager.UserData.bartenderLevel + 1 < config.levelToRequestx2)
             return 1;
 
         totalPercentOfItemInRequet = 0;
