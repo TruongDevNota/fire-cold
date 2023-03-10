@@ -64,6 +64,8 @@ public class Goods_Item : MonoBehaviour
     {
         DOTween.Kill(this.gameObject);
         DOTween.Kill($"DOScaleHightlight_{name}");
+        DOTween.Kill($"{this.GetInstanceID()}_scaleExplode");
+        DOTween.Kill($"{this.GetInstanceID()}_FaddInit");
         transform.localScale = Vector3.one;
         StopAllCoroutines();
     }
@@ -119,8 +121,10 @@ public class Goods_Item : MonoBehaviour
     {
         StopRotate();
         yield return new WaitForSeconds(index * 0.2f);
-        yield return transform.DOScale(1.1f, exploreAnim_Duration * 0.5f).WaitForCompletion();
-        yield return transform.DOScale(0f, exploreAnim_Duration * 0.5f).WaitForCompletion();
+        yield return transform.DOScale(1.1f, exploreAnim_Duration * 0.5f).SetId($"{this.GetInstanceID()}_scaleExplode").WaitForCompletion();
+        DOTween.Kill($"{this.GetInstanceID()}_scaleExplode");
+        yield return new WaitForEndOfFrame();
+        yield return transform.DOScale(0f, exploreAnim_Duration * 0.5f).SetId($"{this.GetInstanceID()}_scaleExplode").WaitForCompletion();
         //To-do: Post event collect gold?
         
         //UIInfo.CollectStars(1,this.transform);
@@ -157,7 +161,7 @@ public class Goods_Item : MonoBehaviour
         if(delay > 0)
             yield return new WaitForSeconds(delay);
         transform.DOScale(1f, dur).SetUpdate(true);
-        yield return spriteRenderer.DOFade(1f, dur + 0.1f).SetUpdate(true).WaitForCompletion();
+        yield return spriteRenderer.DOFade(1f, dur + 0.1f).SetUpdate(true).SetId($"{this.GetInstanceID()}_FaddInit").WaitForCompletion();
         canPick = active;
     }
 

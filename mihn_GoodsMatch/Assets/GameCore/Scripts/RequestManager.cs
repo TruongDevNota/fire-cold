@@ -41,6 +41,16 @@ public class RequestManager : MonoBehaviour
         {
             
         }
+        else if(current == GameState.Restart)
+        {
+            if (spawnRequestCoroutine != null)
+                StopCoroutine(spawnRequestCoroutine);
+            foreach (var bar in bars)
+            {
+                if (bar.gameObject.activeInHierarchy)
+                    bar.OnLevelEnd(true, true);
+            }
+        }
         else if (current == GameState.WaitComplete)
         {
             if (spawnRequestCoroutine != null)

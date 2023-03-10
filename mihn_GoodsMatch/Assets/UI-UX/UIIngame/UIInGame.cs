@@ -197,7 +197,7 @@ public class UIInGame : MonoBehaviour
                     uiBottomAnim.Show();
                     uiInforNormal.Show();
                 }
-                else
+                else if(last != GameState.Pause)
                 {
                     uiInfor_Bartender.Show();
                 }

@@ -79,8 +79,11 @@ public class BarRequest : MonoBehaviour
     }
     private void OnDestroy()
     {
-        DOTween.Kill($"{name}_OutSideFadeIn");
-        DOTween.Kill($"{name}_OutSideFadeOut");
+        DOTween.Kill($"{this.GetInstanceID()}_OutSideFadeIn");
+        DOTween.Kill($"{this.GetInstanceID()}_OutSideFadeOut");
+        DOTween.Kill($"{this.GetInstanceID()}_Fade_Alert");
+        DOTween.Kill($"{iconMiss.GetInstanceID()}_DoScale");
+        StopAllCoroutines();
     }
     private void OnEnable()
     {
@@ -89,10 +92,11 @@ public class BarRequest : MonoBehaviour
     private void OnDisable()
     {
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnMatchedRightRequest, OnMatchedRequest);
-        DOTween.Kill($"{name}_OutSideFadeIn");
-        DOTween.Kill($"{name}_OutSideFadeOut");
+        DOTween.Kill($"{this.GetInstanceID()}_OutSideFadeIn");
+        DOTween.Kill($"{this.GetInstanceID()}_OutSideFadeOut");
+        DOTween.Kill($"{this.GetInstanceID()}_Fade_Alert");
+        DOTween.Kill($"{iconMiss.GetInstanceID()}_DoScale");
         StopAllCoroutines();
-        ClearAll();
     }
     private void LateUpdate()
     {
@@ -125,6 +129,13 @@ public class BarRequest : MonoBehaviour
             foreach(var guest in guests)
                 guest.Recycle();
 
+        foreach (var item in requestingItems)
+        {
+            if (item.gameObject != null)
+                item.Recycle();
+        }
+        requestingItems.Clear();
+
         yield return YieldInitGuest();
         //Create request datum
         var datum = requestManager.CreateRequest();
@@ -136,7 +147,7 @@ public class BarRequest : MonoBehaviour
         processContainer.SetLocalX(processPosition[datum.types.Count - 1]);
         waitTimeProcess.SetSizeY(fillProcessFullHeight);
         outsideSR.SetAlpha(0);
-        outsideSR.DOFade(1f, 0.15f).SetUpdate(true).SetId($"{name}_OutSideFadeIn");
+        outsideSR.DOFade(1f, 0.15f).SetUpdate(true).SetId($"{this.GetInstanceID()}_OutSideFadeIn");
         SetElemetsActive(true);
 
         SoundManager.Play(GameConstants.sound_ItemSpawn);
@@ -207,10 +218,19 @@ public class BarRequest : MonoBehaviour
             
         StartCoroutine(YieldLeave(false));
     }
-    public void OnLevelEnd(bool isWin)
+    public void OnLevelEnd(bool isWin, bool forceHide = true)
     {
         IsRequesting = false;
-        StartCoroutine(YieldLeave(isWin));
+        if(forceHide)
+            StartCoroutine(YieldLeaveForce());
+        else
+            StartCoroutine(YieldLeave(isWin));
+    }
+    public IEnumerator YieldLeaveForce()
+    {
+        ClearAll();
+        yield return new WaitForEndOfFrame();
+        gameObject.SetActive(false);
     }
     public IEnumerator YieldLeave(bool winRequest)
     {
@@ -223,7 +243,7 @@ public class BarRequest : MonoBehaviour
             yield return iconMiss.transform.DOScale(1.2f, waitMatchedFXTime*0.75f).OnComplete(() =>
             {
                 iconTick.gameObject.SetActive(false);
-            }).WaitForCompletion();
+            }).SetId($"{iconMiss.GetInstanceID()}_DoScale").WaitForCompletion();
             HideAll();
             yield return new WaitForSeconds(waitMatchedFXTime * 0.25f);
             if (currGuestController != null)
@@ -258,10 +278,14 @@ public class BarRequest : MonoBehaviour
         SoundManager.Play(soundName);
         for (int i = 0; i < count-1; i++)
         {
-            yield return alertSR.DOFade(1f, alertSingleTime*0.5f).WaitForCompletion();
-            yield return alertSR.DOFade(0.25f, alertSingleTime * 0.5f).WaitForCompletion();
+            yield return alertSR.DOFade(1f, alertSingleTime*0.5f).SetId($"{this.GetInstanceID()}_Fade_Alert").WaitForCompletion();
+            DOTween.Kill($"{this.GetInstanceID()}_Fade_Alert");
+            yield return new WaitForEndOfFrame();
+            yield return alertSR.DOFade(0.25f, alertSingleTime * 0.5f).SetId($"{this.GetInstanceID()}_Fade_Alert").WaitForCompletion();
         }
-        yield return alertSR.DOFade(1f, alertSingleTime * 0.5f).WaitForCompletion();
+        DOTween.Kill($"{this.GetInstanceID()}_Fade_Alert");
+        yield return new WaitForEndOfFrame();
+        yield return alertSR.DOFade(1f, alertSingleTime * 0.5f).SetId($"{this.GetInstanceID()}_Fade_Alert").WaitForCompletion();
     }
 
     private void HideAll()
@@ -272,7 +296,7 @@ public class BarRequest : MonoBehaviour
                 item.Recycle();
         }
         requestingItems.Clear();
-        outsideSR.DOFade(0f, 0.25f).SetId($"{name}_OutSideFadeOut");
+        outsideSR.DOFade(0f, 0.25f).SetId($"{this.GetInstanceID()}_OutSideFadeOut");
         processBG.SetAlpha(0f);
         waitTimeProcess.SetAlpha(0f);
         iconTick.gameObject.SetActive(false);
