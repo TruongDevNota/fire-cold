@@ -7,21 +7,20 @@ using DG.Tweening;
 public class UITutorial : MonoBehaviour
 {
     [SerializeField] Image bgFade;
-    [SerializeField] Text tutStepText;
+    
     [SerializeField] GameObject dayTimeTutArrow;
     [SerializeField] GameObject goldTutArrow;
     [SerializeField] GameObject guestMisTutArrow;
     [SerializeField] Button nextTutBtn;
-    [SerializeField] Text nextTutText;
     [SerializeField] float waitToShowNextBtn = 1f;
 
-    [Header("Order tut")]
-    [SerializeField] GameObject orderTurContainer;
-    [SerializeField] Text orderTutText;
+    [Header("Content panel")]
+    [SerializeField] UIAnimation contentAim;
+    [SerializeField] Text tutStepText;
 
     [SerializeField] string[] tutContents;
-
     [SerializeField] int highlightSortingOder = 10;
+
     private int currTutStep;
     private void Start()
     {
@@ -35,6 +34,8 @@ public class UITutorial : MonoBehaviour
     private void OnDisable()
     {
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnTutStepDone, OnTutStepDoneHandle);
+
+        DOTween.Kill("Tutorial_FadeBG");
     }
     private void HideAll()
     {
@@ -44,9 +45,6 @@ public class UITutorial : MonoBehaviour
         guestMisTutArrow.SetActive(false);
         tutStepText.text = null;
         nextTutBtn.gameObject.SetActive(false);
-        nextTutText.text = "TAP TO CONTINUE";
-
-        orderTurContainer.SetActive(false);
     }
     private void OnTutStepDoneHandle(object obj)
     {
@@ -54,12 +52,16 @@ public class UITutorial : MonoBehaviour
         switch (currTutStep)
         {
             case 1:
-                bgFade.DOFade(0.8f, 0.2f).OnComplete(() => { ChangeTutText(tutStepText, currTutStep); }).SetUpdate(true);
-                Time.timeScale = 0;
-                dayTimeTutArrow.SetActive(true);
-                AddCanvasAndHightlight(dayTimeTutArrow.transform.parent.gameObject);
-                DOVirtual.DelayedCall(waitToShowNextBtn, () => {
-                    nextTutBtn.gameObject.SetActive(true);
+                bgFade.DOFade(0.5f, 0.2f).SetUpdate(true).SetId("Tutorial_FadeBG");
+                contentAim.Show(null, () =>
+                {
+                    ChangeTutText(tutStepText, currTutStep);
+                    dayTimeTutArrow.SetActive(true);
+                    AddCanvasAndHightlight(dayTimeTutArrow.transform.parent.gameObject);
+                    DOVirtual.DelayedCall(waitToShowNextBtn, () => {
+                        nextTutBtn.gameObject.SetActive(true);
+                    });
+                    Time.timeScale = 0;
                 });
                 break;
             case 2:
@@ -85,33 +87,35 @@ public class UITutorial : MonoBehaviour
             case 4:
                 RemoveCanvas(guestMisTutArrow.transform.parent.gameObject);
                 guestMisTutArrow.SetActive(false);
-                tutStepText.gameObject.SetActive(false);
-                nextTutText.text = "";
                 Time.timeScale = 1f;
-                bgFade.DOFade(0, 0.2f);
+                ChangeTutText(tutStepText, currTutStep);
+                bgFade.DOFade(0, 0.2f).SetId("Tutorial_FadeBG").SetUpdate(true);
                 break;
             case 5:
-                orderTurContainer.gameObject.SetActive(true);
-                ChangeTutText(orderTutText, currTutStep);
+                ChangeTutText(tutStepText, currTutStep);
                 Time.timeScale = 0;
                 DOVirtual.DelayedCall(waitToShowNextBtn, () => {
                     nextTutBtn.gameObject.SetActive(true);
                 });
                 break;
             case 6:
-                ChangeTutText(orderTutText, currTutStep);
+                ChangeTutText(tutStepText, currTutStep);
                 guestMisTutArrow.SetActive(true);
                 DOVirtual.DelayedCall(waitToShowNextBtn, () => {
                     nextTutBtn.gameObject.SetActive(true);
                 });
                 break;
             case 7:
+                guestMisTutArrow.SetActive(false);
                 DataManager.UserData.tutBartenderDone = true;
                 OnNextTutBtnClicked();
                 DataManager.Save();
-                HideAll();
                 Time.timeScale = 1;
-                gameObject.SetActive(false);
+                contentAim.Hide(onCompleted: () =>
+                {
+                    HideAll();
+                    gameObject.SetActive(false);   
+                });
                 break;
         }
     }

@@ -218,13 +218,10 @@ public class BarRequest : MonoBehaviour
             
         StartCoroutine(YieldLeave(false));
     }
-    public void OnLevelEnd(bool isWin, bool forceHide = true)
+    public void OnLevelEnd(bool isWin, bool forceHide = false)
     {
         IsRequesting = false;
-        if(forceHide)
-            StartCoroutine(YieldLeaveForce());
-        else
-            StartCoroutine(YieldLeave(isWin));
+        StartCoroutine(YieldLeave(isWin));
     }
     public IEnumerator YieldLeaveForce()
     {
