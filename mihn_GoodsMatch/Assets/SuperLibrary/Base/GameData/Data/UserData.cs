@@ -20,6 +20,9 @@ public class UserData : UserAnalysic
     public bool isModeBartenderSuguested = false;
     public bool isChallengePlayed = false;
 
+    [Header("Tut")]
+    public bool tutBartenderDone = false;
+
     [Header("Reward Unlock")]
     private int levelChestPercent = 0;
     public int LevelChesPercent 

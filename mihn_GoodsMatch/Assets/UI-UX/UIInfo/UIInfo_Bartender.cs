@@ -50,11 +50,15 @@ public class UIInfo_Bartender : MonoBehaviour
     }
     Coroutine comboCooldownCoroutine;
 
-    [Header("COIN ")]
+    [Header("COIN")]
     [SerializeField] GameObject coinPrefab;
     [SerializeField] float animCollectDelay = 1f;
     public Transform defaultTarget;
-    
+
+    [Header("TUTORIAL")]
+    [SerializeField] UITutorial uiTutPanel;
+    private bool showTut = false;
+
     [Header("DEBUG ")]
     [ReadOnly, SerializeField] int currLevel;
     [ReadOnly, SerializeField] float comboTime;
@@ -143,6 +147,9 @@ public class UIInfo_Bartender : MonoBehaviour
     }
     private void OnNewGameStart()
     {
+        showTut = DataManager.UserData.bartenderLevel == 0 && !DataManager.UserData.tutBartenderDone;
+        uiTutPanel.gameObject.SetActive(showTut);
+        
         currLevel = DataManager.UserData.bartenderLevel;
         GameStatisticsManager.goldEarn = 0;
         coinEarnText.text = "0";
@@ -169,7 +176,11 @@ public class UIInfo_Bartender : MonoBehaviour
     public void Show()
     {
         OnNewGameStart();
-        anim.Show();
+        anim.Show(null, () =>
+        {
+            if (showTut)
+                this.PostEvent((int)EventID.OnTutStepDone, 0);
+        });
     }
     public void Hide()
     {

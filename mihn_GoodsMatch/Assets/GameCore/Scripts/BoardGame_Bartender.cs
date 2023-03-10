@@ -80,6 +80,7 @@ public class BoardGame_Bartender : MonoBehaviour
         this.RegisterListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
         this.RegisterListener((int)EventID.OnNewRequestCreated, OnNewRequestCreated);
         this.RegisterListener((int)EventID.OnClearLastLevel, ClearMap);
+        this.RegisterListener((int)EventID.OnTutStepDone, OnTutorialStepDone);
     }
 
     private void OnDisable()
@@ -90,6 +91,7 @@ public class BoardGame_Bartender : MonoBehaviour
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewRequestCreated, OnNewRequestCreated);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnClearLastLevel, ClearMap);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnTutStepDone, OnTutorialStepDone);
     }
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
@@ -103,8 +105,13 @@ public class BoardGame_Bartender : MonoBehaviour
             PauseGame();
         else if(current == GameState.Play)
         {
-            StartGamePlay();
-            requestManager?.StartRequest();
+            if(last != GameState.Pause)
+            {
+                StartGamePlay();
+                requestManager?.StartRequest();
+            }
+            else
+                isPausing = false;
         }
         else if (current == GameState.GameOver)
         {
@@ -499,6 +506,16 @@ public class BoardGame_Bartender : MonoBehaviour
 
     }
     #endregion
+
+
+    private void OnTutorialStepDone(object obj)
+    {
+        int lastStep = (int)obj;
+        if (lastStep == 0)
+            isPlayingGame = false;
+        if(lastStep == DataManager.GameConfig.tutBartenderLastStep)
+            isPlayingGame = true;
+    }
 
     private void ClearMap(object obj)
     {

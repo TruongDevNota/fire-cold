@@ -49,6 +49,10 @@ public class BarRequest : MonoBehaviour
     [SerializeField] float guestMovingTime = 1f;
     private GuestController currGuestController = null;
 
+    [Header("Order Tut")]
+    [SerializeField] GameObject tutObj = null;
+    [SerializeField] int tutStep = 4;
+
     [Header("Debug")]
     [ReadOnly, SerializeField] int currId;
 
@@ -70,6 +74,8 @@ public class BarRequest : MonoBehaviour
     {
         iconTick.gameObject.SetActive(false);
         iconMiss.gameObject.SetActive(false);
+        if(tutObj)
+            tutObj.SetActive(false);
     }
     private void OnDestroy()
     {
@@ -130,7 +136,7 @@ public class BarRequest : MonoBehaviour
         processContainer.SetLocalX(processPosition[datum.types.Count - 1]);
         waitTimeProcess.SetSizeY(fillProcessFullHeight);
         outsideSR.SetAlpha(0);
-        outsideSR.DOFade(1f, 0.15f).SetId($"{name}_OutSideFadeIn");
+        outsideSR.DOFade(1f, 0.15f).SetUpdate(true).SetId($"{name}_OutSideFadeIn");
         SetElemetsActive(true);
 
         SoundManager.Play(GameConstants.sound_ItemSpawn);
@@ -146,6 +152,16 @@ public class BarRequest : MonoBehaviour
         processBG.SetAlpha(1f);
         waitTimeProcess.SetAlpha(1f);
         this.PostEvent((int)EventID.OnNewRequestCreated, requestingItems);
+
+        if (DataManager.UserData.bartenderLevel == 0 && !DataManager.UserData.tutBartenderDone)
+        {
+            this.PostEvent((int)EventID.OnTutStepDone, tutStep);
+            if (tutObj)
+                tutObj.SetActive(true);
+            yield return new WaitForSeconds(0.15f);
+            tutObj?.SetActive(false);
+        }
+
     }
     private void SetElemetsActive(bool isActive)
     {
@@ -282,6 +298,8 @@ public class BarRequest : MonoBehaviour
         if(currGuestController)
             currGuestController = null;
         IsRequesting = false;
+        if (tutObj)
+            tutObj.SetActive(false);
         HideAll();
     }
 

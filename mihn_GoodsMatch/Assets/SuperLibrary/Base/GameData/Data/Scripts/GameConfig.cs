@@ -64,6 +64,9 @@ public class GameConfig : GameConfigBase
     public int maxCombo_bartender = 5;
     public int doubleRequestRepeat = 20;
 
+    [Header("Tutorial")]
+    public int tutBartenderLastStep = 7;
+
     #region MONEY
     [Header("Money")]
     [SerializeField]

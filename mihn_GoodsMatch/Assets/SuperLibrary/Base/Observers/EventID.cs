@@ -34,5 +34,7 @@ public enum EventID
     
     OnClearLastLevel = 300,
 
+    OnTutStepDone = 400,
+
     OnPauseAppByAds = 1000,
 }
