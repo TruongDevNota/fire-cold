@@ -57,6 +57,7 @@ public class UIInfo_Bartender : MonoBehaviour
 
     [Header("TUTORIAL")]
     [SerializeField] UITutorial uiTutPanel;
+    [SerializeField] GameObject[] tutArrows;
     private bool showTut = false;
 
     [Header("DEBUG ")]
@@ -147,6 +148,11 @@ public class UIInfo_Bartender : MonoBehaviour
     }
     private void OnNewGameStart()
     {
+        foreach(var ob in tutArrows)
+        {
+            ob.SetActive(false);
+        }
+
         showTut = DataManager.UserData.bartenderLevel == 0 && !DataManager.UserData.tutBartenderDone;
         uiTutPanel.gameObject.SetActive(showTut);
         
