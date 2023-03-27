@@ -22,6 +22,78 @@ public class DataManager : MonoBehaviour
     public static GameItemAsset ItemsAsset { get; private set; }
     public static GameData gameData { get; private set; }
     private static DataManager instance { get; set; }
+
+    public static SkinData CurrentSkin
+    {
+        get => SkinsAsset?.Current;
+        set => SkinsAsset.Current = value;
+    }
+    [SerializeField]
+    protected SkinsAsset skinsAsset = null;
+    public static SkinsAsset SkinsAsset { get; private set; }
+
+    public static WindowsData CurrentWindow
+    {
+        get => WindowAsset?.Current;
+        set => WindowAsset.Current = value;
+    }
+    [SerializeField]
+    protected WindowsAsset windowAsset = null;
+    public static WindowsAsset WindowAsset { get; private set; }
+
+
+    public static FloorData CurrentFloor
+    {
+        get => FloorAsset?.Current;
+        set => FloorAsset.Current = value;
+    }
+    [SerializeField]
+    protected FloorsAsset floorAsset = null;
+    public static FloorsAsset FloorAsset { get; private set; }
+
+    public static CeillingData CurrentCeilling
+    {
+        get => CeillingAsset?.Current;
+        set => CeillingAsset.Current = value;
+    }
+    [SerializeField]
+    protected CeillingAsset ceillingAsset = null;
+    public static CeillingAsset CeillingAsset { get; private set; }
+
+    public static CarpetData CurrentCarpet
+    {
+        get => CarpetsAsset?.Current;
+        set => CarpetsAsset.Current = value;
+    }
+    [SerializeField]
+    protected CarpetsAsset carpetsAsset = null;
+    public static CarpetsAsset CarpetsAsset { get; private set; }
+    public static ChairData CurrentChair
+    {
+        get => ChairsAsset?.Current;
+        set => ChairsAsset.Current = value;
+    }
+    [SerializeField]
+    protected ChairsAsset chairsAsset = null;
+    public static ChairsAsset ChairsAsset { get; private set; }
+
+    public static TableData CurrentTable
+    {
+        get => TableAssets?.Current;
+        set => TableAssets.Current = value;
+    }
+    [SerializeField]
+    protected TablesAsset tableAssets = null;
+    public static TablesAsset TableAssets { get; private set; }
+
+    public static LampData CurrentLamp
+    {
+        get => LampsAsset?.Current;
+        set => LampsAsset.Current = value;
+    }
+    [SerializeField]
+    protected LampsAsset lampsAsset = null;
+    public static LampsAsset LampsAsset { get; private set; }
     #endregion
 
     public static int levelSelect = 0;
@@ -62,6 +134,15 @@ public class DataManager : MonoBehaviour
             gameData.user.LastTimeUpdate = DateTime.Now;
             gameData.levelStars = LevelAsset.saveList;
             gameData.itemData = ItemsAsset.itemSaveList;
+
+            gameData.walls = SkinsAsset.itemSaveList;
+            gameData.windows = WindowAsset.itemSaveList;
+            gameData.floors = FloorAsset.itemSaveList;
+            gameData.ceillings = CeillingAsset.itemSaveList;
+            gameData.carpets = CarpetsAsset.itemSaveList;
+            gameData.chairs = ChairsAsset.itemSaveList;
+            gameData.tables = TableAssets.itemSaveList;
+            gameData.lamps = LampsAsset.itemSaveList;
 
             Debug.Log("ConvertData in " + (DateTime.Now - time).TotalMilliseconds + "ms");
             FileExtend.SaveData<GameData>("GameData", gameData);
@@ -123,10 +204,100 @@ public class DataManager : MonoBehaviour
             else
                 Debug.Log("GameItemAsset is not NULL");
 
+            if (SkinsAsset == null)
+            {
+                SkinsAsset = ScriptableObject.CreateInstance("SkinsAsset") as SkinsAsset;
+                foreach (var i in instance.skinsAsset.list)
+                    SkinsAsset.list.Add(i);
+            }
+            else
+                Debug.Log("SkinsAsset is not NULL");
+
+            if (WindowAsset == null)
+            {
+                WindowAsset = ScriptableObject.CreateInstance("WindowsAsset") as WindowsAsset;
+                foreach (var i in instance.windowAsset.list)
+                    WindowAsset.list.Add(i);
+            }
+            else
+                Debug.Log("WindowAsset is not NULL");
+
+
+            if (FloorAsset == null)
+            {
+                FloorAsset = ScriptableObject.CreateInstance("FloorsAsset") as FloorsAsset;
+                foreach (var i in instance.floorAsset.list)
+                    FloorAsset.list.Add(i);
+            }
+            else
+                Debug.Log("FloorAsset is not NULL");
+
+            if (CeillingAsset == null)
+            {
+                CeillingAsset = ScriptableObject.CreateInstance("CeillingAsset") as CeillingAsset;
+                foreach (var i in instance.ceillingAsset.list)
+                    CeillingAsset.list.Add(i);
+            }
+            else
+                Debug.Log("CeillingAsset is not NULL");
+
+            if (CarpetsAsset == null)
+            {
+                CarpetsAsset = ScriptableObject.CreateInstance("CarpetsAsset") as CarpetsAsset;
+                foreach (var i in instance.carpetsAsset.list)
+                    CarpetsAsset.list.Add(i);
+            }
+            else
+                Debug.Log("CarpetsAsset is not NULL");
+
+            if (ChairsAsset == null)
+            {
+                ChairsAsset = ScriptableObject.CreateInstance("ChairsAsset") as ChairsAsset;
+                foreach (var i in instance.chairsAsset.list)
+                    ChairsAsset.list.Add(i);
+            }
+            else
+                Debug.Log("ChairsAsset is not NULL");
+
+            if (TableAssets == null)
+            {
+                TableAssets = ScriptableObject.CreateInstance("TablesAsset") as TablesAsset;
+                foreach (var i in instance.tableAssets.list)
+                    TableAssets.list.Add(i);
+            }
+            else
+                Debug.Log("TableAssets is not NULL");
+
+            if (LampsAsset == null)
+            {
+                LampsAsset = ScriptableObject.CreateInstance("LampsAsset") as LampsAsset;
+                foreach (var i in instance.lampsAsset.list)
+                    LampsAsset.list.Add(i);
+            }
+            else
+                Debug.Log("LampsAsset is not NULL");
+
             //Load gamedata
             GameData loadData = FileExtend.LoadData<GameData>("GameData") as GameData;
             if (loadData != null)
             {
+                if (loadData.walls != null && loadData.walls.Any())
+                    SkinsAsset.ConvertToData(loadData.walls);
+                if (loadData.windows != null && loadData.windows.Any())
+                    WindowAsset.ConvertToData(loadData.windows);
+                if (loadData.floors != null && loadData.floors.Any())
+                    FloorAsset.ConvertToData(loadData.floors);
+                if (loadData.ceillings != null && loadData.ceillings.Any())
+                    CeillingAsset.ConvertToData(loadData.ceillings);
+                if (loadData.carpets != null && loadData.carpets.Any())
+                    CarpetsAsset.ConvertToData(loadData.carpets);
+                if (loadData.chairs != null && loadData.chairs.Any())
+                    ChairsAsset.ConvertToData(loadData.chairs);
+                if (loadData.tables != null && loadData.tables.Any())
+                    TableAssets.ConvertToData(loadData.tables);
+                if (loadData.lamps != null && loadData.lamps.Any())
+                    LampsAsset.ConvertToData(loadData.lamps);
+
                 if (loadData.levelStars != null && loadData.levelStars.Any())
                     LevelAsset.ConvertLevelStars(loadData.levelStars);
 

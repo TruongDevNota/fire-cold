@@ -15,6 +15,9 @@ public enum EventID
     OnBuffHint = 20,
     OnBuffSwap = 21,
 
+    OnDecorTutorialComplete = 22,
+
+
     OnPlayMusic = 40,
 
     OnGameReady = 50,

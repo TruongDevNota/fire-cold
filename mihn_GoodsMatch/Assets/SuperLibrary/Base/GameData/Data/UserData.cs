@@ -22,6 +22,7 @@ public class UserData : UserAnalysic
 
     [Header("Tut")]
     public bool tutBartenderDone = false;
+    public bool isShopTutShowed = false;
 
     [Header("Reward Unlock")]
     private int levelChestPercent = 0;
