@@ -31,8 +31,8 @@ public class UISkinChild : MonoBehaviour
     [Header("Equipe")]
     [SerializeField] Button btnEquipe = null;
 
-    //[Header("Tut")]
-    //[SerializeField] GameObject _handTut = null;
+    [Header("Tut")]
+    [SerializeField] GameObject _handTut = null;
 
     public Action<SkinData> OnSelected = delegate { };
     public Action<WindowsData> OnWindowsSelected = delegate { };
@@ -61,7 +61,8 @@ public class UISkinChild : MonoBehaviour
     public LampData lampData;
     public Button coinBtn => btnGold;
     public Button adsBtn => btnAds;
-    //public GameObject handTut => _handTut;
+    
+    public GameObject handTut => _handTut;
 
     private Vector2 noDecorIconSize = new Vector2(60, 90);
     private void OnEnable()
@@ -75,8 +76,8 @@ public class UISkinChild : MonoBehaviour
         TablesAsset.OnChanged += TablesAsset_OnChanged;
         LampsAsset.OnChanged += LampsAsset_OnChanged;
 
-        //if (handTut != null)
-        //    handTut.SetActive(false);
+        if (handTut != null)
+            handTut.SetActive(false);
     }
 
     private void LampsAsset_OnChanged(LampData current, List<LampData> list)
@@ -484,7 +485,7 @@ public class UISkinChild : MonoBehaviour
                     if (!DataManager.UserData.isShopTutShowed)
                     {
                         DataManager.UserData.isShopTutShowed = true;
-                        //handTut.SetActive(false);
+                        handTut.SetActive(false);
                         this.PostEvent((int)EventID.OnDecorTutorialComplete);
                     }
                     DataManager.Save();
