@@ -27,7 +27,7 @@ MonoBehaviour:
     countHit: 0
     unlockPay: 0
     _unlockType: 1
-    _unlockPrice: 100
+    _unlockPrice: 0
     main: {fileID: 21300000, guid: 269f5e99fb30f1b4cbe9692729bfbc69, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
     countHit: 0
     unlockPay: 0
     _unlockType: 1
-    _unlockPrice: 300
+    _unlockPrice: 0
     main: {fileID: 21300000, guid: 39b62f62cac88324592198e2f458c5c1, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
@@ -78,7 +78,7 @@ MonoBehaviour:
     countHit: 0
     unlockPay: 0
     _unlockType: 1
-    _unlockPrice: 400
+    _unlockPrice: 0
     main: {fileID: 21300000, guid: e049f00028d061d449f02903e9ebc36d, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
     countHit: 0
     unlockPay: 0
     _unlockType: 1
-    _unlockPrice: 600
+    _unlockPrice: 0
     main: {fileID: 21300000, guid: 849a58698529c8447ae373dc784a59b2, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
@@ -179,7 +179,7 @@ MonoBehaviour:
     count: 0
     countHit: 0
     unlockPay: 0
-    _unlockType: 1
+    _unlockType: 3
     _unlockPrice: 1000
     main: {fileID: 21300000, guid: a208359c053120542bf9e1a78368e801, type: 3}
     background: {fileID: 0}
