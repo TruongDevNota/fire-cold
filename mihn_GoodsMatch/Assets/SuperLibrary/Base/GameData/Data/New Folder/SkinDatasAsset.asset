@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4ec495242cec74d9d59603eb2c3252, type: 3}
+  m_Name: SkinDatasAsset
+  m_EditorClassIdentifier: 
+  useRandom: 0
+  list:
+  - name: wall0
+    id: wall0
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 1
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 100
+    main: {fileID: 21300000, guid: 269f5e99fb30f1b4cbe9692729bfbc69, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall1
+    id: wall1
+    idThumb: 
+    index: 1
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 200
+    main: {fileID: 21300000, guid: f5d451ee19d99ca48baf48fa861e34be, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall2
+    id: wall2
+    idThumb: 
+    index: 2
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 300
+    main: {fileID: 21300000, guid: 39b62f62cac88324592198e2f458c5c1, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall3
+    id: wall3
+    idThumb: 
+    index: 3
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 400
+    main: {fileID: 21300000, guid: e049f00028d061d449f02903e9ebc36d, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall4
+    id: wall4
+    idThumb: 
+    index: 4
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 500
+    main: {fileID: 21300000, guid: b2dcdc5a0e64bf84b9a9c78011afe3da, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall5
+    id: wall5
+    idThumb: 
+    index: 5
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 600
+    main: {fileID: 21300000, guid: 849a58698529c8447ae373dc784a59b2, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall6
+    id: wall6
+    idThumb: 
+    index: 6
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 700
+    main: {fileID: 21300000, guid: 418960fba3b5a194e8b1957a54f8d331, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall7
+    id: wall7
+    idThumb: 
+    index: 7
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 800
+    main: {fileID: 21300000, guid: 0624444718955714b8db58b87d9840cb, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall8
+    id: wall8
+    idThumb: 
+    index: 8
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 900
+    main: {fileID: 21300000, guid: 2d9688d1833b30c47977d25297884ac7, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall9
+    id: wall9
+    idThumb: 
+    index: 9
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 1000
+    main: {fileID: 21300000, guid: a208359c053120542bf9e1a78368e801, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  allPrefabs: []
+  allThumbsTier1:
+  - {fileID: 21300000, guid: 269f5e99fb30f1b4cbe9692729bfbc69, type: 3}
+  - {fileID: 21300000, guid: f5d451ee19d99ca48baf48fa861e34be, type: 3}
+  - {fileID: 21300000, guid: 39b62f62cac88324592198e2f458c5c1, type: 3}
+  - {fileID: 21300000, guid: e049f00028d061d449f02903e9ebc36d, type: 3}
+  - {fileID: 21300000, guid: b2dcdc5a0e64bf84b9a9c78011afe3da, type: 3}
+  - {fileID: 21300000, guid: 849a58698529c8447ae373dc784a59b2, type: 3}
+  - {fileID: 21300000, guid: 418960fba3b5a194e8b1957a54f8d331, type: 3}
+  - {fileID: 21300000, guid: 0624444718955714b8db58b87d9840cb, type: 3}
+  - {fileID: 21300000, guid: 2d9688d1833b30c47977d25297884ac7, type: 3}
+  - {fileID: 21300000, guid: a208359c053120542bf9e1a78368e801, type: 3}

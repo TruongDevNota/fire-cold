@@ -131,5 +131,13 @@ public class UIMainScreen : MonoBehaviour
             GameStateManager.LoadGame(null);
         }
     }
+    public void BtnShopDecorClicked()
+    {
+        SoundManager.Play("1. Click Button");
+        if (GameStateManager.CurrentState == GameState.Idle)
+        {
+            GameStateManager.InShop(null);
+        }
+    }
     #endregion
 }

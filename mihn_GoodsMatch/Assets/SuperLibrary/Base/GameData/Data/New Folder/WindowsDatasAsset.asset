@@ -1,0 +1,252 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0522fb2e57ce8d4380e5d1020b068f9, type: 3}
+  m_Name: WindowsDatasAsset
+  m_EditorClassIdentifier: 
+  useRandom: 0
+  list:
+  - name: cua so0
+    id: cua so0
+    idThumb: 
+    index: 0
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 1
+    isSelected: 1
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 100
+    main: {fileID: 21300000, guid: 8b36114e67ea933449d9322b644a3b24, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so1
+    id: cua so1
+    idThumb: 
+    index: 1
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 200
+    main: {fileID: 21300000, guid: c543d20def2194d43af2f8816031cca0, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so2
+    id: cua so2
+    idThumb: 
+    index: 2
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 300
+    main: {fileID: 21300000, guid: 9f0f8efbf93c455419752f851a55c534, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so3
+    id: cua so3
+    idThumb: 
+    index: 3
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 400
+    main: {fileID: 21300000, guid: d174d70adda96a44d80dda553437fa45, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so4
+    id: cua so4
+    idThumb: 
+    index: 4
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 500
+    main: {fileID: 21300000, guid: 27fdf60e182020a489c7c17e6b97522c, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so5
+    id: cua so5
+    idThumb: 
+    index: 5
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 600
+    main: {fileID: 21300000, guid: ba662a5019e17ef40afd23a74e8d3d12, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so6
+    id: cua so6
+    idThumb: 
+    index: 6
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 700
+    main: {fileID: 21300000, guid: 2da59b8e286e3724e8bf19b3b32e2e29, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so7
+    id: cua so7
+    idThumb: 
+    index: 7
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 800
+    main: {fileID: 21300000, guid: 67dbecae97781f84c8d91333f375949a, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so8
+    id: cua so8
+    idThumb: 
+    index: 8
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 900
+    main: {fileID: 21300000, guid: c6e70b2108de7ee4aa1704aad14b0266, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so9
+    id: cua so9
+    idThumb: 
+    index: 9
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 1000
+    main: {fileID: 21300000, guid: baec52415e752c144ac80bfddd1c9f84, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so 10
+    id: cua so 10
+    idThumb: 
+    index: 10
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 1100
+    main: {fileID: 21300000, guid: 3be15902aae8d9345a82de000bac7b33, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so 11
+    id: cua so 11
+    idThumb: 
+    index: 11
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 1200
+    main: {fileID: 21300000, guid: cb0e1010a7cd498469f1322ccab5c06b, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: cua so 12
+    id: cua so 12
+    idThumb: 
+    index: 12
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 1300
+    main: {fileID: 21300000, guid: b27584b084e5b9846a7f8fa848d1c3b1, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  allPrefabs: []
+  allThumbsTier1:
+  - {fileID: 21300000, guid: 8b36114e67ea933449d9322b644a3b24, type: 3}
+  - {fileID: 21300000, guid: c543d20def2194d43af2f8816031cca0, type: 3}
+  - {fileID: 21300000, guid: 9f0f8efbf93c455419752f851a55c534, type: 3}
+  - {fileID: 21300000, guid: d174d70adda96a44d80dda553437fa45, type: 3}
+  - {fileID: 21300000, guid: 27fdf60e182020a489c7c17e6b97522c, type: 3}
+  - {fileID: 21300000, guid: ba662a5019e17ef40afd23a74e8d3d12, type: 3}
+  - {fileID: 21300000, guid: 2da59b8e286e3724e8bf19b3b32e2e29, type: 3}
+  - {fileID: 21300000, guid: 67dbecae97781f84c8d91333f375949a, type: 3}
+  - {fileID: 21300000, guid: c6e70b2108de7ee4aa1704aad14b0266, type: 3}
+  - {fileID: 21300000, guid: baec52415e752c144ac80bfddd1c9f84, type: 3}
+  - {fileID: 21300000, guid: 3be15902aae8d9345a82de000bac7b33, type: 3}
+  - {fileID: 21300000, guid: cb0e1010a7cd498469f1322ccab5c06b, type: 3}
+  - {fileID: 21300000, guid: b27584b084e5b9846a7f8fa848d1c3b1, type: 3}

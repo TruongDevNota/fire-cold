@@ -156,6 +156,11 @@ public class GameStateManager : MonoBehaviour
         stateChangedData = data;
         CurrentState = GameState.Next;
     }
+    public static void InShop(object data)
+    {
+        stateChangedData = data;
+        CurrentState = GameState.InShop;
+    }
 }
 
 public enum GameState
