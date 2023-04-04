@@ -14,7 +14,7 @@ public class LampsAsset : BaseAsset<LampData>
     //[SerializeField] public Sprite[] allThumbsTier2;
     //[SerializeField] public Sprite[] allThumbsTier3;
 
-    //[ButtonMethod]
+    [ButtonMethod]
     public void ConfigAllCharacters()
     {
         list.Clear();

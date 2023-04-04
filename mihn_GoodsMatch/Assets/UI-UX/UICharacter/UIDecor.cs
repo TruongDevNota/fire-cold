@@ -35,7 +35,7 @@ public class UIDecor : MonoBehaviour
         CarpetsAsset.OnChanged += CarpetsAsset_OnChanged;
         ChairsAsset.OnChanged += ChairsAsset_OnChanged;
         TablesAsset.OnChanged += TablesAsset_OnChanged;
-        //LampsAsset.OnChanged += LampsAsset_OnChanged;
+        LampsAsset.OnChanged += LampsAsset_OnChanged;
     }
 
     private void LampsAsset_OnChanged(LampData current, List<LampData> list)
@@ -67,7 +67,6 @@ public class UIDecor : MonoBehaviour
     {
         floorImg.sprite = current.main;
     }
-
     private void WindowsAsset_OnChanged(WindowsData current, List<WindowsData> list)
     {
         SetWindowsDecorSprite(current);
@@ -89,7 +88,7 @@ public class UIDecor : MonoBehaviour
 
         SetTableDecorSprite(DataManager.TableAssets.Current);
 
-        //SetLampDecorSprite(DataManager.LampsAsset.Current);
+        SetLampDecorSprite(DataManager.LampsAsset.Current);
     }
     private void SetChairDecorSprite(ChairData current)
     {

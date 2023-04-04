@@ -96,7 +96,7 @@ public class UIPopupSkin : MonoBehaviour
 
         shopScrollView.FirstOrDefault().GetComponent<ScrollRect>().enabled = true;
 
-        imgCoverRectTf.gameObject.Recycle();
+        //imgCoverRectTf.gameObject.Recycle();
 
     }
 

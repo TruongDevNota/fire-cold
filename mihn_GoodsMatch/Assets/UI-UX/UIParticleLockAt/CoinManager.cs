@@ -93,7 +93,7 @@ public class CoinManager : MonoBehaviour
 #if UNITY_EDITOR
     private void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Test(100000);
         }
