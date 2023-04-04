@@ -110,6 +110,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 400185621691667405, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 851284922922442630, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
       propertyPath: m_Controller
       value: 
@@ -309,14 +313,14 @@ PrefabInstance:
     - target: {fileID: 5472967063621333096, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8107e8632aa38ae4cbc84e6f8f074983, type: 3}
+      objectReference: {fileID: 21300000, guid: dba37669bcf753c4685e0a83b643045b, type: 3}
     - target: {fileID: 5473932041966831681, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
       propertyPath: m_Name
       value: CharacterUI
       objectReference: {fileID: 0}
     - target: {fileID: 5807336340130169171, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866736250341516066, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -436,7 +440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7936942014276569537, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -67
       objectReference: {fileID: 0}
     - target: {fileID: 8072805831393183793, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
       propertyPath: m_Pivot.x
@@ -521,6 +525,18 @@ PrefabInstance:
     - target: {fileID: 8072805831393183793, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294966431246761354, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294966431246761354, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8294966431246761354, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -84
       objectReference: {fileID: 0}
     - target: {fileID: 8502950658981853809, guid: 62f54bf7e7a1469489839c3794b30635, type: 3}
       propertyPath: m_SizeDelta.x
