@@ -445,7 +445,7 @@ public class UIPopupSkin : MonoBehaviour
                 {
                     var stageData = lamps.list[i];
                     stageData.isSelected = stageData.id == currentLamp?.id;
-                    var obj = allTables[i];
+                    var obj = allLamps[i];
                     obj.FillData(stageData);
                     if (stageData.isSelected)
                         currentLamp = lamps.list[i];
