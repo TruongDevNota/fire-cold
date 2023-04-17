@@ -484,6 +484,7 @@ public class UISkinChild : MonoBehaviour
                     DataManager.SkinsAsset.Current = data;
                     data.isUnlocked = true;
                     data.isSelected = false;
+                    this.PostEvent((int)EventID.BuySuccess);
                     if (!DataManager.UserData.isShopTutShowed)
                     {
                         DataManager.UserData.isShopTutShowed = true;
@@ -508,6 +509,7 @@ public class UISkinChild : MonoBehaviour
                         DataManager.SkinsAsset.Current = data;
                         data.isUnlocked = true;
                         data.isSelected = false;
+                        this.PostEvent((int)EventID.BuySuccess);
                         DataManager.Save();
                     }
                     else
@@ -530,7 +532,7 @@ public class UISkinChild : MonoBehaviour
                     windowsData.isUnlocked = true;
                     DataManager.WindowAsset.Current = windowsData;
                     data.isUnlocked = true;
-                    data.isSelected = false;
+                    data.isSelected = false; this.PostEvent((int)EventID.BuySuccess);
                     DataManager.Save();
 
                 }
@@ -549,7 +551,7 @@ public class UISkinChild : MonoBehaviour
                         DataManager.WindowAsset.Current = windowsData;
                         data.isUnlocked = true;
                         data.isSelected = false;
-                        DataManager.Save();
+                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
                     }
                     else
                     {
@@ -572,7 +574,7 @@ public class UISkinChild : MonoBehaviour
                     DataManager.FloorAsset.Current = floorData;
                     data.isUnlocked = true;
                     data.isSelected = false;
-                    DataManager.Save();
+                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
 
                 }
                 else
@@ -590,7 +592,7 @@ public class UISkinChild : MonoBehaviour
                         DataManager.FloorAsset.Current = floorData;
                         data.isUnlocked = true;
                         data.isSelected = false;
-                        DataManager.Save();
+                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
                     }
                     else
                     {
@@ -613,7 +615,7 @@ public class UISkinChild : MonoBehaviour
                     DataManager.CeillingAsset.Current = ceillingData;
                     data.isUnlocked = true;
                     data.isSelected = false;
-                    DataManager.Save();
+                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
 
                 }
                 else
@@ -631,7 +633,7 @@ public class UISkinChild : MonoBehaviour
                         DataManager.CeillingAsset.Current = ceillingData;
                         data.isUnlocked = true;
                         data.isSelected = false;
-                        DataManager.Save();
+                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
                     }
                     else
                     {
@@ -654,7 +656,7 @@ public class UISkinChild : MonoBehaviour
                     DataManager.CarpetsAsset.Current = carpetData;
                     data.isUnlocked = true;
                     data.isSelected = false;
-                    DataManager.Save();
+                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
 
                 }
                 else
@@ -672,7 +674,7 @@ public class UISkinChild : MonoBehaviour
                         DataManager.CarpetsAsset.Current = carpetData;
                         data.isUnlocked = true;
                         data.isSelected = false;
-                        DataManager.Save();
+                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
                     }
                     else
                     {
@@ -695,7 +697,7 @@ public class UISkinChild : MonoBehaviour
                     DataManager.ChairsAsset.Current = chairData;
                     data.isUnlocked = true;
                     data.isSelected = false;
-                    DataManager.Save();
+                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
 
                 }
                 else
@@ -713,7 +715,7 @@ public class UISkinChild : MonoBehaviour
                         DataManager.ChairsAsset.Current = chairData;
                         data.isUnlocked = true;
                         data.isSelected = false;
-                        DataManager.Save();
+                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
                     }
                     else
                     {
@@ -736,7 +738,7 @@ public class UISkinChild : MonoBehaviour
                     DataManager.TableAssets.Current = tableData;
                     data.isUnlocked = true;
                     data.isSelected = false;
-                    DataManager.Save();
+                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
 
                 }
                 else
@@ -754,7 +756,7 @@ public class UISkinChild : MonoBehaviour
                         DataManager.TableAssets.Current = tableData;
                         data.isUnlocked = true;
                         data.isSelected = false;
-                        DataManager.Save();
+                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
                     }
                     else
                     {
@@ -777,7 +779,7 @@ public class UISkinChild : MonoBehaviour
                     DataManager.LampsAsset.Current = lampData;
                     data.isUnlocked = true;
                     data.isSelected = false;
-                    DataManager.Save();
+                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
 
                 }
                 else
@@ -795,7 +797,7 @@ public class UISkinChild : MonoBehaviour
                         DataManager.LampsAsset.Current = lampData;
                         data.isUnlocked = true;
                         data.isSelected = false;
-                        DataManager.Save();
+                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
                     }
                     else
                     {

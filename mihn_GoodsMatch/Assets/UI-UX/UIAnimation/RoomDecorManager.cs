@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Spine.Unity;
+using System;
 
 public class RoomDecorManager : MonoBehaviour
 {
@@ -25,6 +27,14 @@ public class RoomDecorManager : MonoBehaviour
     [SerializeField]
     private SpriteRenderer lampImg = null;
 
+
+    [SerializeField] private SkeletonAnimation cat1;
+    [SerializeField] private SkeletonAnimation cat2;
+
+    [SerializeField] private float translateCam = -2.85f;
+    [SerializeField] private float fieldOfViewShop = 88f;
+    [SerializeField] private float fieldOfViewIdle = 60f;
+
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
@@ -37,7 +47,13 @@ public class RoomDecorManager : MonoBehaviour
         ChairsAsset.OnChanged += ChairsAsset_OnChanged;
         TablesAsset.OnChanged += TablesAsset_OnChanged;
         LampsAsset.OnChanged += LampsAsset_OnChanged;
+        cat1.AnimationName="idle1";
+        cat2.AnimationName = "idle1";
+        this.RegisterListener((int)EventID.BuySuccess, ActiveAnim);
     }
+
+
+
     private void OnDisable()
     {
         GameStateManager.OnStateChanged -= GameStateManager_OnStateChanged;
@@ -101,14 +117,46 @@ public class RoomDecorManager : MonoBehaviour
         }
     }
     private float timeMoveCam = 0.35f;
+   [SerializeField] private float delayAnim=1f;
+
     private void GoToShop()
     {
-        roomCam.transform.DOLocalMoveY(-2.85f, timeMoveCam);
+        roomCam.transform.DOLocalMoveY(translateCam, timeMoveCam);
+        
+        
+        roomCam.fieldOfView = fieldOfViewShop;
     }
     private void IdleGame()
     {
-        roomCam.transform.DOLocalMoveY(0, timeMoveCam);
+        // roomCam.transform.DOLocalMoveY(0, timeMoveCam);
+        roomCam.fieldOfView = fieldOfViewIdle;
     }
+    private void ActiveAnim(object obj)
+    {
+        cat1.AnimationName = "happy";
+        cat2.AnimationName = "happy";
+        StartCoroutine(DelayAnim());
+    }
+
+    private IEnumerator DelayAnim()
+    {
+        yield return new WaitForSeconds(delayAnim);
+        cat1.AnimationName = "idle1";
+        cat2.AnimationName = "idle1";
+    }
+
+    //private IEnumerator YieldMoveCameraIdle()
+    //{
+    //    currentFieldOfView = roomCam.fieldOfView;
+    //    Debug.Log("cameraIdle");
+    //    float t = 0;
+    //    while(t< timeMoveCam)
+    //    {
+    //        yield return new WaitForEndOfFrame();
+    //        t += Time.deltaTime;
+    //        roomCam.fieldOfView = currentFieldOfView + (fieldOfViewIdle - currentFieldOfView) * Mathf.Clamp01(t / timeMoveCam);
+    //    }
+    //}
 
     private void LampsAsset_OnChanged(LampData current, List<LampData> list)
     {
