@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRandom: 0
   list:
-  - name: ban0
-    id: ban0
+  - name: table
+    id: table
     idThumb: 
     index: 0
     description: 
@@ -28,11 +28,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 100
-    main: {fileID: 21300000, guid: 7e901a98f99dfeb40ae2e69fb7a59534, type: 3}
+    main: {fileID: 21300000, guid: 8ac0d70beb6efbf489a3e8b40d6396d2, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: ban1
-    id: ban1
+  - name: plant
+    id: plant
     idThumb: 
     index: 1
     description: 
@@ -45,11 +45,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 200
-    main: {fileID: 21300000, guid: d4d91b46a9473154e8abe3da5b8c6b8c, type: 3}
+    main: {fileID: 21300000, guid: 9964d0f5b467aa44dbbc98817b8a228c, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: ban2
-    id: ban2
+  - name: wool basket
+    id: wool basket
     idThumb: 
     index: 2
     description: 
@@ -62,191 +62,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 300
-    main: {fileID: 21300000, guid: 1fe9bcf153e4ca84482a3dd6f4f58f8f, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: ban3
-    id: ban3
-    idThumb: 
-    index: 3
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 400
-    main: {fileID: 21300000, guid: e1cc2fc7b0767a245b2bb4c7f5abf7b9, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: do vat1
-    id: do vat1
-    idThumb: 
-    index: 4
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 500
-    main: {fileID: 21300000, guid: e74c6b519db255b4eb24ad550fa3a9fe, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: do vat2
-    id: do vat2
-    idThumb: 
-    index: 5
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 600
-    main: {fileID: 21300000, guid: 3d99a69e7296c2649a26eaf9c7f445fe, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: do vat3
-    id: do vat3
-    idThumb: 
-    index: 6
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 700
-    main: {fileID: 21300000, guid: 047ab143ee2b1dc409063e7c0002db85, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: do vat 1
-    id: do vat 1
-    idThumb: 
-    index: 7
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 800
-    main: {fileID: 21300000, guid: b2d17d2ad21facf4e961e43d64ce49dc, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: do vat 2
-    id: do vat 2
-    idThumb: 
-    index: 8
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 900
-    main: {fileID: 21300000, guid: d95495f0767a85b4d93bd8a1c97e5cbf, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: do vat 3
-    id: do vat 3
-    idThumb: 
-    index: 9
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1000
-    main: {fileID: 21300000, guid: 64ba4597d2e4b004c9be3b1c21f8090e, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: do vat 4
-    id: do vat 4
-    idThumb: 
-    index: 10
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1100
-    main: {fileID: 21300000, guid: 016ffe9144239ba448605920a4907b54, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: do vat 5
-    id: do vat 5
-    idThumb: 
-    index: 11
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1200
-    main: {fileID: 21300000, guid: fd888112357940944b01477247d84de5, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: do vat 6
-    id: do vat 6
-    idThumb: 
-    index: 12
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1300
-    main: {fileID: 21300000, guid: 4e80d09cce7ddfd4480d6245278e8d3f, type: 3}
+    main: {fileID: 21300000, guid: 9e919302b02007f42b248db0a8a9d4d1, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
   allPrefabs: []
   allThumbsTier1:
-  - {fileID: 21300000, guid: 7e901a98f99dfeb40ae2e69fb7a59534, type: 3}
-  - {fileID: 21300000, guid: d4d91b46a9473154e8abe3da5b8c6b8c, type: 3}
-  - {fileID: 21300000, guid: 1fe9bcf153e4ca84482a3dd6f4f58f8f, type: 3}
-  - {fileID: 21300000, guid: e1cc2fc7b0767a245b2bb4c7f5abf7b9, type: 3}
-  - {fileID: 21300000, guid: e74c6b519db255b4eb24ad550fa3a9fe, type: 3}
-  - {fileID: 21300000, guid: 3d99a69e7296c2649a26eaf9c7f445fe, type: 3}
-  - {fileID: 21300000, guid: 047ab143ee2b1dc409063e7c0002db85, type: 3}
-  - {fileID: 21300000, guid: b2d17d2ad21facf4e961e43d64ce49dc, type: 3}
-  - {fileID: 21300000, guid: d95495f0767a85b4d93bd8a1c97e5cbf, type: 3}
-  - {fileID: 21300000, guid: 64ba4597d2e4b004c9be3b1c21f8090e, type: 3}
-  - {fileID: 21300000, guid: 016ffe9144239ba448605920a4907b54, type: 3}
-  - {fileID: 21300000, guid: fd888112357940944b01477247d84de5, type: 3}
-  - {fileID: 21300000, guid: 4e80d09cce7ddfd4480d6245278e8d3f, type: 3}
+  - {fileID: 21300000, guid: 8ac0d70beb6efbf489a3e8b40d6396d2, type: 3}
+  - {fileID: 21300000, guid: 9964d0f5b467aa44dbbc98817b8a228c, type: 3}
+  - {fileID: 21300000, guid: 9e919302b02007f42b248db0a8a9d4d1, type: 3}

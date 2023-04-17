@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRandom: 0
   list:
-  - name: lamp0
-    id: lamp0
+  - name: red-flag
+    id: red-flag
     idThumb: 
     index: 0
     description: 
@@ -28,11 +28,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 100
-    main: {fileID: 21300000, guid: c7cb8ce4c83110a41bb73bccff3f20d2, type: 3}
+    main: {fileID: 21300000, guid: 5b4e006bbee70b948882678ee74b4002, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: lamp1
-    id: lamp1
+  - name: fish-flag
+    id: fish-flag
     idThumb: 
     index: 1
     description: 
@@ -45,11 +45,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 200
-    main: {fileID: 21300000, guid: 2d775315b0ae96d42b22b74e80413533, type: 3}
+    main: {fileID: 21300000, guid: 5504a023c0c13df4a9934204df442fe2, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: lamp2
-    id: lamp2
+  - name: blue-flag
+    id: blue-flag
     idThumb: 
     index: 2
     description: 
@@ -62,29 +62,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 300
-    main: {fileID: 21300000, guid: 0de786a17db5b8c4fb44dfb4dcab4645, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: lamp3
-    id: lamp3
-    idThumb: 
-    index: 3
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 400
-    main: {fileID: 21300000, guid: 27adf3f234f781845b0a89928b28ad2e, type: 3}
+    main: {fileID: 21300000, guid: 6e328a0d7e7de6041bde6b8012de666c, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
   allPrefabs: []
   allThumbsTier1:
-  - {fileID: 21300000, guid: c7cb8ce4c83110a41bb73bccff3f20d2, type: 3}
-  - {fileID: 21300000, guid: 2d775315b0ae96d42b22b74e80413533, type: 3}
-  - {fileID: 21300000, guid: 0de786a17db5b8c4fb44dfb4dcab4645, type: 3}
-  - {fileID: 21300000, guid: 27adf3f234f781845b0a89928b28ad2e, type: 3}
+  - {fileID: 21300000, guid: 5b4e006bbee70b948882678ee74b4002, type: 3}
+  - {fileID: 21300000, guid: 5504a023c0c13df4a9934204df442fe2, type: 3}
+  - {fileID: 21300000, guid: 6e328a0d7e7de6041bde6b8012de666c, type: 3}

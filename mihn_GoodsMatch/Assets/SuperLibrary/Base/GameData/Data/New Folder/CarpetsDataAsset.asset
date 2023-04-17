@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRandom: 0
   list:
-  - name: tham0
-    id: tham0
+  - name: carpet1
+    id: carpet1
     idThumb: 
     index: 0
     description: 
@@ -28,11 +28,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 100
-    main: {fileID: 21300000, guid: fd157147024df1c40a51f7b5e296324c, type: 3}
+    main: {fileID: 21300000, guid: 9749ee2b4b353f748bcdec26ec4ee061, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: tham1
-    id: tham1
+  - name: carpet2
+    id: carpet2
     idThumb: 
     index: 1
     description: 
@@ -45,11 +45,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 200
-    main: {fileID: 21300000, guid: 0314decb8217bb7429bdf010d8f17c9a, type: 3}
+    main: {fileID: 21300000, guid: ee35f0ad89930b24dbb664713527d6b3, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: tham2
-    id: tham2
+  - name: carpet3
+    id: carpet3
     idThumb: 
     index: 2
     description: 
@@ -62,11 +62,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 300
-    main: {fileID: 21300000, guid: 0dace23b6de419d46bcec14972752589, type: 3}
+    main: {fileID: 21300000, guid: a247519aa9c7335499a7dbb9ecd175c3, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: tham3
-    id: tham3
+  - name: sakura-carpet
+    id: sakura-carpet
     idThumb: 
     index: 3
     description: 
@@ -79,11 +79,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 400
-    main: {fileID: 21300000, guid: 053eaa9991186d4469984598f4d3bc40, type: 3}
+    main: {fileID: 21300000, guid: ccdda9ece67e87440a32f1f1faf89991, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: tham4
-    id: tham4
+  - name: seaweed-carpet
+    id: seaweed-carpet
     idThumb: 
     index: 4
     description: 
@@ -96,11 +96,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 500
-    main: {fileID: 21300000, guid: e5bf2f4237c1d6f44b1f857abdfcfe35, type: 3}
+    main: {fileID: 21300000, guid: 8e80b89a53adc144986babd08de2eae5, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: tham5
-    id: tham5
+  - name: stone-carpet
+    id: stone-carpet
     idThumb: 
     index: 5
     description: 
@@ -113,140 +113,14 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 600
-    main: {fileID: 21300000, guid: 983338473c5ffe04b964f6b0f2e8615f, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tham6
-    id: tham6
-    idThumb: 
-    index: 6
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 700
-    main: {fileID: 21300000, guid: b373ef1597e650845a998e4c0d65af53, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tham7
-    id: tham7
-    idThumb: 
-    index: 7
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 800
-    main: {fileID: 21300000, guid: 7ed66a007482393439e72e7d4f837708, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tham8
-    id: tham8
-    idThumb: 
-    index: 8
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 900
-    main: {fileID: 21300000, guid: 4a15e6d38a7dbf34d849062d6aa1c0e8, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tham9
-    id: tham9
-    idThumb: 
-    index: 9
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1000
-    main: {fileID: 21300000, guid: ee6d4223809468049bc7994c031c54af, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tham10
-    id: tham10
-    idThumb: 
-    index: 10
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1100
-    main: {fileID: 21300000, guid: 2f758f6a7375cc441b550ae01ad26486, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tham11
-    id: tham11
-    idThumb: 
-    index: 11
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1200
-    main: {fileID: 21300000, guid: aa79e0c7edfc3da4aa57330a897b70e6, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tham12
-    id: tham12
-    idThumb: 
-    index: 12
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1300
-    main: {fileID: 21300000, guid: 359905811827b9e40ab74d782bb6b133, type: 3}
+    main: {fileID: 21300000, guid: 8401f971326095744b10001b7f837aaf, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
   allPrefabs: []
   allThumbsTier1:
-  - {fileID: 21300000, guid: fd157147024df1c40a51f7b5e296324c, type: 3}
-  - {fileID: 21300000, guid: 0314decb8217bb7429bdf010d8f17c9a, type: 3}
-  - {fileID: 21300000, guid: 0dace23b6de419d46bcec14972752589, type: 3}
-  - {fileID: 21300000, guid: 053eaa9991186d4469984598f4d3bc40, type: 3}
-  - {fileID: 21300000, guid: e5bf2f4237c1d6f44b1f857abdfcfe35, type: 3}
-  - {fileID: 21300000, guid: 983338473c5ffe04b964f6b0f2e8615f, type: 3}
-  - {fileID: 21300000, guid: b373ef1597e650845a998e4c0d65af53, type: 3}
-  - {fileID: 21300000, guid: 7ed66a007482393439e72e7d4f837708, type: 3}
-  - {fileID: 21300000, guid: 4a15e6d38a7dbf34d849062d6aa1c0e8, type: 3}
-  - {fileID: 21300000, guid: ee6d4223809468049bc7994c031c54af, type: 3}
-  - {fileID: 21300000, guid: 2f758f6a7375cc441b550ae01ad26486, type: 3}
-  - {fileID: 21300000, guid: aa79e0c7edfc3da4aa57330a897b70e6, type: 3}
-  - {fileID: 21300000, guid: 359905811827b9e40ab74d782bb6b133, type: 3}
+  - {fileID: 21300000, guid: 9749ee2b4b353f748bcdec26ec4ee061, type: 3}
+  - {fileID: 21300000, guid: ee35f0ad89930b24dbb664713527d6b3, type: 3}
+  - {fileID: 21300000, guid: a247519aa9c7335499a7dbb9ecd175c3, type: 3}
+  - {fileID: 21300000, guid: ccdda9ece67e87440a32f1f1faf89991, type: 3}
+  - {fileID: 21300000, guid: 8e80b89a53adc144986babd08de2eae5, type: 3}
+  - {fileID: 21300000, guid: 8401f971326095744b10001b7f837aaf, type: 3}

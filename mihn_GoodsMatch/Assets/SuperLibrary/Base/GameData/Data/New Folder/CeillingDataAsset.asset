@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRandom: 0
   list:
-  - name: den0
-    id: den0
+  - name: celling
+    id: celling
     idThumb: 
     index: 0
     description: 
@@ -28,11 +28,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 100
-    main: {fileID: 21300000, guid: 807df4e0adcb8ac48ae16e38c2c6d9c9, type: 3}
+    main: {fileID: 21300000, guid: 5d512e08976338841becb3862846a89f, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: den1
-    id: den1
+  - name: fan
+    id: fan
     idThumb: 
     index: 1
     description: 
@@ -45,11 +45,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 200
-    main: {fileID: 21300000, guid: dbf855735531ad5498385238d4fbb0d5, type: 3}
+    main: {fileID: 21300000, guid: 5a24e3d1b4ebe804dad2f894a8d65625, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: den2
-    id: den2
+  - name: lamp
+    id: lamp
     idThumb: 
     index: 2
     description: 
@@ -62,11 +62,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 300
-    main: {fileID: 21300000, guid: 5e91a37af69d097468183ade13d338e5, type: 3}
+    main: {fileID: 21300000, guid: 3abc016bfab3fb540870fdede0000c22, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: den3
-    id: den3
+  - name: decorative-small-lights
+    id: decorative-small-lights
     idThumb: 
     index: 3
     description: 
@@ -79,11 +79,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 400
-    main: {fileID: 21300000, guid: 764da65fde9dfd8488ca765de697c808, type: 3}
+    main: {fileID: 21300000, guid: c6343e4225e72404da72699fe2e470c3, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: quat tran
-    id: quat tran
+  - name: lantern
+    id: lantern
     idThumb: 
     index: 4
     description: 
@@ -96,121 +96,13 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 500
-    main: {fileID: 21300000, guid: ee1471e8bb1e79e43a2abf248963d429, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tran nha1
-    id: tran nha1
-    idThumb: 
-    index: 5
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 600
-    main: {fileID: 21300000, guid: 8a6780f3a7a920342a6accbb3aaf962a, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tran nha2
-    id: tran nha2
-    idThumb: 
-    index: 6
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 700
-    main: {fileID: 21300000, guid: a946453aa070dc54b925fcf4e0b64c8e, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tran nha3
-    id: tran nha3
-    idThumb: 
-    index: 7
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 800
-    main: {fileID: 21300000, guid: 9091ec044dec21f41a12b0b76ace584d, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tran nha4
-    id: tran nha4
-    idThumb: 
-    index: 8
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 900
-    main: {fileID: 21300000, guid: 497346ea25e32d84c91dbb168b61e2ea, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tran nha5
-    id: tran nha5
-    idThumb: 
-    index: 9
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1000
-    main: {fileID: 21300000, guid: 2377e7ff2b246124381b1aab89ef587d, type: 3}
-    background: {fileID: 0}
-    gameObject: {fileID: 0}
-  - name: tran nha6
-    id: tran nha6
-    idThumb: 
-    index: 10
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    _unlockType: 1
-    _unlockPrice: 1100
-    main: {fileID: 21300000, guid: d594b078256a7094f9baa81e77af687e, type: 3}
+    main: {fileID: 21300000, guid: 365466f78c0ab7d488e58f64d41853a1, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
   allPrefabs: []
   allThumbsTier1:
-  - {fileID: 21300000, guid: 807df4e0adcb8ac48ae16e38c2c6d9c9, type: 3}
-  - {fileID: 21300000, guid: dbf855735531ad5498385238d4fbb0d5, type: 3}
-  - {fileID: 21300000, guid: 5e91a37af69d097468183ade13d338e5, type: 3}
-  - {fileID: 21300000, guid: 764da65fde9dfd8488ca765de697c808, type: 3}
-  - {fileID: 21300000, guid: ee1471e8bb1e79e43a2abf248963d429, type: 3}
-  - {fileID: 21300000, guid: 8a6780f3a7a920342a6accbb3aaf962a, type: 3}
-  - {fileID: 21300000, guid: a946453aa070dc54b925fcf4e0b64c8e, type: 3}
-  - {fileID: 21300000, guid: 9091ec044dec21f41a12b0b76ace584d, type: 3}
-  - {fileID: 21300000, guid: 497346ea25e32d84c91dbb168b61e2ea, type: 3}
-  - {fileID: 21300000, guid: 2377e7ff2b246124381b1aab89ef587d, type: 3}
-  - {fileID: 21300000, guid: d594b078256a7094f9baa81e77af687e, type: 3}
+  - {fileID: 21300000, guid: 5d512e08976338841becb3862846a89f, type: 3}
+  - {fileID: 21300000, guid: 5a24e3d1b4ebe804dad2f894a8d65625, type: 3}
+  - {fileID: 21300000, guid: 3abc016bfab3fb540870fdede0000c22, type: 3}
+  - {fileID: 21300000, guid: c6343e4225e72404da72699fe2e470c3, type: 3}
+  - {fileID: 21300000, guid: 365466f78c0ab7d488e58f64d41853a1, type: 3}
