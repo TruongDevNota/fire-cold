@@ -242,7 +242,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             inGameScreen.Hide();
             gameOverScreen.Hide();
             gameOver_Bar_Screen.Hide();
-            decorScreen.Show();
         };
 
         if(GameStateManager.LastState == GameState.Complete || GameStateManager.LastState == GameState.GameOver
