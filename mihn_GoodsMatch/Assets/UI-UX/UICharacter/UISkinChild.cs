@@ -479,7 +479,6 @@ public class UISkinChild : MonoBehaviour
                 DataManager.UserData.isShopTutShowed = true;
                 handTut.SetActive(false);
                 this.PostEvent((int)EventID.OnDecorTutorialComplete);
-                CoinManager.Add(2000);
             }
             if (data._unlockType == UnlockType.Gold)
             {

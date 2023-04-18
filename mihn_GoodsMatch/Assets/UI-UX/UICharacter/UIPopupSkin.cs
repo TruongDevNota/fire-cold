@@ -496,6 +496,7 @@ public class UIPopupSkin : MonoBehaviour
         btn.handTut?.SetActive(true);
 
         StartCoroutine(YeildHightLight());
+        CoinManager.Add(2000);
     }
 
     public void Show()

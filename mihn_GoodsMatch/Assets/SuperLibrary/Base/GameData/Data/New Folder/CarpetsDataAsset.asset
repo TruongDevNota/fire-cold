@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRandom: 0
   list:
-  - name: carpet1
-    id: carpet1
+  - name: tham0
+    id: tham0
     idThumb: 
     index: 0
     description: 
@@ -28,11 +28,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 100
-    main: {fileID: 21300000, guid: 9749ee2b4b353f748bcdec26ec4ee061, type: 3}
+    main: {fileID: 21300000, guid: fd157147024df1c40a51f7b5e296324c, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: carpet2
-    id: carpet2
+  - name: carpet1
+    id: carpet1
     idThumb: 
     index: 1
     description: 
@@ -45,11 +45,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 200
-    main: {fileID: 21300000, guid: ee35f0ad89930b24dbb664713527d6b3, type: 3}
+    main: {fileID: 21300000, guid: 9749ee2b4b353f748bcdec26ec4ee061, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: carpet3
-    id: carpet3
+  - name: carpet2
+    id: carpet2
     idThumb: 
     index: 2
     description: 
@@ -62,11 +62,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 300
-    main: {fileID: 21300000, guid: a247519aa9c7335499a7dbb9ecd175c3, type: 3}
+    main: {fileID: 21300000, guid: ee35f0ad89930b24dbb664713527d6b3, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: sakura-carpet
-    id: sakura-carpet
+  - name: carpet3
+    id: carpet3
     idThumb: 
     index: 3
     description: 
@@ -79,11 +79,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 400
-    main: {fileID: 21300000, guid: ccdda9ece67e87440a32f1f1faf89991, type: 3}
+    main: {fileID: 21300000, guid: a247519aa9c7335499a7dbb9ecd175c3, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: seaweed-carpet
-    id: seaweed-carpet
+  - name: sakura-carpet
+    id: sakura-carpet
     idThumb: 
     index: 4
     description: 
@@ -96,11 +96,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 500
-    main: {fileID: 21300000, guid: 8e80b89a53adc144986babd08de2eae5, type: 3}
+    main: {fileID: 21300000, guid: ccdda9ece67e87440a32f1f1faf89991, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: stone-carpet
-    id: stone-carpet
+  - name: seaweed-carpet
+    id: seaweed-carpet
     idThumb: 
     index: 5
     description: 
@@ -113,11 +113,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 600
-    main: {fileID: 21300000, guid: 8401f971326095744b10001b7f837aaf, type: 3}
+    main: {fileID: 21300000, guid: 8e80b89a53adc144986babd08de2eae5, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: carpet3
-    id: carpet3
+  - name: stone-carpet
+    id: stone-carpet
     idThumb: 
     index: 6
     description: 
@@ -130,11 +130,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 700
-    main: {fileID: 21300000, guid: 4926d1e6475c62d45b8bcb3b4c9729f2, type: 3}
+    main: {fileID: 21300000, guid: 8401f971326095744b10001b7f837aaf, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: carpet2
-    id: carpet2
+  - name: carpet3
+    id: carpet3
     idThumb: 
     index: 7
     description: 
@@ -147,11 +147,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 800
-    main: {fileID: 21300000, guid: b4571d47a0e8ccd43acc1cb20fdc76e4, type: 3}
+    main: {fileID: 21300000, guid: 4926d1e6475c62d45b8bcb3b4c9729f2, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: carpet1
-    id: carpet1
+  - name: carpet2
+    id: carpet2
     idThumb: 
     index: 8
     description: 
@@ -164,11 +164,29 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 900
+    main: {fileID: 21300000, guid: b4571d47a0e8ccd43acc1cb20fdc76e4, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: carpet1
+    id: carpet1
+    idThumb: 
+    index: 9
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 1000
     main: {fileID: 21300000, guid: 8eba8613c3daefd4cb04d9631fc6da90, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
   allPrefabs: []
   allThumbsTier1:
+  - {fileID: 21300000, guid: fd157147024df1c40a51f7b5e296324c, type: 3}
   - {fileID: 21300000, guid: 9749ee2b4b353f748bcdec26ec4ee061, type: 3}
   - {fileID: 21300000, guid: ee35f0ad89930b24dbb664713527d6b3, type: 3}
   - {fileID: 21300000, guid: a247519aa9c7335499a7dbb9ecd175c3, type: 3}

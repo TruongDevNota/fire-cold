@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRandom: 0
   list:
-  - name: abc
-    id: abc
+  - name: ghe0
+    id: ghe0
     idThumb: 
     index: 0
     description: 
@@ -28,11 +28,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 100
-    main: {fileID: 21300000, guid: 2d2f6da5ae0c926478c9dde18ec5fe67, type: 3}
+    main: {fileID: 21300000, guid: 7ee85c4ee38e1ed4d997d78acac0fe4c, type: 3}
     background: {fileID: 0}
-    gameObject: {fileID: 4088739155503089772, guid: 8399bcdcaaebea54e85759d8ef0f63b1, type: 3}
-  - name: sofa1
-    id: sofa1
+    gameObject: {fileID: 4088739155503089772, guid: 0170a179234350842a6eda31d95db296, type: 3}
+  - name: abc
+    id: abc
     idThumb: 
     index: 1
     description: 
@@ -45,11 +45,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 200
-    main: {fileID: 21300000, guid: b9905070446c7184580e71b796eef065, type: 3}
+    main: {fileID: 21300000, guid: 2d2f6da5ae0c926478c9dde18ec5fe67, type: 3}
     background: {fileID: 0}
-    gameObject: {fileID: 4088739155503089772, guid: 080d529150b948b48a45b5a5c2ab5259, type: 3}
-  - name: sofa2
-    id: sofa2
+    gameObject: {fileID: 4088739155503089772, guid: 8399bcdcaaebea54e85759d8ef0f63b1, type: 3}
+  - name: sofa1
+    id: sofa1
     idThumb: 
     index: 2
     description: 
@@ -62,11 +62,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 300
-    main: {fileID: 21300000, guid: a2b51d345d4d1aa4a94bab2d6e50367c, type: 3}
+    main: {fileID: 21300000, guid: b9905070446c7184580e71b796eef065, type: 3}
     background: {fileID: 0}
-    gameObject: {fileID: 4088739155503089772, guid: 5387fccf731d88144aeae6496e345501, type: 3}
-  - name: sofa3
-    id: sofa3
+    gameObject: {fileID: 4088739155503089772, guid: 080d529150b948b48a45b5a5c2ab5259, type: 3}
+  - name: sofa2
+    id: sofa2
     idThumb: 
     index: 3
     description: 
@@ -79,11 +79,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 400
-    main: {fileID: 21300000, guid: 6613dac22b0134241a8e9246d6054a3d, type: 3}
+    main: {fileID: 21300000, guid: a2b51d345d4d1aa4a94bab2d6e50367c, type: 3}
     background: {fileID: 0}
-    gameObject: {fileID: 4088739155503089772, guid: 9471e0a0a950ee14a80178aec6201723, type: 3}
-  - name: bookshelf
-    id: bookshelf
+    gameObject: {fileID: 4088739155503089772, guid: 5387fccf731d88144aeae6496e345501, type: 3}
+  - name: sofa3
+    id: sofa3
     idThumb: 
     index: 4
     description: 
@@ -96,11 +96,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 500
-    main: {fileID: 21300000, guid: 687bd52f57e8fd843ae86b6906bd944e, type: 3}
+    main: {fileID: 21300000, guid: 6613dac22b0134241a8e9246d6054a3d, type: 3}
     background: {fileID: 0}
-    gameObject: {fileID: 4088739155503089772, guid: a9b64c74cf4d74e47a701f889b1d03ce, type: 3}
-  - name: chair
-    id: chair
+    gameObject: {fileID: 4088739155503089772, guid: 9471e0a0a950ee14a80178aec6201723, type: 3}
+  - name: bookshelf
+    id: bookshelf
     idThumb: 
     index: 5
     description: 
@@ -113,11 +113,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 600
-    main: {fileID: 21300000, guid: e044669be6663024da27c48d0bb4ef7a, type: 3}
+    main: {fileID: 21300000, guid: 687bd52f57e8fd843ae86b6906bd944e, type: 3}
     background: {fileID: 0}
-    gameObject: {fileID: 4088739155503089772, guid: 7a83bc5c7e4b1ad42aa79e5431e4a35e, type: 3}
-  - name: blue-flag
-    id: blue-flag
+    gameObject: {fileID: 4088739155503089772, guid: a9b64c74cf4d74e47a701f889b1d03ce, type: 3}
+  - name: chair
+    id: chair
     idThumb: 
     index: 6
     description: 
@@ -130,11 +130,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 700
-    main: {fileID: 21300000, guid: 6e328a0d7e7de6041bde6b8012de666c, type: 3}
+    main: {fileID: 21300000, guid: e044669be6663024da27c48d0bb4ef7a, type: 3}
     background: {fileID: 0}
-    gameObject: {fileID: 4532825295142351325, guid: 02cc2c27e62d01a4588fa3a8cf0e6141, type: 3}
-  - name: fish-flag
-    id: fish-flag
+    gameObject: {fileID: 4088739155503089772, guid: 7a83bc5c7e4b1ad42aa79e5431e4a35e, type: 3}
+  - name: blue-flag
+    id: blue-flag
     idThumb: 
     index: 7
     description: 
@@ -147,11 +147,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 800
-    main: {fileID: 21300000, guid: 5504a023c0c13df4a9934204df442fe2, type: 3}
+    main: {fileID: 21300000, guid: 6e328a0d7e7de6041bde6b8012de666c, type: 3}
     background: {fileID: 0}
-    gameObject: {fileID: 864628198009676722, guid: 5b86e841f1a5e88479e7fae354e76356, type: 3}
-  - name: red-flag
-    id: red-flag
+    gameObject: {fileID: 4532825295142351325, guid: 02cc2c27e62d01a4588fa3a8cf0e6141, type: 3}
+  - name: fish-flag
+    id: fish-flag
     idThumb: 
     index: 8
     description: 
@@ -164,6 +164,23 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 900
+    main: {fileID: 21300000, guid: 5504a023c0c13df4a9934204df442fe2, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 864628198009676722, guid: 5b86e841f1a5e88479e7fae354e76356, type: 3}
+  - name: red-flag
+    id: red-flag
+    idThumb: 
+    index: 9
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 1000
     main: {fileID: 21300000, guid: 5b4e006bbee70b948882678ee74b4002, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 4714950958330150740, guid: c9ec2e0880e594c489a33552f6fba0b9, type: 3}
@@ -177,7 +194,9 @@ MonoBehaviour:
   - {fileID: 4532825295142351325, guid: 02cc2c27e62d01a4588fa3a8cf0e6141, type: 3}
   - {fileID: 864628198009676722, guid: 5b86e841f1a5e88479e7fae354e76356, type: 3}
   - {fileID: 4714950958330150740, guid: c9ec2e0880e594c489a33552f6fba0b9, type: 3}
+  - {fileID: 4088739155503089772, guid: 0170a179234350842a6eda31d95db296, type: 3}
   allThumbsTier1:
+  - {fileID: 21300000, guid: 7ee85c4ee38e1ed4d997d78acac0fe4c, type: 3}
   - {fileID: 21300000, guid: 2d2f6da5ae0c926478c9dde18ec5fe67, type: 3}
   - {fileID: 21300000, guid: b9905070446c7184580e71b796eef065, type: 3}
   - {fileID: 21300000, guid: a2b51d345d4d1aa4a94bab2d6e50367c, type: 3}

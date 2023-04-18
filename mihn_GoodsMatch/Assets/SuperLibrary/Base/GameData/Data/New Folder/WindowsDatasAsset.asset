@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRandom: 0
   list:
-  - name: window1
-    id: window1
+  - name: cua so0
+    id: cua so0
     idThumb: 
     index: 0
     description: 
@@ -28,11 +28,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 100
-    main: {fileID: 21300000, guid: 1d059f59de2ae49499e287275c3953f7, type: 3}
+    main: {fileID: 21300000, guid: 8b36114e67ea933449d9322b644a3b24, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: window2
-    id: window2
+  - name: window1
+    id: window1
     idThumb: 
     index: 1
     description: 
@@ -45,11 +45,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 200
-    main: {fileID: 21300000, guid: eda28604eac278246b8c756b87df5b07, type: 3}
+    main: {fileID: 21300000, guid: 1d059f59de2ae49499e287275c3953f7, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: window3
-    id: window3
+  - name: window2
+    id: window2
     idThumb: 
     index: 2
     description: 
@@ -62,11 +62,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 300
-    main: {fileID: 21300000, guid: d8631c6c5fe07f04ba925f9dae7faf31, type: 3}
+    main: {fileID: 21300000, guid: eda28604eac278246b8c756b87df5b07, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: 3
-    id: 3
+  - name: window3
+    id: window3
     idThumb: 
     index: 3
     description: 
@@ -79,11 +79,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 400
-    main: {fileID: 21300000, guid: 0d57df32e41072045a39ad75f74be4da, type: 3}
+    main: {fileID: 21300000, guid: d8631c6c5fe07f04ba925f9dae7faf31, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: 2
-    id: 2
+  - name: 3
+    id: 3
     idThumb: 
     index: 4
     description: 
@@ -96,11 +96,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 500
-    main: {fileID: 21300000, guid: 52219ba32c9d9be4b836787cad104969, type: 3}
+    main: {fileID: 21300000, guid: 0d57df32e41072045a39ad75f74be4da, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: 1
-    id: 1
+  - name: 2
+    id: 2
     idThumb: 
     index: 5
     description: 
@@ -113,11 +113,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 600
-    main: {fileID: 21300000, guid: b809505ff630d204fa0bf599d4ce8f1b, type: 3}
+    main: {fileID: 21300000, guid: 52219ba32c9d9be4b836787cad104969, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: window1
-    id: window1
+  - name: 1
+    id: 1
     idThumb: 
     index: 6
     description: 
@@ -130,11 +130,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 700
-    main: {fileID: 21300000, guid: ce15ed7c9b10ccf4a8cec1aaf2c9697c, type: 3}
+    main: {fileID: 21300000, guid: b809505ff630d204fa0bf599d4ce8f1b, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: window2
-    id: window2
+  - name: window1
+    id: window1
     idThumb: 
     index: 7
     description: 
@@ -147,11 +147,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 800
-    main: {fileID: 21300000, guid: e6afd8df9f762224a89403793dc39deb, type: 3}
+    main: {fileID: 21300000, guid: ce15ed7c9b10ccf4a8cec1aaf2c9697c, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: window3
-    id: window3
+  - name: window2
+    id: window2
     idThumb: 
     index: 8
     description: 
@@ -164,11 +164,29 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 900
+    main: {fileID: 21300000, guid: e6afd8df9f762224a89403793dc39deb, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: window3
+    id: window3
+    idThumb: 
+    index: 9
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 1000
     main: {fileID: 21300000, guid: 73081927c8180584c9e5a7b4d6ff49cc, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
   allPrefabs: []
   allThumbsTier1:
+  - {fileID: 21300000, guid: 8b36114e67ea933449d9322b644a3b24, type: 3}
   - {fileID: 21300000, guid: 1d059f59de2ae49499e287275c3953f7, type: 3}
   - {fileID: 21300000, guid: eda28604eac278246b8c756b87df5b07, type: 3}
   - {fileID: 21300000, guid: d8631c6c5fe07f04ba925f9dae7faf31, type: 3}
