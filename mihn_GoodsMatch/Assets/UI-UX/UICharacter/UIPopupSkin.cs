@@ -500,6 +500,7 @@ public class UIPopupSkin : MonoBehaviour
 
     public void Show()
     {
+        //CoinManager.Add(10000);
         anim.Show(() =>
         {
         });

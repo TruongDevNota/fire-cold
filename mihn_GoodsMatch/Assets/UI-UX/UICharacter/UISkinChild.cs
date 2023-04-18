@@ -474,6 +474,13 @@ public class UISkinChild : MonoBehaviour
     {
         if (!data.isUnlocked)
         {
+            if (!DataManager.UserData.isShopTutShowed)
+            {
+                DataManager.UserData.isShopTutShowed = true;
+                handTut.SetActive(false);
+                this.PostEvent((int)EventID.OnDecorTutorialComplete);
+                CoinManager.Add(2000);
+            }
             if (data._unlockType == UnlockType.Gold)
             {
                 if (DataManager.UserData.totalCoin >= data._unlockPrice)
@@ -481,12 +488,7 @@ public class UISkinChild : MonoBehaviour
                     CoinManager.Add(-data._unlockPrice);
                     data.isUnlocked = true;
                     DataManager.SkinsAsset.Current = data;
-                    if (!DataManager.UserData.isShopTutShowed)
-                    {
-                        DataManager.UserData.isShopTutShowed = true;
-                        handTut.SetActive(false);
-                        this.PostEvent((int)EventID.OnDecorTutorialComplete);
-                    }
+
                     DataManager.Save();
 
                 }
