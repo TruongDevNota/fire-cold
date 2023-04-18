@@ -96,7 +96,7 @@ public class UIPopupSkin : MonoBehaviour
 
         shopScrollView.FirstOrDefault().GetComponent<ScrollRect>().enabled = true;
 
-        //imgCoverRectTf.gameObject.Recycle();
+        imgCoverRectTf.gameObject.Recycle();
 
     }
 
@@ -165,26 +165,26 @@ public class UIPopupSkin : MonoBehaviour
                         currentSkinData = skins.list[i];
 
                     // For tutorials
-                    //if (!DataManager.UserData.isShopTutShowed)
-                    //{
-                    //    var btn = obj.GetComponent<UISkinChild>();
-                    //    if (btn != null)
-                    //    {
-                    //        //0 is current selected => nothing happend
-                    //        //Creat image at element 1
-                    //        if (i == 1)
-                    //        {
-                    //            CreateImageCoverForTutorial(btn);
-                    //        }
-                    //        //disable button in others element greater than 1
-                    //        else
-                    //        {
-                    //            btn.coinBtn.enabled = false;
-                    //            btn.adsBtn.enabled = false;
-                    //        }
-                    //    }
+                    if (!DataManager.UserData.isShopTutShowed)
+                    {
+                        var btn = obj.GetComponent<UISkinChild>();
+                        if (btn != null)
+                        {
+                            //0 is current selected => nothing happend
+                            //Creat image at element 1
+                            if (i == 1)
+                            {
+                                CreateImageCoverForTutorial(btn);
+                            }
+                            //disable button in others element greater than 1
+                            else
+                            {
+                                btn.coinBtn.enabled = false;
+                                btn.adsBtn.enabled = false;
+                            }
+                        }
 
-                    //}
+                    }
                     yield return null;
                 }
             }

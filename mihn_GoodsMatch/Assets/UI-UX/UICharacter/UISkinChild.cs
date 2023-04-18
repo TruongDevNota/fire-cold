@@ -136,10 +136,10 @@ public class UISkinChild : MonoBehaviour
         var rect = imgMain.GetComponent<RectTransform>();
         if (skinData.index != 0)
         {
-            imgMain.SetNativeSize();
+            //imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
-        rect.sizeDelta = skinData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.04f;
+       // rect.sizeDelta = skinData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.04f;
 
         selectedObj.SetActive(skinData.isSelected && skinData.isUnlocked);
         backgrounMain.sprite = (skinData.isSelected && skinData.isUnlocked) ? selectedSprite : nonSelectSprite;
