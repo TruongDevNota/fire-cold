@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRandom: 0
   list:
-  - name: sofa1
-    id: sofa1
+  - name: abc
+    id: abc
     idThumb: 
     index: 0
     description: 
@@ -28,11 +28,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 100
-    main: {fileID: 21300000, guid: b9905070446c7184580e71b796eef065, type: 3}
+    main: {fileID: 21300000, guid: 2d2f6da5ae0c926478c9dde18ec5fe67, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: sofa2
-    id: sofa2
+  - name: bookshelf
+    id: bookshelf
     idThumb: 
     index: 1
     description: 
@@ -45,11 +45,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 200
-    main: {fileID: 21300000, guid: a2b51d345d4d1aa4a94bab2d6e50367c, type: 3}
+    main: {fileID: 21300000, guid: 687bd52f57e8fd843ae86b6906bd944e, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: sofa3
-    id: sofa3
+  - name: chair
+    id: chair
     idThumb: 
     index: 2
     description: 
@@ -62,11 +62,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 300
-    main: {fileID: 21300000, guid: 6613dac22b0134241a8e9246d6054a3d, type: 3}
+    main: {fileID: 21300000, guid: e044669be6663024da27c48d0bb4ef7a, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: object1
-    id: object1
+  - name: blue-flag
+    id: blue-flag
     idThumb: 
     index: 3
     description: 
@@ -79,11 +79,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 400
-    main: {fileID: 21300000, guid: dce833b3d64733949b2c477f7403224d, type: 3}
+    main: {fileID: 21300000, guid: 6e328a0d7e7de6041bde6b8012de666c, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: object2
-    id: object2
+  - name: fish-flag
+    id: fish-flag
     idThumb: 
     index: 4
     description: 
@@ -96,11 +96,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 500
-    main: {fileID: 21300000, guid: 220bb9a785294144fbbac543df628a8e, type: 3}
+    main: {fileID: 21300000, guid: 5504a023c0c13df4a9934204df442fe2, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: object3
-    id: object3
+  - name: red-flag
+    id: red-flag
     idThumb: 
     index: 5
     description: 
@@ -113,14 +113,68 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 600
-    main: {fileID: 21300000, guid: 56760499a6819ce4ea8a8929614adde1, type: 3}
+    main: {fileID: 21300000, guid: 5b4e006bbee70b948882678ee74b4002, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: sofa1
+    id: sofa1
+    idThumb: 
+    index: 6
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 700
+    main: {fileID: 21300000, guid: b9905070446c7184580e71b796eef065, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: sofa2
+    id: sofa2
+    idThumb: 
+    index: 7
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 800
+    main: {fileID: 21300000, guid: a2b51d345d4d1aa4a94bab2d6e50367c, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: sofa3
+    id: sofa3
+    idThumb: 
+    index: 8
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 900
+    main: {fileID: 21300000, guid: 6613dac22b0134241a8e9246d6054a3d, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
   allPrefabs: []
   allThumbsTier1:
+  - {fileID: 21300000, guid: 2d2f6da5ae0c926478c9dde18ec5fe67, type: 3}
+  - {fileID: 21300000, guid: 687bd52f57e8fd843ae86b6906bd944e, type: 3}
+  - {fileID: 21300000, guid: e044669be6663024da27c48d0bb4ef7a, type: 3}
+  - {fileID: 21300000, guid: 6e328a0d7e7de6041bde6b8012de666c, type: 3}
+  - {fileID: 21300000, guid: 5504a023c0c13df4a9934204df442fe2, type: 3}
+  - {fileID: 21300000, guid: 5b4e006bbee70b948882678ee74b4002, type: 3}
   - {fileID: 21300000, guid: b9905070446c7184580e71b796eef065, type: 3}
   - {fileID: 21300000, guid: a2b51d345d4d1aa4a94bab2d6e50367c, type: 3}
   - {fileID: 21300000, guid: 6613dac22b0134241a8e9246d6054a3d, type: 3}
-  - {fileID: 21300000, guid: dce833b3d64733949b2c477f7403224d, type: 3}
-  - {fileID: 21300000, guid: 220bb9a785294144fbbac543df628a8e, type: 3}
-  - {fileID: 21300000, guid: 56760499a6819ce4ea8a8929614adde1, type: 3}

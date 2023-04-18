@@ -123,13 +123,10 @@ public class RoomDecorManager : MonoBehaviour
     {
         roomCam.transform.DOLocalMoveY(translateCam, timeMoveCam);
         
-        
-        roomCam.fieldOfView = fieldOfViewShop;
     }
     private void IdleGame()
     {
         // roomCam.transform.DOLocalMoveY(0, timeMoveCam);
-        roomCam.fieldOfView = fieldOfViewIdle;
     }
     private void ActiveAnim(object obj)
     {

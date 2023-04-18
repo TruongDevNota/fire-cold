@@ -116,6 +116,57 @@ MonoBehaviour:
     main: {fileID: 21300000, guid: 4e0039a51491be348a1b0d83c4e0593e, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
+  - name: wall1
+    id: wall1
+    idThumb: 
+    index: 6
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 700
+    main: {fileID: 21300000, guid: 632f56e52f195e34a85257534e293840, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall2
+    id: wall2
+    idThumb: 
+    index: 7
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 800
+    main: {fileID: 21300000, guid: a07cfaf7a459b6a47801350741b2ea5b, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
+  - name: wall3
+    id: wall3
+    idThumb: 
+    index: 8
+    description: 
+    unlockType: 2
+    unlockPrice: 1
+    isUnlocked: 0
+    isSelected: 0
+    count: 0
+    countHit: 0
+    unlockPay: 0
+    _unlockType: 1
+    _unlockPrice: 900
+    main: {fileID: 21300000, guid: 8acd47c991b6a1346841795c008eb224, type: 3}
+    background: {fileID: 0}
+    gameObject: {fileID: 0}
   allPrefabs: []
   allThumbsTier1:
   - {fileID: 21300000, guid: 9f14a3a6bfb01f542aec22fc07c437f2, type: 3}
@@ -124,3 +175,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 90ed2eacf5bb8b74ea20a7bb357e8559, type: 3}
   - {fileID: 21300000, guid: 626cd746d12aeda4f8fb4fe14a86f7a4, type: 3}
   - {fileID: 21300000, guid: 4e0039a51491be348a1b0d83c4e0593e, type: 3}
+  - {fileID: 21300000, guid: 632f56e52f195e34a85257534e293840, type: 3}
+  - {fileID: 21300000, guid: a07cfaf7a459b6a47801350741b2ea5b, type: 3}
+  - {fileID: 21300000, guid: 8acd47c991b6a1346841795c008eb224, type: 3}
