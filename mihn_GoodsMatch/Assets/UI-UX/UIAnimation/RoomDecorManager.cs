@@ -35,6 +35,7 @@ public class RoomDecorManager : MonoBehaviour
     [SerializeField] private float fieldOfViewShop = 88f;
     [SerializeField] private float fieldOfViewIdle = 60f;
 
+    GameObject chairObject;
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
@@ -47,7 +48,7 @@ public class RoomDecorManager : MonoBehaviour
         ChairsAsset.OnChanged += ChairsAsset_OnChanged;
         TablesAsset.OnChanged += TablesAsset_OnChanged;
         LampsAsset.OnChanged += LampsAsset_OnChanged;
-        cat1.AnimationName="idle1";
+        cat1.AnimationName = "idle1";
         cat2.AnimationName = "idle1";
         this.RegisterListener((int)EventID.BuySuccess, ActiveAnim);
     }
@@ -117,12 +118,12 @@ public class RoomDecorManager : MonoBehaviour
         }
     }
     private float timeMoveCam = 0.35f;
-   [SerializeField] private float delayAnim=1f;
+    [SerializeField] private float delayAnim = 1f;
 
     private void GoToShop()
     {
         roomCam.transform.DOLocalMoveY(translateCam, timeMoveCam);
-        
+
     }
     private void IdleGame()
     {
@@ -210,7 +211,22 @@ public class RoomDecorManager : MonoBehaviour
     }
     private void SetChairDecorSprite(ChairData current)
     {
-        chairsImg.sprite = current.main;
+        if (chairObject != null)
+        {
+            Destroy(chairObject.gameObject);
+        }
+        if (current.gameObject.TryGetComponent<SkeletonAnimation>(out SkeletonAnimation animFlag))
+        {
+            chairObject = Instantiate(current.gameObject, chairsImg.transform);
+            chairsImg.sprite = null;
+            chairsImg.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            chairsImg.sprite = current.main;
+            chairsImg.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        }
+            
     }
     private void SetTableDecorSprite(TableData current)
     {

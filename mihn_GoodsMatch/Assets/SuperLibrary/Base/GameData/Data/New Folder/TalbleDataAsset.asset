@@ -65,8 +65,8 @@ MonoBehaviour:
     main: {fileID: 21300000, guid: 9e919302b02007f42b248db0a8a9d4d1, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: red-flag
-    id: red-flag
+  - name: object1
+    id: object1
     idThumb: 
     index: 3
     description: 
@@ -79,11 +79,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 400
-    main: {fileID: 21300000, guid: 5b4e006bbee70b948882678ee74b4002, type: 3}
+    main: {fileID: 21300000, guid: dce833b3d64733949b2c477f7403224d, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: fish-flag
-    id: fish-flag
+  - name: object2
+    id: object2
     idThumb: 
     index: 4
     description: 
@@ -96,11 +96,11 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 500
-    main: {fileID: 21300000, guid: 5504a023c0c13df4a9934204df442fe2, type: 3}
+    main: {fileID: 21300000, guid: 220bb9a785294144fbbac543df628a8e, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
-  - name: blue-flag
-    id: blue-flag
+  - name: object3
+    id: object3
     idThumb: 
     index: 5
     description: 
@@ -113,7 +113,7 @@ MonoBehaviour:
     unlockPay: 0
     _unlockType: 1
     _unlockPrice: 600
-    main: {fileID: 21300000, guid: 6e328a0d7e7de6041bde6b8012de666c, type: 3}
+    main: {fileID: 21300000, guid: 56760499a6819ce4ea8a8929614adde1, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
   - name: easel
