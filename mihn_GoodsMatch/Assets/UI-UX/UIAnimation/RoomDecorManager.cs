@@ -28,9 +28,6 @@ public class RoomDecorManager : MonoBehaviour
     private SpriteRenderer lampImg = null;
 
 
-    [SerializeField] private SkeletonAnimation cat1;
-    [SerializeField] private SkeletonAnimation cat2;
-
     [SerializeField] private float translateCam = -2.85f;
     [SerializeField] private float fieldOfViewShop = 88f;
     [SerializeField] private float fieldOfViewIdle = 60f;
@@ -48,9 +45,6 @@ public class RoomDecorManager : MonoBehaviour
         ChairsAsset.OnChanged += ChairsAsset_OnChanged;
         TablesAsset.OnChanged += TablesAsset_OnChanged;
         LampsAsset.OnChanged += LampsAsset_OnChanged;
-        cat1.AnimationName = "idle1";
-        cat2.AnimationName = "idle1";
-        this.RegisterListener((int)EventID.BuySuccess, ActiveAnim);
     }
 
 
@@ -129,19 +123,7 @@ public class RoomDecorManager : MonoBehaviour
     {
         // roomCam.transform.DOLocalMoveY(0, timeMoveCam);
     }
-    private void ActiveAnim(object obj)
-    {
-        cat1.AnimationName = "happy";
-        cat2.AnimationName = "happy";
-        StartCoroutine(DelayAnim());
-    }
 
-    private IEnumerator DelayAnim()
-    {
-        yield return new WaitForSeconds(delayAnim);
-        cat1.AnimationName = "idle1";
-        cat2.AnimationName = "idle1";
-    }
 
     //private IEnumerator YieldMoveCameraIdle()
     //{

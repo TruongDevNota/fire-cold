@@ -61,7 +61,6 @@ public class UISkinChild : MonoBehaviour
     public LampData lampData;
     public Button coinBtn => btnGold;
     public Button adsBtn => btnAds;
-    
     public GameObject handTut => _handTut;
 
     private Vector2 noDecorIconSize = new Vector2(60, 90);
@@ -137,10 +136,10 @@ public class UISkinChild : MonoBehaviour
         var rect = imgMain.GetComponent<RectTransform>();
         if (skinData.index != 0)
         {
-            //imgMain.SetNativeSize();
+            imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
-        //rect.sizeDelta = skinData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.05f;
+        rect.sizeDelta = skinData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.04f;
 
         selectedObj.SetActive(skinData.isSelected && skinData.isUnlocked);
         backgrounMain.sprite = (skinData.isSelected && skinData.isUnlocked) ? selectedSprite : nonSelectSprite;
@@ -150,15 +149,15 @@ public class UISkinChild : MonoBehaviour
         btnAds.gameObject.SetActive(!skinData.isUnlocked && skinData._unlockType == UnlockType.Ads);
         txtAds.text = /*skinData._unlockPrice.ToString()*/"FREE";
 
-        //if (skinData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= skinData._unlockPrice)
-        //{
-        //    if (!skinData.isUnlocked)
-        //    {
-        //        skinData.isUnlocked = true;
-        //        skinData.isSelected = false;
-        //    }
-        //    DataManager.Save();
-        //}
+        if (skinData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= skinData._unlockPrice)
+        {
+            if (!skinData.isUnlocked)
+            {
+                skinData.isUnlocked = true;
+                skinData.isSelected = false;
+            }
+            DataManager.Save();
+        }
         btnStar.gameObject.SetActive(/*!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold*/false);
         txtStar.text = $"{DataManager.UserData.TotalWin}/{skinData._unlockPrice}";
         btnEquipe.gameObject.SetActive(!skinData.isSelected && skinData.isUnlocked);
@@ -176,7 +175,7 @@ public class UISkinChild : MonoBehaviour
             imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
-        rect.sizeDelta = windowsData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.1f;
+        rect.sizeDelta = windowsData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.09f;
 
         selectedObj.SetActive(windowsData.isSelected && windowsData.isUnlocked);
         backgrounMain.sprite = (windowsData.isSelected && windowsData.isUnlocked) ? selectedSprite : nonSelectSprite;
@@ -187,15 +186,15 @@ public class UISkinChild : MonoBehaviour
         btnAds.gameObject.SetActive(!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Ads);
         txtAds.text = /*windowsData._unlockPrice.ToString()*/"FREE";
 
-        //if (windowsData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= windowsData._unlockPrice)
-        //{
-        //    if (!windowsData.isUnlocked)
-        //    {
-        //        windowsData.isUnlocked = true;
-        //        windowsData.isSelected = false;
-        //    }
-        //    DataManager.Save();
-        //}
+        if (windowsData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= windowsData._unlockPrice)
+        {
+            if (!windowsData.isUnlocked)
+            {
+                windowsData.isUnlocked = true;
+                windowsData.isSelected = false;
+            }
+            DataManager.Save();
+        }
         btnStar.gameObject.SetActive(/*!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold*/false);
         txtStar.text = $"{DataManager.UserData.TotalWin}/{windowsData._unlockPrice}";
 
@@ -214,7 +213,7 @@ public class UISkinChild : MonoBehaviour
             imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
-        rect.sizeDelta = floorData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.05f;
+        rect.sizeDelta = floorData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.04f;
 
         selectedObj.SetActive(floorData.isSelected && floorData.isUnlocked);
         backgrounMain.sprite = (floorData.isSelected && floorData.isUnlocked) ? selectedSprite : nonSelectSprite;
@@ -225,15 +224,15 @@ public class UISkinChild : MonoBehaviour
         btnAds.gameObject.SetActive(!floorData.isUnlocked && floorData._unlockType == UnlockType.Ads);
         txtAds.text =/* floorData._unlockPrice.ToString()*/"FREE";
 
-        //if (floorData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= floorData._unlockPrice)
-        //{
-        //    if (!floorData.isUnlocked)
-        //    {
-        //        floorData.isUnlocked = true;
-        //        floorData.isSelected = false;
-        //    }
-        //    DataManager.Save();
-        //}
+        if (floorData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= floorData._unlockPrice)
+        {
+            if (!floorData.isUnlocked)
+            {
+                floorData.isUnlocked = true;
+                floorData.isSelected = false;
+            }
+            DataManager.Save();
+        }
         btnStar.gameObject.SetActive(/*!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold*/false);
         txtStar.text = $"{DataManager.UserData.TotalWin}/{floorData._unlockPrice}";
         btnEquipe.gameObject.SetActive(!floorData.isSelected && floorData.isUnlocked);
@@ -251,7 +250,7 @@ public class UISkinChild : MonoBehaviour
             imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
-        rect.sizeDelta = ceillingData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.1f;
+        rect.sizeDelta = ceillingData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.09f;
 
         selectedObj.SetActive(ceillingData.isSelected && ceillingData.isUnlocked);
         backgrounMain.sprite = (ceillingData.isSelected && ceillingData.isUnlocked) ? selectedSprite : nonSelectSprite;
@@ -262,15 +261,15 @@ public class UISkinChild : MonoBehaviour
         btnAds.gameObject.SetActive(!ceillingData.isUnlocked && ceillingData._unlockType == UnlockType.Ads);
         txtAds.text = /*ceillingData._unlockPrice.ToString()*/"FREE";
 
-        //if (ceillingData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= ceillingData._unlockPrice)
-        //{
-        //    if (!ceillingData.isUnlocked)
-        //    {
-        //        ceillingData.isUnlocked = true;
-        //        ceillingData.isSelected = false;
-        //    }
-        //    DataManager.Save();
-        //}
+        if (ceillingData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= ceillingData._unlockPrice)
+        {
+            if (!ceillingData.isUnlocked)
+            {
+                ceillingData.isUnlocked = true;
+                ceillingData.isSelected = false;
+            }
+            DataManager.Save();
+        }
         btnStar.gameObject.SetActive(/*!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold*/false);
         txtStar.text = $"{DataManager.UserData.TotalWin}/{ceillingData._unlockPrice}";
         btnEquipe.gameObject.SetActive(!ceillingData.isSelected && ceillingData.isUnlocked);
@@ -288,7 +287,7 @@ public class UISkinChild : MonoBehaviour
             imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
-        rect.sizeDelta = carpetData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.085f;
+        rect.sizeDelta = carpetData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.075f;
 
         selectedObj.SetActive(carpetData.isSelected && carpetData.isUnlocked);
         backgrounMain.sprite = (carpetData.isSelected && carpetData.isUnlocked) ? selectedSprite : nonSelectSprite;
@@ -299,15 +298,15 @@ public class UISkinChild : MonoBehaviour
         btnAds.gameObject.SetActive(!carpetData.isUnlocked && carpetData._unlockType == UnlockType.Ads);
         txtAds.text = /*carpetData._unlockPrice.ToString()*/"FREE";
 
-        //if (carpetData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= carpetData._unlockPrice)
-        //{
-        //    if (!carpetData.isUnlocked)
-        //    {
-        //        carpetData.isUnlocked = true;
-        //        carpetData.isSelected = false;
-        //    }
-        //    DataManager.Save();
-        //}
+        if (carpetData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= carpetData._unlockPrice)
+        {
+            if (!carpetData.isUnlocked)
+            {
+                carpetData.isUnlocked = true;
+                carpetData.isSelected = false;
+            }
+            DataManager.Save();
+        }
         btnStar.gameObject.SetActive(/*!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold*/false);
         txtStar.text = $"{DataManager.UserData.TotalWin}/{carpetData._unlockPrice}";
         btnEquipe.gameObject.SetActive(!carpetData.isSelected && carpetData.isUnlocked);
@@ -325,7 +324,7 @@ public class UISkinChild : MonoBehaviour
             imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
-        rect.sizeDelta = chairData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.1f;
+        rect.sizeDelta = chairData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.09f;
 
         selectedObj.SetActive(chairData.isSelected && chairData.isUnlocked);
         backgrounMain.sprite = (chairData.isSelected && chairData.isUnlocked) ? selectedSprite : nonSelectSprite;
@@ -336,15 +335,15 @@ public class UISkinChild : MonoBehaviour
         btnAds.gameObject.SetActive(!chairData.isUnlocked && chairData._unlockType == UnlockType.Ads);
         txtAds.text = /*chairData._unlockPrice.ToString()*/"FREE";
 
-        //if (chairData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= chairData._unlockPrice)
-        //{
-        //    if (!chairData.isUnlocked)
-        //    {
-        //        chairData.isUnlocked = true;
-        //        chairData.isSelected = false;
-        //    }
-        //    DataManager.Save();
-        //}
+        if (chairData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= chairData._unlockPrice)
+        {
+            if (!chairData.isUnlocked)
+            {
+                chairData.isUnlocked = true;
+                chairData.isSelected = false;
+            }
+            DataManager.Save();
+        }
         btnStar.gameObject.SetActive(/*!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold*/false);
         txtStar.text = $"{DataManager.UserData.TotalWin}/{chairData._unlockPrice}";
         btnEquipe.gameObject.SetActive(!chairData.isSelected && chairData.isUnlocked);
@@ -362,7 +361,7 @@ public class UISkinChild : MonoBehaviour
             imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
-        rect.sizeDelta = table.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.15f;
+        rect.sizeDelta = table.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.14f;
 
         selectedObj.SetActive(table.isSelected && table.isUnlocked);
         backgrounMain.sprite = (table.isSelected && table.isUnlocked) ? selectedSprite : nonSelectSprite;
@@ -373,15 +372,15 @@ public class UISkinChild : MonoBehaviour
         btnAds.gameObject.SetActive(!table.isUnlocked && table._unlockType == UnlockType.Ads);
         txtAds.text = /*table._unlockPrice.ToString()*/"FREE";
 
-        //if (table._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= table._unlockPrice)
-        //{
-        //    if (!table.isUnlocked)
-        //    {
-        //        table.isUnlocked = true;
-        //        table.isSelected = false;
-        //    }
-        //    DataManager.Save();
-        //}
+        if (table._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= table._unlockPrice)
+        {
+            if (!table.isUnlocked)
+            {
+                table.isUnlocked = true;
+                table.isSelected = false;
+            }
+            DataManager.Save();
+        }
         btnStar.gameObject.SetActive(/*!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold*/false);
         txtStar.text = $"{DataManager.UserData.TotalWin}/{table._unlockPrice}";
         btnEquipe.gameObject.SetActive(!table.isSelected && table.isUnlocked);
@@ -396,10 +395,10 @@ public class UISkinChild : MonoBehaviour
         var rect = imgMain.GetComponent<RectTransform>();
         if (carpetData.index != 0)
         {
-            imgMain.SetNativeSize();
+            //imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
-        rect.sizeDelta = carpetData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.15f;
+        //rect.sizeDelta = carpetData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.14f;
 
         selectedObj.SetActive(carpetData.isSelected && carpetData.isUnlocked);
         backgrounMain.sprite = (carpetData.isSelected && carpetData.isUnlocked) ? selectedSprite : nonSelectSprite;
@@ -410,15 +409,15 @@ public class UISkinChild : MonoBehaviour
         btnAds.gameObject.SetActive(!carpetData.isUnlocked && carpetData._unlockType == UnlockType.Ads);
         txtAds.text = /*carpetData._unlockPrice.ToString()*/"FREE";
 
-        //if (carpetData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= carpetData._unlockPrice)
-        //{
-        //    if (!carpetData.isUnlocked)
-        //    {
-        //        carpetData.isUnlocked = true;
-        //        carpetData.isSelected = false;
-        //    }
-        //    DataManager.Save();
-        //}
+        if (carpetData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= carpetData._unlockPrice)
+        {
+            if (!carpetData.isUnlocked)
+            {
+                carpetData.isUnlocked = true;
+                carpetData.isSelected = false;
+            }
+            DataManager.Save();
+        }
         btnStar.gameObject.SetActive(/*!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold*/false);
         txtStar.text = $"{DataManager.UserData.TotalWin}/{carpetData._unlockPrice}";
         btnEquipe.gameObject.SetActive(!carpetData.isSelected && carpetData.isUnlocked);
@@ -482,9 +481,6 @@ public class UISkinChild : MonoBehaviour
                     CoinManager.Add(-data._unlockPrice);
                     data.isUnlocked = true;
                     DataManager.SkinsAsset.Current = data;
-                    data.isUnlocked = true;
-                    data.isSelected = false;
-                    this.PostEvent((int)EventID.BuySuccess);
                     if (!DataManager.UserData.isShopTutShowed)
                     {
                         DataManager.UserData.isShopTutShowed = true;
@@ -507,9 +503,6 @@ public class UISkinChild : MonoBehaviour
                     {
                         data.isUnlocked = true;
                         DataManager.SkinsAsset.Current = data;
-                        data.isUnlocked = true;
-                        data.isSelected = false;
-                        this.PostEvent((int)EventID.BuySuccess);
                         DataManager.Save();
                     }
                     else
@@ -531,8 +524,6 @@ public class UISkinChild : MonoBehaviour
                     CoinManager.Add(-windowsData._unlockPrice);
                     windowsData.isUnlocked = true;
                     DataManager.WindowAsset.Current = windowsData;
-                    data.isUnlocked = true;
-                    data.isSelected = false; this.PostEvent((int)EventID.BuySuccess);
                     DataManager.Save();
 
                 }
@@ -549,9 +540,7 @@ public class UISkinChild : MonoBehaviour
                     {
                         windowsData.isUnlocked = true;
                         DataManager.WindowAsset.Current = windowsData;
-                        data.isUnlocked = true;
-                        data.isSelected = false;
-                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                        DataManager.Save();
                     }
                     else
                     {
@@ -572,9 +561,7 @@ public class UISkinChild : MonoBehaviour
                     CoinManager.Add(-floorData._unlockPrice);
                     floorData.isUnlocked = true;
                     DataManager.FloorAsset.Current = floorData;
-                    data.isUnlocked = true;
-                    data.isSelected = false;
-                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                    DataManager.Save();
 
                 }
                 else
@@ -590,9 +577,7 @@ public class UISkinChild : MonoBehaviour
                     {
                         floorData.isUnlocked = true;
                         DataManager.FloorAsset.Current = floorData;
-                        data.isUnlocked = true;
-                        data.isSelected = false;
-                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                        DataManager.Save();
                     }
                     else
                     {
@@ -613,9 +598,7 @@ public class UISkinChild : MonoBehaviour
                     CoinManager.Add(-ceillingData._unlockPrice);
                     ceillingData.isUnlocked = true;
                     DataManager.CeillingAsset.Current = ceillingData;
-                    data.isUnlocked = true;
-                    data.isSelected = false;
-                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                    DataManager.Save();
 
                 }
                 else
@@ -631,9 +614,7 @@ public class UISkinChild : MonoBehaviour
                     {
                         ceillingData.isUnlocked = true;
                         DataManager.CeillingAsset.Current = ceillingData;
-                        data.isUnlocked = true;
-                        data.isSelected = false;
-                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                        DataManager.Save();
                     }
                     else
                     {
@@ -654,9 +635,7 @@ public class UISkinChild : MonoBehaviour
                     CoinManager.Add(-carpetData._unlockPrice);
                     carpetData.isUnlocked = true;
                     DataManager.CarpetsAsset.Current = carpetData;
-                    data.isUnlocked = true;
-                    data.isSelected = false;
-                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                    DataManager.Save();
 
                 }
                 else
@@ -672,9 +651,7 @@ public class UISkinChild : MonoBehaviour
                     {
                         carpetData.isUnlocked = true;
                         DataManager.CarpetsAsset.Current = carpetData;
-                        data.isUnlocked = true;
-                        data.isSelected = false;
-                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                        DataManager.Save();
                     }
                     else
                     {
@@ -695,9 +672,7 @@ public class UISkinChild : MonoBehaviour
                     CoinManager.Add(-chairData._unlockPrice);
                     chairData.isUnlocked = true;
                     DataManager.ChairsAsset.Current = chairData;
-                    data.isUnlocked = true;
-                    data.isSelected = false;
-                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                    DataManager.Save();
 
                 }
                 else
@@ -713,9 +688,7 @@ public class UISkinChild : MonoBehaviour
                     {
                         chairData.isUnlocked = true;
                         DataManager.ChairsAsset.Current = chairData;
-                        data.isUnlocked = true;
-                        data.isSelected = false;
-                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                        DataManager.Save();
                     }
                     else
                     {
@@ -736,9 +709,7 @@ public class UISkinChild : MonoBehaviour
                     CoinManager.Add(-tableData._unlockPrice);
                     tableData.isUnlocked = true;
                     DataManager.TableAssets.Current = tableData;
-                    data.isUnlocked = true;
-                    data.isSelected = false;
-                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                    DataManager.Save();
 
                 }
                 else
@@ -754,9 +725,7 @@ public class UISkinChild : MonoBehaviour
                     {
                         tableData.isUnlocked = true;
                         DataManager.TableAssets.Current = tableData;
-                        data.isUnlocked = true;
-                        data.isSelected = false;
-                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                        DataManager.Save();
                     }
                     else
                     {
@@ -777,9 +746,7 @@ public class UISkinChild : MonoBehaviour
                     CoinManager.Add(-lampData._unlockPrice);
                     lampData.isUnlocked = true;
                     DataManager.LampsAsset.Current = lampData;
-                    data.isUnlocked = true;
-                    data.isSelected = false;
-                    DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                    DataManager.Save();
 
                 }
                 else
@@ -795,9 +762,7 @@ public class UISkinChild : MonoBehaviour
                     {
                         lampData.isUnlocked = true;
                         DataManager.LampsAsset.Current = lampData;
-                        data.isUnlocked = true;
-                        data.isSelected = false;
-                        DataManager.Save(); this.PostEvent((int)EventID.BuySuccess);
+                        DataManager.Save();
                     }
                     else
                     {
