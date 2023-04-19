@@ -145,7 +145,11 @@ public class UISkinChild : MonoBehaviour
         backgrounMain.sprite = (skinData.isSelected && skinData.isUnlocked) ? selectedSprite : nonSelectSprite;
 
         btnGold.gameObject.SetActive(!skinData.isUnlocked && skinData._unlockType == UnlockType.Gold);
-        txtGold.text = skinData._unlockPrice.ToString();
+        if (skinData._unlockPrice == 0)
+        {
+            txtGold.text = "FREE";
+        }else
+            txtGold.text = skinData._unlockPrice.ToString();
         btnAds.gameObject.SetActive(!skinData.isUnlocked && skinData._unlockType == UnlockType.Ads);
         txtAds.text = /*skinData._unlockPrice.ToString()*/"FREE";
 
@@ -153,7 +157,7 @@ public class UISkinChild : MonoBehaviour
         {
             if (!skinData.isUnlocked)
             {
-                skinData.isUnlocked = true;
+                //skinData.isUnlocked = true;
                 skinData.isSelected = false;
             }
             DataManager.Save();
@@ -182,7 +186,12 @@ public class UISkinChild : MonoBehaviour
 
 
         btnGold.gameObject.SetActive(!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold);
-        txtGold.text = windowsData._unlockPrice.ToString();
+        if (windowsData._unlockPrice == 0)
+        {
+            txtGold.text = "FREE";
+        }
+        else
+            txtGold.text = windowsData._unlockPrice.ToString();
         btnAds.gameObject.SetActive(!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Ads);
         txtAds.text = /*windowsData._unlockPrice.ToString()*/"FREE";
 
@@ -190,7 +199,7 @@ public class UISkinChild : MonoBehaviour
         {
             if (!windowsData.isUnlocked)
             {
-                windowsData.isUnlocked = true;
+                //windowsData.isUnlocked = true;
                 windowsData.isSelected = false;
             }
             DataManager.Save();
@@ -220,7 +229,12 @@ public class UISkinChild : MonoBehaviour
 
 
         btnGold.gameObject.SetActive(!floorData.isUnlocked && floorData._unlockType == UnlockType.Gold);
-        txtGold.text = floorData._unlockPrice.ToString();
+        if (floorData._unlockPrice == 0)
+        {
+            txtGold.text = "FREE";
+        }
+        else
+            txtGold.text = floorData._unlockPrice.ToString();
         btnAds.gameObject.SetActive(!floorData.isUnlocked && floorData._unlockType == UnlockType.Ads);
         txtAds.text =/* floorData._unlockPrice.ToString()*/"FREE";
 
@@ -228,7 +242,7 @@ public class UISkinChild : MonoBehaviour
         {
             if (!floorData.isUnlocked)
             {
-                floorData.isUnlocked = true;
+                //floorData.isUnlocked = true;
                 floorData.isSelected = false;
             }
             DataManager.Save();
@@ -257,7 +271,12 @@ public class UISkinChild : MonoBehaviour
 
 
         btnGold.gameObject.SetActive(!ceillingData.isUnlocked && ceillingData._unlockType == UnlockType.Gold);
-        txtGold.text = ceillingData._unlockPrice.ToString();
+        if (ceillingData._unlockPrice == 0)
+        {
+            txtGold.text = "FREE";
+        }
+        else
+            txtGold.text = ceillingData._unlockPrice.ToString();
         btnAds.gameObject.SetActive(!ceillingData.isUnlocked && ceillingData._unlockType == UnlockType.Ads);
         txtAds.text = /*ceillingData._unlockPrice.ToString()*/"FREE";
 
@@ -265,7 +284,7 @@ public class UISkinChild : MonoBehaviour
         {
             if (!ceillingData.isUnlocked)
             {
-                ceillingData.isUnlocked = true;
+                //ceillingData.isUnlocked = true;
                 ceillingData.isSelected = false;
             }
             DataManager.Save();
@@ -294,7 +313,12 @@ public class UISkinChild : MonoBehaviour
 
 
         btnGold.gameObject.SetActive(!carpetData.isUnlocked && carpetData._unlockType == UnlockType.Gold);
-        txtGold.text = carpetData._unlockPrice.ToString();
+        if (carpetData._unlockPrice == 0)
+        {
+            txtGold.text = "FREE";
+        }
+        else
+            txtGold.text = carpetData._unlockPrice.ToString();
         btnAds.gameObject.SetActive(!carpetData.isUnlocked && carpetData._unlockType == UnlockType.Ads);
         txtAds.text = /*carpetData._unlockPrice.ToString()*/"FREE";
 
@@ -302,7 +326,7 @@ public class UISkinChild : MonoBehaviour
         {
             if (!carpetData.isUnlocked)
             {
-                carpetData.isUnlocked = true;
+                //carpetData.isUnlocked = true;
                 carpetData.isSelected = false;
             }
             DataManager.Save();
@@ -331,7 +355,12 @@ public class UISkinChild : MonoBehaviour
 
 
         btnGold.gameObject.SetActive(!chairData.isUnlocked && chairData._unlockType == UnlockType.Gold);
-        txtGold.text = chairData._unlockPrice.ToString();
+        if (chairData._unlockPrice == 0)
+        {
+            txtGold.text = "FREE";
+        }
+        else
+            txtGold.text = chairData._unlockPrice.ToString();
         btnAds.gameObject.SetActive(!chairData.isUnlocked && chairData._unlockType == UnlockType.Ads);
         txtAds.text = /*chairData._unlockPrice.ToString()*/"FREE";
 
@@ -339,7 +368,7 @@ public class UISkinChild : MonoBehaviour
         {
             if (!chairData.isUnlocked)
             {
-                chairData.isUnlocked = true;
+                //chairData.isUnlocked = true;
                 chairData.isSelected = false;
             }
             DataManager.Save();
@@ -368,7 +397,12 @@ public class UISkinChild : MonoBehaviour
 
 
         btnGold.gameObject.SetActive(!table.isUnlocked && table._unlockType == UnlockType.Gold);
-        txtGold.text = table._unlockPrice.ToString();
+        if (table._unlockPrice == 0)
+        {
+            txtGold.text = "FREE";
+        }
+        else
+            txtGold.text = table._unlockPrice.ToString();
         btnAds.gameObject.SetActive(!table.isUnlocked && table._unlockType == UnlockType.Ads);
         txtAds.text = /*table._unlockPrice.ToString()*/"FREE";
 
@@ -376,7 +410,7 @@ public class UISkinChild : MonoBehaviour
         {
             if (!table.isUnlocked)
             {
-                table.isUnlocked = true;
+                //table.isUnlocked = true;
                 table.isSelected = false;
             }
             DataManager.Save();
@@ -388,42 +422,47 @@ public class UISkinChild : MonoBehaviour
 
         tableData = table;
     }
-    public void FillData(LampData carpetData)
+    public void FillData(LampData lampData)
     {
-        imgMain.sprite = carpetData.index == 0 ? firstSprite : carpetData.main;
+        imgMain.sprite = lampData.index == 0 ? firstSprite : lampData.main;
 
         var rect = imgMain.GetComponent<RectTransform>();
-        if (carpetData.index != 0)
+        if (lampData.index != 0)
         {
             //imgMain.SetNativeSize();
         }
         rect.anchoredPosition = new Vector2(0, 8);
         //rect.sizeDelta = carpetData.index == 0 ? noDecorIconSize : rect.sizeDelta * 0.14f;
 
-        selectedObj.SetActive(carpetData.isSelected && carpetData.isUnlocked);
-        backgrounMain.sprite = (carpetData.isSelected && carpetData.isUnlocked) ? selectedSprite : nonSelectSprite;
+        selectedObj.SetActive(lampData.isSelected && lampData.isUnlocked);
+        backgrounMain.sprite = (lampData.isSelected && lampData.isUnlocked) ? selectedSprite : nonSelectSprite;
 
 
-        btnGold.gameObject.SetActive(!carpetData.isUnlocked && carpetData._unlockType == UnlockType.Gold);
-        txtGold.text = carpetData._unlockPrice.ToString();
-        btnAds.gameObject.SetActive(!carpetData.isUnlocked && carpetData._unlockType == UnlockType.Ads);
+        btnGold.gameObject.SetActive(!lampData.isUnlocked && lampData._unlockType == UnlockType.Gold);
+        if (lampData._unlockPrice == 0)
+        {
+            txtGold.text = "FREE";
+        }
+        else
+            txtGold.text = lampData._unlockPrice.ToString();
+        btnAds.gameObject.SetActive(!lampData.isUnlocked && lampData._unlockType == UnlockType.Ads);
         txtAds.text = /*carpetData._unlockPrice.ToString()*/"FREE";
 
-        if (carpetData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= carpetData._unlockPrice)
+        if (lampData._unlockType == UnlockType.Gold && DataManager.UserData.TotalWin >= lampData._unlockPrice)
         {
-            if (!carpetData.isUnlocked)
+            if (!lampData.isUnlocked)
             {
-                carpetData.isUnlocked = true;
-                carpetData.isSelected = false;
+                //lampData.isUnlocked = true;
+                lampData.isSelected = false;
             }
             DataManager.Save();
         }
         btnStar.gameObject.SetActive(/*!windowsData.isUnlocked && windowsData._unlockType == UnlockType.Gold*/false);
-        txtStar.text = $"{DataManager.UserData.TotalWin}/{carpetData._unlockPrice}";
-        btnEquipe.gameObject.SetActive(!carpetData.isSelected && carpetData.isUnlocked);
+        txtStar.text = $"{DataManager.UserData.TotalWin}/{lampData._unlockPrice}";
+        btnEquipe.gameObject.SetActive(!lampData.isSelected && lampData.isUnlocked);
         //btnEquiped.gameObject.SetActive(windowsData.isSelected && windowsData.isUnlocked);
 
-        lampData = carpetData;
+        this.lampData = lampData;
     }
     public void Ins_OnSelected()
     {
