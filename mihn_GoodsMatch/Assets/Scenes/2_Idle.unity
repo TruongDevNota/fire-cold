@@ -240,7 +240,7 @@ MonoBehaviour:
   pointA: {fileID: 304720608}
   pointB: {fileID: 1662775722}
   speed: 1
-  waitTime: 4
+  waitTime: 5
 --- !u!114 &229538134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: happy
+  _animationName: run2
   loop: 1
   timeScale: 1
 --- !u!23 &229538135
@@ -299,7 +299,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 5109a52766ef9f243b37a1a616e1cc62, type: 2}
-  - {fileID: 2100000, guid: 98efe6ff1e7c11144bc8fee17b92205a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

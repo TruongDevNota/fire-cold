@@ -11,48 +11,57 @@ public class CatController : MonoBehaviour
     public float speed = 1.0f;
     public float waitTime = 3.0f;
     private bool isMovingToPointA = true;
-    private SkeletonAnimation animator;
+    private SkeletonAnimation skeletonAnimation;
+    private bool isMoving = false;
 
     void Start()
     {
-        animator = GetComponent<SkeletonAnimation>();
+        skeletonAnimation = GetComponent<SkeletonAnimation>();
         transform.position = pointA.position;
+        StartCoroutine(WaitAtPoint(waitTime, false));
     }
 
     void Update()
     {
+        if (!isMoving)
+            return;
         if (isMovingToPointA)
         {
+            float distanceToA = Vector2.Distance(transform.position, pointA.position);
             transform.position = Vector3.MoveTowards(transform.position, pointA.position, speed * Time.deltaTime);
-            transform.localScale = new Vector3(-1f, 1f,1);
-            animator.AnimationName = "run2";
-            
-            if (transform.position == pointA.position)
+            //skeletonAnimation.AnimationState.SetAnimation(0, "run2", true);
+            transform.localScale = new Vector3(-1, 1, 1);
+            if (distanceToA <= 0.1f)
             {
-                animator.AnimationName = "idle2";
-                
+
+                //skeletonAnimation.AnimationState.SetAnimation(0, "happy", false);
                 StartCoroutine(WaitAtPoint(waitTime,isMovingToPointA));
             }
         }
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, pointB.position, speed * Time.deltaTime);
-            transform.localScale = new Vector3(1f, 1f, 1);
-            animator.AnimationName = "run2";
-            
-            if (transform.position == pointB.position)
+            float distanceToB = Vector2.Distance(transform.position, pointB.position);
+            //skeletonAnimation.AnimationState.SetAnimation(0, "run2", true);
+            transform.localScale = new Vector3(1, 1, 1);
+            if (distanceToB <= 0.1f)
             {
-                animator.AnimationName = "happy";
-                
+
+                //skeletonAnimation.AnimationState.SetAnimation(0, "idle2", false);
                 StartCoroutine(WaitAtPoint(waitTime,isMovingToPointA));
+                
             }
         }
     }
 
-    IEnumerator WaitAtPoint(float seconds,bool ismoving)
+    IEnumerator WaitAtPoint(float seconds,bool isMove)
     {
-        
+        isMoving = false;
+        skeletonAnimation.AnimationState.SetAnimation(0, "idle2", false);
         yield return new WaitForSeconds(seconds);
-        isMovingToPointA = !ismoving;
+        Debug.Log("chuyen state");
+        isMovingToPointA = !isMove;
+        skeletonAnimation.AnimationState.SetAnimation(0, "run2", true);
+        isMoving = true;
     }
 }

@@ -44,7 +44,7 @@ MonoBehaviour:
     countHit: 0
     unlockPay: 0
     _unlockType: 1
-    _unlockPrice: 80
+    _unlockPrice: 200
     main: {fileID: 21300000, guid: 9f14a3a6bfb01f542aec22fc07c437f2, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
     countHit: 0
     unlockPay: 0
     _unlockType: 1
-    _unlockPrice: 20
+    _unlockPrice: 300
     main: {fileID: 21300000, guid: 4c77794c05319b040b224b2811017e1a, type: 3}
     background: {fileID: 0}
     gameObject: {fileID: 0}
@@ -77,7 +77,7 @@ MonoBehaviour:
     count: 0
     countHit: 0
     unlockPay: 0
-    _unlockType: 3
+    _unlockType: 1
     _unlockPrice: 400
     main: {fileID: 21300000, guid: cf8bde1e592b62947826e991d5a900b5, type: 3}
     background: {fileID: 0}
