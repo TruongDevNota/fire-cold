@@ -20,6 +20,10 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     [SerializeField]
     private UIAnimation coinScreen;
     [SerializeField]
+    private UIPopupSkin shopScreen = null;
+    [SerializeField]
+    private UIDecor decorScreen = null;
+    [SerializeField]
     private UIPopupChallenge popupChallenge = null;
     [SerializeField]
     UILevelSelect popupLevelSelect = null;
@@ -256,6 +260,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         base.GoToShop(data);
         mainScreen.Hide();
+        shopScreen.Show();
     }
 
     public override void LoadGame(object data)
@@ -323,10 +328,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         this.PostEvent((int)EventID.OnPlayMusic, "Bgm_Gameplay_loop_MP3");
         mainScreen.Hide();
+        decorScreen.Hide();
         StartCoroutine(WaitForLoading(() =>
         {
             UILoadGame.Hide();
             GameStateManager.Play(data);
+            
         }));
     }
 

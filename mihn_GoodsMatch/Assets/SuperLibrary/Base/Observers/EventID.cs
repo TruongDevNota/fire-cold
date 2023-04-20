@@ -37,4 +37,6 @@ public enum EventID
     OnTutStepDone = 400,
 
     OnPauseAppByAds = 1000,
+    OnDecorTutorialComplete = 1001,
+    BuySuccess = 1002,
 }

@@ -98,6 +98,7 @@ public class GameConfig : GameConfigBase
     public float rebornTimeAdding;
     public int buffPrice = 500;
     public int maxLevel = 100;
+    public int levelOpenShopDecor=5;
     #endregion
 }
 
