@@ -13,7 +13,11 @@ public enum eGameMode
     Normal = 0,
     Bartender = 1,
 }
-
+public enum nomalMode
+{
+    Store1=0,
+    Store2=1,
+}
 [Serializable]
 public class NewMatchDatum
 {

@@ -116,7 +116,8 @@ public class UIMainScreen : MonoBehaviour
         Debug.Log($"Level data load: {DataManager.UserData.level + 1}");
         DataManager.levelSelect = Mathf.Clamp(DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1, 1, DataManager.GameConfig.totalLevel - 1);
         DataManager.currGameMode = eGameMode.Normal;
-        GameStateManager.LoadGame(null);
+        GameUIManager.PopupMapSelect.Show();
+        //GameStateManager.LoadGame(null);
     }
     private void Ins_BtnChallengeClick()
     {

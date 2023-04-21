@@ -27,6 +27,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     private UIPopupChallenge popupChallenge = null;
     [SerializeField]
     UILevelSelect popupLevelSelect = null;
+    [SerializeField]
+    PopupSelectMap popupMapSelect = null;
 
     public static UIMainScreen MainScreen => instance?.mainScreen;
 
@@ -36,6 +38,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     [SerializeField] private UIGameOver gameOverScreen = null;
     [SerializeField] private UIGameOver_Bartender gameOver_Bar_Screen = null;
     public static UIGameOver GameOverScreen => instance?.gameOverScreen;
+    public static PopupSelectMap PopupMapSelect => instance?.popupMapSelect;
     public static UIGameOver_Bartender GameOver_Bar_Screen => instance?.gameOver_Bar_Screen;
 
     private DateTime startLoadTime = DateTime.Now;
@@ -242,6 +245,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             inGameScreen.Hide();
             gameOverScreen.Hide();
             gameOver_Bar_Screen.Hide();
+            popupMapSelect.Hide();
         };
 
         if(GameStateManager.LastState == GameState.Complete || GameStateManager.LastState == GameState.GameOver

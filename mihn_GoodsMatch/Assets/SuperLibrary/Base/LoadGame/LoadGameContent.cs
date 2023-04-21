@@ -47,7 +47,13 @@ public class LoadGameContent : MonoBehaviour
         //    UIToast.ShowLoading(randomTip, 5f, UIToast.IconTip);
 
         MusicManager.Stop(null, false, 0.25f);
-        string sceneName = DataManager.currGameMode == eGameMode.Normal ? "3_Battle" : "3_Battle_Bartender";
+        string sceneName;
+        if (DataManager.currGameMode == eGameMode.Normal && DataManager.currnomalMode == nomalMode.Store1)
+            sceneName = "3_Battle_1";
+        else if (DataManager.currGameMode == eGameMode.Normal && DataManager.currnomalMode == nomalMode.Store2)
+            sceneName = "3_Battle_2";
+        else
+            sceneName = "3_Battle_Bartender";
 
         yield return SceneHelper.DoLoadSceneAsync(sceneName);
 
