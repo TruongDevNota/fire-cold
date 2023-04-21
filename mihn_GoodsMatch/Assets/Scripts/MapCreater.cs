@@ -121,9 +121,9 @@ public class MapCreater : MonoBehaviour
                 newShelf.transform.parent = transform;
                 for (int i3 = 0; i3 < itemTypes.Count; i3++)
                 {
-                    if (itemTypes[i3] == eItemType.None)
+                    if (itemTypes[i3] == 0)
                         continue;
-                    var itemDatum = DataManager.ItemsAsset.GetItemByType(itemTypes[i3]);
+                    var itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3]);
                     if(itemDatum == null)
                     {
                         Debug.Log($"Could not found item definition of type: [{itemTypes[i3]}]");
@@ -162,17 +162,36 @@ public class MapCreater : MonoBehaviour
         return newMap;
     }
 
-    public List<eItemType> ConvertToShelfDatum(string shelfText)
+    //public List<eItemType> ConvertToShelfDatum(string shelfText)
+    //{
+    //    Debug.Log($"shelf text: {shelfText}");
+    //    var datum = new List<eItemType>();
+    //    try
+    //    {
+    //        var numbers = shelfText?.Split(GameConstants.itemSplittChar)?.Select(Int32.Parse)?.ToList();
+
+    //        foreach(var number in numbers)
+    //        {
+    //            datum.Add((eItemType)Enum.ToObject(typeof(eItemType), number));
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Debug.LogException(ex);
+    //    }
+    //    return datum;
+    //}
+    public List<int> ConvertToShelfDatum(string shelfText)
     {
         Debug.Log($"shelf text: {shelfText}");
-        var datum = new List<eItemType>();
+        var datum = new List<int>();
         try
         {
             var numbers = shelfText?.Split(GameConstants.itemSplittChar)?.Select(Int32.Parse)?.ToList();
 
             foreach(var number in numbers)
             {
-                datum.Add((eItemType)Enum.ToObject(typeof(eItemType), number));
+                datum.Add((number));
             }
         }
         catch (Exception ex)
