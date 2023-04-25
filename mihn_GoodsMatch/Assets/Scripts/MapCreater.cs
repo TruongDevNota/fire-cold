@@ -123,8 +123,14 @@ public class MapCreater : MonoBehaviour
                 {
                     if (itemTypes[i3] == 0)
                         continue;
-                    var itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3]);
-                    if(itemDatum == null)
+                    ItemDatum itemDatum;
+                    if (DataManager.currnomalMode == nomalMode.Store1)
+                    {
+                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3],Store.store1);
+                    }else
+                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], Store.store2);
+
+                    if (itemDatum == null)
                     {
                         Debug.Log($"Could not found item definition of type: [{itemTypes[i3]}]");
                         return;

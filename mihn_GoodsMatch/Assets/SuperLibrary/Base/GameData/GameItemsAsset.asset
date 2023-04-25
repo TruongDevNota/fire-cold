@@ -43,7 +43,7 @@ MonoBehaviour:
     unlockPay: 0
     itemProp: {fileID: 4300722510773625064, guid: fbe73cc0662f964489168495a978efe2, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 3
     idThumb: 
@@ -73,7 +73,7 @@ MonoBehaviour:
     unlockPay: 0
     itemProp: {fileID: 1240754615638817360, guid: 3b8d3d58691607b4f88b33e7b22e3a48, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 5
     idThumb: 
@@ -103,7 +103,7 @@ MonoBehaviour:
     unlockPay: 0
     itemProp: {fileID: 3499278893221558174, guid: 6e66104682a63ef4eaf315dc85b394d7, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 7
     idThumb: 
@@ -133,7 +133,7 @@ MonoBehaviour:
     unlockPay: 0
     itemProp: {fileID: 3499278893221558174, guid: a30f95619e3e2b24285808babd6a6604, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 9
     idThumb: 
@@ -163,7 +163,7 @@ MonoBehaviour:
     unlockPay: 0
     itemProp: {fileID: 3499278893221558174, guid: 57889b5110d12a341a75f4720d5f708f, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 11
     idThumb: 
@@ -193,7 +193,7 @@ MonoBehaviour:
     unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: da215e4a7e92eea4b824f585221bc9f4, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 13
     idThumb: 
@@ -223,7 +223,7 @@ MonoBehaviour:
     unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 64b71da0a41c7b547a08a12730d8127c, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 15
     idThumb: 
@@ -253,7 +253,7 @@ MonoBehaviour:
     unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 601db0c74fe2fc749baafe0a55c115df, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 17
     idThumb: 
@@ -261,7 +261,7 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
@@ -276,14 +276,14 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: 7ad8ecf30dc6d154098fda3e60e4b2c9, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 19
     idThumb: 
@@ -291,7 +291,7 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
@@ -306,14 +306,14 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
     itemProp: {fileID: 6445086616528182227, guid: b437c128f7e572e4ebaa1eb6eecd1963, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 21
     idThumb: 
@@ -321,7 +321,7 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
@@ -336,14 +336,14 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
     itemProp: {fileID: 8144408658858786922, guid: bf9ad7ab1373ead4a80b5301428ed0ed, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 23
     idThumb: 
@@ -351,7 +351,7 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
@@ -366,14 +366,14 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
     itemProp: {fileID: 2694887516892077907, guid: c60b715e30a11c54b9c304b10f555d0e, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 25
     idThumb: 
@@ -381,7 +381,7 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
@@ -396,14 +396,14 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
     itemProp: {fileID: 7229711238993653208, guid: 7e1ea27914f309e478ea5e69f0a47764, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 27
     idThumb: 
@@ -411,7 +411,7 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
@@ -426,14 +426,14 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
     itemProp: {fileID: 1929544765853458730, guid: 39f00e0b7ddf7104f9da49943f3823b1, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   - name: 
     id: 29
     idThumb: 
@@ -441,7 +441,7 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
@@ -456,14 +456,14 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
     itemProp: {fileID: 4515534427678685729, guid: 87955e1e5cd52964281cea2f2dbdaead, type: 3}
     unlockValue: 100
-    Store: 0
+    Store: 1
   itemModels:
   - {fileID: 4629048590207952902, guid: 7cf25eae688941d46b27d5f8cb834f31, type: 3}
   - {fileID: 4300722510773625064, guid: fbe73cc0662f964489168495a978efe2, type: 3}

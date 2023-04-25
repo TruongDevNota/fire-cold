@@ -50,6 +50,11 @@ public class BoardGame_Bartender : MonoBehaviour
     [SerializeField] Sprite daySprite;
     [SerializeField] Sprite nightSprite;
 
+    [SerializeField] MapCreater mapCreater;
+
+    [Header("Test Data")]
+    [SerializeField] TextAsset testMapData;
+
     private void Awake()
     {
         instance = this;
@@ -99,7 +104,8 @@ public class BoardGame_Bartender : MonoBehaviour
         if(current == GameState.Restart || current == GameState.Init)
         {
             bgImage.sprite = DataManager.UserData.bartenderLevel % 2 == 0 ? daySprite : nightSprite;
-            StartCoroutine(YieldInit(0));
+            //StartCoroutine(YieldInit(0));
+            StartCoroutine(YieldInitMapFromTextData(null));
         }
         else if (current == GameState.Pause)
             PauseGame();
@@ -218,6 +224,104 @@ public class BoardGame_Bartender : MonoBehaviour
         UIToast.Hide();
         yield return new WaitForEndOfFrame();
     }
+
+    private IEnumerator YieldInitMapFromTextData(MapDatum datum)
+    {
+        var currentMapDatum = mapCreater.ReadMapTextData(testMapData.text);
+        Debug.Log($"Map line count = {currentMapDatum.lines.Count}");
+
+        foreach (var shelf in shelves)
+            shelf.InitCells();
+        yield return new WaitForEndOfFrame();
+
+        foreach (var item in items)
+        {
+            item.Recycle();
+        }
+        items.Clear();
+        List<ItemDatum> listC = gameItemAsset.list?.Where(x => x.Store == Store.store1 && x.isUnlocked == true).ToList();
+        foreach (var group in typeGroups)
+            group.Clear();
+        requestingItems.Clear();
+        requestingTypes.Clear();
+
+        yield return new WaitForEndOfFrame();
+        for (int i = 0; i < currentMapDatum.lines.Count; i++)
+        {
+            var line = currentMapDatum.lines[i];
+            Debug.Log($"Line {i} - shelf count = {line.lineSheves.Count}");
+            for (int i2 = 0; i2 < line.lineSheves.Count; i2++)
+            {
+                if (string.IsNullOrEmpty(line.lineSheves[i2]) || line.lineSheves[i2].Contains("-"))
+                    continue;
+
+                var itemTypes = mapCreater.ConvertToShelfDatum(line.lineSheves[i2]);
+
+                var shelfIndex = i * 3 + i2;
+                
+                for (int i3 = 0; i3 < itemTypes.Count; i3++)
+                {
+                    if (itemTypes[i3] == 0)
+                        continue;
+                    ItemDatum itemDatum;
+                    if (DataManager.currnomalMode == nomalMode.Store1)
+                    {
+                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], Store.store1);
+                    }
+                    else
+                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], Store.store2);
+
+                    if (itemDatum == null)
+                    {
+                        Debug.Log($"Could not found item definition of type: [{itemTypes[i3]}]");
+                        yield break;
+                    }
+                    var newItem = itemDatum.itemProp.Spawn();
+                    newItem.pFirstLeftCellIndex = i3;
+                    shelves[shelfIndex].DoPutItemFromWareHouse(newItem);
+                    newItem.transform.parent = shelves[shelfIndex].transform;
+                    items.Add(newItem);
+                    yield return new WaitForEndOfFrame();
+                }
+                
+            }
+        }
+        for (int i = 0; i < listC.Count; i++)
+        {
+            int d = 0;
+            for(int j = 0; j < items.Count; j++)
+            {
+                if (listC[i].itemProp.Type == items[j].Type)
+                {
+                    d++;
+                }
+            }
+            if (d == 3)
+            {
+                typeGroups[0].Add(listC[i].itemProp.Type);
+                Debug.Log(listC[i].itemProp.Type + ":3");
+            }
+            else if(d==2)
+            {
+                typeGroups[1].Add(listC[i].itemProp.Type);
+                Debug.Log(listC[i].itemProp.Type + ":2");
+            }
+            else if(d==1)
+            {
+                typeGroups[2].Add(listC[i].itemProp.Type);
+                Debug.Log(listC[i].itemProp.Type + ":1");
+            }
+            else
+            {
+                typeGroups[3].Add(listC[i].itemProp.Type);
+                Debug.Log(listC[i].itemProp.Type + ":0");
+            }
+        }
+        GameStateManager.Ready(null);
+        UIToast.Hide();
+        yield return new WaitForEndOfFrame();
+    }
+
 
     private void InitItems(List<ItemDatum> allItemUnlocked)
     {

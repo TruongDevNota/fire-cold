@@ -25,13 +25,13 @@ public class GameItemAsset : BaseAsset<ItemDatum>
     {
         return list?.FirstOrDefault(x => x.itemProp.Type == type);
     }
-    public ItemDatum GetItemByIndex(int index)
+    public ItemDatum GetItemByIndex(int index,Store store)
     {
         List<ItemDatum> listC=new List<ItemDatum>();
         
-        for(int i = unlockedList.Count - 1; i >= 0; i--)
+        for(int i = 0; i < unlockedList.Count; i++)
         {
-            if (unlockedList[i].Store == Store.store1)
+            if (unlockedList[i].Store == store)
             {
                 listC.Add(unlockedList[i]);
             }
@@ -72,8 +72,9 @@ public class GameItemAsset : BaseAsset<ItemDatum>
         {
             var datum = new ItemDatum()
             {
+                Store = i % 2 == 0 ? Store.store1 : Store.store2,
                 id = itemModels[i].name.ToLower(),
-                isUnlocked = i < 16,
+                isUnlocked = true,
                 itemProp = itemModels[i],
                 unlockValue = 100,
             };
