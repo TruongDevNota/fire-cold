@@ -45,7 +45,7 @@ public class UILevelSelect : MonoBehaviour
     public void OnLevelSelectHandle(int level)
     {
         DataManager.levelSelect = level;
-        if (DataManager.levelSelect % DataManager.GameConfig.levelsToNextChallenge == 0)
+        if (DataManager.levelSelect % DataManager.GameConfig.starsToNextChallenge == 0)
             this.PostEvent((int)EventID.OnGoToChallengeLevel);
         else
         {

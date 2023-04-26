@@ -61,7 +61,7 @@ public class UIMainScreen : MonoBehaviour
     {
         //txt_LevelPlay.text = $"LV. {Mathf.Clamp(DataManager.UserData.level + 1, 1, DataManager.GameConfig.totalLevel-1)}";
 
-        btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToNextChallenge - 1);
+        btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.starsToNextChallenge - 1);
         //lockChallengeBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
         //txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
         btn_shopDecor?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelOpenShopDecor - 1);
@@ -114,15 +114,15 @@ public class UIMainScreen : MonoBehaviour
     {
         SoundManager.Play("1. Click Button");
         Debug.Log($"Level data load: {DataManager.UserData.level + 1}");
-        DataManager.levelSelect = Mathf.Clamp(DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1, 1, DataManager.GameConfig.totalLevel - 1);
-        DataManager.currGameMode = eGameMode.Normal;
+        //DataManager.levelSelect = Mathf.Clamp(DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1, 1, DataManager.GameConfig.totalLevel - 1);
+        //DataManager.currGameMode = eGameMode.Normal;
         GameUIManager.PopupMapSelect.Show();
         //GameStateManager.LoadGame(null);
     }
     public void Ins_BtnChallengeClick()
     {
         SoundManager.Play("1. Click Button");
-        int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.levelsToNextChallenge;
+        int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.starsToNextChallenge;
         DataManager.levelSelect = lv;
         DataManager.currGameMode = eGameMode.Normal;
         this.PostEvent((int)EventID.OnGoToChallengeLevel);

@@ -520,14 +520,15 @@ public class UIGameOver : MonoBehaviour
             var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
             popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
         }
-        else if((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
+        else if((DataManager.levelSelect) % DataManager.GameConfig.starsToNextChallenge == 0)
         {
             //GameStateManager.Idle(null);
             this.PostEvent((int)EventID.OnGoToChallengeLevel);
         }
-        else if (DataManager.UserData.level == DataManager.GameConfig.levelsToUnlockBartender-1 && !DataManager.UserData.isModeBartenderSuguested)
+        else if (DataManager.UserData.totalStar == DataManager.GameConfig.starsToUnlockBartender && !DataManager.UserData.isModeBartenderSuguested)
         {
             this.PostEvent((int)EventID.OnModeBartenderUnlocked);
+            DataManager.UserData.isModeBartenderSuguested = true;
         }
         else
         {
@@ -547,7 +548,7 @@ public class UIGameOver : MonoBehaviour
             {
                 Debug.Log("animContinue: Hide - GameStateManager: " + GameStateManager.CurrentState);
                 if (GameStateManager.CurrentState == GameState.GameOver)
-                    ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.levelSelect % DataManager.GameConfig.levelsToNextChallenge == 0);
+                    ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.levelSelect % DataManager.GameConfig.starsToNextChallenge == 0);
             });
         }
     }

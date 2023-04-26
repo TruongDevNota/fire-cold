@@ -44,11 +44,11 @@ public class GameConfig : GameConfigBase
     public bool isTestRewarPopup = false;
 
     [Header("Challenge")]
-    public int levelsToNextChallenge = 5;
+    public int starsToNextChallenge = 5;
     public int playChallengeCoinUse = 100;
 
     [Header("Bartender")]
-    public int levelsToUnlockBartender = 6;
+    public int starsToUnlockBartender = 6;
     public int coinEarnInDay = 3;
     public int coinEarnInNight = 5;
     public int requestMissLimit = 3;

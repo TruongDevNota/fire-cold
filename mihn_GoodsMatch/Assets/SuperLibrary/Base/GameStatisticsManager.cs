@@ -62,7 +62,7 @@ public class GameStatisticsManager : MonoBehaviour
                         {
                             userData.level++;
                             CheckToGiveStartingBuff();
-                            if ((userData.level + 1) % DataManager.GameConfig.levelsToNextChallenge == 0)
+                            if ((userData.level + 1) % DataManager.GameConfig.starsToNextChallenge == 0)
                             {
                                 userData.level++;
                                 CheckToGiveStartingBuff();
