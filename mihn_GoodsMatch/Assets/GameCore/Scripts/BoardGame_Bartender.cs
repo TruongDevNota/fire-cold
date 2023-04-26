@@ -227,7 +227,10 @@ public class BoardGame_Bartender : MonoBehaviour
 
     private IEnumerator YieldInitMapFromTextData(MapDatum datum)
     {
-        var currentMapDatum = mapCreater.ReadMapTextData(testMapData.text);
+        currentLevel = DataManager.UserData.bartenderLevel + 1;
+        string path = $"Bartender/Map_Level_{currentLevel}";
+        var file = Resources.Load<TextAsset>(path);
+        var currentMapDatum = mapCreater.ReadMapTextData(file.text);
         Debug.Log($"Map line count = {currentMapDatum.lines.Count}");
 
         foreach (var shelf in shelves)

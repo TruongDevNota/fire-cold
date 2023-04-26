@@ -8,6 +8,9 @@ public class StarManager : MonoBehaviour
     [SerializeField]
     private UITextNumber number = null;
     public static UITextNumber Number { get => instance?.number; }
+    [SerializeField]
+    private UITextNumber maxStar = null;
+    public static UITextNumber MaxStar { get => instance?.maxStar; }
 
     [SerializeField]
     private ParticleLockAt particle = null;

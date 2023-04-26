@@ -59,34 +59,34 @@ public class UIMainScreen : MonoBehaviour
 
     public void FetchData()
     {
-        txt_LevelPlay.text = $"LV. {Mathf.Clamp(DataManager.UserData.level + 1, 1, DataManager.GameConfig.totalLevel-1)}";
+        //txt_LevelPlay.text = $"LV. {Mathf.Clamp(DataManager.UserData.level + 1, 1, DataManager.GameConfig.totalLevel-1)}";
 
         btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToNextChallenge - 1);
-        lockChallengeBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
-        txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
+        //lockChallengeBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
+        //txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
         btn_shopDecor?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelOpenShopDecor - 1);
         lockShopDecorBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelOpenShopDecor - 1);
         txt_LockShopDecor.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelOpenShopDecor}";
 
-        PlayBartenderBtn?.gameObject.SetActive(true);
+        //PlayBartenderBtn?.gameObject.SetActive(true);
         //lockBartenderBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1);
-        txt_LockBartender.text = $"Unlock at lv.{DataManager.GameConfig.levelsToUnlockBartender}";
-        txt_LockBartender.gameObject.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1 && !DataManager.UserData.isModeBartenderSuguested);
+       // txt_LockBartender.text = $"Unlock at lv.{DataManager.GameConfig.levelsToUnlockBartender}";
+        //txt_LockBartender.gameObject.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1 && !DataManager.UserData.isModeBartenderSuguested);
 
         btn_DailyReward?.Fill(DataManager.UserData.dailyRewardClaimCount == 0 || DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1, BtnDailyRewardClick);
 
-        if(DataManager.UserData.level >= 5 && !DataManager.UserData.isModeBartenderSuguested)
-        {
-            suggestFadeImg?.SetActive(true);
-            suggestBartenderOb.SetActive(true);
-            DataManager.UserData.isModeBartenderSuguested = true;
-            DataManager.Save();
-        }
-        else
-        {
-            suggestFadeImg?.SetActive(false);
-            suggestBartenderOb.SetActive(false);
-        }
+        //if(DataManager.UserData.level >= 5 && !DataManager.UserData.isModeBartenderSuguested)
+        //{
+        //    suggestFadeImg?.SetActive(true);
+        //    suggestBartenderOb.SetActive(true);
+        //    DataManager.UserData.isModeBartenderSuguested = true;
+        //    DataManager.Save();
+        //}
+        //else
+        //{
+        //    suggestFadeImg?.SetActive(false);
+        //    suggestBartenderOb.SetActive(false);
+        //}
     }
 
     public void Show(TweenCallback onStart = null, TweenCallback onCompleted = null)
@@ -119,7 +119,7 @@ public class UIMainScreen : MonoBehaviour
         GameUIManager.PopupMapSelect.Show();
         //GameStateManager.LoadGame(null);
     }
-    private void Ins_BtnChallengeClick()
+    public void Ins_BtnChallengeClick()
     {
         SoundManager.Play("1. Click Button");
         int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.levelsToNextChallenge;
@@ -127,7 +127,7 @@ public class UIMainScreen : MonoBehaviour
         DataManager.currGameMode = eGameMode.Normal;
         this.PostEvent((int)EventID.OnGoToChallengeLevel);
     }
-    private void BtnPlayBartenderClicked()
+    public void BtnPlayBartenderClicked()
     {
         SoundManager.Play("1. Click Button");
         if (!DataManager.UserData.isModeBartenderSuguested)
