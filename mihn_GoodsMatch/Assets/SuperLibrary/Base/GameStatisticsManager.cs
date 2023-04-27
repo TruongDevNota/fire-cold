@@ -62,15 +62,18 @@ public class GameStatisticsManager : MonoBehaviour
                         {
                             userData.level++;
                             CheckToGiveStartingBuff();
-                            if ((userData.level + 1) % DataManager.GameConfig.starsToNextChallenge == 0)
-                            {
-                                userData.level++;
-                                CheckToGiveStartingBuff();
-                            }
+                            //if ((userData.level + 1) % DataManager.GameConfig.starsToNextChallenge == 0)
+                            //{
+                            //    userData.level++;
+                            //    CheckToGiveStartingBuff();
+                            //}
                         }
                     }
-                    else
+                    else if (!DataManager.UserData.isMaxLevelBartender)
+                    {
                         userData.bartenderLevel++;
+                    }
+                                
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.Complete:

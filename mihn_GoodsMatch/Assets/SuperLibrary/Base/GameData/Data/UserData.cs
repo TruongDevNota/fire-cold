@@ -20,6 +20,7 @@ public class UserData : UserAnalysic
     public bool isModeBartenderSuguested = false;
     public bool isChallengePlayed = false;
     public bool isShopTutShowed = false;
+    public bool isMaxLevelBartender = false;
 
     [Header("Tut")]
     public bool tutBartenderDone = false;

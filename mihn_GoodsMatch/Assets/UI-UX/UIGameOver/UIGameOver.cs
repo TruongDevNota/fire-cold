@@ -520,12 +520,14 @@ public class UIGameOver : MonoBehaviour
             var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
             popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
         }
-        else if((DataManager.levelSelect) % DataManager.GameConfig.starsToNextChallenge == 0)
+        else if(DataManager.UserData.totalStar >= DataManager.GameConfig.starsToNextChallenge && !DataManager.UserData.isChallengePlayed)
         {
+            DataManager.UserData.isChallengePlayed = true;
             //GameStateManager.Idle(null);
             this.PostEvent((int)EventID.OnGoToChallengeLevel);
+            
         }
-        else if (DataManager.UserData.totalStar == DataManager.GameConfig.starsToUnlockBartender && !DataManager.UserData.isModeBartenderSuguested)
+        else if (DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockBartender && !DataManager.UserData.isModeBartenderSuguested)
         {
             this.PostEvent((int)EventID.OnModeBartenderUnlocked);
             DataManager.UserData.isModeBartenderSuguested = true;

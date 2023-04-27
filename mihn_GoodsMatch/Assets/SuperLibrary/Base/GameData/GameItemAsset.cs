@@ -25,16 +25,16 @@ public class GameItemAsset : BaseAsset<ItemDatum>
     {
         return list?.FirstOrDefault(x => x.itemProp.Type == type);
     }
-    public ItemDatum GetItemByIndex(int index,Store store)
+    public ItemDatum GetItemByIndex(int index)
     {
-        List<ItemDatum> listC=new List<ItemDatum>();
-        
-        for(int i = 0; i < unlockedList.Count; i++)
+        List<ItemDatum> listC = new List<ItemDatum>();
+
+        for (int i = 0; i < unlockedList.Count; i++)
         {
-            if (unlockedList[i].Store == store)
-            {
-                listC.Add(unlockedList[i]);
-            }
+            ////if (unlockedList[i].Store == store)
+            ////{
+            listC.Add(unlockedList[i]);
+
         }
         return listC[index - 1];
     }
@@ -91,7 +91,7 @@ public class ItemDatum : SaveData
 {
     public Goods_Item itemProp;
     public int unlockValue;
-    
+
     public Store Store;
 }
 public enum Store

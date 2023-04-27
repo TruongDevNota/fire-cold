@@ -8,9 +8,9 @@ public class UI_btn_LevelSelect : MonoBehaviour
     {
         Debug.Log($"Level data load: {DataManager.UserData.level}");
         DataManager.levelSelect = DataManager.UserData.level + 1;
-        if ((DataManager.UserData.level + 1) % DataManager.GameConfig.starsToNextChallenge == 0)
-            this.PostEvent((int)EventID.OnGoToChallengeLevel);
-        else
+        //if ((DataManager.UserData.level + 1) % DataManager.GameConfig.starsToNextChallenge == 0)
+        //    this.PostEvent((int)EventID.OnGoToChallengeLevel);
+        //else
             GameStateManager.LoadGame(null);
     }
 }

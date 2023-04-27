@@ -229,7 +229,15 @@ public class BoardGame_Bartender : MonoBehaviour
     {
         currentLevel = DataManager.UserData.bartenderLevel + 1;
         string path = $"Bartender/Map_Level_{currentLevel}";
+            
         var file = Resources.Load<TextAsset>(path);
+        if (file == null)
+        {
+            DataManager.UserData.isMaxLevelBartender = true;
+            currentLevel = DataManager.UserData.bartenderLevel;
+            path = $"Bartender/Map_Level_{currentLevel}";
+            file = Resources.Load<TextAsset>(path);
+        }
         var currentMapDatum = mapCreater.ReadMapTextData(file.text);
         Debug.Log($"Map line count = {currentMapDatum.lines.Count}");
 
@@ -267,12 +275,10 @@ public class BoardGame_Bartender : MonoBehaviour
                     if (itemTypes[i3] == 0)
                         continue;
                     ItemDatum itemDatum;
-                    if (DataManager.currnomalMode == nomalMode.Store1)
-                    {
-                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], Store.store1);
-                    }
-                    else
-                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], Store.store2);
+                    
+                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3]);
+                    
+                        //itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], Store.store2);
 
                     if (itemDatum == null)
                     {
@@ -324,8 +330,6 @@ public class BoardGame_Bartender : MonoBehaviour
         UIToast.Hide();
         yield return new WaitForEndOfFrame();
     }
-
-
     private void InitItems(List<ItemDatum> allItemUnlocked)
     {
         for (int i = 0; i < allItemUnlocked.Count; i++)

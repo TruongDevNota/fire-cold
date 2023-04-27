@@ -48,10 +48,10 @@ public class LoadGameContent : MonoBehaviour
 
         MusicManager.Stop(null, false, 0.25f);
         string sceneName;
-        if (DataManager.currGameMode == eGameMode.Normal && DataManager.currnomalMode == nomalMode.Store1)
+        if (DataManager.currGameMode == eGameMode.Normal)
             sceneName = "3_Battle_1";
-        else if (DataManager.currGameMode == eGameMode.Normal && DataManager.currnomalMode == nomalMode.Store2)
-            sceneName = "3_Battle_2";
+        //else if (DataManager.currGameMode == eGameMode.Normal)
+        //    sceneName = "3_Battle_2";
         else
             sceneName = "3_Battle_Bartender";
 
