@@ -30,29 +30,24 @@ public class UILevelSelect : MonoBehaviour
     public void OnShow()
     {
         SoundManager.Play("1. Click Button");
-        for (int i = 1; i<= DataManager.GameConfig.totalLevel; i++)
+        for (int i = 1; i <= DataManager.GameConfig.totalLevel; i++)
         {
             var isExist = i <= selectItems.Count;
-            var item = isExist ? selectItems[i-1] : itemSelectPrefab.Spawn(contentRect);
-            if(!isExist)
+            var item = isExist ? selectItems[i - 1] : itemSelectPrefab.Spawn(contentRect);
+            if (!isExist)
                 selectItems.Add(item);
             item.Fill(i, OnLevelSelectHandle, isTest);
         }
         int lastLevel = DataManager.levelSelect == 0 ? DataManager.UserData.level : DataManager.levelSelect - 1;
-        anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastLevel / 3) * 1f / (DataManager.GameConfig.totalLevel/3); });
+        anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastLevel / 3) * 1f / (DataManager.GameConfig.totalLevel / 3); });
     }
 
     public void OnLevelSelectHandle(int level)
     {
         DataManager.levelSelect = level;
-        if (DataManager.levelSelect % DataManager.GameConfig.starsToNextChallenge == 0)
-            this.PostEvent((int)EventID.OnGoToChallengeLevel);
-        else
-        {
-            DataManager.currGameMode = eGameMode.Normal;
-            GameStateManager.LoadGame(null);
-            OnHide();
-        }
+        DataManager.currGameMode = eGameMode.Normal;
+        GameStateManager.LoadGame(null);
+        OnHide();
     }
 
     public void OnHide()

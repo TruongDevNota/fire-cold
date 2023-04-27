@@ -24,8 +24,8 @@ public class UIPopupReward : MonoBehaviour
     [SerializeField]
     UIChestItem buffSwapReward;
 
-    [SerializeField]
-    private UIPopupPigProcess popup_PigProcess;
+   //[SerializeField]
+    //private UIPopupPigProcess popup_PigProcess;
     [SerializeField]
     public SkeletonAnimation skeletonAnimation;
     [SerializeField]
@@ -128,7 +128,7 @@ public class UIPopupReward : MonoBehaviour
             DOVirtual.DelayedCall(2f, () =>
             {
                 OnHide();
-                popup_PigProcess.OnShow(coinEarn);
+                //popup_PigProcess.OnShow(coinEarn);
             });
         }
         DataManager.Save();

@@ -70,9 +70,8 @@ public class PopupSelectMap : MonoBehaviour
     public void Ins_BtnChallengeClick()
     {
         SoundManager.Play("1. Click Button");
-        int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.starsToNextChallenge;
-        DataManager.levelSelect = lv;
-        DataManager.currGameMode = eGameMode.Normal;
+        int lv = DataManager.UserData.challengeLevel;
+        DataManager.currGameMode = eGameMode.Challenge;
         this.PostEvent((int)EventID.OnGoToChallengeLevel);
         Hide();
     }

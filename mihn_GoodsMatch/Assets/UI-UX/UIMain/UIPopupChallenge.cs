@@ -43,7 +43,7 @@ public class UIPopupChallenge : MonoBehaviour
     {
         SoundManager.Play("1. Click Button");
         CoinManager.Add(-DataManager.GameConfig.playChallengeCoinUse);
-        DataManager.currGameMode = eGameMode.Normal;
+        DataManager.currGameMode = eGameMode.Challenge;
         GameStateManager.LoadGame(true);
         anim.Hide();
     }
@@ -55,7 +55,7 @@ public class UIPopupChallenge : MonoBehaviour
         {
             if(e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
-                DataManager.currGameMode = eGameMode.Normal;
+                DataManager.currGameMode = eGameMode.Challenge;
                 GameStateManager.LoadGame(true);
                 anim.Hide();
             }
@@ -65,7 +65,7 @@ public class UIPopupChallenge : MonoBehaviour
     private void BtnPlayFreeClick()
     {
         SoundManager.Play("1. Click Button");
-        DataManager.currGameMode = eGameMode.Normal;
+        DataManager.currGameMode = eGameMode.Challenge;
         DataManager.UserData.isChallengePlayed = true;
         GameStateManager.LoadGame(true);
         DataManager.Save();
@@ -77,13 +77,13 @@ public class UIPopupChallenge : MonoBehaviour
         anim.Hide();
         if (GameStateManager.CurrentState == GameState.Idle)
             return;
-        if (DataManager.levelSelect < DataManager.GameConfig.totalLevel && DataManager.levelSelect <= DataManager.UserData.level + 1)
-        {
-            DataManager.levelSelect++;
-            DataManager.currGameMode = eGameMode.Normal;
-            GameStateManager.LoadGame(null);
-        }
-        else
+        //if (DataManager.levelSelect < DataManager.GameConfig.totalLevel && DataManager.levelSelect <= DataManager.UserData.challengeLevel + 1)
+        //{
+        //    DataManager.levelSelect++;
+        //    DataManager.currGameMode = eGameMode.Challenge;
+        //    GameStateManager.LoadGame(null);
+        //}
+        //else
             GameStateManager.Idle(null);
     }
 }

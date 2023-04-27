@@ -820,7 +820,7 @@ namespace Base
                     new Parameter(FirebaseAnalytics.ParameterLevel, index),
                     new Parameter(FirebaseAnalytics.ParameterLevelName, name) });
 
-            string eventName = string.Format("{0}_{1}_{2}", DataManager.currGameMode == eGameMode.Normal ? "level" : "level_bartender",
+            string eventName = string.Format("{0}_{1}_{2}", DataManager.currGameMode == eGameMode.Normal ? "level" : DataManager.currGameMode == eGameMode.Challenge ? "level_challenge": "level_bartender",
                 isWin ? "completed" : "failed", index.ToString());
 
             FirebaseAnalytics.LogEvent(eventName);

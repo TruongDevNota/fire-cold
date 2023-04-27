@@ -17,10 +17,12 @@ public class UserData : UserAnalysic
     [Header("Data")]
     public int level = 0;
     public int bartenderLevel = 0;
+    public int challengeLevel = 0;
     public bool isModeBartenderSuguested = false;
     public bool isChallengePlayed = false;
     public bool isShopTutShowed = false;
     public bool isMaxLevelBartender = false;
+    public bool isMaxLevelChallenge = false;
 
     [Header("Tut")]
     public bool tutBartenderDone = false;

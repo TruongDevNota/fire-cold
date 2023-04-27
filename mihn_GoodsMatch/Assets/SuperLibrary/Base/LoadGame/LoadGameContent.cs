@@ -48,12 +48,15 @@ public class LoadGameContent : MonoBehaviour
 
         MusicManager.Stop(null, false, 0.25f);
         string sceneName;
-        if (DataManager.currGameMode == eGameMode.Normal)
+        if (DataManager.currGameMode == eGameMode.Normal )
             sceneName = "3_Battle_1";
-        //else if (DataManager.currGameMode == eGameMode.Normal)
-        //    sceneName = "3_Battle_2";
+        else if(DataManager.currGameMode == eGameMode.Challenge)
+        {
+            sceneName = "3_Battle_2";
+        }
         else
             sceneName = "3_Battle_Bartender";
+        Debug.Log("sceneName: " + sceneName);
 
         yield return SceneHelper.DoLoadSceneAsync(sceneName);
 

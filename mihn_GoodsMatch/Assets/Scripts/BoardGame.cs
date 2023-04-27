@@ -23,10 +23,10 @@ public class BoardGame : MonoBehaviour
     private Goods_Item dragingItem = null;
     private bool isDraggingItem = false;
     private int itemCount;
-    public int ItemCount 
-    { 
-        get => itemCount; 
-        set { itemCount = value; } 
+    public int ItemCount
+    {
+        get => itemCount;
+        set { itemCount = value; }
     }
     public List<Goods_Item> items = new List<Goods_Item>();
     public List<ShelfUnit> shelves = new List<ShelfUnit>();
@@ -77,7 +77,7 @@ public class BoardGame : MonoBehaviour
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
     {
-        if(current == GameState.Restart || current == GameState.Init)
+        if (current == GameState.Restart || current == GameState.Init)
         {
             isAlert = false;
             isChallengeGame = data != null && (bool)data;
@@ -87,7 +87,7 @@ public class BoardGame : MonoBehaviour
             PauseGame();
         if (current == GameState.Play)
             StartGamePlay();
-        if(current == GameState.RebornContinue)
+        if (current == GameState.RebornContinue)
         {
             isAlert = false;
             timeLimitInSeconds += DataManager.GameConfig.rebornTimeAdding;
@@ -125,7 +125,7 @@ public class BoardGame : MonoBehaviour
     {
         if (!isPlayingGame)
             return;
-        if(timeLimitInSeconds - stopwatch.ElapsedMilliseconds / 1000 <= timeToAlert && !isAlert)
+        if (timeLimitInSeconds - stopwatch.ElapsedMilliseconds / 1000 <= timeToAlert && !isAlert)
         {
             this.PostEvent((int)EventID.OnAlertTimeout);
             isAlert = true;
@@ -136,7 +136,10 @@ public class BoardGame : MonoBehaviour
 
     public void PrepareSceneLevel(bool isChallenge = false)
     {
-        currentLevel = DataManager.levelSelect;
+        if (DataManager.currGameMode == eGameMode.Normal)
+            currentLevel = DataManager.levelSelect;
+        else if (DataManager.currGameMode == eGameMode.Challenge)
+            currentLevel = DataManager.UserData.challengeLevel + 1;
         if (prepareMapCoroutine != null)
             StopCoroutine(prepareMapCoroutine);
         prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel));
@@ -146,28 +149,59 @@ public class BoardGame : MonoBehaviour
     {
         Debug.Log($"Level Select: {level}");
         isPlayingGame = false;
-        
+
         stopwatch = new Stopwatch();
 
         ClearMap();
-
-        int levelIndex = level;
-        string path = $"Maps/Map_Level_{levelIndex}";
-        var file = Resources.Load<TextAsset>(path);
-        string configPath = $"Configs/Config_Level_{levelIndex}";
-        var config = Resources.Load<TextAsset>(configPath);
-
-        if (file == null || config == null)
+        if (DataManager.currGameMode == eGameMode.Normal)
         {
-            Debug.Log($"Load text data fail - MapPath =[{path}] /n configPath = [{configPath}]");
-            GameStateManager.Idle(null);
-            yield break;
+            int levelIndex = level;
+            string path = $"Maps/Map_Level_{levelIndex}";
+            var file = Resources.Load<TextAsset>(path);
+            string configPath = $"Configs/Config_Level_{levelIndex}";
+            var config = Resources.Load<TextAsset>(configPath);
+
+            if (file == null || config == null)
+            {
+                Debug.Log($"Load text data fail - MapPath =[{path}] /n configPath = [{configPath}]");
+                GameStateManager.Idle(null);
+                yield break;
+            }
+            else
+            {
+                currentLevelConfig = JsonUtility.FromJson<LevelConfig>(config.text);
+                timeLimitInSeconds = currentLevelConfig.time;
+                mapCreater.CreateMapFromTextAsset(file.text, currentLevelConfig.rowsSpeed);
+            }
         }
         else
         {
-            currentLevelConfig = JsonUtility.FromJson<LevelConfig>(config.text);
-            timeLimitInSeconds = currentLevelConfig.time;
-            mapCreater.CreateMapFromTextAsset(file.text, currentLevelConfig.rowsSpeed);
+            int levelIndex = level;
+            string path = $"ChallengeMaps/Map_Challenge_{levelIndex}";
+            var file = Resources.Load<TextAsset>(path);
+            string configPath = $"ChallengeMaps/Config_Challenge_{levelIndex}";
+            var config = Resources.Load<TextAsset>(configPath);
+            if (file == null)
+            {
+                DataManager.UserData.isMaxLevelChallenge = true;
+                levelIndex = level-1;
+                path = $"ChallengeMaps/Map_Challenge_{levelIndex}";
+                file = Resources.Load<TextAsset>(path);
+                configPath = $"ChallengeMaps/Config_Challenge_{levelIndex}";
+                config = Resources.Load<TextAsset>(configPath);
+            }
+            if (file == null || config == null)
+            {
+                Debug.Log($"Load text data fail - MapPath =[{path}] /n configPath = [{configPath}]");
+                GameStateManager.Idle(null);
+                yield break;
+            }
+            else
+            {
+                currentLevelConfig = JsonUtility.FromJson<LevelConfig>(config.text);
+                timeLimitInSeconds = currentLevelConfig.time;
+                mapCreater.CreateMapFromTextAsset(file.text, currentLevelConfig.rowsSpeed);
+            }
         }
 
         GameStateManager.Ready(null);
@@ -205,7 +239,7 @@ public class BoardGame : MonoBehaviour
         int starNum = timeUsePercent <= DataManager.GameConfig.threeStar ? 3 : timeUsePercent <= DataManager.GameConfig.twoStar ? 2 : 1;
         Debug.Log($"Time used: [{stopwatch.Elapsed.TotalSeconds}] - Equal [{timeUsePercent:P1}] Percent - Got [{starNum}] stars");
         StarManager.Add(starNum);
-        DataManager.LevelAsset.UpdateLevelStar(currentLevel-1, starNum);
+        DataManager.LevelAsset.UpdateLevelStar(currentLevel - 1, starNum);
         DataManager.levelStars = starNum;
         GameStateManager.WaitComplete(null);
     }
@@ -305,7 +339,7 @@ public class BoardGame : MonoBehaviour
     {
         var prop = DataManager.ItemsAsset.GetItemByType(items[Random.Range(0, items.Count)].Type).itemProp;
         var hintItems = items.FindAll(x => x.Type == prop.Type).ToList();
-        for(int i = 0; i < prop.matchAmount; i++)
+        for (int i = 0; i < prop.matchAmount; i++)
         {
             var item = hintItems[i];
             item.jump(i);
@@ -329,7 +363,7 @@ public class BoardGame : MonoBehaviour
                 break;
             case 2:
                 var item1 = swapShelf1.ItemsOnShelf[1];
-                
+
                 var shelf2 = item2.pCurrentShelf;
                 int index2 = item2.pFirstLeftCellIndex;
 
@@ -357,7 +391,7 @@ public class BoardGame : MonoBehaviour
     {
         SoundManager.Play("3. Scoring");
         var datum = (NewMatchDatum)obj;
-        foreach(var item in datum.items)
+        foreach (var item in datum.items)
             items.Remove(item);
         CheckGameComplete();
     }
@@ -365,9 +399,9 @@ public class BoardGame : MonoBehaviour
 
     private void ClearMap()
     {
-        foreach(var item in items)
+        foreach (var item in items)
             item.Recycle();
-        foreach(var shelf in shelves)
+        foreach (var shelf in shelves)
             shelf.Recycle();
 
         //for (int num = transform.childCount - 1; num >= 0; num--)

@@ -20,7 +20,7 @@ public class UIMainScreen : MonoBehaviour
     [Header("Home Buttons")]
     [SerializeField] private UIMainButton btn_DailyReward;
     [SerializeField] private UIMainButton btn_RemoveAds;
-    [SerializeField] private UIMainButton btn_PiggyBank;
+    //[SerializeField] private UIMainButton btn_PiggyBank;
     [SerializeField] private Button btn_Play;
     [SerializeField] private Text txt_LevelPlay;
     [SerializeField] private Button btn_PlayChallenge;
@@ -61,7 +61,7 @@ public class UIMainScreen : MonoBehaviour
     {
         //txt_LevelPlay.text = $"LV. {Mathf.Clamp(DataManager.UserData.level + 1, 1, DataManager.GameConfig.totalLevel-1)}";
 
-        btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.starsToNextChallenge - 1);
+        //btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.starsToNextChallenge - 1);
         //lockChallengeBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
         //txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
         btn_shopDecor?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelOpenShopDecor - 1);
@@ -121,22 +121,22 @@ public class UIMainScreen : MonoBehaviour
     }
     public void Ins_BtnChallengeClick()
     {
-        SoundManager.Play("1. Click Button");
-        int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.starsToNextChallenge;
-        DataManager.levelSelect = lv;
-        DataManager.currGameMode = eGameMode.Normal;
-        this.PostEvent((int)EventID.OnGoToChallengeLevel);
+        //SoundManager.Play("1. Click Button");
+        //int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.starsToNextChallenge;
+        //DataManager.levelSelect = lv;
+        //DataManager.currGameMode = eGameMode.Normal;
+        //this.PostEvent((int)EventID.OnGoToChallengeLevel);
     }
     public void BtnPlayBartenderClicked()
     {
-        SoundManager.Play("1. Click Button");
-        if (!DataManager.UserData.isModeBartenderSuguested)
-            this.PostEvent((int)EventID.OnModeBartenderUnlocked);
-        else
-        {
-            DataManager.currGameMode = eGameMode.Bartender;
-            GameStateManager.LoadGame(null);
-        }
+        //SoundManager.Play("1. Click Button");
+        //if (!DataManager.UserData.isModeBartenderSuguested)
+        //    this.PostEvent((int)EventID.OnModeBartenderUnlocked);
+        //else
+        //{
+        //    DataManager.currGameMode = eGameMode.Bartender;
+        //    GameStateManager.LoadGame(null);
+        //}
     }
     public void BtnShopDecorClicked()
     {

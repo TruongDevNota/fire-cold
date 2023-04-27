@@ -69,11 +69,13 @@ public class GameStatisticsManager : MonoBehaviour
                             //}
                         }
                     }
-                    else if (!DataManager.UserData.isMaxLevelBartender)
+                    else if (DataManager.currGameMode == eGameMode.Challenge)
                     {
-                        userData.bartenderLevel++;
-                    }
-                                
+                        if(!DataManager.UserData.isMaxLevelBartender)
+                            userData.bartenderLevel++;
+                    }else if(!DataManager.UserData.isMaxLevelChallenge&&!DataManager.UserData.isMaxLevelChallenge)
+                        userData.challengeLevel++;
+
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.Complete:

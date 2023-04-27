@@ -550,7 +550,7 @@ public class UIGameOver : MonoBehaviour
             {
                 Debug.Log("animContinue: Hide - GameStateManager: " + GameStateManager.CurrentState);
                 if (GameStateManager.CurrentState == GameState.GameOver)
-                    ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.levelSelect % DataManager.GameConfig.starsToNextChallenge == 0);
+                    ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.UserData.totalStar>=DataManager.GameConfig.starsToNextChallenge);
             });
         }
     }
