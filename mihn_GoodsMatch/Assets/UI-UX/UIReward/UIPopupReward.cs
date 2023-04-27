@@ -122,13 +122,22 @@ public class UIPopupReward : MonoBehaviour
         }
         else
         {
+            CoinManager.Add(coinEarn, coinStarTf);
             //Show Pig Process
             DataManager.UserData.totalHintBuff += buffHintEarn;
             DataManager.UserData.totalSwapBuff += buffSwapEarn;
             DOVirtual.DelayedCall(2f, () =>
             {
                 OnHide();
-                //popup_PigProcess.OnShow(coinEarn);
+                if (DataManager.levelSelect > DataManager.GameConfig.totalLevel)
+                {
+                    DataManager.levelSelect = DataManager.GameConfig.totalLevel;
+                    anim.Hide();
+                    GameStateManager.Idle(null);
+                    return;
+                }
+                DataManager.currGameMode = eGameMode.Normal;
+                GameStateManager.LoadGame(null);
             });
         }
         DataManager.Save();
