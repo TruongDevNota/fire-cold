@@ -498,7 +498,7 @@ public class UIGameOver : MonoBehaviour
             }
             else
             {
-                //ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.levelSelect % DataManager.GameConfig.levelsToNextChallenge == 0);
+                ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.UserData.totalStar>=DataManager.GameConfig.starsToUnlockChallenge);
             }
         }, "ContinueWithAds", "TimePlay");
     }
@@ -520,7 +520,7 @@ public class UIGameOver : MonoBehaviour
             var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
             popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
         }
-        else if(DataManager.UserData.totalStar >= DataManager.GameConfig.starsToNextChallenge && !DataManager.UserData.isChallengePlayed)
+        else if(DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockChallenge && !DataManager.UserData.isChallengePlayed)
         {
             DataManager.UserData.isChallengePlayed = true;
             //GameStateManager.Idle(null);
@@ -550,7 +550,7 @@ public class UIGameOver : MonoBehaviour
             {
                 Debug.Log("animContinue: Hide - GameStateManager: " + GameStateManager.CurrentState);
                 if (GameStateManager.CurrentState == GameState.GameOver)
-                    ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.UserData.totalStar>=DataManager.GameConfig.starsToNextChallenge);
+                    ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.UserData.totalStar>=DataManager.GameConfig.starsToUnlockChallenge);
             });
         }
     }

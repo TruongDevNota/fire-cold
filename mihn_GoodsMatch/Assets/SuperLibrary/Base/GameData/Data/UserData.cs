@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Base.Ads;
-
+using System.Text;
 
 [Serializable]
 public class UserData : UserAnalysic
@@ -508,6 +508,84 @@ public class UserAnalysic : UserBase
         {
             Debug.LogException(ex);
         }
+
+    }
+    private int totalSpinTime = 0;
+    public int TotalSpinTime
+    {
+        get => totalSpinTime;
+        set
+        {
+            if (totalSpinTime != value)
+            {
+                totalSpinTime = value;
+            }
+        }
+    }
+    private int remainSpinTime = 0;
+    public int RemainSpinTime
+    {
+        get => remainSpinTime;
+        set
+        {
+            if (remainSpinTime != value)
+            {
+                remainSpinTime = value;
+            }
+        }
+    }
+    private DateTime timeOnQuitSpinner = DateTime.MinValue;
+    public DateTime TimeOnQuitSpinner
+    {
+        get => timeOnQuitSpinner;
+        set
+        {
+            if (timeOnQuitSpinner != value)
+            {
+                timeOnQuitSpinner = value;
+            }
+        }
+    }
+
+    private string isGiftOpenedString = ""; // Format: false_true_false
+    public bool[] isGiftOpened = new bool[] { false, false, false };
+
+    public bool GetLuckyWheelOpenedGiftState(int index)
+    {
+        index = Mathf.Clamp(index, 0, 2);
+        if (string.IsNullOrEmpty(isGiftOpenedString))
+            return false;
+
+        var states = isGiftOpenedString.Split('_');
+        var canParse = bool.TryParse(states[index], out bool state);
+        return canParse && state;
+    }
+
+    public void SetLuckyWheelOpenedGiftState(int index, bool value)
+    {
+        index = Mathf.Clamp(index, 0, 2);
+        bool[] states = new bool[3] { false, false, false };
+
+        if (!string.IsNullOrEmpty(isGiftOpenedString))
+        {
+            var splittedStates = isGiftOpenedString.Split('_');
+            for (int i = 0; i < splittedStates.Length; i++)
+            {
+                var canParse = bool.TryParse(splittedStates[i], out bool state);
+                states[i] = canParse && state;
+            }
+        }
+
+        states[index] = value;
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < states.Length; i++)
+        {
+            builder.Append(states[i].ToString());
+            if (i < states.Length - 1)
+                builder.Append("_");
+        }
+
+        isGiftOpenedString = builder.ToString();
     }
 }
 

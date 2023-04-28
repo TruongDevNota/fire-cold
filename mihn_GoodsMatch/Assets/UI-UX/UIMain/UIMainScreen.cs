@@ -138,6 +138,14 @@ public class UIMainScreen : MonoBehaviour
         //    GameStateManager.LoadGame(null);
         //}
     }
+    public void Ins_BtnLuckySpinClick()
+    {
+        SoundManager.Play("1. Click Button");
+        if (GameStateManager.CurrentState == GameState.Idle)
+        {
+            GameStateManager.LuckyWheel(null);
+        }
+    }
     public void BtnShopDecorClicked()
     {
         SoundManager.Play("1. Click Button");

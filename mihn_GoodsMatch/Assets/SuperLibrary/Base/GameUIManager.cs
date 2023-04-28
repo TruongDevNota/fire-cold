@@ -29,7 +29,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     UILevelSelect popupLevelSelect = null;
     [SerializeField]
     PopupSelectMap popupMapSelect = null;
-
+    [SerializeField]
+    private UIAnimation luckyWheelScreen = null;
     public static UIMainScreen MainScreen => instance?.mainScreen;
 
     [SerializeField]
@@ -385,7 +386,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         //GameStateManager.Init(null);
         //StartCoroutine(WaitToAutoPlay());
     }
-
+    protected override void LuckyWheel(object data)
+    {
+        base.LuckyWheel(data);
+        mainScreen.Hide();
+        luckyWheelScreen.Show();
+    }
     protected override void RebornCheckPointGame(object data)
     {
         gameOverScreen.Hide();

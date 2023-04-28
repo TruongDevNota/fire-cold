@@ -40,8 +40,8 @@ public class PopupSelectMap : MonoBehaviour
     {
        // txt_LevelPlay.text = $"LV. {Mathf.Clamp(DataManager.UserData.level + 1, 1, DataManager.GameConfig.totalLevel - 1)}";
 
-        btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.totalStar >= DataManager.GameConfig.starsToNextChallenge);
-        lockChallengeBtn?.SetActive(DataManager.UserData.totalStar < DataManager.GameConfig.starsToNextChallenge);
+        btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockChallenge);
+        lockChallengeBtn?.SetActive(DataManager.UserData.totalStar < DataManager.GameConfig.starsToUnlockChallenge);
         // txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
         //btn_shopDecor?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelOpenShopDecor - 1);
         // lockShopDecorBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelOpenShopDecor - 1);

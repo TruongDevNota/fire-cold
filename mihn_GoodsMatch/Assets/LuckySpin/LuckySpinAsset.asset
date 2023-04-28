@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700feb9c9e93722458587503f5363311, type: 3}
+  m_Name: LuckySpinAsset
+  m_EditorClassIdentifier: 
+  timeBetweenTwoFreeSpinInSeconds: 1799
+  luckySpinRewards:
+  - index: 0
+    rewardsTypes: 0
+    rewardAmount: 200
+    color: {r: 0.57254905, g: 0.89411765, b: 0.18039216, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: d960750e67688dd4b95302c57864562e, type: 3}
+  - index: 1
+    rewardsTypes: 0
+    rewardAmount: 500
+    color: {r: 0.1882353, g: 0.9529412, b: 0.8117647, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: 2e2d43ffc6835b444821fa236979a3aa, type: 3}
+  - index: 2
+    rewardsTypes: 0
+    rewardAmount: 1000
+    color: {r: 0.16078432, g: 0.70980394, b: 1, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: 4fce1f8a07fedab48ab1a45bf6b6d158, type: 3}
+  - index: 3
+    rewardsTypes: 1
+    rewardAmount: 0
+    color: {r: 0.49803922, g: 0.29411766, b: 0.99607843, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: f5d451ee19d99ca48baf48fa861e34be, type: 3}
+  - index: 4
+    rewardsTypes: 2
+    rewardAmount: 0
+    color: {r: 0.80784315, g: 0.20392157, b: 1, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: 273163831efe7a04a86d0f2b224b9b39, type: 3}
+  - index: 5
+    rewardsTypes: 4
+    rewardAmount: 0
+    color: {r: 1, g: 0.4509804, b: 0.5647059, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: 4a15e6d38a7dbf34d849062d6aa1c0e8, type: 3}
+  - index: 6
+    rewardsTypes: 5
+    rewardAmount: 0
+    color: {r: 0.9764706, g: 0.6901961, b: 0.25882354, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: 8a6780f3a7a920342a6accbb3aaf962a, type: 3}
+  - index: 7
+    rewardsTypes: 6
+    rewardAmount: 0
+    color: {r: 0.972549, g: 0.9254902, b: 0.22745098, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: 0504a567fe23fb84abd1ca605d64f555, type: 3}
+  giftBoxRewards:
+  - index: 0
+    spinTimeRequiredToGetThisGift: 3
+    rewardsTypes: 0
+    rewardAmount: 500
+    rewardSpriteIcon: {fileID: 21300000, guid: d960750e67688dd4b95302c57864562e, type: 3}
+  - index: 1
+    spinTimeRequiredToGetThisGift: 6
+    rewardsTypes: 0
+    rewardAmount: 1000
+    rewardSpriteIcon: {fileID: 21300000, guid: 2e2d43ffc6835b444821fa236979a3aa, type: 3}
+  - index: 2
+    spinTimeRequiredToGetThisGift: 10
+    rewardsTypes: 0
+    rewardAmount: 1500
+    rewardSpriteIcon: {fileID: 21300000, guid: 4fce1f8a07fedab48ab1a45bf6b6d158, type: 3}
