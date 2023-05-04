@@ -30,6 +30,8 @@ public class LuckySpin : MonoBehaviour
 
     [SerializeField]
     private Text timerTxt = null;
+    [SerializeField]
+    private float configAngle = 60;
 
     private float timeSpin = 15f;
 
@@ -38,7 +40,7 @@ public class LuckySpin : MonoBehaviour
     float[] probabilities = new float[] { 0.4f, 0.2f, 0.2f, 0.1f, 0.05f, 0.05f};
     // float[] probabilities = new float[] { 0.0f, 0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1f };
     private LuckySpinReward currentReward = null;
-    private int targetAngle;
+    private float targetAngle;
 
     private void OnEnable()
     {
@@ -289,7 +291,7 @@ public class LuckySpin : MonoBehaviour
         var gift = GetRandomGift();
         if (gift.index > currentReward.index)
         {
-            targetAngle = (gift.index - currentReward.index) * 45;
+            targetAngle = (gift.index - currentReward.index) * configAngle;
         }
         else if (gift.index == currentReward.index)
         {
@@ -297,7 +299,7 @@ public class LuckySpin : MonoBehaviour
         }
         else
         {
-            targetAngle = (spinAsset.luckySpinRewards.Length - currentReward.index + gift.index) * 45;
+            targetAngle = (spinAsset.luckySpinRewards.Length - currentReward.index + gift.index) * configAngle;
         }
 
         targetAngle = (360 - targetAngle) + 3600;
