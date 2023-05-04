@@ -35,7 +35,7 @@ public class LuckySpin : MonoBehaviour
 
     private float timeAnimateSliderValue = 0.25f;
     private List<GiftBoxContent> giftBoxContents = new List<GiftBoxContent>();
-    float[] probabilities = new float[] { 0.2f, 0.2f, 0.2f, 0.0875f, 0.0875f, 0.0875f, 0.0875f, 0.05f };
+    float[] probabilities = new float[] { 0.4f, 0.2f, 0.2f, 0.1f, 0.05f, 0.05f};
     // float[] probabilities = new float[] { 0.0f, 0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1f };
     private LuckySpinReward currentReward = null;
     private int targetAngle;
@@ -157,14 +157,14 @@ public class LuckySpin : MonoBehaviour
                         box.Init(gb);
                         break;
                     case LuckyRewardsTypes.Wall:
-                        //var listWallAvailble = DataManager.SkinsAsset.GetNotUnlockedSkin();
-                        //rewardWall = listWallAvailble[UnityEngine.Random.Range(0, listWallAvailble.Count)];
-                        //box.Init(gb);
+                        var listWallAvailble = DataManager.SkinsAsset.GetNotUnlockedSkin();
+                        rewardWall = listWallAvailble[UnityEngine.Random.Range(0, listWallAvailble.Count)];
+                        box.Init(gb,rewardWall);
                         break;
                     case LuckyRewardsTypes.Floor:
-                        //var listFloorAvailble = DataManager.FloorAsset.GetNotUnlockedSkin();
-                        //rewardFloor = listFloorAvailble[UnityEngine.Random.Range(0, listFloorAvailble.Count)];
-                        //box.Init(gb);
+                        var listFloorAvailble = DataManager.FloorAsset.GetNotUnlockedSkin();
+                        rewardFloor = listFloorAvailble[UnityEngine.Random.Range(0, listFloorAvailble.Count)];
+                        box.Init(gb,rewardFloor);
                         break;
                     case LuckyRewardsTypes.Windows:
                         var listWindowsAvailble = DataManager.WindowAsset.GetNotUnlockedSkin();
@@ -172,19 +172,19 @@ public class LuckySpin : MonoBehaviour
                         box.Init(gb, rewardWindows);
                         break;
                     case LuckyRewardsTypes.Carpet:
-                        //var listCarpetAvailble = DataManager.CarpetsAsset.GetNotUnlockedSkin();
-                        //rewardCarpet = listCarpetAvailble[UnityEngine.Random.Range(0, listCarpetAvailble.Count)];
-                        //box.Init(gb);
+                        var listCarpetAvailble = DataManager.CarpetsAsset.GetNotUnlockedSkin();
+                        rewardCarpet = listCarpetAvailble[UnityEngine.Random.Range(0, listCarpetAvailble.Count)];
+                        box.Init(gb,rewardCarpet);
                         break;
                     case LuckyRewardsTypes.Ceilling:
-                        //var listCeillingAvailble = DataManager.CeillingAsset.GetNotUnlockedSkin();
-                        //rewardCeilling = listCeillingAvailble[UnityEngine.Random.Range(0, listCeillingAvailble.Count)];
-                        //box.Init(gb);
+                        var listCeillingAvailble = DataManager.CeillingAsset.GetNotUnlockedSkin();
+                        rewardCeilling = listCeillingAvailble[UnityEngine.Random.Range(0, listCeillingAvailble.Count)];
+                        box.Init(gb,rewardCeilling);
                         break;
                     case LuckyRewardsTypes.Chair:
-                        //var listChairAvailble = DataManager.ChairsAsset.GetNotUnlockedSkin();
-                        //rewardChair = listChairAvailble[UnityEngine.Random.Range(0, listChairAvailble.Count)];
-                        //box.Init(gb);
+                        var listChairAvailble = DataManager.ChairsAsset.GetNotUnlockedSkin();
+                        rewardChair = listChairAvailble[UnityEngine.Random.Range(0, listChairAvailble.Count)];
+                        box.Init(gb,rewardChair);
                         break;
                     case LuckyRewardsTypes.Table:
                         var listTablesAvailble = DataManager.TableAssets.GetNotUnlockedSkin();

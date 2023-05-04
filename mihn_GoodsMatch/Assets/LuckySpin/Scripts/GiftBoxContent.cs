@@ -25,6 +25,41 @@ public class GiftBoxContent : MonoBehaviour
         reward.tmpRewardWindows = data;
         gift = reward;
     }
+    public void Init(GiftBoxReward reward, SkinData data)
+    {
+        iconImg.sprite = DataManager.UserData.TotalSpinTime < reward.spinTimeRequiredToGetThisGift ? lockIconSpr : DataManager.UserData.GetLuckyWheelOpenedGiftState(reward.index) ? tickIconSpr : reward.rewardSpriteIcon;
+        totalSpinRequiredTxt.text = $"{reward.spinTimeRequiredToGetThisGift}";
+        reward.tmpRewardSkin = data;
+        gift = reward;
+    }
+    public void Init(GiftBoxReward reward, FloorData data)
+    {
+        iconImg.sprite = DataManager.UserData.TotalSpinTime < reward.spinTimeRequiredToGetThisGift ? lockIconSpr : DataManager.UserData.GetLuckyWheelOpenedGiftState(reward.index) ? tickIconSpr : reward.rewardSpriteIcon;
+        totalSpinRequiredTxt.text = $"{reward.spinTimeRequiredToGetThisGift}";
+        reward.tmpRewardFloor = data;
+        gift = reward;
+    }
+    public void Init(GiftBoxReward reward, CarpetData data)
+    {
+        iconImg.sprite = DataManager.UserData.TotalSpinTime < reward.spinTimeRequiredToGetThisGift ? lockIconSpr : DataManager.UserData.GetLuckyWheelOpenedGiftState(reward.index) ? tickIconSpr : reward.rewardSpriteIcon;
+        totalSpinRequiredTxt.text = $"{reward.spinTimeRequiredToGetThisGift}";
+        reward.tmpRewardCarpet = data;
+        gift = reward;
+    }
+    public void Init(GiftBoxReward reward, CeillingData data)
+    {
+        iconImg.sprite = DataManager.UserData.TotalSpinTime < reward.spinTimeRequiredToGetThisGift ? lockIconSpr : DataManager.UserData.GetLuckyWheelOpenedGiftState(reward.index) ? tickIconSpr : reward.rewardSpriteIcon;
+        totalSpinRequiredTxt.text = $"{reward.spinTimeRequiredToGetThisGift}";
+        reward.tmpRewardCeilling = data;
+        gift = reward;
+    }
+    public void Init(GiftBoxReward reward, ChairData data)
+    {
+        iconImg.sprite = DataManager.UserData.TotalSpinTime < reward.spinTimeRequiredToGetThisGift ? lockIconSpr : DataManager.UserData.GetLuckyWheelOpenedGiftState(reward.index) ? tickIconSpr : reward.rewardSpriteIcon;
+        totalSpinRequiredTxt.text = $"{reward.spinTimeRequiredToGetThisGift}";
+        reward.tmpRewardChair = data;
+        gift = reward;
+    }
     public void Init(GiftBoxReward reward, TableData data)
     {
         iconImg.sprite = DataManager.UserData.TotalSpinTime < reward.spinTimeRequiredToGetThisGift ? lockIconSpr : DataManager.UserData.GetLuckyWheelOpenedGiftState(reward.index) ? tickIconSpr : reward.rewardSpriteIcon;

@@ -2509,6 +2509,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 655595649}
     m_Modifications:
+    - target: {fileID: 1266674353561381827, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.17
+      objectReference: {fileID: 0}
     - target: {fileID: 1706053936849642458, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 48
@@ -10349,6 +10353,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5603248781179116415, guid: 820d490ba30e1df40abe162407cd5636, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40.00006
+      objectReference: {fileID: 0}
     - target: {fileID: 6438890044354235956, guid: 820d490ba30e1df40abe162407cd5636, type: 3}
       propertyPath: m_Name
       value: PopupMes
@@ -12399,6 +12407,10 @@ PrefabInstance:
       propertyPath: popupSetting
       value: 
       objectReference: {fileID: 1866255698}
+    - target: {fileID: 1138532316345244742, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40.00055
+      objectReference: {fileID: 0}
     - target: {fileID: 1982694554221685972, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
