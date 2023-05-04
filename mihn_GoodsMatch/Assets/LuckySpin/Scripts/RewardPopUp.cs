@@ -152,7 +152,7 @@ public class RewardPopUp : MonoBehaviour
     {
         //UIToast.ShowNotice($"Claim: {luckyReward.rewardsTypes} {luckyReward.rewardSpriteIcon}");
 
-        this.PostEvent((int)EventID.OnClaimReward, luckyReward);
+        
 
         switch (luckyReward.rewardsTypes)
         {
@@ -206,6 +206,7 @@ public class RewardPopUp : MonoBehaviour
         }
 
         anim.Hide();
+        this.PostEvent((int)EventID.OnClaimReward, luckyReward);
     }
     public void HandleClaimGiftReward()
     {

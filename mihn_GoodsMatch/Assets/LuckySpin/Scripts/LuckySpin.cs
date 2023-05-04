@@ -33,7 +33,7 @@ public class LuckySpin : MonoBehaviour
     [SerializeField]
     private float configAngle = 60;
 
-    private float timeSpin = 15f;
+    private float timeSpin = 1f;
 
     private float timeAnimateSliderValue = 0.25f;
     private List<GiftBoxContent> giftBoxContents = new List<GiftBoxContent>();
@@ -46,7 +46,19 @@ public class LuckySpin : MonoBehaviour
     {
         this.RegisterListener((int)EventID.OnSpinDone, OnSpinDone);
         this.RegisterListener((int)EventID.OnReceiverGift, OnReceiverGift);
+        this.RegisterListener((int)EventID.OnClaimReward, UpdateDataLuckySpin);
     }
+
+    private void UpdateDataLuckySpin(object obj)
+    {
+        LuckySpinReward lucky = (LuckySpinReward)obj;
+        if (lucky.rewardsTypes != LuckyRewardsTypes.Coins)
+        {
+            FillData();
+            Debug.Log("filldata");
+        }
+    }
+
     private void OnDisable()
     {
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnSpinDone, OnSpinDone);
@@ -101,7 +113,8 @@ public class LuckySpin : MonoBehaviour
                         break;
                     case LuckyRewardsTypes.Wall:
                         var listWallAvailble = DataManager.SkinsAsset.GetNotUnlockedSkin();
-                        rewardWall = listWallAvailble[UnityEngine.Random.Range(0, listWallAvailble.Count)];
+                        var randomIndex = UnityEngine.Random.Range(0, listWallAvailble.Count);
+                        rewardWall = listWallAvailble[randomIndex];
                         spineContent.Init(rw, rewardWall);
                         break;
                     case LuckyRewardsTypes.Floor:
@@ -204,7 +217,7 @@ public class LuckySpin : MonoBehaviour
                 var rect = box.GetComponent<RectTransform>();
                 rect.anchoredPosition = new Vector2(distance * spinAsset.giftBoxRewards[i].spinTimeRequiredToGetThisGift, rect.anchoredPosition.y);
 
-                giftBoxContents.Add(box);
+               // giftBoxContents.Add(box);
             }
 
             UpdateGiftBoxProgressImg();
