@@ -98,6 +98,13 @@ public class LuckySpin : MonoBehaviour
     LampData rewardLamp = null;
     public void FillData()
     {
+        if (contentContainer.childCount != 0)
+        {
+            foreach(Transform spine in contentContainer.transform)
+            {
+                Destroy(spine.gameObject);
+            }
+        }
         if (giftBoxContents.Count == 0)
         {
             for (int i = 0; i < spinAsset.luckySpinRewards.Length; i++)
