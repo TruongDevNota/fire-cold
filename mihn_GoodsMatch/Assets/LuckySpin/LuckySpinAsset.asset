@@ -12,38 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 700feb9c9e93722458587503f5363311, type: 3}
   m_Name: LuckySpinAsset
   m_EditorClassIdentifier: 
-  timeBetweenTwoFreeSpinInSeconds: 1799
+  timeBetweenTwoFreeSpinInSeconds: 0
   luckySpinRewards:
   - index: 0
     rewardsTypes: 0
     rewardAmount: 100
-    color: {r: 0.57254905, g: 0.89411765, b: 0.18039216, a: 1}
+    color: {r: 0.854902, g: 0.92549026, b: 1, a: 1}
     rewardSpriteIcon: {fileID: 21300000, guid: d960750e67688dd4b95302c57864562e, type: 3}
   - index: 1
     rewardsTypes: 0
     rewardAmount: 150
-    color: {r: 0.80784315, g: 0.20392157, b: 1, a: 1}
+    color: {r: 0.6745098, g: 0.8313726, b: 1, a: 1}
     rewardSpriteIcon: {fileID: 21300000, guid: d960750e67688dd4b95302c57864562e, type: 3}
   - index: 2
     rewardsTypes: 0
-    rewardAmount: 200
-    color: {r: 0.1882353, g: 0.9529412, b: 0.8117647, a: 1}
+    rewardAmount: 600
+    color: {r: 0.854902, g: 0.92549026, b: 1, a: 1}
     rewardSpriteIcon: {fileID: 21300000, guid: 2e2d43ffc6835b444821fa236979a3aa, type: 3}
   - index: 3
     rewardsTypes: 0
     rewardAmount: 500
-    color: {r: 0.80784315, g: 0.20392157, b: 1, a: 1}
+    color: {r: 0.6745098, g: 0.8313726, b: 1, a: 1}
     rewardSpriteIcon: {fileID: 21300000, guid: 4fce1f8a07fedab48ab1a45bf6b6d158, type: 3}
   - index: 4
     rewardsTypes: 1
     rewardAmount: 0
-    color: {r: 0.49803922, g: 0.29411766, b: 0.99607843, a: 1}
-    rewardSpriteIcon: {fileID: 21300000, guid: 8acd47c991b6a1346841795c008eb224, type: 3}
+    color: {r: 0.854902, g: 0.92549026, b: 1, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: 9f14a3a6bfb01f542aec22fc07c437f2, type: 3}
   - index: 5
     rewardsTypes: 2
     rewardAmount: 0
-    color: {r: 0.80784315, g: 0.20392157, b: 1, a: 1}
-    rewardSpriteIcon: {fileID: 21300000, guid: cdc98867b9b2239499fb5cdc9d9519d9, type: 3}
+    color: {r: 0.6745098, g: 0.8313726, b: 1, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: c8c35388afa7d0d4ba727d02172ae45b, type: 3}
   giftBoxRewards:
   - index: 0
     spinTimeRequiredToGetThisGift: 3

@@ -33,7 +33,7 @@ public class LuckySpin : MonoBehaviour
     [SerializeField]
     private float configAngle = 60;
 
-    private float timeSpin = 1f;
+    private float timeSpin = 15f;
 
     private float timeAnimateSliderValue = 0.25f;
     private List<GiftBoxContent> giftBoxContents = new List<GiftBoxContent>();

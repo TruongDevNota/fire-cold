@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c41561181b292849a933a53189dc89c, type: 3}
   m_Name: MapAsset
   m_EditorClassIdentifier: 
-  totalMap: 1
+  totalMap: 2
   listMaps:
   - mapindex: 1
     totalLevel: 30
-    levelAsset: {fileID: 0}
+    levelAsset: {fileID: 11400000, guid: 388ac3ab686947947b1cabfe6647f696, type: 2}
+  - mapindex: 2
+    totalLevel: 30
+    levelAsset: {fileID: 11400000, guid: f4b81f7ca81ae9e43809a8e9064ab53e, type: 2}
