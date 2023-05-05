@@ -26,14 +26,14 @@ public class PopupSelectMap : MonoBehaviour
     public void Show()
     {
         SoundManager.Play("1. Click Button");
-        //for (int i = 1; i <= DataManager.GameConfig.totalMap; i++)
-        //{
-        //    var isExist = i <= selectItems.Count;
-        //    var item = isExist ? selectItems[i - 1] : mapSelectPrefab.Spawn(contentRect);
-        //    if (!isExist)
-        //        selectItems.Add(item);
-        //    item.Fill(i, OnLevelSelectHandle, isTest);
-        //}
+        for (int i = 1; i <=5; i++)
+        {
+            var isExist = i <= selectItems.Count;
+            var item = isExist ? selectItems[i - 1] : mapSelectPrefab.Spawn(contentRect);
+            if (!isExist)
+                selectItems.Add(item);
+            item.Fill(i, OnLevelSelectHandle, isTest);
+        }
         anim.Show();
         //int lastMap = DataManager.mapSelect == 0 ? DataManager.UserData.mapIndex : DataManager.mapSelect - 1;
         //anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastMap / 3) * 1f / (DataManager.GameConfig.totalMap / 3); });
