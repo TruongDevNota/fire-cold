@@ -2394,7 +2394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4394039165652792251, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 55.8
+      value: 54
       objectReference: {fileID: 0}
     - target: {fileID: 4394039166596631600, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_Color.b
@@ -2578,7 +2578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6068449455043643271, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6068449455816078375, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_IsActive
@@ -6904,7 +6904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1298916134035771553, guid: 97a0fc6067e057245999fbaed8a145f5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.9
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 2244637601693146755, guid: 97a0fc6067e057245999fbaed8a145f5, type: 3}
       propertyPath: m_Text
@@ -14683,7 +14683,7 @@ GameObject:
   - component: {fileID: 4472639210542856590}
   - component: {fileID: 4557902621468349401}
   m_Layer: 5
-  m_Name: UIButtonDailyReward (1)
+  m_Name: UISpin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
