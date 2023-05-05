@@ -627,7 +627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330515184428788557, guid: f80309c2746149040b648dc2a6410094, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 4330515184428788557, guid: f80309c2746149040b648dc2a6410094, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2430,7 +2430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4394039166596631603, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 24.3
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4394039166596631603, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2478,7 +2478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5017341208639023180, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 5017341208639023180, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3758,7 +3758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6764537988518078341, guid: ca9466fb5061f2a4f96692f7fd31d013, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6764537988518078341, guid: ca9466fb5061f2a4f96692f7fd31d013, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4085,6 +4085,7 @@ RectTransform:
   - {fileID: 1428751320}
   - {fileID: 535805370728193852}
   - {fileID: 3261762551956393895}
+  - {fileID: 300790292}
   - {fileID: 828676626}
   - {fileID: 1614896378328835507}
   - {fileID: 1728341589}
@@ -4092,7 +4093,6 @@ RectTransform:
   - {fileID: 1580657784}
   - {fileID: 137561801}
   - {fileID: 1083747277864903635}
-  - {fileID: 300790292}
   - {fileID: 161988566}
   m_Father: {fileID: 1125084086}
   m_RootOrder: 0
@@ -8923,7 +8923,7 @@ RectTransform:
   - {fileID: 2112922679}
   - {fileID: 133665564}
   m_Father: {fileID: 655595649}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9333,7 +9333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8844125314911782879, guid: a2c36acd557fa7a43842924afe7e999c, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 8844125314911782879, guid: a2c36acd557fa7a43842924afe7e999c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -10136,7 +10136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6438890044354235957, guid: 820d490ba30e1df40abe162407cd5636, type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6438890044354235957, guid: 820d490ba30e1df40abe162407cd5636, type: 3}
       propertyPath: m_AnchorMax.x
@@ -12398,7 +12398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 483968850984907161, guid: 3e4ad73cb97f4374a923552dc54bafff, type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 483968850984907161, guid: 3e4ad73cb97f4374a923552dc54bafff, type: 3}
       propertyPath: m_AnchorMax.x
@@ -14610,9 +14610,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UILevelSelect, Assembly-CSharp
-        m_MethodName: OnShow
+      - m_Target: {fileID: 600158666}
+        m_TargetAssemblyTypeName: UIMainScreen, Assembly-CSharp
+        m_MethodName: Ins_BtnLuckySpinClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16062,7 +16062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5204787043189274131, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5204787043189274131, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
       propertyPath: m_AnchorMax.x
