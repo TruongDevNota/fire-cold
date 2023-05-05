@@ -40,6 +40,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     [SerializeField] private UIGameOver_Bartender gameOver_Bar_Screen = null;
     public static UIGameOver GameOverScreen => instance?.gameOverScreen;
     public static PopupSelectMap PopupMapSelect => instance?.popupMapSelect;
+    public static UILevelSelect PopupLevelSelect => instance?.popupLevelSelect;
     public static UIGameOver_Bartender GameOver_Bar_Screen => instance?.gameOver_Bar_Screen;
 
     private DateTime startLoadTime = DateTime.Now;

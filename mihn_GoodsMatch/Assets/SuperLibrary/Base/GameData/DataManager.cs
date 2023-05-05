@@ -98,6 +98,7 @@ public class DataManager : MonoBehaviour
     #endregion
 
     public static int levelSelect = 0;
+    public static int mapSelect = 0;
     public static int levelStars = 1;
     public static eGameMode currGameMode = eGameMode.Normal;
     //public static nomalMode currnomalMode = nomalMode.Store1;

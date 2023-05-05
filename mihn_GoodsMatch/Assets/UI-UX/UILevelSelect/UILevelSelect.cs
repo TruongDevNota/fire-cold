@@ -54,4 +54,9 @@ public class UILevelSelect : MonoBehaviour
     {
         anim.Hide();
     }
+    public void Close()
+    {
+        OnHide();
+        GameUIManager.PopupMapSelect.Show();
+    }
 }

@@ -113,11 +113,7 @@ public class UIMainScreen : MonoBehaviour
     public void Ins_BtnPlayClick()
     {
         SoundManager.Play("1. Click Button");
-        Debug.Log($"Level data load: {DataManager.UserData.level + 1}");
-        //DataManager.levelSelect = Mathf.Clamp(DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1, 1, DataManager.GameConfig.totalLevel - 1);
-        //DataManager.currGameMode = eGameMode.Normal;
         GameUIManager.PopupMapSelect.Show();
-        //GameStateManager.LoadGame(null);
     }
     public void Ins_BtnChallengeClick()
     {
