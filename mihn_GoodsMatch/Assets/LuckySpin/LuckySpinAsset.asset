@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 700feb9c9e93722458587503f5363311, type: 3}
   m_Name: LuckySpinAsset
   m_EditorClassIdentifier: 
-  timeBetweenTwoFreeSpinInSeconds: 0
+  timeBetweenTwoFreeSpinInSeconds: 1799
   luckySpinRewards:
   - index: 0
     rewardsTypes: 0
