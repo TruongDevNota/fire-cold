@@ -12242,6 +12242,18 @@ PrefabInstance:
       propertyPath: contentRect
       value: 
       objectReference: {fileID: 5649976874810607469}
+    - target: {fileID: 5176212101137569063, guid: 3e4ad73cb97f4374a923552dc54bafff, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176212101137569063, guid: 3e4ad73cb97f4374a923552dc54bafff, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1008.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176212101137569063, guid: 3e4ad73cb97f4374a923552dc54bafff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -504.06
+      objectReference: {fileID: 0}
     - target: {fileID: 9015404542634294825, guid: 3e4ad73cb97f4374a923552dc54bafff, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0

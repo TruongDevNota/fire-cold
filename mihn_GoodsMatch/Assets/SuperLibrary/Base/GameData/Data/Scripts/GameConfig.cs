@@ -33,7 +33,6 @@ public class GameConfig : GameConfigBase
     public float threeStar = 0.75f;
     public float twoStar = 0.9f;
     public int totalLevel = 100;
-    public int totalMap = 5;
 
     [Header("Rate")]
     public int promtRateAtWin = 5;
