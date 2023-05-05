@@ -66,7 +66,7 @@ public class UIMainScreen : MonoBehaviour
         //txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
         btn_shopDecor?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelOpenShopDecor - 1);
         lockShopDecorBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelOpenShopDecor - 1);
-        txt_LockShopDecor.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelOpenShopDecor}";
+        txt_LockShopDecor.text = $"LV.{DataManager.GameConfig.levelOpenShopDecor}";
 
         //PlayBartenderBtn?.gameObject.SetActive(true);
         //lockBartenderBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1);
