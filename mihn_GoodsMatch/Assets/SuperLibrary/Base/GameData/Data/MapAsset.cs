@@ -6,10 +6,10 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "MapAsset", menuName = "DataAsset/MapAsset")]
 
-public class MapData : ScriptableObject
+public class MapAsset : ScriptableObject
 {
     public int totalMap;
-    public List<Map> listMaps;
+    public List<Map> listMaps = new List<Map>();
     [ButtonMethod]
     public void ConfigMap()
     {

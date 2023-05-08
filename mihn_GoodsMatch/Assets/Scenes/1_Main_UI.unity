@@ -10116,7 +10116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5603248781179116415, guid: 820d490ba30e1df40abe162407cd5636, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40.00006
+      value: -40.000122
       objectReference: {fileID: 0}
     - target: {fileID: 6438890044354235956, guid: 820d490ba30e1df40abe162407cd5636, type: 3}
       propertyPath: m_Name
@@ -12129,7 +12129,7 @@ PrefabInstance:
       objectReference: {fileID: 1866255698}
     - target: {fileID: 1138532316345244742, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40.00055
+      value: -40.00061
       objectReference: {fileID: 0}
     - target: {fileID: 1982694554221685972, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_AnchorMax.x
@@ -14844,6 +14844,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4727119641731156177, guid: 096dd6a785d64e74b81c75b0e6b1b231, type: 3}
+      propertyPath: mapAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 77a6211ff37fdc34cb16fd34117a1fc6, type: 2}
     - target: {fileID: 4727119641731156177, guid: 096dd6a785d64e74b81c75b0e6b1b231, type: 3}
       propertyPath: floorAsset
       value: 

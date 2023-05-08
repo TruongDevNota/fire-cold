@@ -26,7 +26,7 @@ public class PopupSelectMap : MonoBehaviour
     public void Show()
     {
         SoundManager.Play("1. Click Button");
-        for (int i = 1; i <=5; i++)
+        for (int i = 1; i <=DataManager.MapAsset.totalMap; i++)
         {
             var isExist = i <= selectItems.Count;
             var item = isExist ? selectItems[i - 1] : mapSelectPrefab.Spawn(contentRect);

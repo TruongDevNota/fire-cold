@@ -21,7 +21,7 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
@@ -1305,19 +1305,6 @@ MonoBehaviour:
     id: 100
     idThumb: 
     index: 100
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    levelStars: 0
-  - name: 
-    id: 101
-    idThumb: 
-    index: 101
     description: 
     unlockType: 2
     unlockPrice: 1

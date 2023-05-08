@@ -12,11 +12,11 @@ public class DataManager : MonoBehaviour
     {
         get { return gameData?.user; }
     }
-    public static LevelData CurrentLevelData
-    {
-        get => LevelAsset?.Current;
-        set => LevelAsset.Current = value;
-    }
+    //public static LevelData CurrentLevelData
+    //{
+    //    get => MapAsset?.Current;
+    //    set => MapAsset.Current = value;
+    //}
 
     public static SkinData CurrentSkin
     {
@@ -91,7 +91,7 @@ public class DataManager : MonoBehaviour
     protected LampsAsset lampsAsset = null;
     public static LampsAsset LampsAsset { get; private set; }
 
-    public static LevelAsset LevelAsset { get; private set; }
+    public static MapAsset MapAsset { get; private set; }
     public static GameItemAsset ItemsAsset { get; private set; }
     public static GameData gameData { get; private set; }
     private static DataManager instance { get; set; }
@@ -108,7 +108,7 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     protected ConfigAsset configAsset = null;
     [SerializeField]
-    protected LevelAsset levelAsset = null;
+    protected MapAsset mapAsset = null;
     [SerializeField]
     protected GameItemAsset gameItemAsset = null;
 
@@ -135,7 +135,7 @@ public class DataManager : MonoBehaviour
         {
             var time = DateTime.Now;
             gameData.user.LastTimeUpdate = DateTime.Now;
-            gameData.levelStars = LevelAsset.saveList;
+            //gameData.levelStars = MapAsset.saveList;
             gameData.itemData = ItemsAsset.itemSaveList;
 
             gameData.walls = SkinsAsset.itemSaveList;
@@ -168,7 +168,7 @@ public class DataManager : MonoBehaviour
             else
                 Debug.LogWarning("GameData not NULL");
 
-            while (gameData == null || LevelAsset == null)
+            while (gameData == null || MapAsset == null)
             {
                 if (elapsedTime < 5)
                 {
@@ -188,11 +188,17 @@ public class DataManager : MonoBehaviour
             //Create default
             var tempData = new GameData();
 
-            if (LevelAsset == null)
+            if (MapAsset == null)
             {
-                LevelAsset = ScriptableObject.CreateInstance("LevelAsset") as LevelAsset;
-                foreach (var i in instance.levelAsset.list)
-                    LevelAsset.list.Add(i);
+                MapAsset = ScriptableObject.CreateInstance("MapAsset") as MapAsset;
+                MapAsset.totalMap = instance.mapAsset.totalMap;
+                for(int i=0;i< instance.mapAsset.listMaps.Count;i++)
+                {
+                    MapAsset.listMaps.Add(instance.mapAsset.listMaps[i]);
+                    //foreach (var j in instance.mapAsset.listMaps[i].levelAsset.list)
+                    //    MapAsset.listMaps[i].levelAsset.list.Add(j);
+                }
+                
             }
             else
                 Debug.Log("LevelAsset is not NULL");
@@ -283,8 +289,8 @@ public class DataManager : MonoBehaviour
             GameData loadData = FileExtend.LoadData<GameData>("GameData") as GameData;
             if (loadData != null)
             {
-                if (loadData.levelStars != null && loadData.levelStars.Any())
-                    LevelAsset.ConvertLevelStars(loadData.levelStars);
+                //if (loadData.levelStars != null && loadData.levelStars.Any())
+                //    MapAsset.ConvertLevelStars(loadData.levelStars);
 
                 if (loadData.itemData != null && loadData.itemData.Any())
                     ItemsAsset.ConvertItemData(loadData.itemData);
@@ -363,7 +369,11 @@ public class DataManager : MonoBehaviour
     {
         try
         {
-            levelAsset.ResetData();
+            for (int i = 0; i < instance.mapAsset.listMaps.Count; i++)
+            {
+                mapAsset.listMaps[i].levelAsset.ResetData();
+            }
+            
             gameItemAsset.ResetData();
             Reset();
             Debug.Log("Reset and Update data to BUILD!!!");

@@ -30,7 +30,7 @@ public class UILevelSelect : MonoBehaviour
     public void OnShow()
     {
         SoundManager.Play("1. Click Button");
-        for (int i = 1; i <= DataManager.GameConfig.totalLevel; i++)
+        for (int i = 1; i <= DataManager.MapAsset.listMaps[DataManager.mapSelect-1].totalLevel; i++)
         {
             var isExist = i <= selectItems.Count;
             var item = isExist ? selectItems[i - 1] : itemSelectPrefab.Spawn(contentRect);
@@ -57,6 +57,11 @@ public class UILevelSelect : MonoBehaviour
     public void Close()
     {
         OnHide();
+        foreach(Transform i in contentRect.transform)
+        {
+            Destroy(i.gameObject);
+        }
+        selectItems.Clear();
         GameUIManager.PopupMapSelect.Show();
     }
 }
