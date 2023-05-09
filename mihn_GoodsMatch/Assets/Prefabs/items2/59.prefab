@@ -32,8 +32,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: a54b717e29211dc4ca5304580144cbcd, type: 3}
     - target: {fileID: 2748385545455601461, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
+      propertyPath: pack
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748385545455601461, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: type
-      value: 30
+      value: 59
       objectReference: {fileID: 0}
     - target: {fileID: 2748385545455601461, guid: 0f7fb66088c8e074ab9e66ada4f4d839, type: 3}
       propertyPath: size.y

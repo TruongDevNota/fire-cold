@@ -30,4 +30,5 @@ public class Map
     public int mapindex;
     public int totalLevel;
     public LevelAsset levelAsset;
+    public Package pack;
 }
