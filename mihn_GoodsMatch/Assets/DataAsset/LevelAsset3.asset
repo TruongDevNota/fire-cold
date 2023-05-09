@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb1ab89ebf13b1d498f7d0ff748d5556, type: 3}
-  m_Name: LevelAsset
+  m_Name: LevelAsset3
   m_EditorClassIdentifier: 
   useRandom: 0
   list:
@@ -21,12 +21,12 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 1
+    isUnlocked: 0
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
-    levelStars: 3
+    levelStars: 0
   - name: 
     id: 2
     idThumb: 
@@ -34,12 +34,12 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 1
+    isUnlocked: 0
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
-    levelStars: 3
+    levelStars: 0
   - name: 
     id: 3
     idThumb: 
@@ -405,9 +405,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 31
+    id: 30
     idThumb: 
-    index: 31
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -418,9 +418,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 32
+    id: 30
     idThumb: 
-    index: 32
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -431,9 +431,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 33
+    id: 30
     idThumb: 
-    index: 33
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -444,9 +444,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 34
+    id: 30
     idThumb: 
-    index: 34
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -457,9 +457,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 35
+    id: 30
     idThumb: 
-    index: 35
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -470,9 +470,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 36
+    id: 30
     idThumb: 
-    index: 36
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -483,9 +483,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 37
+    id: 30
     idThumb: 
-    index: 37
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -496,9 +496,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 38
+    id: 30
     idThumb: 
-    index: 38
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -509,9 +509,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 39
+    id: 30
     idThumb: 
-    index: 39
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -522,9 +522,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 40
+    id: 30
     idThumb: 
-    index: 40
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -535,9 +535,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 41
+    id: 30
     idThumb: 
-    index: 41
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -548,9 +548,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 42
+    id: 30
     idThumb: 
-    index: 42
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -561,9 +561,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 43
+    id: 30
     idThumb: 
-    index: 43
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -574,9 +574,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 44
+    id: 30
     idThumb: 
-    index: 44
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -587,9 +587,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 45
+    id: 30
     idThumb: 
-    index: 45
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -600,9 +600,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 46
+    id: 30
     idThumb: 
-    index: 46
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -613,9 +613,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 47
+    id: 30
     idThumb: 
-    index: 47
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -626,9 +626,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 48
+    id: 30
     idThumb: 
-    index: 48
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -639,9 +639,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 49
+    id: 30
     idThumb: 
-    index: 49
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -652,9 +652,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 50
+    id: 30
     idThumb: 
-    index: 50
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -665,9 +665,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 51
+    id: 30
     idThumb: 
-    index: 51
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -678,9 +678,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 52
+    id: 30
     idThumb: 
-    index: 52
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -691,9 +691,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 53
+    id: 30
     idThumb: 
-    index: 53
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -704,9 +704,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 54
+    id: 30
     idThumb: 
-    index: 54
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -717,9 +717,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 55
+    id: 30
     idThumb: 
-    index: 55
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -730,9 +730,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 56
+    id: 30
     idThumb: 
-    index: 56
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -743,9 +743,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 57
+    id: 30
     idThumb: 
-    index: 57
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -756,9 +756,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 58
+    id: 30
     idThumb: 
-    index: 58
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -769,9 +769,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 59
+    id: 30
     idThumb: 
-    index: 59
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -782,9 +782,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 60
+    id: 30
     idThumb: 
-    index: 60
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -795,9 +795,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 61
+    id: 30
     idThumb: 
-    index: 61
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -808,9 +808,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 62
+    id: 30
     idThumb: 
-    index: 62
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -821,9 +821,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 63
+    id: 30
     idThumb: 
-    index: 63
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -834,9 +834,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 64
+    id: 30
     idThumb: 
-    index: 64
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -847,9 +847,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 65
+    id: 30
     idThumb: 
-    index: 65
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -860,9 +860,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 66
+    id: 30
     idThumb: 
-    index: 66
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -873,9 +873,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 67
+    id: 30
     idThumb: 
-    index: 67
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -886,9 +886,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 68
+    id: 30
     idThumb: 
-    index: 68
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -899,9 +899,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 69
+    id: 30
     idThumb: 
-    index: 69
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -912,9 +912,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 70
+    id: 30
     idThumb: 
-    index: 70
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -925,9 +925,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 71
+    id: 30
     idThumb: 
-    index: 71
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -938,9 +938,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 72
+    id: 30
     idThumb: 
-    index: 72
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -951,9 +951,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 73
+    id: 30
     idThumb: 
-    index: 73
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -964,9 +964,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 74
+    id: 30
     idThumb: 
-    index: 74
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -977,9 +977,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 75
+    id: 30
     idThumb: 
-    index: 75
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -990,9 +990,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 76
+    id: 30
     idThumb: 
-    index: 76
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1003,9 +1003,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 77
+    id: 30
     idThumb: 
-    index: 77
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1016,9 +1016,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 78
+    id: 30
     idThumb: 
-    index: 78
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1029,9 +1029,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 79
+    id: 30
     idThumb: 
-    index: 79
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1042,9 +1042,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 80
+    id: 30
     idThumb: 
-    index: 80
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1055,9 +1055,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 81
+    id: 30
     idThumb: 
-    index: 81
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1068,9 +1068,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 82
+    id: 30
     idThumb: 
-    index: 82
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1081,9 +1081,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 83
+    id: 30
     idThumb: 
-    index: 83
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1094,9 +1094,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 84
+    id: 30
     idThumb: 
-    index: 84
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1107,9 +1107,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 85
+    id: 30
     idThumb: 
-    index: 85
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1120,9 +1120,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 86
+    id: 30
     idThumb: 
-    index: 86
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1133,9 +1133,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 87
+    id: 30
     idThumb: 
-    index: 87
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1146,9 +1146,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 88
+    id: 30
     idThumb: 
-    index: 88
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1159,9 +1159,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 89
+    id: 30
     idThumb: 
-    index: 89
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1172,9 +1172,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 90
+    id: 30
     idThumb: 
-    index: 90
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1185,9 +1185,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 91
+    id: 30
     idThumb: 
-    index: 91
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1198,9 +1198,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 92
+    id: 30
     idThumb: 
-    index: 92
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1211,9 +1211,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 93
+    id: 30
     idThumb: 
-    index: 93
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1224,9 +1224,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 94
+    id: 30
     idThumb: 
-    index: 94
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1237,9 +1237,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 95
+    id: 30
     idThumb: 
-    index: 95
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1250,9 +1250,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 96
+    id: 30
     idThumb: 
-    index: 96
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1263,9 +1263,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 97
+    id: 30
     idThumb: 
-    index: 97
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1276,9 +1276,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 98
+    id: 30
     idThumb: 
-    index: 98
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1289,9 +1289,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 99
+    id: 30
     idThumb: 
-    index: 99
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1
@@ -1302,22 +1302,9 @@ MonoBehaviour:
     unlockPay: 0
     levelStars: 0
   - name: 
-    id: 100
+    id: 30
     idThumb: 
-    index: 100
-    description: 
-    unlockType: 2
-    unlockPrice: 1
-    isUnlocked: 0
-    isSelected: 0
-    count: 0
-    countHit: 0
-    unlockPay: 0
-    levelStars: 0
-  - name: 
-    id: 1
-    idThumb: 
-    index: 1
+    index: 30
     description: 
     unlockType: 2
     unlockPrice: 1

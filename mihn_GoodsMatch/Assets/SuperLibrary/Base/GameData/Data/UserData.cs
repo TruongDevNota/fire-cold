@@ -15,7 +15,7 @@ public class UserData : UserAnalysic
     public static event RemovedAdsChangedDelegate OnRemovedAdsChanged;
 
     [Header("Data")]
-    public int level = 0;
+    public int[] level = { 0,0,0,0,0};
     public int bartenderLevel = 0;
     public int challengeLevel = 0;
     public bool isModeBartenderSuguested = false;

@@ -235,7 +235,7 @@ public class UIGameOver : MonoBehaviour
         //UIToast.ShowLoading("", 1);
         if (txtLevel)
             //txtLevel.text = $"LEVEL {DataManager.UserData.level + 1}";
-            txtLevel.text = $"LEVEL {DataManager.UserData.level + 1}";
+            txtLevel.text = $"LEVEL {DataManager.UserData.level[DataManager.mapSelect-1] + 1}";
         if (txtStar)
             txtStar.text = $"+{GameStatisticsManager.starEarn}";
 
@@ -520,18 +520,18 @@ public class UIGameOver : MonoBehaviour
             var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
             popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
         }
-        else if(DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockChallenge && !DataManager.UserData.isChallengePlayed)
-        {
-            DataManager.UserData.isChallengePlayed = true;
-            //GameStateManager.Idle(null);
-            this.PostEvent((int)EventID.OnGoToChallengeLevel);
+        //else if(DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockChallenge && !DataManager.UserData.isChallengePlayed)
+        //{
+        //    DataManager.UserData.isChallengePlayed = true;
+        //    //GameStateManager.Idle(null);
+        //    this.PostEvent((int)EventID.OnGoToChallengeLevel);
             
-        }
-        else if (DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockBartender && !DataManager.UserData.isModeBartenderSuguested)
-        {
-            this.PostEvent((int)EventID.OnModeBartenderUnlocked);
-            DataManager.UserData.isModeBartenderSuguested = true;
-        }
+        //}
+        //else if (DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockBartender && !DataManager.UserData.isModeBartenderSuguested)
+        //{
+        //    this.PostEvent((int)EventID.OnModeBartenderUnlocked);
+        //    DataManager.UserData.isModeBartenderSuguested = true;
+        //}
         else
         {
             GameStateManager.LoadGame(null);

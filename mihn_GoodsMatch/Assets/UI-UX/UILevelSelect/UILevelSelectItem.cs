@@ -36,11 +36,11 @@ public class UILevelSelectItem : MonoBehaviour
     bool isUnlocked = false;
     private int datumLevel;
     private System.Action<int> onLevelSelect;
-    public void Fill(int level, System.Action<int> OnLevelSelect, bool isTest = false)
+    public void Fill(int level, System.Action<int> OnLevelSelect,int mapIndex, bool isTest = false)
     {
         datumLevel = level;
         bool isChallenge = level % 10 == 0 && level != 0;
-        isUnlocked = isTest ? true : level <= DataManager.UserData.level + 1;
+        isUnlocked = isTest ? true : level <= DataManager.UserData.level[mapIndex-1] + 1;
         //img_bg.sprite = isUnlocked ? spr_UnlockBG : spr_LockBG;
 
         img_bg.gameObject.SetActive(isUnlocked && !isChallenge);
@@ -49,7 +49,7 @@ public class UILevelSelectItem : MonoBehaviour
 
         img_footer.sprite = isUnlocked ? spr_UnlockFooter : spr_LockFooter;
         img_lock.gameObject.SetActive(!isUnlocked);
-        panel_Star?.SetActive(level<=DataManager.UserData.level);
+        panel_Star?.SetActive(level<=DataManager.UserData.level[mapIndex-1]);
         int stars = DataManager.MapAsset.listMaps[DataManager.mapSelect-1].levelAsset.GetLevelStar(level-1);
         oneStarObj.SetActive(stars == 1);
         twoStarObj.SetActive(stars == 2);

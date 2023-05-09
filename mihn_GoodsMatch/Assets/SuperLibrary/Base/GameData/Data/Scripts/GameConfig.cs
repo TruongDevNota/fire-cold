@@ -66,7 +66,8 @@ public class GameConfig : GameConfigBase
 
     [Header("Tutorial")]
     public int tutBartenderLastStep = 7;
-
+    [Header("UnlockMap")]
+    public int[] starsToUnlockMap = { 10, 10, 10, 10, 10 };
     #region MONEY
     [Header("Money")]
     [SerializeField]

@@ -27,7 +27,7 @@ public class UILevelSelect : MonoBehaviour
         itemSelectPrefab.CreatePool(DataManager.GameConfig.totalLevel);
     }
 
-    public void OnShow()
+    public void OnShow(int mapIndex)
     {
         SoundManager.Play("1. Click Button");
         for (int i = 1; i <= DataManager.MapAsset.listMaps[DataManager.mapSelect-1].totalLevel; i++)
@@ -36,9 +36,9 @@ public class UILevelSelect : MonoBehaviour
             var item = isExist ? selectItems[i - 1] : itemSelectPrefab.Spawn(contentRect);
             if (!isExist)
                 selectItems.Add(item);
-            item.Fill(i, OnLevelSelectHandle, isTest);
+            item.Fill(i, OnLevelSelectHandle,mapIndex, isTest);
         }
-        int lastLevel = DataManager.levelSelect == 0 ? DataManager.UserData.level : DataManager.levelSelect - 1;
+        int lastLevel = DataManager.levelSelect == 0 ? DataManager.UserData.level[mapIndex-1] : DataManager.levelSelect - 1;
         anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastLevel / 3) * 1f / (DataManager.GameConfig.totalLevel / 3); });
     }
 

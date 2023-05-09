@@ -58,9 +58,9 @@ public class GameStatisticsManager : MonoBehaviour
                         }
                         userData.WinStreak++;
 
-                        if (userData.level + 1 == DataManager.levelSelect)
+                        if (userData.level[DataManager.mapSelect-1] + 1 == DataManager.levelSelect)
                         {
-                            userData.level++;
+                            userData.level[DataManager.mapSelect - 1]++;
                             CheckToGiveStartingBuff();
                             //if ((userData.level + 1) % DataManager.GameConfig.starsToNextChallenge == 0)
                             //{
@@ -91,9 +91,9 @@ public class GameStatisticsManager : MonoBehaviour
 
     private void CheckToGiveStartingBuff()
     {
-        if (userData.level == 4)
+        if (userData.level[DataManager.mapSelect-1] == 4)
             userData.totalHintBuff += 3;
-        if (userData.level == 9)
+        if (userData.level[DataManager.mapSelect - 1] == 9)
             userData.totalSwapBuff += 3;
     }
     #endregion
