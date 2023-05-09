@@ -338,7 +338,6 @@ public class DataManager : MonoBehaviour
                 gameData.user.TotalTimePlay++;
             }
 
-            gameData.user.totalStar = new int[] {0,0,0,0,0};
         }
         else
         {
