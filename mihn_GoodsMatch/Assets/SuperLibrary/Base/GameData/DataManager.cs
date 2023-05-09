@@ -337,6 +337,8 @@ public class DataManager : MonoBehaviour
                 IsFirstTime = true;
                 gameData.user.TotalTimePlay++;
             }
+
+            gameData.user.totalStar = new int[] {0,0,0,0,0};
         }
         else
         {

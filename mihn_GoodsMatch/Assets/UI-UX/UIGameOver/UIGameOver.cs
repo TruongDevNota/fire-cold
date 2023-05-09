@@ -498,7 +498,7 @@ public class UIGameOver : MonoBehaviour
             }
             else
             {
-                ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.UserData.totalStar>=DataManager.GameConfig.starsToUnlockChallenge);
+                ShowResult(GameStateManager.CurrentState == GameState.Complete );
             }
         }, "ContinueWithAds", "TimePlay");
     }
@@ -520,13 +520,14 @@ public class UIGameOver : MonoBehaviour
             var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
             popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
         }
-        //else if(DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockChallenge && !DataManager.UserData.isChallengePlayed)
-        //{
-        //    DataManager.UserData.isChallengePlayed = true;
-        //    //GameStateManager.Idle(null);
-        //    this.PostEvent((int)EventID.OnGoToChallengeLevel);
-            
-        //}
+        else if (DataManager.UserData.totalStar[DataManager.mapSelect-1] >= DataManager.GameConfig.starsToUnlockMap[DataManager.mapSelect-1])
+        {
+            DataManager.UserData.mapIndex++;
+            //DataManager.UserData.isChallengePlayed = true;
+            //GameStateManager.Idle(null);
+            //this.PostEvent((int)EventID.OnGoToChallengeLevel);
+
+        }
         //else if (DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockBartender && !DataManager.UserData.isModeBartenderSuguested)
         //{
         //    this.PostEvent((int)EventID.OnModeBartenderUnlocked);
@@ -550,7 +551,7 @@ public class UIGameOver : MonoBehaviour
             {
                 Debug.Log("animContinue: Hide - GameStateManager: " + GameStateManager.CurrentState);
                 if (GameStateManager.CurrentState == GameState.GameOver)
-                    ShowResult(GameStateManager.CurrentState == GameState.Complete || DataManager.UserData.totalStar>=DataManager.GameConfig.starsToUnlockChallenge);
+                    ShowResult(GameStateManager.CurrentState == GameState.Complete);
             });
         }
     }

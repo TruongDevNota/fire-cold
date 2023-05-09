@@ -45,4 +45,5 @@ public enum EventID
     OnClaimReward = 1006,
     OnClaimGiftBox = 1007,
     OnX2Coin = 1008,
+    ChooseMap = 1009,
 }

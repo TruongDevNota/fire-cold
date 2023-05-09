@@ -212,33 +212,7 @@ public class UserData : UserAnalysic
 
     [SerializeField]
     private int star;
-    public int totalStar
-    {
-        get
-        {
-            return star;
-        }
-        set
-        {
-            if (star != value)
-            {
-                int changed = 0;
-                if (star > value)
-                {
-                    changed = star - value;
-                    totalStarSpend += changed;
-                }
-                else
-                {
-                    changed = value - star;
-                    totalStarEarn += changed;
-                }
-
-                star = value;
-                OnStarChanged?.Invoke(changed, star);
-            }
-        }
-    }
+    public int[] totalStar= {0,0,0,0,0};
     public int totalStarEarn = 0;
     public int totalStarSpend = 0;
 

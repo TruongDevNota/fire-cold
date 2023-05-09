@@ -42,6 +42,7 @@ public class PopupSelectMap : MonoBehaviour
     {
         DataManager.mapSelect = map;
         GameUIManager.PopupLevelSelect.OnShow(map);
+        this.PostEvent((int)EventID.ChooseMap);
         Hide();
     }
     public void Hide()
