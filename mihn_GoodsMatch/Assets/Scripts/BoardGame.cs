@@ -18,7 +18,7 @@ public class BoardGame : MonoBehaviour
     public Vector3 touchPositionOffset;
 
     private LevelConfig currentLevelConfig;
-    public LevelConfig CurrentLevelConfig { get { return currentLevelConfig; } }
+    public LevelConfig CurrentLevelConfig => CurrentLevelConfig;
 
     private Goods_Item dragingItem = null;
     private bool isDraggingItem = false;

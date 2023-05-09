@@ -151,6 +151,7 @@ public class MapCreater : MonoBehaviour
     public MapDatum ReadMapTextData(string content)
     {
         var newMap = new MapDatum();
+        
         newMap.lines = new List<LineDatum>();
 
         List<string> lines = content.Split(new char[] { '\n', '\r'}).ToList();
@@ -168,25 +169,6 @@ public class MapCreater : MonoBehaviour
         return newMap;
     }
 
-    //public List<eItemType> ConvertToShelfDatum(string shelfText)
-    //{
-    //    Debug.Log($"shelf text: {shelfText}");
-    //    var datum = new List<eItemType>();
-    //    try
-    //    {
-    //        var numbers = shelfText?.Split(GameConstants.itemSplittChar)?.Select(Int32.Parse)?.ToList();
-
-    //        foreach(var number in numbers)
-    //        {
-    //            datum.Add((eItemType)Enum.ToObject(typeof(eItemType), number));
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Debug.LogException(ex);
-    //    }
-    //    return datum;
-    //}
     public List<int> ConvertToShelfDatum(string shelfText)
     {
         Debug.Log($"shelf text: {shelfText}");
@@ -205,5 +187,23 @@ public class MapCreater : MonoBehaviour
             Debug.LogException(ex);
         }
         return datum;
+    }
+
+    public LevelConfig ConvertToGameConfig(string datum)
+    {
+        var config = new LevelConfig();
+
+        var listDatum = datum.Split(GameConstants.shelfSplitChars).Where(x => x.Length > 0).ToList();
+
+        config.gameMode = (eGameMode)int.Parse(listDatum[0]);
+        config.time = int.Parse(listDatum[1]);
+        if(listDatum.Count > 2)
+        {
+            var rowSpeed = listDatum[2].Split(GameConstants.itemSplittChar).Where(x => x.Length > 0).ToList();
+            foreach(var s in rowSpeed)
+                config.rowsSpeed.Add(float.Parse(s));
+        }
+
+        return config;
     }
 }
