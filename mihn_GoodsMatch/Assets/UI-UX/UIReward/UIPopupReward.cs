@@ -136,7 +136,7 @@ public class UIPopupReward : MonoBehaviour
                     GameStateManager.Idle(null);
                     return;
                 }
-                DataManager.currGameMode = eGameMode.Normal;
+                DataManager.currLevelconfigData.config.gameMode = eGameMode.Normal;
                 GameStateManager.LoadGame(null);
             });
         }

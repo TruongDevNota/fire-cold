@@ -49,33 +49,18 @@ public class GameStatisticsManager : MonoBehaviour
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.WaitComplete:
-                    if (DataManager.currGameMode == eGameMode.Normal)
+                    if (userData.LoseStreak > 0)
                     {
-                        if (userData.LoseStreak > 0)
-                        {
-                            userData.LoseStreak = 0;
-                            userData.WinStreak = 1;
-                        }
-                        userData.WinStreak++;
-
-                        if (userData.level[DataManager.mapSelect-1] + 1 == DataManager.levelSelect)
-                        {
-                            userData.level[DataManager.mapSelect - 1]++;
-                            CheckToGiveStartingBuff();
-                            //if ((userData.level + 1) % DataManager.GameConfig.starsToNextChallenge == 0)
-                            //{
-                            //    userData.level++;
-                            //    CheckToGiveStartingBuff();
-                            //}
-                        }
+                        userData.LoseStreak = 0;
+                        userData.WinStreak = 1;
                     }
-                    else if (DataManager.currGameMode == eGameMode.Challenge)
-                    {
-                        if(!DataManager.UserData.isMaxLevelBartender)
-                            userData.bartenderLevel++;
-                    }else if(!DataManager.UserData.isMaxLevelChallenge&&!DataManager.UserData.isMaxLevelChallenge)
-                        userData.challengeLevel++;
+                    userData.WinStreak++;
 
+                    if (userData.level[DataManager.mapSelect - 1] + 1 == DataManager.levelSelect)
+                    {
+                        userData.level[DataManager.mapSelect - 1]++;
+                    }
+                    
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.Complete:
@@ -87,14 +72,6 @@ public class GameStatisticsManager : MonoBehaviour
                     break;
             }
         }
-    }
-
-    private void CheckToGiveStartingBuff()
-    {
-        if (userData.level[DataManager.mapSelect-1] == 4)
-            userData.totalHintBuff += 3;
-        if (userData.level[DataManager.mapSelect - 1] == 9)
-            userData.totalSwapBuff += 3;
     }
     #endregion
 

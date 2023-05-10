@@ -46,7 +46,6 @@ public class BoardGame : MonoBehaviour
 
     public static BoardGame instance;
 
-    private int currentLevel;
     private Coroutine prepareMapCoroutine;
 
     private void Awake()
@@ -81,7 +80,7 @@ public class BoardGame : MonoBehaviour
         {
             isAlert = false;
             isChallengeGame = data != null && (bool)data;
-            PrepareSceneLevel(isChallengeGame);
+            PrepareSceneLevel();
         }
         if (current == GameState.Pause)
             PauseGame();
@@ -134,89 +133,36 @@ public class BoardGame : MonoBehaviour
             GameOverHandler();
     }
 
-    public void PrepareSceneLevel(bool isChallenge = false)
+    public void PrepareSceneLevel()
     {
-        if (DataManager.currGameMode == eGameMode.Normal)
-            currentLevel = DataManager.levelSelect;
-        else if (DataManager.currGameMode == eGameMode.Challenge)
-            currentLevel = DataManager.UserData.challengeLevel + 1;
         if (prepareMapCoroutine != null)
             StopCoroutine(prepareMapCoroutine);
-        prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel));
+        prepareMapCoroutine = StartCoroutine(PrepareNewGame());
     }
 
-    private IEnumerator PrepareNewGame(int level)
+    private IEnumerator PrepareNewGame()
     {
-        Debug.Log($"Level Select: {level}");
+        Debug.Log($"Level Select: {DataManager.mapSelect}-{DataManager.levelSelect}");
         isPlayingGame = false;
 
         stopwatch = new Stopwatch();
 
         ClearMap();
-        if (DataManager.currGameMode == eGameMode.Normal)
-        {
-            int levelIndex = level;
-            string path = $"Maps/Map_Level_{levelIndex}";
-            var file = Resources.Load<TextAsset>(path);
-            string configPath = $"Configs/Config_Level_{levelIndex}";
-            var config = Resources.Load<TextAsset>(configPath);
-
-            if (file == null || config == null)
-            {
-                Debug.Log($"Load text data fail - MapPath =[{path}] /n configPath = [{configPath}]");
-                GameStateManager.Idle(null);
-                yield break;
-            }
-            else
-            {
-                currentLevelConfig = JsonUtility.FromJson<LevelConfig>(config.text);
-                timeLimitInSeconds = currentLevelConfig.time;
-                mapCreater.CreateMapFromTextAsset(file.text, currentLevelConfig.rowsSpeed);
-            }
-        }
-        else
-        {
-            int levelIndex = level;
-            string path = $"ChallengeMaps/Map_Challenge_{levelIndex}";
-            var file = Resources.Load<TextAsset>(path);
-            string configPath = $"ChallengeMaps/Config_Challenge_{levelIndex}";
-            var config = Resources.Load<TextAsset>(configPath);
-            if (file == null)
-            {
-                DataManager.UserData.isMaxLevelChallenge = true;
-                levelIndex = level-1;
-                path = $"ChallengeMaps/Map_Challenge_{levelIndex}";
-                file = Resources.Load<TextAsset>(path);
-                configPath = $"ChallengeMaps/Config_Challenge_{levelIndex}";
-                config = Resources.Load<TextAsset>(configPath);
-            }
-            if (file == null || config == null)
-            {
-                Debug.Log($"Load text data fail - MapPath =[{path}] /n configPath = [{configPath}]");
-                GameStateManager.Idle(null);
-                yield break;
-            }
-            else
-            {
-                currentLevelConfig = JsonUtility.FromJson<LevelConfig>(config.text);
-                timeLimitInSeconds = currentLevelConfig.time;
-                mapCreater.CreateMapFromTextAsset(file.text, currentLevelConfig.rowsSpeed);
-            }
-        }
-
+        currentLevelConfig = DataManager.currLevelconfigData.config;
+        timeLimitInSeconds = currentLevelConfig.time;
+        mapCreater.CreateMap();
+        yield return new WaitForEndOfFrame();
         GameStateManager.Ready(null);
         UIToast.Hide();
     }
 
     public void StartGamePlay()
     {
-        FirebaseManager.LogLevelStart(currentLevel, $"level_{currentLevel}");
+        FirebaseManager.LogLevelStart(DataManager.levelSelect, $"level_{DataManager.levelSelect}");
         isPlayingGame = true;
         isPausing = false;
-        //stopwatch.Restart();
         stopwatch.Start();
         isDraggingItem = false;
-        //UI_Ingame_Manager.instance.OnGameStarted();
     }
 
     public void CheckGameComplete()
@@ -230,7 +176,7 @@ public class BoardGame : MonoBehaviour
     private void GameCompleteHandler()
     {
         Debug.Log("****  GameComplete  ****");
-        FirebaseManager.LogLevelEnd(currentLevel, $"Win_level_{currentLevel}", true);
+        FirebaseManager.LogLevelEnd(DataManager.levelSelect, $"Win_level_{DataManager.levelSelect}", true);
         stopwatch.Stop();
         isPlayingGame = false;
         DataManager.UserData.LevelChesPercent += DataManager.GameConfig.unlockChestEachLevel;
@@ -239,14 +185,14 @@ public class BoardGame : MonoBehaviour
         int starNum = timeUsePercent <= DataManager.GameConfig.threeStar ? 3 : timeUsePercent <= DataManager.GameConfig.twoStar ? 2 : 1;
         Debug.Log($"Time used: [{stopwatch.Elapsed.TotalSeconds}] - Equal [{timeUsePercent:P1}] Percent - Got [{starNum}] stars");
         StarManager.Add(starNum);
-        DataManager.MapAsset.listMaps[DataManager.mapSelect-1].levelAsset.UpdateLevelStar(currentLevel - 1, starNum);
+        DataManager.MapAsset.listMaps[DataManager.mapSelect-1].levelAsset.UpdateLevelStar(DataManager.levelSelect, starNum);
         DataManager.levelStars = starNum;
         GameStateManager.WaitComplete(null);
     }
 
     private void GameOverHandler()
     {
-        FirebaseManager.LogLevelEnd(currentLevel, $"Lose_level_{currentLevel}", false);
+        FirebaseManager.LogLevelEnd(DataManager.levelSelect, $"Lose_level_{DataManager.levelSelect}", false);
         stopwatch.Stop();
         isPlayingGame = false;
         if (dragingItem != null)

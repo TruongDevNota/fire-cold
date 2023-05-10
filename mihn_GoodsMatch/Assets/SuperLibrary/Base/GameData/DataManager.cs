@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class DataManager : MonoBehaviour
@@ -100,7 +101,7 @@ public class DataManager : MonoBehaviour
     public static int levelSelect = 0;
     public static int mapSelect = 1;
     public static int levelStars = 1;
-    public static eGameMode currGameMode = eGameMode.Normal;
+    public static LevelConfigData currLevelconfigData = null;
     //public static nomalMode currnomalMode = nomalMode.Store1;
 
     [Space(10)]
@@ -383,6 +384,54 @@ public class DataManager : MonoBehaviour
         {
             Debug.LogError("Please update and save DATA before build!!!");
             Debug.LogException(ex);
+        }
+    }
+    #endregion
+
+    #region LEVELDATA
+    public static void SetCurrLevelConfigData()
+    {
+        currLevelconfigData = null;
+        string path = $"Level_{mapSelect}-{levelSelect}";
+
+        var file = Resources.Load<TextAsset>(path);
+        if (file == null)
+        {
+            Debug.LogError($"Load text data fail - filepath =[{path}]");
+            GameStateManager.Idle(null);
+            return;
+        }
+        
+        List<string> lines = file.text.Split(new char[] { '\n', '\r' }).ToList();
+        if (lines.Count < 2)
+        {
+            Debug.LogError($"Level config data is wrong");
+            GameStateManager.Idle(null);
+            return;
+        }
+        
+        currLevelconfigData = new LevelConfigData();
+
+        var configDatum = lines[0].Split(GameConstants.shelfSplitChars).Where(x => x.Length > 0).ToList();
+
+        currLevelconfigData.config.gameMode = (eGameMode)int.Parse(configDatum[0]);
+        currLevelconfigData.config.time = int.Parse(configDatum[1]);
+
+        if (configDatum.Count > 2 && configDatum[2].Length > 0)
+        {
+            var rowSpeed = configDatum[2].Split(GameConstants.itemSplittChar).Where(x => x.Length > 0).ToList();
+            foreach (var s in rowSpeed)
+                currLevelconfigData.config.rowsSpeed.Add(float.Parse(s));
+        }
+
+        for (int i = 1; i < lines.Count; i++)
+        {
+            Debug.Log($"Convert Line data: {lines[i]}");
+            if (lines[i].Length <= 1)
+                continue;
+            var lineDatum = new LineDatum();
+            lineDatum.lineSheves = lines[i].Split(GameConstants.shelfSplitChars).Where(x => x.Length > 0).ToList();
+            currLevelconfigData.mapDatum.lines.Add(lineDatum);
         }
     }
     #endregion

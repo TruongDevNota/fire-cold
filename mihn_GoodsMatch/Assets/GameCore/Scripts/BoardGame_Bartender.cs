@@ -238,7 +238,7 @@ public class BoardGame_Bartender : MonoBehaviour
             path = $"Bartender/Map_Level_{currentLevel}";
             file = Resources.Load<TextAsset>(path);
         }
-        var currentMapDatum = mapCreater.ReadMapTextData(file.text);
+        var currentMapDatum = DataManager.currLevelconfigData.mapDatum;
         Debug.Log($"Map line count = {currentMapDatum.lines.Count}");
 
         foreach (var shelf in shelves)

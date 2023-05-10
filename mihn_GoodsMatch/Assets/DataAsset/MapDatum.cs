@@ -6,6 +6,10 @@ using UnityEngine;
 public class MapDatum
 {
     public List<LineDatum> lines;
+    public MapDatum()
+    {
+        lines = new List<LineDatum>();
+    }
 }
 
 [System.Serializable]

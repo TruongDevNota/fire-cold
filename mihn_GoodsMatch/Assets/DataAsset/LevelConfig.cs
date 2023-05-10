@@ -16,3 +16,16 @@ public class LevelConfig
         rowsSpeed = new List<float>();
     }
 }
+
+[System.Serializable]
+public class LevelConfigData
+{
+    public LevelConfig config;
+    public MapDatum mapDatum;
+
+    public LevelConfigData()
+    {
+        config = new LevelConfig();
+        mapDatum = new MapDatum();
+    }
+}

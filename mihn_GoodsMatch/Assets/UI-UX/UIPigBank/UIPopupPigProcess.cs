@@ -80,7 +80,7 @@ public class UIPopupPigProcess : MonoBehaviour
         }
 
 
-        DataManager.currGameMode = eGameMode.Normal;
+        DataManager.currLevelconfigData.config.gameMode = eGameMode.Normal;
         GameStateManager.LoadGame(null);
 
         anim.Hide();
