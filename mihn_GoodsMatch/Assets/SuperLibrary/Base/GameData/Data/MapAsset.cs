@@ -9,26 +9,66 @@ using UnityEngine;
 public class MapAsset : ScriptableObject
 {
     public int totalMap;
-    public List<Map> listMaps = new List<Map>();
+    [SerializeField]
+    private List<MapData> listMaps = new List<MapData>();
+    [SerializeField]
+    public List<Sprite> mapIcon = new List<Sprite>();
+
+    public List<MapData> ListMap { get { return listMaps; } }
+
+
     [ButtonMethod]
-    public void ConfigMap()
+    public void ResetAndUpdateToBuild()
     {
+        foreach(var map in listMaps)
+        {
+            map.hightestLevelUnlocked = map.mapIndex == 1 ? 1 : 0;
+            map.levelStars = new List<int>();
+            if(map.mapIndex == 1)
+                map.levelStars.Add(0);
+        }
+        SaveChangeOnEditor();
+    }
+
+    [ButtonMethod]
+    public void CreatMaps()
+    {
+        listMaps.Clear();
         for (int i = 1; i <= totalMap; i++)
         {
-            var map = new Map();
-            map.mapindex = i;
-            map.totalLevel = 30;
+            var map = new MapData();
+            map.mapIndex = i;
+            map.totalLevel = 20;
+            map.hightestLevelUnlocked = map.mapIndex == 1 ? 1 : 0;
             listMaps.Add(map);
         }
+        SaveChangeOnEditor();
+    }
 
+
+    public void SaveChangeOnEditor()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(this);
+#endif
     }
 }
 
 [Serializable]
-public class Map
+public class MapData
 {
-    public int mapindex;
+    public int mapIndex;
+    public string mapName;
     public int totalLevel;
-    public LevelAsset levelAsset;
-    public Package pack;
+    public bool isUnlocked => hightestLevelUnlocked > 0;
+    public int hightestLevelUnlocked;
+    public List<int> levelStars;
+
+    public int GetAllStarClaimed()
+    {
+        var count = 0;
+        foreach (var star in levelStars)
+            count += star;
+        return count;
+    }
 }

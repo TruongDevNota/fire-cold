@@ -53,7 +53,7 @@ public class UILevelSelectItem : MonoBehaviour
         //img_footer.sprite = isUnlocked ? spr_UnlockFooter : spr_LockFooter;
         //img_lock.gameObject.SetActive(!isUnlocked);
         panel_Star?.SetActive(level<=DataManager.UserData.level[mapIndex-1]);
-        int stars = DataManager.MapAsset.listMaps[DataManager.mapSelect-1].levelAsset.GetLevelStar(level-1);
+        int stars = DataManager.MapAsset.ListMap[DataManager.mapSelect-1].levelStars[level-1];
         oneStarObj.SetActive(stars == 1);
         twoStarObj.SetActive(stars == 2);
         threeStarObj.SetActive(stars ==3);

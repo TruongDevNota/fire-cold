@@ -193,11 +193,10 @@ public class DataManager : MonoBehaviour
             {
                 MapAsset = ScriptableObject.CreateInstance("MapAsset") as MapAsset;
                 MapAsset.totalMap = instance.mapAsset.totalMap;
-                for(int i=0;i< instance.mapAsset.listMaps.Count;i++)
+                MapAsset.mapIcon = instance.mapAsset.mapIcon;
+                for (int i=0;i< instance.mapAsset.ListMap.Count;i++)
                 {
-                    MapAsset.listMaps.Add(instance.mapAsset.listMaps[i]);
-                    //foreach (var j in instance.mapAsset.listMaps[i].levelAsset.list)
-                    //    MapAsset.listMaps[i].levelAsset.list.Add(j);
+                    MapAsset.ListMap.Add(instance.mapAsset.ListMap[i]);
                 }
                 
             }
@@ -371,9 +370,9 @@ public class DataManager : MonoBehaviour
     {
         try
         {
-            for (int i = 0; i < instance.mapAsset.listMaps.Count; i++)
+            for (int i = 0; i < instance.mapAsset.ListMap.Count; i++)
             {
-                mapAsset.listMaps[i].levelAsset.ResetData();
+                mapAsset.ResetAndUpdateToBuild();
             }
             
             gameItemAsset.ResetData();
@@ -417,7 +416,18 @@ public class DataManager : MonoBehaviour
         currLevelconfigData.config.gameMode = (eGameMode)int.Parse(configDatum[0]);
         currLevelconfigData.config.time = int.Parse(configDatum[1]);
 
-        if (configDatum.Count > 2 && configDatum[2].Length > 0)
+        if(currLevelconfigData.config.gameMode == eGameMode.Bartender)
+        {
+            if(configDatum.Count > 2 && configDatum[2].Length > 0)
+                currLevelconfigData.config.bar_MaxMissing = int.Parse(configDatum[2]);
+            else
+            {
+                Debug.LogError($"Level config data is wrong - Mode Bartender miss max missiong config");
+                GameStateManager.Idle(null);
+                return;
+            }
+        }
+        else if (configDatum.Count > 2 && configDatum[2].Length > 0)
         {
             var rowSpeed = configDatum[2].Split(GameConstants.itemSplittChar).Where(x => x.Length > 0).ToList();
             foreach (var s in rowSpeed)

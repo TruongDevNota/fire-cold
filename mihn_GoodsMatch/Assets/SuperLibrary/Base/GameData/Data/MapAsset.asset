@@ -14,19 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalMap: 4
   listMaps:
-  - mapindex: 1
-    totalLevel: 10
-    levelAsset: {fileID: 11400000, guid: 388ac3ab686947947b1cabfe6647f696, type: 2}
-    pack: 0
-  - mapindex: 2
+  - mapIndex: 1
+    mapName: Jungle
     totalLevel: 20
-    levelAsset: {fileID: 11400000, guid: f4b81f7ca81ae9e43809a8e9064ab53e, type: 2}
-    pack: 1
-  - mapindex: 3
-    totalLevel: 30
-    levelAsset: {fileID: 11400000, guid: a9426d8cb00b69643a281c327866ebbf, type: 2}
-    pack: 2
-  - mapindex: 4
-    totalLevel: 40
-    levelAsset: {fileID: 11400000, guid: 6ed62461b1a9bba42b6f8044b7b8fe4d, type: 2}
-    pack: 3
+    hightestLevelUnlocked: 1
+    levelStars: 00000000
+  - mapIndex: 2
+    mapName: Cake Island
+    totalLevel: 20
+    hightestLevelUnlocked: 0
+    levelStars: 
+  - mapIndex: 3
+    mapName: Sakura village
+    totalLevel: 20
+    hightestLevelUnlocked: 0
+    levelStars: 
+  - mapIndex: 4
+    mapName: Supermarket
+    totalLevel: 20
+    hightestLevelUnlocked: 0
+    levelStars: 
+  mapIcon:
+  - {fileID: 21300000, guid: f8243bc08e58af2449a7b5a8dcfe8d0d, type: 3}
+  - {fileID: 21300000, guid: f8243bc08e58af2449a7b5a8dcfe8d0d, type: 3}
+  - {fileID: 21300000, guid: f8243bc08e58af2449a7b5a8dcfe8d0d, type: 3}
+  - {fileID: 21300000, guid: f8243bc08e58af2449a7b5a8dcfe8d0d, type: 3}

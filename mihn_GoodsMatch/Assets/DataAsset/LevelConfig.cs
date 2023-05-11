@@ -9,11 +9,16 @@ public class LevelConfig
     public int time;
     public List<float> rowsSpeed;
 
+    #region Bartender
+    public int bar_MaxMissing;
+    #endregion
+
     public LevelConfig()
     {
         gameMode = eGameMode.Normal;
         time = 0;
         rowsSpeed = new List<float>();
+        bar_MaxMissing = 0;
     }
 }
 

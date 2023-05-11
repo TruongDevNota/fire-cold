@@ -34,9 +34,8 @@ public class UILevelSelect : MonoBehaviour
     public void OnShow(int mapIndex)
     {
         SoundManager.Play("1. Click Button");
-        for (int i = 1; i <= DataManager.MapAsset.listMaps[DataManager.mapSelect-1].totalLevel; i++)
+        for (int i = 1; i <= DataManager.MapAsset.ListMap[DataManager.mapSelect-1].totalLevel; i++)
         {
-            
             var isExist = i <= selectItems.Count;
             var item = isExist ? selectItems[i - 1] : itemSelectPrefab.Spawn(contentRect);
             if (!isExist)

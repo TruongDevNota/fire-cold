@@ -9,7 +9,8 @@ public class PopupSelectMap : MonoBehaviour
     [SerializeField] private UIMapSelectButton mapSelectPrefab;
     [SerializeField]
     private RectTransform contentRect;
-    [SerializeField]private List<UIMapSelectButton> selectItems;
+    [SerializeField]
+    private List<UIMapSelectButton> selectItems = new List<UIMapSelectButton>();
     private bool isTest = false;
     [SerializeField]
     private ScrollRect scrollRect;
@@ -26,16 +27,14 @@ public class PopupSelectMap : MonoBehaviour
     public void Show()
     {
         SoundManager.Play("1. Click Button");
-        for (int i = 1; i <= selectItems.Count; i++)
+        for (int i = 0; i < DataManager.MapAsset.ListMap.Count; i++)
         {
-            //var isExist = i <= selectItems.Count;
-            //var item = isExist ? selectItems[i - 1] : mapSelectPrefab.Spawn(contentRect);
-           // if (!isExist)
-                //selectItems.Add(item);
-           
-                selectItems[i-1].Fill(i, OnLevelSelectHandle, isTest);
-           
-            
+            var isExist = i < selectItems.Count;
+            var item = isExist ? selectItems[i] : mapSelectPrefab.Spawn(contentRect);
+            if (!isExist)
+                selectItems.Add(item);
+
+            selectItems[i].Fill(DataManager.MapAsset.ListMap[i], OnLevelSelectHandle);
         }
         anim.Show();
         //int lastMap = DataManager.mapSelect == 0 ? DataManager.UserData.mapIndex : DataManager.mapSelect - 1;
