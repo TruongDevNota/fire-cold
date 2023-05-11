@@ -12,7 +12,6 @@ public enum eGameMode
 {
     Normal = 0,
     Bartender = 1,
-    Challenge=2,
 }
 //public enum nomalMode
 //{

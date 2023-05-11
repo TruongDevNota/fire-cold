@@ -48,6 +48,8 @@ public class StarManager : MonoBehaviour
 
     private void DataManager_OnLoaded(object obj)
     {
+        if (instance == null || Number == null)
+            return;
         Number.DOAnimation(0, totalStar[DataManager.mapSelect-1], 0);
     }
 

@@ -53,7 +53,7 @@ public class UIPopupBartender : MonoBehaviour
                 DataManager.Save();
                 anim.Hide(() =>
                 {
-                    DataManager.currGameMode = eGameMode.Bartender;
+                    DataManager.currLevelconfigData.config.gameMode = eGameMode.Bartender;
                     GameStateManager.LoadGame(null);
                 });
             }

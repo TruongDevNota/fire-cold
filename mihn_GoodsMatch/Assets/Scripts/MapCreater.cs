@@ -35,22 +35,6 @@ public class MapCreater : MonoBehaviour
     private MapDatum currentMapDatum;
     public List<Goods_Item> itemCreated = new List<Goods_Item>();
 
-    [ButtonMethod]
-    public void CreateTestMap()
-    {
-        CreateMapFromTextAsset(sampleMapTextAsset.text, null);
-    }
-    [ButtonMethod]
-    public void PrintConfigText()
-    {
-        var sampleConfig = new LevelConfig()
-        {
-            time = 30,
-            rowsSpeed = new List<float> { 0.5f, -0.5f, 0.5f, -0.5f }
-        };
-        Debug.Log(JsonUtility.ToJson(sampleConfig));
-    }
-
     public void ChangeCameraSize(int mapCollume, int mapRow)
     {
         float screenRatio = Screen.height / Screen.width;
@@ -71,16 +55,10 @@ public class MapCreater : MonoBehaviour
         inGameUICam.orthographicSize = camSize;
     }
 
-    public void CreateMapFromTextAsset(string mapData, List<float> speeds = null)
-    {
-        var data = ReadMapTextData(mapData);
-        CreateMap(data, speeds);
-    }
-
-    public void CreateMap(MapDatum datum, List<float> speeds = null)
+    public void CreateMap()
     {
         int maxColumn = 0;
-        currentMapDatum = datum;
+        currentMapDatum = DataManager.currLevelconfigData.mapDatum;
         if (currentMapDatum == null || currentMapDatum.lines == null || currentMapDatum.lines.Count < 1)
             return;
 
@@ -98,7 +76,7 @@ public class MapCreater : MonoBehaviour
 
             var leftMargin = -(defautShelfSize * line.lineSheves.Count + shelfDistance * (line.lineSheves.Count - 1)) * 0.5f;
             var rightMargin = leftMargin + (line.lineSheves.Count - 1) * (defautShelfSize + shelfDistance);
-            var lineSpeed = speeds == null ? 0 : i < speeds.Count ? speeds[i] : 0;
+            var lineSpeed = DataManager.currLevelconfigData.config.rowsSpeed == null ? 0 : i < DataManager.currLevelconfigData.config.rowsSpeed.Count ? DataManager.currLevelconfigData.config.rowsSpeed[i] : 0;
             for (int i2 = 0; i2 < line.lineSheves.Count; i2++)
             {
                 if (string.IsNullOrEmpty(line.lineSheves[i2]) || line.lineSheves[i2].Contains("-"))
@@ -123,13 +101,9 @@ public class MapCreater : MonoBehaviour
                 {
                     if (itemTypes[i3] == 0)
                         continue;
-                    ItemDatum itemDatum;
-                    //if (DataManager.currnomalMode == nomalMode.Store1)
-                    //{
-                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3]);
-                    //}else
-                    //    itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], Store.store2);
-
+                    
+                    var itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3]);
+                    
                     if (itemDatum == null)
                     {
                         Debug.Log($"Could not found item definition of type: [{itemTypes[i3]}]");
@@ -145,48 +119,8 @@ public class MapCreater : MonoBehaviour
             }
         }
         ChangeCameraSize(maxColumn, currentMapDatum.lines.Count);
-        //BoardGame.instance.ItemCount = itemCreated.Count;
     }
 
-    public MapDatum ReadMapTextData(string content)
-    {
-        var newMap = new MapDatum();
-        newMap.lines = new List<LineDatum>();
-
-        List<string> lines = content.Split(new char[] { '\n', '\r'}).ToList();
-
-        foreach(var line in lines)
-        {
-            Debug.Log($"Convert Line data: {line}");
-            if (line.Length <= 1)
-                continue;
-            var lineDatum = new LineDatum();
-            lineDatum.lineSheves = line.Split(GameConstants.shelfSplitChars).Where(x => x.Length > 0).ToList();
-            newMap.lines.Add(lineDatum);
-        }
-
-        return newMap;
-    }
-
-    //public List<eItemType> ConvertToShelfDatum(string shelfText)
-    //{
-    //    Debug.Log($"shelf text: {shelfText}");
-    //    var datum = new List<eItemType>();
-    //    try
-    //    {
-    //        var numbers = shelfText?.Split(GameConstants.itemSplittChar)?.Select(Int32.Parse)?.ToList();
-
-    //        foreach(var number in numbers)
-    //        {
-    //            datum.Add((eItemType)Enum.ToObject(typeof(eItemType), number));
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Debug.LogException(ex);
-    //    }
-    //    return datum;
-    //}
     public List<int> ConvertToShelfDatum(string shelfText)
     {
         Debug.Log($"shelf text: {shelfText}");
@@ -205,5 +139,30 @@ public class MapCreater : MonoBehaviour
             Debug.LogException(ex);
         }
         return datum;
+    }
+
+    public LevelConfig ConvertToLevelConfig(string datum)
+    {
+        var config = new LevelConfig();
+
+        var listDatum = datum.Split(GameConstants.shelfSplitChars).Where(x => x.Length > 0).ToList();
+
+        config.gameMode = (eGameMode)int.Parse(listDatum[0]);
+        Debug.Log($"ConvertToLevelConfig - gamemode: {config.gameMode}");
+
+        config.time = int.Parse(listDatum[1]);
+        Debug.Log($"ConvertToLevelConfig - level eslap time: {config.time}");
+
+        if (listDatum.Count > 2 && listDatum[2].Length>0)
+        {
+            var rowSpeed = listDatum[2].Split(GameConstants.itemSplittChar).Where(x => x.Length > 0).ToList();
+            foreach(var s in rowSpeed)
+            {
+                config.rowsSpeed.Add(float.Parse(s));
+                Debug.Log($"ConvertToLevelConfig - rows speed: {float.Parse(s)}");
+            }
+        }
+
+        return config;
     }
 }

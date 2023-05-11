@@ -169,10 +169,10 @@ public class UIInGame : MonoBehaviour
             case GameState.Restart:
                 playButton?.gameObject.SetActive(true);
                 ingameBG.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Count)];
-                if(DataManager.currGameMode == eGameMode.Normal)
+                if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal)
                 {
                     levelTxt.text = $"LEVEL {DataManager.levelSelect}";
-                }else if(DataManager.currGameMode == eGameMode.Bartender)
+                }else if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Bartender)
                 {
                     if(DataManager.UserData.bartenderLevel % 2 == 0)
                     {
@@ -204,7 +204,7 @@ public class UIInGame : MonoBehaviour
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
-                if(DataManager.currGameMode == eGameMode.Normal|| DataManager.currGameMode == eGameMode.Challenge)
+                if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal)
                 {
                     uiBottomAnim.Show();
                     uiInforNormal.Show();

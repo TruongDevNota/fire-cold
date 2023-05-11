@@ -789,11 +789,11 @@ namespace Base
             FirebaseAnalytics.LogEvent(
               FirebaseAnalytics.EventLevelStart,
                   new Parameter[] {
-                    new Parameter(FirebaseAnalytics.ParameterLevel, index),
+                    new Parameter("MapIndex", DataManager.mapSelect),
+                      new Parameter(FirebaseAnalytics.ParameterLevel, DataManager.levelSelect),
                     new Parameter(FirebaseAnalytics.ParameterLevelName, name) });
 
-            string eventName = DataManager.currGameMode == eGameMode.Normal ? $"level_start_{index}"
-                : $"level_bartender_start_{index}";
+            string eventName = $"Level_start_mapIndex-{DataManager.mapSelect}_Level-{DataManager.levelSelect}";
             FirebaseAnalytics.LogEvent(eventName);
 #endif
         }
@@ -820,7 +820,7 @@ namespace Base
                     new Parameter(FirebaseAnalytics.ParameterLevel, index),
                     new Parameter(FirebaseAnalytics.ParameterLevelName, name) });
 
-            string eventName = string.Format("{0}_{1}_{2}", DataManager.currGameMode == eGameMode.Normal ? "level" : DataManager.currGameMode == eGameMode.Challenge ? "level_challenge": "level_bartender",
+            string eventName = string.Format("{0}_{1}", $"Level_{DataManager.mapSelect}-{DataManager.levelSelect}",
                 isWin ? "completed" : "failed", index.ToString());
 
             FirebaseAnalytics.LogEvent(eventName);

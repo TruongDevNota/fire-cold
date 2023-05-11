@@ -315,7 +315,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void GameOver(object data)
     {
         //inGameScreen.Hide();
-        if (DataManager.currGameMode == eGameMode.Normal|| DataManager.currGameMode == eGameMode.Challenge)
+        if (DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal)
             gameOverScreen.Show(GameState.GameOver, data);
         else
             gameOver_Bar_Screen.Show(GameState.GameOver, data);
@@ -324,7 +324,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void CompleteGame(object data)
     {
         //inGameScreen.Hide();
-        if(DataManager.currGameMode == eGameMode.Normal || DataManager.currGameMode == eGameMode.Challenge)
+        if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal)
             gameOverScreen.Show(GameState.Complete, data);
         else
             gameOver_Bar_Screen.Show(GameState.Complete, data);

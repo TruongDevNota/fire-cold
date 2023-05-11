@@ -45,7 +45,7 @@ public class UILevelSelect : MonoBehaviour
     public void OnLevelSelectHandle(int level)
     {
         DataManager.levelSelect = level;
-        DataManager.currGameMode = eGameMode.Normal;
+        //DataManager.SetCurrLevelConfigData();
         GameStateManager.LoadGame(null);
         OnHide();
     }

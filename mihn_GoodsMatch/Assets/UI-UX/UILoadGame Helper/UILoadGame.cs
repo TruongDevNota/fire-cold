@@ -80,8 +80,8 @@ public class UILoadGame : MonoBehaviour
 
     public static void Init(bool show, TweenCallback actionOnDone)
     {
-        instance.defaultLogo?.SetActive(DataManager.currGameMode == eGameMode.Normal);
-        instance.bartenderLogo?.SetActive(DataManager.currGameMode == eGameMode.Bartender);
+        //instance.defaultLogo?.SetActive(DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal);
+        //instance.bartenderLogo?.SetActive(DataManager.currLevelconfigData.config.gameMode == eGameMode.Bartender);
 
         if (!show)
         {
