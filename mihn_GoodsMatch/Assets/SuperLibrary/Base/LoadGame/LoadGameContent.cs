@@ -35,6 +35,12 @@ public class LoadGameContent : MonoBehaviour
     {
         //GameStateManager.Init(null);
         //UIToast.ShowLoading(randomTip, 5f, UIToast.IconTip);
+        
+        DataManager.SetCurrLevelConfigData();
+        yield return new WaitForEndOfFrame();
+        if(DataManager.currLevelconfigData == null)
+            yield break;
+
         UILoadGame.Init(true, null);
 
         while (UILoadGame.currentProcess < 0.1f)
@@ -47,7 +53,15 @@ public class LoadGameContent : MonoBehaviour
         //    UIToast.ShowLoading(randomTip, 5f, UIToast.IconTip);
 
         MusicManager.Stop(null, false, 0.25f);
-        string sceneName = DataManager.currGameMode == eGameMode.Normal ? "3_Battle" : "3_Battle_Bartender";
+        string sceneName = "";
+        if (DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal )
+            sceneName = "3_Battle_1";
+        else if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Bartender)
+        {
+            sceneName = "3_Battle_Bartender";
+        }
+        
+        Debug.Log("sceneName: " + sceneName);
 
         yield return SceneHelper.DoLoadSceneAsync(sceneName);
 

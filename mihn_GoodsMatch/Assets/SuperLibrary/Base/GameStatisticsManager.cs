@@ -49,28 +49,18 @@ public class GameStatisticsManager : MonoBehaviour
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.WaitComplete:
-                    if (DataManager.currGameMode == eGameMode.Normal)
+                    if (userData.LoseStreak > 0)
                     {
-                        if (userData.LoseStreak > 0)
-                        {
-                            userData.LoseStreak = 0;
-                            userData.WinStreak = 1;
-                        }
-                        userData.WinStreak++;
-
-                        if (userData.level + 1 == DataManager.levelSelect)
-                        {
-                            userData.level++;
-                            CheckToGiveStartingBuff();
-                            if ((userData.level + 1) % DataManager.GameConfig.levelsToNextChallenge == 0)
-                            {
-                                userData.level++;
-                                CheckToGiveStartingBuff();
-                            }
-                        }
+                        userData.LoseStreak = 0;
+                        userData.WinStreak = 1;
                     }
-                    else
-                        userData.bartenderLevel++;
+                    userData.WinStreak++;
+
+                    if (userData.level[DataManager.mapSelect - 1] + 1 == DataManager.levelSelect)
+                    {
+                        userData.level[DataManager.mapSelect - 1]++;
+                    }
+                    
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.Complete:
@@ -82,14 +72,6 @@ public class GameStatisticsManager : MonoBehaviour
                     break;
             }
         }
-    }
-
-    private void CheckToGiveStartingBuff()
-    {
-        if (userData.level == 4)
-            userData.totalHintBuff += 3;
-        if (userData.level == 9)
-            userData.totalSwapBuff += 3;
     }
     #endregion
 

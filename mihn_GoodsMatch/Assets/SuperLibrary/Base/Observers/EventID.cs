@@ -39,4 +39,11 @@ public enum EventID
     OnPauseAppByAds = 1000,
     OnDecorTutorialComplete = 1001,
     BuySuccess = 1002,
+    OnSpinDone = 1003,
+    OnReceiverGift = 1004,
+    OnShowRewardPopup = 1005,
+    OnClaimReward = 1006,
+    OnClaimGiftBox = 1007,
+    OnX2Coin = 1008,
+    ChooseMap = 1009,
 }

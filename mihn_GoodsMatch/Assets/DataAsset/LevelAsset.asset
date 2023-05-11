@@ -34,12 +34,12 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 0
+    isUnlocked: 1
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
-    levelStars: 0
+    levelStars: 3
   - name: 
     id: 3
     idThumb: 
@@ -1308,16 +1308,16 @@ MonoBehaviour:
     description: 
     unlockType: 2
     unlockPrice: 1
-    isUnlocked: 1
+    isUnlocked: 0
     isSelected: 0
     count: 0
     countHit: 0
     unlockPay: 0
-    levelStars: 2
+    levelStars: 0
   - name: 
-    id: 101
+    id: 1
     idThumb: 
-    index: 101
+    index: 1
     description: 
     unlockType: 2
     unlockPrice: 1

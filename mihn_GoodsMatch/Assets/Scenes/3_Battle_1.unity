@@ -285,7 +285,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 13
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -500,7 +500,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 13
   m_Depth: -2
   m_CullingMask:
     serializedVersion: 2
@@ -686,6 +686,7 @@ GameObject:
   - component: {fileID: 1947759902}
   - component: {fileID: 1947759901}
   - component: {fileID: 1947759903}
+  - component: {fileID: 1947759904}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -705,13 +706,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a260803bec04324e82836586bc21184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleStoragePrefabs:
-  - {fileID: 5096375012160423834, guid: f6c6315d623f6314eb11347d0b8bfe89, type: 3}
-  - {fileID: 1838829704104400769, guid: 84d7059c4d16c5149bef25bed3993cdb, type: 3}
-  - {fileID: 7126140664737683197, guid: 272975f571cd7c1448a4675db66527c6, type: 3}
-  timeLimitDefault: 20
   mapCreater: {fileID: 1947759903}
-  itemDefinitionAsset: {fileID: 11400000, guid: 75ec217fba8cdc741a3af57c2cf1a626, type: 2}
+  timeToAlert: 5
   touchPositionOffset: {x: 0, y: 0, z: 0}
   items: []
   shelves: []
@@ -745,8 +741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMove: 1
-  sampleMapTextAsset: {fileID: 4900000, guid: 6cc5d672d43fba7499d428c60f17664f, type: 3}
-  itemDefinitionAsset: {fileID: 11400000, guid: 75ec217fba8cdc741a3af57c2cf1a626, type: 2}
+  sampleMapTextAsset: {fileID: 4900000, guid: f5460f4b0020fb444aabf0ac0e62d6d6, type: 3}
   shelfBasePrefab: {fileID: 5583660029400490324, guid: 3766aa41dfd50a943bf0f73574e9517a, type: 3}
   mapUnitSize: {x: 1, y: 1.35}
   shelfUnitSize: {x: 3, y: 1}
@@ -766,3 +761,16 @@ MonoBehaviour:
   - 11.5
   - 13
   itemCreated: []
+--- !u!114 &1947759904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947759900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ea73fe0207e2f4591767fbd40664ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  list: 

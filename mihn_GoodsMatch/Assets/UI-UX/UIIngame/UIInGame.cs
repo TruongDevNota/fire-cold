@@ -161,16 +161,28 @@ public class UIInGame : MonoBehaviour
 
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
     {
-        bool hintUnlocked = DataManager.UserData.level >= 4;
-        bool swapUnlocked = DataManager.UserData.level >= 9;
+        bool hintUnlocked = DataManager.UserData.level[DataManager.mapSelect-1] >= 4;
+        bool swapUnlocked = DataManager.UserData.level[DataManager.mapSelect-1] >= 9;
         switch (current)
         {
             case GameState.Init:
             case GameState.Restart:
                 playButton?.gameObject.SetActive(true);
                 ingameBG.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Count)];
-                levelTxt.text = DataManager.currGameMode == eGameMode.Normal ? $"LEVEL {DataManager.levelSelect}" 
-                    : DataManager.UserData.bartenderLevel % 2 == 0 ? $"DAY {DataManager.UserData.bartenderLevel/2 + 1}" : $"NIGHT {DataManager.UserData.bartenderLevel / 2 + 1}";
+                if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal)
+                {
+                    levelTxt.text = $"LEVEL {DataManager.levelSelect}";
+                }else if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Bartender)
+                {
+                    if(DataManager.UserData.bartenderLevel % 2 == 0)
+                    {
+                        levelTxt.text = $"DAY {DataManager.UserData.bartenderLevel / 2 + 1}";
+                    }else
+                        levelTxt.text = $"NIGHT {DataManager.UserData.bartenderLevel / 2 + 1}";
+                }else
+                    levelTxt.text = $"LEVEL {DataManager.UserData.challengeLevel+1}";
+                //levelTxt.text = DataManager.currGameMode == eGameMode.Normal ? $"LEVEL {DataManager.levelSelect}" 
+                //    : DataManager.UserData.bartenderLevel % 2 == 0 ? $"DAY {DataManager.UserData.bartenderLevel/2 + 1}" : $"NIGHT {DataManager.UserData.bartenderLevel / 2 + 1}";
                 uiInforNormal.Hide();
                 uiBottomAnim?.Hide();
                 uiInfor_Bartender?.Hide();
@@ -192,7 +204,7 @@ public class UIInGame : MonoBehaviour
                 playButton?.gameObject.SetActive(false);
                 resumeButton?.gameObject.SetActive(false);
                 backButton?.gameObject.SetActive(false);
-                if(DataManager.currGameMode == eGameMode.Normal)
+                if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal)
                 {
                     uiBottomAnim.Show();
                     uiInforNormal.Show();

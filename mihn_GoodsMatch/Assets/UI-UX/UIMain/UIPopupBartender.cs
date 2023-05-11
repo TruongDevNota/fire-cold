@@ -27,8 +27,8 @@ public class UIPopupBartender : MonoBehaviour
     public void OnShow(object obj)
     {
         btn_Skip.gameObject.SetActive(false);
-        btn_Next.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToUnlockBartender - 1);
-        btn_UnlockByAds.gameObject.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1);
+        //btn_Next.gameObject.SetActive(DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockBartender );
+       // btn_UnlockByAds.gameObject.SetActive(DataManager.UserData.totalStar < DataManager.GameConfig.starsToUnlockBartender );
         anim.Show(null, onCompleted: () =>
         {
             DOVirtual.DelayedCall(2f, () => btn_Skip.gameObject.SetActive(true));
@@ -53,7 +53,7 @@ public class UIPopupBartender : MonoBehaviour
                 DataManager.Save();
                 anim.Hide(() =>
                 {
-                    DataManager.currGameMode = eGameMode.Bartender;
+                    DataManager.currLevelconfigData.config.gameMode = eGameMode.Bartender;
                     GameStateManager.LoadGame(null);
                 });
             }

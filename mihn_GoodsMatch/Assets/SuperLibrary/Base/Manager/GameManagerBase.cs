@@ -78,6 +78,9 @@ public abstract class GameManagerBase<T> : MonoBehaviour where T : GameManagerBa
             case GameState.InShop:
                 GoToShop(data);
                 break;
+            case GameState.LuckySpin:
+                LuckyWheel(data);
+                break;
         }
     }
 
@@ -109,4 +112,6 @@ public abstract class GameManagerBase<T> : MonoBehaviour where T : GameManagerBa
     {
 
     }
+    protected virtual void LuckyWheel(object data)
+    { }
 }

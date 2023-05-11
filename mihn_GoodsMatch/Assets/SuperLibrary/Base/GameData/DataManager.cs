@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class DataManager : MonoBehaviour
@@ -12,11 +13,11 @@ public class DataManager : MonoBehaviour
     {
         get { return gameData?.user; }
     }
-    public static LevelData CurrentLevelData
-    {
-        get => LevelAsset?.Current;
-        set => LevelAsset.Current = value;
-    }
+    //public static LevelData CurrentLevelData
+    //{
+    //    get => MapAsset?.Current;
+    //    set => MapAsset.Current = value;
+    //}
 
     public static SkinData CurrentSkin
     {
@@ -91,22 +92,24 @@ public class DataManager : MonoBehaviour
     protected LampsAsset lampsAsset = null;
     public static LampsAsset LampsAsset { get; private set; }
 
-    public static LevelAsset LevelAsset { get; private set; }
+    public static MapAsset MapAsset { get; private set; }
     public static GameItemAsset ItemsAsset { get; private set; }
     public static GameData gameData { get; private set; }
     private static DataManager instance { get; set; }
     #endregion
 
     public static int levelSelect = 0;
+    public static int mapSelect = 1;
     public static int levelStars = 1;
-    public static eGameMode currGameMode = eGameMode.Normal;
+    public static LevelConfigData currLevelconfigData = null;
+    //public static nomalMode currnomalMode = nomalMode.Store1;
 
     [Space(10)]
     [Header("Default Data")]
     [SerializeField]
     protected ConfigAsset configAsset = null;
     [SerializeField]
-    protected LevelAsset levelAsset = null;
+    protected MapAsset mapAsset = null;
     [SerializeField]
     protected GameItemAsset gameItemAsset = null;
 
@@ -133,7 +136,7 @@ public class DataManager : MonoBehaviour
         {
             var time = DateTime.Now;
             gameData.user.LastTimeUpdate = DateTime.Now;
-            gameData.levelStars = LevelAsset.saveList;
+            //gameData.levelStars = MapAsset.saveList;
             gameData.itemData = ItemsAsset.itemSaveList;
 
             gameData.walls = SkinsAsset.itemSaveList;
@@ -166,7 +169,7 @@ public class DataManager : MonoBehaviour
             else
                 Debug.LogWarning("GameData not NULL");
 
-            while (gameData == null || LevelAsset == null)
+            while (gameData == null || MapAsset == null)
             {
                 if (elapsedTime < 5)
                 {
@@ -186,11 +189,17 @@ public class DataManager : MonoBehaviour
             //Create default
             var tempData = new GameData();
 
-            if (LevelAsset == null)
+            if (MapAsset == null)
             {
-                LevelAsset = ScriptableObject.CreateInstance("LevelAsset") as LevelAsset;
-                foreach (var i in instance.levelAsset.list)
-                    LevelAsset.list.Add(i);
+                MapAsset = ScriptableObject.CreateInstance("MapAsset") as MapAsset;
+                MapAsset.totalMap = instance.mapAsset.totalMap;
+                for(int i=0;i< instance.mapAsset.listMaps.Count;i++)
+                {
+                    MapAsset.listMaps.Add(instance.mapAsset.listMaps[i]);
+                    //foreach (var j in instance.mapAsset.listMaps[i].levelAsset.list)
+                    //    MapAsset.listMaps[i].levelAsset.list.Add(j);
+                }
+                
             }
             else
                 Debug.Log("LevelAsset is not NULL");
@@ -281,8 +290,8 @@ public class DataManager : MonoBehaviour
             GameData loadData = FileExtend.LoadData<GameData>("GameData") as GameData;
             if (loadData != null)
             {
-                if (loadData.levelStars != null && loadData.levelStars.Any())
-                    LevelAsset.ConvertLevelStars(loadData.levelStars);
+                //if (loadData.levelStars != null && loadData.levelStars.Any())
+                //    MapAsset.ConvertLevelStars(loadData.levelStars);
 
                 if (loadData.itemData != null && loadData.itemData.Any())
                     ItemsAsset.ConvertItemData(loadData.itemData);
@@ -329,6 +338,7 @@ public class DataManager : MonoBehaviour
                 IsFirstTime = true;
                 gameData.user.TotalTimePlay++;
             }
+
         }
         else
         {
@@ -361,7 +371,11 @@ public class DataManager : MonoBehaviour
     {
         try
         {
-            levelAsset.ResetData();
+            for (int i = 0; i < instance.mapAsset.listMaps.Count; i++)
+            {
+                mapAsset.listMaps[i].levelAsset.ResetData();
+            }
+            
             gameItemAsset.ResetData();
             Reset();
             Debug.Log("Reset and Update data to BUILD!!!");
@@ -370,6 +384,54 @@ public class DataManager : MonoBehaviour
         {
             Debug.LogError("Please update and save DATA before build!!!");
             Debug.LogException(ex);
+        }
+    }
+    #endregion
+
+    #region LEVELDATA
+    public static void SetCurrLevelConfigData()
+    {
+        currLevelconfigData = null;
+        string path = $"Level_{mapSelect}-{levelSelect}";
+
+        var file = Resources.Load<TextAsset>(path);
+        if (file == null)
+        {
+            Debug.LogError($"Load text data fail - filepath =[{path}]");
+            GameStateManager.Idle(null);
+            return;
+        }
+        
+        List<string> lines = file.text.Split(new char[] { '\n', '\r' }).ToList();
+        if (lines.Count < 2)
+        {
+            Debug.LogError($"Level config data is wrong");
+            GameStateManager.Idle(null);
+            return;
+        }
+        
+        currLevelconfigData = new LevelConfigData();
+
+        var configDatum = lines[0].Split(GameConstants.shelfSplitChars).Where(x => x.Length > 0).ToList();
+
+        currLevelconfigData.config.gameMode = (eGameMode)int.Parse(configDatum[0]);
+        currLevelconfigData.config.time = int.Parse(configDatum[1]);
+
+        if (configDatum.Count > 2 && configDatum[2].Length > 0)
+        {
+            var rowSpeed = configDatum[2].Split(GameConstants.itemSplittChar).Where(x => x.Length > 0).ToList();
+            foreach (var s in rowSpeed)
+                currLevelconfigData.config.rowsSpeed.Add(float.Parse(s));
+        }
+
+        for (int i = 1; i < lines.Count; i++)
+        {
+            Debug.Log($"Convert Line data: {lines[i]}");
+            if (lines[i].Length <= 1)
+                continue;
+            var lineDatum = new LineDatum();
+            lineDatum.lineSheves = lines[i].Split(GameConstants.shelfSplitChars).Where(x => x.Length > 0).ToList();
+            currLevelconfigData.mapDatum.lines.Add(lineDatum);
         }
     }
     #endregion

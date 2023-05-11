@@ -18,15 +18,15 @@ public class BoardGame : MonoBehaviour
     public Vector3 touchPositionOffset;
 
     private LevelConfig currentLevelConfig;
-    public LevelConfig CurrentLevelConfig { get { return currentLevelConfig; } }
+    public LevelConfig CurrentLevelConfig => CurrentLevelConfig;
 
     private Goods_Item dragingItem = null;
     private bool isDraggingItem = false;
     private int itemCount;
-    public int ItemCount 
-    { 
-        get => itemCount; 
-        set { itemCount = value; } 
+    public int ItemCount
+    {
+        get => itemCount;
+        set { itemCount = value; }
     }
     public List<Goods_Item> items = new List<Goods_Item>();
     public List<ShelfUnit> shelves = new List<ShelfUnit>();
@@ -46,7 +46,6 @@ public class BoardGame : MonoBehaviour
 
     public static BoardGame instance;
 
-    private int currentLevel;
     private Coroutine prepareMapCoroutine;
 
     private void Awake()
@@ -77,17 +76,17 @@ public class BoardGame : MonoBehaviour
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
     {
-        if(current == GameState.Restart || current == GameState.Init)
+        if (current == GameState.Restart || current == GameState.Init)
         {
             isAlert = false;
             isChallengeGame = data != null && (bool)data;
-            PrepareSceneLevel(isChallengeGame);
+            PrepareSceneLevel();
         }
         if (current == GameState.Pause)
             PauseGame();
         if (current == GameState.Play)
             StartGamePlay();
-        if(current == GameState.RebornContinue)
+        if (current == GameState.RebornContinue)
         {
             isAlert = false;
             timeLimitInSeconds += DataManager.GameConfig.rebornTimeAdding;
@@ -125,7 +124,7 @@ public class BoardGame : MonoBehaviour
     {
         if (!isPlayingGame)
             return;
-        if(timeLimitInSeconds - stopwatch.ElapsedMilliseconds / 1000 <= timeToAlert && !isAlert)
+        if (timeLimitInSeconds - stopwatch.ElapsedMilliseconds / 1000 <= timeToAlert && !isAlert)
         {
             this.PostEvent((int)EventID.OnAlertTimeout);
             isAlert = true;
@@ -134,55 +133,36 @@ public class BoardGame : MonoBehaviour
             GameOverHandler();
     }
 
-    public void PrepareSceneLevel(bool isChallenge = false)
+    public void PrepareSceneLevel()
     {
-        currentLevel = DataManager.levelSelect;
         if (prepareMapCoroutine != null)
             StopCoroutine(prepareMapCoroutine);
-        prepareMapCoroutine = StartCoroutine(PrepareNewGame(currentLevel));
+        prepareMapCoroutine = StartCoroutine(PrepareNewGame());
     }
 
-    private IEnumerator PrepareNewGame(int level)
+    private IEnumerator PrepareNewGame()
     {
-        Debug.Log($"Level Select: {level}");
+        Debug.Log($"Level Select: {DataManager.mapSelect}-{DataManager.levelSelect}");
         isPlayingGame = false;
-        
+
         stopwatch = new Stopwatch();
 
         ClearMap();
-
-        int levelIndex = level;
-        string path = $"Maps/Map_Level_{levelIndex}";
-        var file = Resources.Load<TextAsset>(path);
-        string configPath = $"Configs/Config_Level_{levelIndex}";
-        var config = Resources.Load<TextAsset>(configPath);
-
-        if (file == null || config == null)
-        {
-            Debug.Log($"Load text data fail - MapPath =[{path}] /n configPath = [{configPath}]");
-            GameStateManager.Idle(null);
-            yield break;
-        }
-        else
-        {
-            currentLevelConfig = JsonUtility.FromJson<LevelConfig>(config.text);
-            timeLimitInSeconds = currentLevelConfig.time;
-            mapCreater.CreateMapFromTextAsset(file.text, currentLevelConfig.rowsSpeed);
-        }
-
+        currentLevelConfig = DataManager.currLevelconfigData.config;
+        timeLimitInSeconds = currentLevelConfig.time;
+        mapCreater.CreateMap();
+        yield return new WaitForEndOfFrame();
         GameStateManager.Ready(null);
         UIToast.Hide();
     }
 
     public void StartGamePlay()
     {
-        FirebaseManager.LogLevelStart(currentLevel, $"level_{currentLevel}");
+        FirebaseManager.LogLevelStart(DataManager.levelSelect, $"level_{DataManager.levelSelect}");
         isPlayingGame = true;
         isPausing = false;
-        //stopwatch.Restart();
         stopwatch.Start();
         isDraggingItem = false;
-        //UI_Ingame_Manager.instance.OnGameStarted();
     }
 
     public void CheckGameComplete()
@@ -196,7 +176,7 @@ public class BoardGame : MonoBehaviour
     private void GameCompleteHandler()
     {
         Debug.Log("****  GameComplete  ****");
-        FirebaseManager.LogLevelEnd(currentLevel, $"Win_level_{currentLevel}", true);
+        FirebaseManager.LogLevelEnd(DataManager.levelSelect, $"Win_level_{DataManager.levelSelect}", true);
         stopwatch.Stop();
         isPlayingGame = false;
         DataManager.UserData.LevelChesPercent += DataManager.GameConfig.unlockChestEachLevel;
@@ -204,15 +184,15 @@ public class BoardGame : MonoBehaviour
         float timeUsePercent = (float)stopwatch.Elapsed.TotalSeconds / timeLimitInSeconds;
         int starNum = timeUsePercent <= DataManager.GameConfig.threeStar ? 3 : timeUsePercent <= DataManager.GameConfig.twoStar ? 2 : 1;
         Debug.Log($"Time used: [{stopwatch.Elapsed.TotalSeconds}] - Equal [{timeUsePercent:P1}] Percent - Got [{starNum}] stars");
-        
-        DataManager.LevelAsset.UpdateLevelStar(currentLevel-1, starNum);
+        StarManager.Add(starNum);
+        DataManager.MapAsset.listMaps[DataManager.mapSelect-1].levelAsset.UpdateLevelStar(DataManager.levelSelect, starNum);
         DataManager.levelStars = starNum;
         GameStateManager.WaitComplete(null);
     }
 
     private void GameOverHandler()
     {
-        FirebaseManager.LogLevelEnd(currentLevel, $"Lose_level_{currentLevel}", false);
+        FirebaseManager.LogLevelEnd(DataManager.levelSelect, $"Lose_level_{DataManager.levelSelect}", false);
         stopwatch.Stop();
         isPlayingGame = false;
         if (dragingItem != null)
@@ -305,7 +285,7 @@ public class BoardGame : MonoBehaviour
     {
         var prop = DataManager.ItemsAsset.GetItemByType(items[Random.Range(0, items.Count)].Type).itemProp;
         var hintItems = items.FindAll(x => x.Type == prop.Type).ToList();
-        for(int i = 0; i < prop.matchAmount; i++)
+        for (int i = 0; i < prop.matchAmount; i++)
         {
             var item = hintItems[i];
             item.jump(i);
@@ -329,7 +309,7 @@ public class BoardGame : MonoBehaviour
                 break;
             case 2:
                 var item1 = swapShelf1.ItemsOnShelf[1];
-                
+
                 var shelf2 = item2.pCurrentShelf;
                 int index2 = item2.pFirstLeftCellIndex;
 
@@ -357,7 +337,7 @@ public class BoardGame : MonoBehaviour
     {
         SoundManager.Play("3. Scoring");
         var datum = (NewMatchDatum)obj;
-        foreach(var item in datum.items)
+        foreach (var item in datum.items)
             items.Remove(item);
         CheckGameComplete();
     }
@@ -365,9 +345,9 @@ public class BoardGame : MonoBehaviour
 
     private void ClearMap()
     {
-        foreach(var item in items)
+        foreach (var item in items)
             item.Recycle();
-        foreach(var shelf in shelves)
+        foreach (var shelf in shelves)
             shelf.Recycle();
 
         //for (int num = transform.childCount - 1; num >= 0; num--)

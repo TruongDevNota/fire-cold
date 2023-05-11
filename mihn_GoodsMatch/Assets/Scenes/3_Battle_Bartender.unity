@@ -1200,7 +1200,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: e836fbb9b20707a4b865eae4451cdca7, type: 3}
     - target: {fileID: 5583660029400490323, guid: 3766aa41dfd50a943bf0f73574e9517a, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5583660029400490323, guid: 3766aa41dfd50a943bf0f73574e9517a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1928,6 +1928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1947759902}
   - component: {fileID: 1947759901}
+  - component: {fileID: 1947759903}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1953,20 +1954,22 @@ MonoBehaviour:
   isPausing: 0
   items: []
   shelves:
+  - {fileID: 1230503495}
   - {fileID: 2027220901}
   - {fileID: 1381956677}
-  - {fileID: 1230503495}
+  - {fileID: 1134143676}
   - {fileID: 1759968442}
   - {fileID: 472184748}
-  - {fileID: 1134143676}
+  - {fileID: 143927400}
   - {fileID: 1324613731}
   - {fileID: 1091767802}
-  - {fileID: 143927400}
   requestManager: {fileID: 844902979}
   requestingItems: []
   bgImage: {fileID: 1033378743}
   daySprite: {fileID: 21300000, guid: 06529c0e90a5a4b4ba7ae04b8cb12411, type: 3}
   nightSprite: {fileID: 21300000, guid: e3a3d15f74bccd048b3b2fb9885f7c76, type: 3}
+  mapCreater: {fileID: 1947759903}
+  testMapData: {fileID: 4900000, guid: f5460f4b0020fb444aabf0ac0e62d6d6, type: 3}
 --- !u!4 &1947759902
 Transform:
   m_ObjectHideFlags: 0
@@ -1978,9 +1981,9 @@ Transform:
   m_LocalPosition: {x: 0, y: -6.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2027220900}
-  - {fileID: 1381956676}
   - {fileID: 1230503494}
+  - {fileID: 1381956676}
+  - {fileID: 2027220900}
   - {fileID: 1759968441}
   - {fileID: 472184747}
   - {fileID: 1134143675}
@@ -1990,6 +1993,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1947759903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947759900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef4d431636ed074b88c5f61f30aa548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMove: 1
+  sampleMapTextAsset: {fileID: 0}
+  shelfBasePrefab: {fileID: 0}
+  mapUnitSize: {x: 1, y: 1}
+  shelfUnitSize: {x: 1, y: 0.5}
+  shelfDistance: 0.5
+  defautShelfSize: 3
+  testMoveType: 0
+  startSpawX: 0
+  moveLeftSpeed: 0
+  moveRightSpeed: 0
+  mainCamera: {fileID: 0}
+  inGameUICam: {fileID: 0}
+  cameraSizeOffset: {x: 0, y: 0}
+  smallCameraSizeOffsets: []
+  largeCameraSizeOffsets: []
+  itemCreated: []
 --- !u!1001 &2027220899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2003,7 +2035,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: e836fbb9b20707a4b865eae4451cdca7, type: 3}
     - target: {fileID: 5583660029400490323, guid: 3766aa41dfd50a943bf0f73574e9517a, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5583660029400490323, guid: 3766aa41dfd50a943bf0f73574e9517a, type: 3}
       propertyPath: m_LocalPosition.x

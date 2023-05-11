@@ -36,6 +36,8 @@ public class Goods_Item : MonoBehaviour
     public Sprite itemIcon => spriteRenderer.sprite;
     public eItemType Type { get => type; }
 
+    public Package pack;
+
     [SerializeField] private ShelfUnit currentShelf;
     public ShelfUnit pCurrentShelf
     {

@@ -20,7 +20,7 @@ public class UIMainScreen : MonoBehaviour
     [Header("Home Buttons")]
     [SerializeField] private UIMainButton btn_DailyReward;
     [SerializeField] private UIMainButton btn_RemoveAds;
-    [SerializeField] private UIMainButton btn_PiggyBank;
+    //[SerializeField] private UIMainButton btn_PiggyBank;
     [SerializeField] private Button btn_Play;
     [SerializeField] private Text txt_LevelPlay;
     [SerializeField] private Button btn_PlayChallenge;
@@ -59,34 +59,34 @@ public class UIMainScreen : MonoBehaviour
 
     public void FetchData()
     {
-        txt_LevelPlay.text = $"LV. {Mathf.Clamp(DataManager.UserData.level + 1, 1, DataManager.GameConfig.totalLevel-1)}";
+        //txt_LevelPlay.text = $"LV. {Mathf.Clamp(DataManager.UserData.level + 1, 1, DataManager.GameConfig.totalLevel-1)}";
 
-        btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelsToNextChallenge - 1);
-        lockChallengeBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
-        txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
-        btn_shopDecor?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.levelOpenShopDecor - 1);
-        lockShopDecorBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelOpenShopDecor - 1);
-        txt_LockShopDecor.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelOpenShopDecor}";
+        //btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.starsToNextChallenge - 1);
+        //lockChallengeBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
+        //txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
+        btn_shopDecor?.gameObject.SetActive(DataManager.UserData.level[0] >= DataManager.GameConfig.levelOpenShopDecor - 1);
+        lockShopDecorBtn?.SetActive(DataManager.UserData.level[0] < DataManager.GameConfig.levelOpenShopDecor - 1);
+        txt_LockShopDecor.text = $"LV.{DataManager.GameConfig.levelOpenShopDecor}";
 
-        PlayBartenderBtn?.gameObject.SetActive(true);
+        //PlayBartenderBtn?.gameObject.SetActive(true);
         //lockBartenderBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1);
-        txt_LockBartender.text = $"Unlock at lv.{DataManager.GameConfig.levelsToUnlockBartender}";
-        txt_LockBartender.gameObject.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1 && !DataManager.UserData.isModeBartenderSuguested);
+       // txt_LockBartender.text = $"Unlock at lv.{DataManager.GameConfig.levelsToUnlockBartender}";
+        //txt_LockBartender.gameObject.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToUnlockBartender - 1 && !DataManager.UserData.isModeBartenderSuguested);
 
         btn_DailyReward?.Fill(DataManager.UserData.dailyRewardClaimCount == 0 || DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1, BtnDailyRewardClick);
 
-        if(DataManager.UserData.level >= 5 && !DataManager.UserData.isModeBartenderSuguested)
-        {
-            suggestFadeImg?.SetActive(true);
-            suggestBartenderOb.SetActive(true);
-            DataManager.UserData.isModeBartenderSuguested = true;
-            DataManager.Save();
-        }
-        else
-        {
-            suggestFadeImg?.SetActive(false);
-            suggestBartenderOb.SetActive(false);
-        }
+        //if(DataManager.UserData.level >= 5 && !DataManager.UserData.isModeBartenderSuguested)
+        //{
+        //    suggestFadeImg?.SetActive(true);
+        //    suggestBartenderOb.SetActive(true);
+        //    DataManager.UserData.isModeBartenderSuguested = true;
+        //    DataManager.Save();
+        //}
+        //else
+        //{
+        //    suggestFadeImg?.SetActive(false);
+        //    suggestBartenderOb.SetActive(false);
+        //}
     }
 
     public void Show(TweenCallback onStart = null, TweenCallback onCompleted = null)
@@ -113,28 +113,33 @@ public class UIMainScreen : MonoBehaviour
     public void Ins_BtnPlayClick()
     {
         SoundManager.Play("1. Click Button");
-        Debug.Log($"Level data load: {DataManager.UserData.level + 1}");
-        DataManager.levelSelect = Mathf.Clamp(DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1, 1, DataManager.GameConfig.totalLevel - 1);
-        DataManager.currGameMode = eGameMode.Normal;
-        GameStateManager.LoadGame(null);
+        GameUIManager.PopupMapSelect.Show();
     }
-    private void Ins_BtnChallengeClick()
+    public void Ins_BtnChallengeClick()
+    {
+        //SoundManager.Play("1. Click Button");
+        //int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.starsToNextChallenge;
+        //DataManager.levelSelect = lv;
+        //DataManager.currGameMode = eGameMode.Normal;
+        //this.PostEvent((int)EventID.OnGoToChallengeLevel);
+    }
+    public void BtnPlayBartenderClicked()
+    {
+        //SoundManager.Play("1. Click Button");
+        //if (!DataManager.UserData.isModeBartenderSuguested)
+        //    this.PostEvent((int)EventID.OnModeBartenderUnlocked);
+        //else
+        //{
+        //    DataManager.currGameMode = eGameMode.Bartender;
+        //    GameStateManager.LoadGame(null);
+        //}
+    }
+    public void Ins_BtnLuckySpinClick()
     {
         SoundManager.Play("1. Click Button");
-        int lv = (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) - (DataManager.UserData.level % DataManager.GameConfig.totalLevel + 1) % DataManager.GameConfig.levelsToNextChallenge;
-        DataManager.levelSelect = lv;
-        DataManager.currGameMode = eGameMode.Normal;
-        this.PostEvent((int)EventID.OnGoToChallengeLevel);
-    }
-    private void BtnPlayBartenderClicked()
-    {
-        SoundManager.Play("1. Click Button");
-        if (!DataManager.UserData.isModeBartenderSuguested)
-            this.PostEvent((int)EventID.OnModeBartenderUnlocked);
-        else
+        if (GameStateManager.CurrentState == GameState.Idle)
         {
-            DataManager.currGameMode = eGameMode.Bartender;
-            GameStateManager.LoadGame(null);
+            GameStateManager.LuckyWheel(null);
         }
     }
     public void BtnShopDecorClicked()

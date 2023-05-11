@@ -52,9 +52,9 @@ MonoBehaviour:
     buffHintReward: 1
     buyCoinWithAdsCoolDownInSeconds: 300
     isTestRewarPopup: 0
-    levelsToNextChallenge: 10
-    playChallengeCoinUse: 100
-    levelsToUnlockBartender: 6
+    starsToNextChallenge: 3
+    playChallengeCoinUse: 0
+    starsToUnlockBartender: 10000
     coinEarnInDay: 3
     coinEarnInNight: 5
     requestMissLimit: 3

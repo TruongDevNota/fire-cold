@@ -27,7 +27,10 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     private UIPopupChallenge popupChallenge = null;
     [SerializeField]
     UILevelSelect popupLevelSelect = null;
-
+    [SerializeField]
+    PopupSelectMap popupMapSelect = null;
+    [SerializeField]
+    private UIAnimation luckyWheelScreen = null;
     public static UIMainScreen MainScreen => instance?.mainScreen;
 
     [SerializeField]
@@ -36,6 +39,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     [SerializeField] private UIGameOver gameOverScreen = null;
     [SerializeField] private UIGameOver_Bartender gameOver_Bar_Screen = null;
     public static UIGameOver GameOverScreen => instance?.gameOverScreen;
+    public static PopupSelectMap PopupMapSelect => instance?.popupMapSelect;
+    public static UILevelSelect PopupLevelSelect => instance?.popupLevelSelect;
     public static UIGameOver_Bartender GameOver_Bar_Screen => instance?.gameOver_Bar_Screen;
 
     private DateTime startLoadTime = DateTime.Now;
@@ -242,6 +247,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             inGameScreen.Hide();
             gameOverScreen.Hide();
             gameOver_Bar_Screen.Hide();
+            popupMapSelect.Hide();
         };
 
         if(GameStateManager.LastState == GameState.Complete || GameStateManager.LastState == GameState.GameOver
@@ -309,7 +315,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void GameOver(object data)
     {
         //inGameScreen.Hide();
-        if (DataManager.currGameMode == eGameMode.Normal)
+        if (DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal)
             gameOverScreen.Show(GameState.GameOver, data);
         else
             gameOver_Bar_Screen.Show(GameState.GameOver, data);
@@ -318,7 +324,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     protected override void CompleteGame(object data)
     {
         //inGameScreen.Hide();
-        if(DataManager.currGameMode == eGameMode.Normal)
+        if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal)
             gameOverScreen.Show(GameState.Complete, data);
         else
             gameOver_Bar_Screen.Show(GameState.Complete, data);
@@ -381,7 +387,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         //GameStateManager.Init(null);
         //StartCoroutine(WaitToAutoPlay());
     }
-
+    protected override void LuckyWheel(object data)
+    {
+        base.LuckyWheel(data);
+        mainScreen.Hide();
+        luckyWheelScreen.Show();
+    }
     protected override void RebornCheckPointGame(object data)
     {
         gameOverScreen.Hide();

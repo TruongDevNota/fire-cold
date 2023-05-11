@@ -30,7 +30,7 @@ public class UIPopupPigProcess : MonoBehaviour
         txt_MinStage.text = DataManager.GameConfig.BankCoinStage[0].ToString();
         txt_MaxStage.text = DataManager.GameConfig.BankCoinStage.Last().ToString();
         float lastvalue = DataManager.UserData.totalBankCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last();
-        
+
         slider.value = lastvalue;
         btn_Continue.gameObject.SetActive(false);
         btn_Continue.onClick.RemoveAllListeners();
@@ -40,7 +40,7 @@ public class UIPopupPigProcess : MonoBehaviour
 
         anim.Show(null, () =>
         {
-            if(coinNumber > 0)
+            if (coinNumber > 0)
             {
                 DataManager.UserData.totalBankCoin += coinNumber;
                 txt_coinSave.DOText(0, coinNumber, 1f);
@@ -50,7 +50,7 @@ public class UIPopupPigProcess : MonoBehaviour
                 {
                     btn_Continue.gameObject.SetActive(true);
                     btn_Continue.onClick.AddListener(BtnContinueClick);
-                    if(DataManager.UserData.totalBankCoin >= DataManager.GameConfig.BankCoinStage.Last())
+                    if (DataManager.UserData.totalBankCoin >= DataManager.GameConfig.BankCoinStage.Last())
                         SetPigSkin("full-idle", false, true);
                     else
                         SetPigSkin("empty-idle", false, true);
@@ -79,16 +79,10 @@ public class UIPopupPigProcess : MonoBehaviour
             return;
         }
 
-        if ((DataManager.levelSelect) % DataManager.GameConfig.levelsToNextChallenge == 0)
-        {
-            //GameStateManager.Idle(null);
-            this.PostEvent((int)EventID.OnGoToChallengeLevel);
-        }
-        else
-        {
-            DataManager.currGameMode = eGameMode.Normal;
-            GameStateManager.LoadGame(null);
-        }
+
+        DataManager.currLevelconfigData.config.gameMode = eGameMode.Normal;
+        GameStateManager.LoadGame(null);
+
         anim.Hide();
     }
 }
