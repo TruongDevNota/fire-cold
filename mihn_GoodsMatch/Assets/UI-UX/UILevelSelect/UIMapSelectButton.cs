@@ -14,8 +14,8 @@ public class UIMapSelectButton : MonoBehaviour
     public void Fill(int mapIndex, System.Action<int> OnMapSelect,bool isTest)
     {
         datumMap = mapIndex;
-        isUnlocked = isTest ? true : mapIndex <= DataManager.UserData.mapIndex + 1;
-        txt_map.text = $"Map {mapIndex}";
+        isUnlocked = isTest ? true : mapIndex <= DataManager.UserData.maxMapIndex + 1;
+        //txt_map.text = $"Map {mapIndex}";
         onMapSelect = OnMapSelect;
         btn_SelectMap.onClick.RemoveAllListeners();
         btn_SelectMap.onClick.AddListener(ButtonMapSelect);

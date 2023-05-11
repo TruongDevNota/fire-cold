@@ -23,7 +23,7 @@ public class UserData : UserAnalysic
     public bool isShopTutShowed = false;
     public bool isMaxLevelBartender = false;
     public bool isMaxLevelChallenge = false;
-    public int mapIndex =1 ;
+    public int maxMapIndex =0 ;
 
     [Header("Tut")]
     public bool tutBartenderDone = false;

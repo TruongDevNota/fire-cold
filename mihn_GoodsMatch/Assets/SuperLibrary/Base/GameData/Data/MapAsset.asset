@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c41561181b292849a933a53189dc89c, type: 3}
   m_Name: MapAsset
   m_EditorClassIdentifier: 
-  totalMap: 5
+  totalMap: 4
   listMaps:
   - mapindex: 1
     totalLevel: 10
@@ -30,7 +30,3 @@ MonoBehaviour:
     totalLevel: 40
     levelAsset: {fileID: 11400000, guid: 6ed62461b1a9bba42b6f8044b7b8fe4d, type: 2}
     pack: 3
-  - mapindex: 5
-    totalLevel: 50
-    levelAsset: {fileID: 11400000, guid: 213ab3af49f6eb64c94821a970557efe, type: 2}
-    pack: 4

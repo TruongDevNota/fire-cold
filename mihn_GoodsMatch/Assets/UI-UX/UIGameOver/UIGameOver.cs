@@ -522,7 +522,7 @@ public class UIGameOver : MonoBehaviour
         }
         else if (DataManager.UserData.totalStar[DataManager.mapSelect-1] >= DataManager.GameConfig.starsToUnlockMap[DataManager.mapSelect-1])
         {
-            DataManager.UserData.mapIndex++;
+            DataManager.UserData.maxMapIndex++;
             //DataManager.UserData.isChallengePlayed = true;
             //GameStateManager.Idle(null);
             //this.PostEvent((int)EventID.OnGoToChallengeLevel);
