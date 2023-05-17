@@ -16,10 +16,6 @@ public class UILevelSelect : MonoBehaviour
     [SerializeField]
     private RectTransform contentRect;
 
-    [Header("Test level")]
-    [SerializeField]
-    private bool isTest = false;
-
     private List<UILevelSelectItem> selectItems = new List<UILevelSelectItem>();
     [SerializeField] private Image BG=null;
     [SerializeField] private Sprite[] imageBG;
@@ -34,13 +30,13 @@ public class UILevelSelect : MonoBehaviour
     public void OnShow(int mapIndex)
     {
         SoundManager.Play("1. Click Button");
-        for (int i = 1; i <= DataManager.MapAsset.ListMap[DataManager.mapSelect-1].totalLevel; i++)
+        for (int i = 1; i <= DataManager.MapAsset.ListMap[mapIndex - 1].totalLevel; i++)
         {
             var isExist = i <= selectItems.Count;
             var item = isExist ? selectItems[i - 1] : itemSelectPrefab.Spawn(contentRect);
             if (!isExist)
                 selectItems.Add(item);
-            item.Fill(i, OnLevelSelectHandle,mapIndex, isTest);
+            item.Fill(i, OnLevelSelectHandle,mapIndex);
         }
         int lastLevel = DataManager.levelSelect == 0 ? DataManager.UserData.level[mapIndex-1] : DataManager.levelSelect - 1;
         anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastLevel / 3) * 1f / (DataManager.GameConfig.totalLevel / 3); });
