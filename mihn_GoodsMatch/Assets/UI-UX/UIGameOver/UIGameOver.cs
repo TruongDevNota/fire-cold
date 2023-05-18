@@ -512,7 +512,18 @@ public class UIGameOver : MonoBehaviour
     public void Btn_Next_Handle()
     {
         SoundManager.Play("1. Click Button");
-        DataManager.levelSelect++;
+
+        if (DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].hightestLevelUnlocked
+                        && DataManager.levelSelect < DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel)
+        {
+            DataManager.levelSelect++;
+            DataManager.MapAsset.ListMap[DataManager.mapSelect].hightestLevelUnlocked++;
+        }
+        else
+        {
+            //unlock next map
+        }
+
         rebornCount = 0;
 
         if (DataManager.UserData.LevelChesPercent >= 100)

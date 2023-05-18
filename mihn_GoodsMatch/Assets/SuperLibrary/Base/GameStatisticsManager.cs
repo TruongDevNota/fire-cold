@@ -56,11 +56,6 @@ public class GameStatisticsManager : MonoBehaviour
                     }
                     userData.WinStreak++;
 
-                    if (userData.level[DataManager.mapSelect - 1] + 1 == DataManager.levelSelect)
-                    {
-                        userData.level[DataManager.mapSelect - 1]++;
-                    }
-                    
                     DebugMode.UpdateWinLose();
                     break;
                 case GameState.Complete:

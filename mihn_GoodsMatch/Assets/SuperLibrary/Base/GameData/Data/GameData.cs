@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GameData
 {
     public UserData user = new UserData();
-    public List<LevelData> levelStars = new List<LevelData> ();
+    
     public List<SaveData> itemData = new List<SaveData> ();
 
     public List<SaveData> walls = new List<SaveData>();

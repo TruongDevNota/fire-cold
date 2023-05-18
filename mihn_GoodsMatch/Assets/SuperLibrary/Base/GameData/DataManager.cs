@@ -198,7 +198,6 @@ public class DataManager : MonoBehaviour
                 {
                     MapAsset.ListMap.Add(instance.mapAsset.ListMap[i]);
                 }
-                
             }
             else
                 Debug.Log("LevelAsset is not NULL");
@@ -391,7 +390,7 @@ public class DataManager : MonoBehaviour
     public static void SetCurrLevelConfigData()
     {
         currLevelconfigData = null;
-        string path = $"Level_{mapSelect}-{levelSelect}";
+        string path = $"LevelConfigs/Level_{mapSelect}-{levelSelect}";
 
         var file = Resources.Load<TextAsset>(path);
         if (file == null)
