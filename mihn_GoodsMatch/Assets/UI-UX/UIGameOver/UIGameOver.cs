@@ -513,41 +513,36 @@ public class UIGameOver : MonoBehaviour
     {
         SoundManager.Play("1. Click Button");
 
-        if (DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].hightestLevelUnlocked
-                        && DataManager.levelSelect < DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel)
-        {
-            DataManager.levelSelect++;
-            DataManager.MapAsset.ListMap[DataManager.mapSelect].hightestLevelUnlocked++;
-        }
-        else
+        if(DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel)
         {
             //unlock next map
+            Debug.Log("Go to unlock next level");
+
+            return;
         }
+
+        DataManager.levelSelect++;
+        DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].hightestLevelUnlocked = Mathf.Max(DataManager.MapAsset.ListMap[DataManager.mapSelect].hightestLevelUnlocked, DataManager.levelSelect);
 
         rebornCount = 0;
 
-        if (DataManager.UserData.LevelChesPercent >= 100)
-        {
-            var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
-            popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
-        }
-        else if (DataManager.UserData.totalStar[DataManager.mapSelect-1] >= DataManager.GameConfig.starsToUnlockMap[DataManager.mapSelect-1])
-        {
-            DataManager.UserData.maxMapIndex++;
-            //DataManager.UserData.isChallengePlayed = true;
-            //GameStateManager.Idle(null);
-            //this.PostEvent((int)EventID.OnGoToChallengeLevel);
+        //if (DataManager.UserData.LevelChesPercent >= 100)
+        //{
+        //    var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
+        //    popupReward.ShowLevelChestReward(rewardsAmount[0], rewardsAmount[1], rewardsAmount[2]);
+        //}
+        //else if (DataManager.UserData.totalStar[DataManager.mapSelect-1] >= DataManager.GameConfig.starsToUnlockMap[DataManager.mapSelect-1])
+        //{
+        //    DataManager.UserData.maxMapIndex++;
+        //}
 
-        }
         //else if (DataManager.UserData.totalStar >= DataManager.GameConfig.starsToUnlockBartender && !DataManager.UserData.isModeBartenderSuguested)
         //{
         //    this.PostEvent((int)EventID.OnModeBartenderUnlocked);
         //    DataManager.UserData.isModeBartenderSuguested = true;
         //}
-        else
-        {
-            GameStateManager.LoadGame(null);
-        }
+
+        GameStateManager.LoadGame(null);
     }
     protected void Btn_SkipCountDown_Handle()
     {

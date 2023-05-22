@@ -10,17 +10,16 @@ public class UILevelSelect : MonoBehaviour
     [SerializeField]
     private UILevelSelectItem itemSelectPrefab;
     [SerializeField]
-    private int totalLevel = 30;
-    [SerializeField]
     private ScrollRect scrollRect;
     [SerializeField]
     private RectTransform contentRect;
 
     private List<UILevelSelectItem> selectItems = new List<UILevelSelectItem>();
     [SerializeField] private Image BG=null;
-    [SerializeField] private Sprite[] imageBG;
+    [SerializeField] private Sprite[] bgSprites;
+    [Space(10)]
     [SerializeField] private Image Title = null;
-    [SerializeField] private Sprite[] imageTitle;
+    [SerializeField] private GameObject[] mapTitleObs;
 
     private void Awake()
     {
@@ -40,14 +39,16 @@ public class UILevelSelect : MonoBehaviour
         }
         int lastLevel = DataManager.levelSelect == 0 ? DataManager.UserData.level[mapIndex-1] : DataManager.levelSelect - 1;
         anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastLevel / 3) * 1f / (DataManager.GameConfig.totalLevel / 3); });
-        BG.sprite = imageBG[DataManager.mapSelect - 1];
-        Title.sprite = imageTitle[DataManager.mapSelect - 1];
+        BG.sprite = bgSprites[DataManager.mapSelect - 1];
+        for(int i = 1 ; i <= mapTitleObs.Length; i++)
+        {
+            mapTitleObs[i - 1].SetActive(i == DataManager.mapSelect);
+        }
     }
 
     public void OnLevelSelectHandle(int level)
     {
         DataManager.levelSelect = level;
-        //DataManager.SetCurrLevelConfigData();
         GameStateManager.LoadGame(null);
         OnHide();
     }

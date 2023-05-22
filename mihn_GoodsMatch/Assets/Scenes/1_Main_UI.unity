@@ -15978,6 +15978,38 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1434935996910853986, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434935996910853986, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296684023959819625, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
+      propertyPath: m_Spacing.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296684023959819625, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
+      propertyPath: m_Spacing.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296684023959819625, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296684023959819625, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
+      propertyPath: m_ConstraintCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296684023959819625, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296684023959819625, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5204787043189274130, guid: 447fa9d362563c4449deaea70dcb4d77, type: 3}
       propertyPath: m_Name
       value: PopupLevelSelect

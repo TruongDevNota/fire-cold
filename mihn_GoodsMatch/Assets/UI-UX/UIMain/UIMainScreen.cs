@@ -113,7 +113,15 @@ public class UIMainScreen : MonoBehaviour
     public void Ins_BtnPlayClick()
     {
         SoundManager.Play("1. Click Button");
-        GameUIManager.PopupMapSelect.Show();
+        DataManager.mapSelect = DataManager.UserData.lastMapIndexSelected;
+        if (!DataManager.UserData.isMapSelectShowed)
+        {
+            DataManager.UserData.isMapSelectShowed = true;
+            GameUIManager.PopupMapSelect.Show();
+        }
+        else
+            GameUIManager.PopupLevelSelect.OnShow(DataManager.mapSelect);
+
     }
     public void Ins_BtnChallengeClick()
     {

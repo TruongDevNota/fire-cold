@@ -186,7 +186,7 @@ public class BoardGame : MonoBehaviour
         Debug.Log($"Time used: [{stopwatch.Elapsed.TotalSeconds}] - Equal [{timeUsePercent:P1}] Percent - Got [{starNum}] stars");
         StarManager.Add(starNum);
 
-        if(DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars.Count <= DataManager.levelSelect)
+        if(DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars.Count >= DataManager.levelSelect)
             DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars[DataManager.levelSelect - 1] = starNum;
         else
             DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars.Add(starNum);

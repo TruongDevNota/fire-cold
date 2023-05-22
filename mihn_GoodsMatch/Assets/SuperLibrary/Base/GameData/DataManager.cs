@@ -369,11 +369,8 @@ public class DataManager : MonoBehaviour
     {
         try
         {
-            for (int i = 0; i < instance.mapAsset.ListMap.Count; i++)
-            {
-                mapAsset.ResetAndUpdateToBuild();
-            }
-            
+            mapAsset.ResetAndUpdateToBuild();
+
             gameItemAsset.ResetData();
             Reset();
             Debug.Log("Reset and Update data to BUILD!!!");
