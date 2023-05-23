@@ -17,8 +17,6 @@ public class Goods_Item : MonoBehaviour
     public MovingTF tfMoving;
     [SerializeField] 
     protected eItemType type;
-    [SerializeField]
-    public int mapIndexToUnlock;
 
     [Header("Explode Anim")]
     [SerializeField] protected float exploreAnim_Duration;
