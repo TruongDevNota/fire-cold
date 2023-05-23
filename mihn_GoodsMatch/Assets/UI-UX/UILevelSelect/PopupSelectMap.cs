@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Spine.Unity;
 
 public class PopupSelectMap : MonoBehaviour
 {
@@ -14,17 +15,15 @@ public class PopupSelectMap : MonoBehaviour
     private bool isTest = false;
     [SerializeField]
     private ScrollRect scrollRect;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+    [Space(10)]
+    [SerializeField] SkeletonGraphic catAnim;
+    [SerializeField] float scrollTime = 1f;
+    [SerializeField] Vector2 catPosition;
+    [SerializeField] float catMoveTime = 1.2f;
+    private RectTransform catRectTf;
 
-    }
-    public void Show()
+    public void Show(bool showUnlock = false)
     {
         SoundManager.Play("1. Click Button");
         for (int i = 0; i < DataManager.MapAsset.ListMap.Count; i++)
@@ -36,10 +35,65 @@ public class PopupSelectMap : MonoBehaviour
 
             selectItems[i].Fill(DataManager.MapAsset.ListMap[i], OnLevelSelectHandle);
         }
-        anim.Show();
-        //int lastMap = DataManager.mapSelect == 0 ? DataManager.UserData.mapIndex : DataManager.mapSelect - 1;
-        //anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastMap / 3) * 1f / (DataManager.GameConfig.totalMap / 3); });
+        anim.Show(onStart: () => {
+            catRectTf.SetParent(selectItems[DataManager.mapSelect - 1].transform);
+            catRectTf.anchoredPosition = catPosition;
+            catAnim.AnimationState.SetAnimation(0, GameConstants.GetRandomCatIdleAnimName(), true);
+
+            scrollRect.vertical = !showUnlock;
+            if (!showUnlock)
+                scrollRect.verticalNormalizedPosition = Mathf.Clamp01((DataManager.mapSelect - 1) * 1f / DataManager.MapAsset.ListMap.Count);
+            else
+            {
+                scrollRect.verticalNormalizedPosition = Mathf.Clamp01(DataManager.mapSelect * 1f / DataManager.MapAsset.ListMap.Count);
+                StartCoroutine(YieldUnlockNewMap());
+            }
+        });
     }
+
+    public IEnumerator YieldUnlockNewMap()
+    {
+        DataManager.MapAsset.ListMap[DataManager.mapSelect].hightestLevelUnlocked = 1;
+        Time.timeScale = 1;
+
+        var newMapPos = Mathf.Clamp01(DataManager.mapSelect * 1f / DataManager.MapAsset.ListMap.Count);
+        var oldMapPos = Mathf.Clamp01((DataManager.mapSelect - 1) * 1f / DataManager.MapAsset.ListMap.Count);
+
+        bool unlockAnimDone = false;
+        yield return selectItems[DataManager.mapSelect].YileShowUnlockAnim(() => { unlockAnimDone = true; });
+        while (!unlockAnimDone)
+            yield return null;
+        yield return new WaitForSeconds(0.5f);
+
+        float t = 0;
+        while (t < scrollTime)
+        {
+            scrollRect.verticalNormalizedPosition = newMapPos - (newMapPos - oldMapPos) * Mathf.Clamp01(t / scrollTime);
+            t += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(0.2f);
+
+        t = 0;
+        catRectTf.SetParent(selectItems[DataManager.mapSelect].transform);
+        var catStartPos = catRectTf.anchoredPosition;
+        catAnim.AnimationState.SetAnimation(0, GameConstants.GetRandomCatMoveAnimName(), true);
+        while (t < catMoveTime)
+        {
+            var catPos = Vector2.Lerp(catStartPos, catPosition, Mathf.Clamp01(t / catMoveTime));
+            t += Time.deltaTime;
+            scrollRect.verticalNormalizedPosition = oldMapPos + (newMapPos - oldMapPos) * Mathf.Clamp01(t / scrollTime);
+            catRectTf.anchoredPosition = catPos;
+            yield return new WaitForEndOfFrame();
+        }
+        catAnim.AnimationState.SetAnimation(0, GameConstants.GetRandomCatIdleAnimName(), true);
+        yield return new WaitForSeconds(0.2f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        OnLevelSelectHandle(DataManager.mapSelect + 1);
+    }
+
     public void OnLevelSelectHandle(int map)
     {
         DataManager.mapSelect = map;
@@ -51,5 +105,12 @@ public class PopupSelectMap : MonoBehaviour
     public void Hide()
     {
         anim.Hide();
+    }
+
+    [MyBox.ButtonMethod]
+    public void TestUnlockNextMap()
+    {
+        scrollRect.vertical = false;
+        StartCoroutine(YieldUnlockNewMap());
     }
 }

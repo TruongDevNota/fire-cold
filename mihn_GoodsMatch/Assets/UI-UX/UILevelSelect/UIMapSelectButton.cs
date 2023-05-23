@@ -29,14 +29,32 @@ public class UIMapSelectButton : MonoBehaviour
         txt_MapTitle.text = mapData.mapName;
         starOb?.SetActive(mapData.isUnlocked);
         txt_Star.text = string.Format("{0}/{1}", mapData.GetAllStarClaimed(), mapData.totalLevel*3);
-        anim_Lock.gameObject.SetActive(!mapData.isUnlocked);
-
+        
         leftPathOb.SetActive(mapData.mapIndex % 2 == 1 && mapData.mapIndex < DataManager.MapAsset.totalMap);
         rightPathOb.SetActive(mapData.mapIndex % 2 == 0 && mapData.mapIndex < DataManager.MapAsset.totalMap);
+
+        anim_Lock.gameObject.SetActive(!mapData.isUnlocked);
+        if (!mapData.isUnlocked)
+            anim_Lock.AnimationState.SetAnimation(0, "idle", true);
 
         onMapSelect = OnMapSelect;
         btn_SelectMap.onClick.RemoveAllListeners();
         btn_SelectMap.onClick.AddListener(ButtonMapSelect);
+    }
+
+    public IEnumerator YileShowUnlockAnim(System.Action onAnimcomplete = null)
+    {
+        Debug.Log($"Start show unlock anim on map: {mapData.mapName}");
+
+        anim_Lock.AnimationState.SetAnimation(0, "unlocked", false);
+        anim_Lock.Update(0);
+        yield return new WaitForEndOfFrame();
+        anim_Lock.AnimationState.Complete += delegate
+        {
+            anim_Lock.gameObject.SetActive(false);
+            img_Map.SetColor(unlockMapColor);
+            onAnimcomplete?.Invoke();
+        };
     }
 
     private void ButtonMapSelect()
@@ -45,5 +63,11 @@ public class UIMapSelectButton : MonoBehaviour
             return;
         SoundManager.Play("1. Click Button");
         onMapSelect?.Invoke(mapData.mapIndex);
+    }
+
+    [MyBox.ButtonMethod]
+    public void TestUnlockAnim()
+    {
+        StartCoroutine(YileShowUnlockAnim());
     }
 }

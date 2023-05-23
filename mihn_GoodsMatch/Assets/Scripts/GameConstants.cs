@@ -31,4 +31,17 @@ public static class GameConstants
     public static string[] soundsCombo = new string[4] { "Combo 01", "Combo 02", "Combo 03", "Combo 04" };
     #endregion
 
+    #region CatAnimationName
+    public static string[] catAnim_idles = new string[3] { "idle1", "idle2", "idle3" };
+    public static string[] catAnim_moves = new string[2] { "run3", "run2" };
+    public static string catAnim_IdleHappy = "happy";
+    public static string GetRandomCatIdleAnimName()
+    {
+        return catAnim_idles[Random.Range(0, catAnim_idles.Length)];
+    }
+    public static string GetRandomCatMoveAnimName()
+    {
+        return catAnim_moves[Random.Range(0, catAnim_moves.Length)];
+    }
+    #endregion
 }
