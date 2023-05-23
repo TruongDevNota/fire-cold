@@ -16,12 +16,10 @@ public class UserData : UserAnalysic
 
     [Header("Data")]
     public int[] level = { 0,0,0,0,0};
-    public int bartenderLevel = 0;
-    public int challengeLevel = 0;
+    public int bartenderPlayCount = 0;
     public bool isModeBartenderSuguested = false;
     public bool isChallengePlayed = false;
     public bool isShopTutShowed = false;
-    public bool isMaxLevelBartender = false;
     public bool isMapSelectShowed = false;
     public int lastMapIndexSelected = 1;
 
@@ -171,13 +169,13 @@ public class UserData : UserAnalysic
     public int totalCoinEarn = 0;
     public int totalCoinSpend = 0;
 
-    private int bankCoin = 0;
-    public int totalBankCoin 
+    private int saveCoin = 0;
+    public int totalSaveCoin 
     { 
-        get => bankCoin;
+        get => saveCoin;
         set
         {
-            bankCoin = Mathf.Min(value, DataManager.GameConfig.BankCoinStage.Last());
+            saveCoin = Mathf.Min(value, DataManager.GameConfig.BankCoinStage.Last());
         }
     }
 
@@ -209,12 +207,6 @@ public class UserData : UserAnalysic
     }
     public int totalDiamondEarn = 0;
     public int totalDiamondSpend = 0;
-
-    [SerializeField]
-    private int star;
-    public int[] totalStar= {0,0,0,0,0};
-    public int totalStarEarn = 0;
-    public int totalStarSpend = 0;
 
     [Header("Buff")]
     private int hintBuff = 0;

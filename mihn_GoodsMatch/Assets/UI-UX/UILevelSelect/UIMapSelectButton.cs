@@ -42,6 +42,8 @@ public class UIMapSelectButton : MonoBehaviour
         btn_SelectMap.onClick.AddListener(ButtonMapSelect);
     }
 
+
+
     public IEnumerator YileShowUnlockAnim(System.Action onAnimcomplete = null)
     {
         Debug.Log($"Start show unlock anim on map: {mapData.mapName}");

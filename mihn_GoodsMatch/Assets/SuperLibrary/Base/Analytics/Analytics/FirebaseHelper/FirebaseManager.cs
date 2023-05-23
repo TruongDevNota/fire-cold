@@ -606,7 +606,6 @@ namespace Base
                     { "totalPlay", DataManager.UserData.TotalPlay },
                     { "totalComplete", DataManager.UserData.TotalWin },
                     { "totalSoftCurrency", DataManager.UserData.totalCoin },
-                    { "totalHardCurrency", DataManager.UserData.totalStar },
                 });
             }
         }

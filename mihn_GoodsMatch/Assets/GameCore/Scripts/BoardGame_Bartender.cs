@@ -77,7 +77,7 @@ public class BoardGame_Bartender : MonoBehaviour
         }
         instance = this;
 
-        bgImage.sprite = DataManager.UserData.bartenderLevel % 2 == 0 ? daySprite : nightSprite;
+        bgImage.sprite = DataManager.UserData.bartenderPlayCount % 2 == 0 ? daySprite : nightSprite;
 
         GameStateManager.OnStateChanged += OnGameStateChangeHandler;
         this.RegisterListener((int)EventID.OnBuffHint, DoBuffHint);
@@ -103,7 +103,7 @@ public class BoardGame_Bartender : MonoBehaviour
     {
         if(current == GameState.Restart || current == GameState.Init)
         {
-            bgImage.sprite = DataManager.UserData.bartenderLevel % 2 == 0 ? daySprite : nightSprite;
+            bgImage.sprite = DataManager.UserData.bartenderPlayCount % 2 == 0 ? daySprite : nightSprite;
             //StartCoroutine(YieldInit(0));
             StartCoroutine(YieldInitMapFromTextData(null));
         }
@@ -169,77 +169,9 @@ public class BoardGame_Bartender : MonoBehaviour
     }
 
     #region SpawnItems
-    private IEnumerator YieldInit(int level)
-    {
-        int emptyCount = 0;
-        int startShelfIndex = UnityEngine.Random.Range(0, shelves.Count);
-        currentLevel = DataManager.UserData.bartenderLevel+1;
-
-        foreach (var shelf in shelves)
-            shelf.InitCells();
-        yield return new WaitForEndOfFrame();
-        foreach (var group in typeGroups)
-            group.Clear();
-        requestingItems.Clear();
-        requestingTypes.Clear();
-
-        foreach (var item in items)
-        {
-            item.Recycle();
-        }
-        items.Clear();
-        yield return new WaitForEndOfFrame();
-        var allItemUnlocked = NextList(gameItemAsset.unlockedList);
-        InitItems((List<ItemDatum>)allItemUnlocked);
-        yield return new WaitForEndOfFrame();
-
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (emptyCount < 3)
-            {
-                int emptyChange = Random.Range(0, 100);
-                if (emptyChange < 10)
-                {
-                    emptyCount++;
-                    startShelfIndex += 2;
-                }
-            }
-
-            var index = shelves[startShelfIndex % shelves.Count].CheckItemFitOnShelf(1, 0);
-            while (index < 0)
-            {
-                startShelfIndex += 2;
-                index = shelves[startShelfIndex % shelves.Count].CheckItemFitOnShelf(1, 0);
-            }
-
-            items[i] = items[i].Spawn();
-            items[i].pFirstLeftCellIndex = index;
-            shelves[startShelfIndex % shelves.Count].DoPutItemFromWareHouse(items[i]);
-            items[i].transform.parent = shelves[startShelfIndex % shelves.Count].transform;
-            startShelfIndex += 2;
-            yield return new WaitForEndOfFrame();
-        }
-
-        GameStateManager.Ready(null);
-        UIToast.Hide();
-        yield return new WaitForEndOfFrame();
-    }
-
     private IEnumerator YieldInitMapFromTextData(MapDatum datum)
     {
-        currentLevel = DataManager.UserData.bartenderLevel + 1;
-        string path = $"Bartender/Map_Level_{currentLevel}";
-            
-        var file = Resources.Load<TextAsset>(path);
-        if (file == null)
-        {
-            DataManager.UserData.isMaxLevelBartender = true;
-            currentLevel = DataManager.UserData.bartenderLevel;
-            path = $"Bartender/Map_Level_{currentLevel}";
-            file = Resources.Load<TextAsset>(path);
-        }
         var currentMapDatum = DataManager.currLevelconfigData.mapDatum;
-        Debug.Log($"Map line count = {currentMapDatum.lines.Count}");
 
         foreach (var shelf in shelves)
             shelf.InitCells();
@@ -250,7 +182,7 @@ public class BoardGame_Bartender : MonoBehaviour
             item.Recycle();
         }
         items.Clear();
-        List<ItemDatum> listC = gameItemAsset.list?.Where(x => x.Store == Store.store1 && x.isUnlocked == true).ToList();
+        List<ItemDatum> listC = gameItemAsset.GetListUnlockedByMapIndex();
         foreach (var group in typeGroups)
             group.Clear();
         requestingItems.Clear();

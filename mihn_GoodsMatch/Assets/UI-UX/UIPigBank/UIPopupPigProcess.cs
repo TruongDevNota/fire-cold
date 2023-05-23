@@ -29,28 +29,28 @@ public class UIPopupPigProcess : MonoBehaviour
         txt_coinSave.text = coinNumber > 0 ? "0" : "MAX";
         txt_MinStage.text = DataManager.GameConfig.BankCoinStage[0].ToString();
         txt_MaxStage.text = DataManager.GameConfig.BankCoinStage.Last().ToString();
-        float lastvalue = DataManager.UserData.totalBankCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last();
+        float lastvalue = DataManager.UserData.totalSaveCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last();
 
         slider.value = lastvalue;
         btn_Continue.gameObject.SetActive(false);
         btn_Continue.onClick.RemoveAllListeners();
 
-        string idleName = DataManager.UserData.totalBankCoin >= DataManager.GameConfig.BankCoinStage.Last() ? "full-idle" : "empty-idle";
+        string idleName = DataManager.UserData.totalSaveCoin >= DataManager.GameConfig.BankCoinStage.Last() ? "full-idle" : "empty-idle";
         SetPigSkin(idleName);
 
         anim.Show(null, () =>
         {
             if (coinNumber > 0)
             {
-                DataManager.UserData.totalBankCoin += coinNumber;
+                DataManager.UserData.totalSaveCoin += coinNumber;
                 txt_coinSave.DOText(0, coinNumber, 1f);
-                slider.DOValue(DataManager.UserData.totalBankCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last(), 1f);
+                slider.DOValue(DataManager.UserData.totalSaveCoin * slider.maxValue / DataManager.GameConfig.BankCoinStage.Last(), 1f);
                 SetPigSkin("empty-deposit");
                 DOVirtual.DelayedCall(3f, () =>
                 {
                     btn_Continue.gameObject.SetActive(true);
                     btn_Continue.onClick.AddListener(BtnContinueClick);
-                    if (DataManager.UserData.totalBankCoin >= DataManager.GameConfig.BankCoinStage.Last())
+                    if (DataManager.UserData.totalSaveCoin >= DataManager.GameConfig.BankCoinStage.Last())
                         SetPigSkin("full-idle", false, true);
                     else
                         SetPigSkin("empty-idle", false, true);

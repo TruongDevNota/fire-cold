@@ -3,54 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MyBox;
+using DG.Tweening;
+
 public class PopupUnlockPack : MonoBehaviour
 {
-    public Image[] Images;
-    public Sprite[] pack1;
-    public Sprite[] pack2;
-    public Sprite[] pack3;
-    public Sprite[] pack4;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] UIAnimation anim;
+    [SerializeField] RectTransform container;
+    [SerializeField] Image itemPrefab;
+    private List<Image> items = new List<Image>();
+    
+    public void OnShow(int mapIndex)
     {
-        
-    }
+        var itemData = DataManager.ItemsAsset.GetlistNewUnlock(mapIndex);
+        for (int i = 0; i < itemData.Count; i++)
+        {
+            bool exist = i < items.Count;
+            var current = exist ? items[i] : itemPrefab.Spawn(container);
+            current.sprite = itemData[i].itemProp.itemIcon;
+            if(!exist)
+                items.Add(current);
+        }
+        for (int j = items.Count - 1; j >= itemData.Count; j--)
+        {
+            items[j].Recycle();
+            items.RemoveAt(j);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    [ButtonMethod]
-    private void Test1()
-    {
-        for(int i = 0; i < Images.Length; i++)
-        {
-            Images[i].sprite = pack1[i];
-        }
-    }
-    [ButtonMethod]
-    private void Test2()
-    {
-        for (int i = 0; i < Images.Length; i++)
-        {
-            Images[i].sprite = pack2[i];
-        }
-    }
-    [ButtonMethod]
-    private void Test3()
-    {
-        for (int i = 0; i < Images.Length; i++)
-        {
-            Images[i].sprite = pack3[i];
-        }
-    }
-    [ButtonMethod]
-    private void Test4()
-    {
-        for (int i = 0; i < Images.Length; i++)
-        {
-            Images[i].sprite = pack4[i];
-        }
+        anim.Show();
     }
 }

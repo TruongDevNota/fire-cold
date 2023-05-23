@@ -214,7 +214,7 @@ public class UIGameOver_Bartender : MonoBehaviour
     public virtual void ShowResult(bool isWin)
     {
         resultInforPanel.gameObject.SetActive(true);
-        int lastLevel = isWin ? DataManager.UserData.bartenderLevel - 1 : DataManager.UserData.bartenderLevel;
+        int lastLevel = isWin ? DataManager.UserData.bartenderPlayCount - 1 : DataManager.UserData.bartenderPlayCount;
         if (levelTxt)
             levelTxt.text = lastLevel % 2 == 0 ? $"DAY {lastLevel / 2 + 1}" : $"NIGHT {lastLevel / 2 + 1}";
         if (txtCoinEarn)
@@ -400,7 +400,7 @@ public class UIGameOver_Bartender : MonoBehaviour
     }
     public void CheckToShowInterstitialAds(string itemId, Action onDone)
     {
-        if (!GameUtilities.IsShowAdsInter(DataManager.UserData.bartenderLevel + 5))
+        if (!GameUtilities.IsShowAdsInter(DataManager.UserData.bartenderPlayCount + 5))
         {
             onDone?.Invoke();
             return;

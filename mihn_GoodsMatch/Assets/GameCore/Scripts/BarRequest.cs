@@ -164,7 +164,7 @@ public class BarRequest : MonoBehaviour
         waitTimeProcess.SetAlpha(1f);
         this.PostEvent((int)EventID.OnNewRequestCreated, requestingItems);
 
-        if (DataManager.UserData.bartenderLevel == 0 && !DataManager.UserData.tutBartenderDone)
+        if (DataManager.UserData.bartenderPlayCount == 0 && !DataManager.UserData.tutBartenderDone)
         {
             this.PostEvent((int)EventID.OnTutStepDone, tutStep);
             if (tutObj)

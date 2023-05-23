@@ -8,13 +8,10 @@ public class PopupSelectMap : MonoBehaviour
 {
     [SerializeField] private UIAnimation anim;
     [SerializeField] private UIMapSelectButton mapSelectPrefab;
-    [SerializeField]
-    private RectTransform contentRect;
-    [SerializeField]
-    private List<UIMapSelectButton> selectItems = new List<UIMapSelectButton>();
-    private bool isTest = false;
-    [SerializeField]
-    private ScrollRect scrollRect;
+    [SerializeField] private RectTransform contentRect;
+    [SerializeField] private List<UIMapSelectButton> selectItems = new List<UIMapSelectButton>();
+    [SerializeField] private ScrollRect scrollRect;
+    [SerializeField] private PopupUnlockPack popupItemsUnlock;
 
     [Space(10)]
     [SerializeField] SkeletonGraphic catAnim;
@@ -22,6 +19,11 @@ public class PopupSelectMap : MonoBehaviour
     [SerializeField] Vector2 catPosition;
     [SerializeField] float catMoveTime = 1.2f;
     private RectTransform catRectTf;
+
+    private void Start()
+    {
+        catRectTf = catAnim.GetComponent<RectTransform>();
+    }
 
     public void Show(bool showUnlock = false)
     {
@@ -89,8 +91,11 @@ public class PopupSelectMap : MonoBehaviour
         catAnim.AnimationState.SetAnimation(0, GameConstants.GetRandomCatIdleAnimName(), true);
         yield return new WaitForSeconds(0.2f);
 
-        yield return new WaitForSeconds(0.5f);
+        popupItemsUnlock.OnShow(DataManager.mapSelect + 1);
+    }
 
+    public void OnPopupNewItemsClosed()
+    {
         OnLevelSelectHandle(DataManager.mapSelect + 1);
     }
 

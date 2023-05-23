@@ -13,12 +13,7 @@ public class DataManager : MonoBehaviour
     {
         get { return gameData?.user; }
     }
-    //public static LevelData CurrentLevelData
-    //{
-    //    get => MapAsset?.Current;
-    //    set => MapAsset.Current = value;
-    //}
-
+    
     public static SkinData CurrentSkin
     {
         get => SkinsAsset?.Current;
@@ -28,7 +23,6 @@ public class DataManager : MonoBehaviour
     protected SkinsAsset skinsAsset = null;
     public static SkinsAsset SkinsAsset { get; private set; }
 
-
     public static WindowsData CurrentWindow
     {
         get => WindowAsset?.Current;
@@ -37,7 +31,6 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     protected WindowsAsset windowAsset = null;
     public static WindowsAsset WindowAsset { get; private set; }
-
 
     public static FloorData CurrentFloor
     {

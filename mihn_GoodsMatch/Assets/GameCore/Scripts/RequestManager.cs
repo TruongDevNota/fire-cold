@@ -105,7 +105,7 @@ public class RequestManager : MonoBehaviour
     public RequestDatum CreateRequest()
     {
         requestCount++;
-        var itemCount = DataManager.UserData.bartenderLevel > config.levelToRequestx2 && requestCount % config.doubleRequestRepeat == 0 ? 2 : 1;
+        var itemCount = DataManager.UserData.bartenderPlayCount > config.levelToRequestx2 && requestCount % config.doubleRequestRepeat == 0 ? 2 : 1;
         var request = new RequestDatum();
         request.id = requestCount;
         request.types = new List<eItemType>();
@@ -130,7 +130,7 @@ public class RequestManager : MonoBehaviour
 
     public int GetAmountItemOfRequest()
     {
-        if (DataManager.UserData.bartenderLevel + 1 < config.levelToRequestx2)
+        if (DataManager.UserData.bartenderPlayCount + 1 < config.levelToRequestx2)
             return 1;
 
         totalPercentOfItemInRequet = 0;

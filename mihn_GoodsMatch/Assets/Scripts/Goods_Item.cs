@@ -17,6 +17,8 @@ public class Goods_Item : MonoBehaviour
     public MovingTF tfMoving;
     [SerializeField] 
     protected eItemType type;
+    [SerializeField]
+    public int mapIndexToUnlock;
 
     [Header("Explode Anim")]
     [SerializeField] protected float exploreAnim_Duration;
@@ -35,8 +37,6 @@ public class Goods_Item : MonoBehaviour
 
     public Sprite itemIcon => spriteRenderer.sprite;
     public eItemType Type { get => type; }
-
-    public Package pack;
 
     [SerializeField] private ShelfUnit currentShelf;
     public ShelfUnit pCurrentShelf

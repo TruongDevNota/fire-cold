@@ -153,14 +153,14 @@ public class UIInfo_Bartender : MonoBehaviour
             ob.SetActive(false);
         }
 
-        showTut = DataManager.UserData.bartenderLevel == 0 && !DataManager.UserData.tutBartenderDone;
+        showTut = DataManager.UserData.bartenderPlayCount == 0 && !DataManager.UserData.tutBartenderDone;
         uiTutPanel.gameObject.SetActive(showTut);
         
-        currLevel = DataManager.UserData.bartenderLevel;
+        currLevel = DataManager.UserData.bartenderPlayCount;
         GameStatisticsManager.goldEarn = 0;
         coinEarnText.text = "0";
 
-        totalTime = Mathf.Min(config.maxLevelTime_bartender, config.levelTimeBase_bartender + DataManager.UserData.bartenderLevel * config.levelTimeIncrease_bartender);
+        totalTime = Mathf.Min(config.maxLevelTime_bartender, config.levelTimeBase_bartender + DataManager.UserData.bartenderPlayCount * config.levelTimeIncrease_bartender);
         timePlayed = 0;
         timeLeftTxt.text = TimeSpan.FromSeconds(Mathf.CeilToInt(totalTime)).ToString("m':'ss");
 
@@ -197,7 +197,7 @@ public class UIInfo_Bartender : MonoBehaviour
     {
         var item = (Goods_Item)obj;
         ComboCount++;
-        int coinEarn = DataManager.UserData.bartenderLevel % 2 == 0 ? DataManager.GameConfig.coinEarnInDay : DataManager.GameConfig.coinEarnInNight;
+        int coinEarn = DataManager.UserData.bartenderPlayCount % 2 == 0 ? DataManager.GameConfig.coinEarnInDay : DataManager.GameConfig.coinEarnInNight;
         coinEarn = Mathf.Max(coinEarn, coinEarn * ComboCount);
         var lastcoin = GameStatisticsManager.goldEarn;
         GameStatisticsManager.goldEarn += coinEarn;

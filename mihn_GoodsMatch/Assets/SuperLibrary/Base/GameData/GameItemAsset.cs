@@ -10,6 +10,14 @@ public class GameItemAsset : BaseAsset<ItemDatum>
 {
     [SerializeField] List<Goods_Item> itemModels;
 
+    public List<ItemDatum> GetListUnlockedByMapIndex()
+    {
+        return list?.Where(x => x.mapIndexToUnlock <= DataManager.mapSelect).ToList();
+    }
+    public List<ItemDatum> GetlistNewUnlock(int index)
+    {
+        return list?.Where(x => x.mapIndexToUnlock == index).ToList();
+    }
     public List<ItemDatum> lockedList
     {
         get
@@ -31,8 +39,7 @@ public class GameItemAsset : BaseAsset<ItemDatum>
 
         for (int i = 0; i < unlockedList.Count; i++)
         {
-            ////if (unlockedList[i].Store == store)
-            ////{
+            
             listC.Add(unlockedList[i]);
 
         }
@@ -72,9 +79,10 @@ public class GameItemAsset : BaseAsset<ItemDatum>
         {
             var datum = new ItemDatum()
             {
-                Store = i % 2 == 0 ? Store.store1 : Store.store2,
                 id = itemModels[i].name.ToLower(),
+                index = i + 1,
                 isUnlocked = true,
+                mapIndexToUnlock = i <= 9 ? 1 : i <= 19 ? 2 : i <= 29 ? 3 : i <= 39 ? 4 : 5,
                 itemProp = itemModels[i],
                 unlockValue = 100,
             };
@@ -91,11 +99,5 @@ public class ItemDatum : SaveData
 {
     public Goods_Item itemProp;
     public int unlockValue;
-
-    public Store Store;
-}
-public enum Store
-{
-    store1,
-    store2
+    public int mapIndexToUnlock;
 }

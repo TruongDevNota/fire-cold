@@ -169,20 +169,7 @@ public class UIInGame : MonoBehaviour
             case GameState.Restart:
                 playButton?.gameObject.SetActive(true);
                 ingameBG.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Count)];
-                if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Normal)
-                {
-                    levelTxt.text = $"LEVEL {DataManager.levelSelect}";
-                }else if(DataManager.currLevelconfigData.config.gameMode == eGameMode.Bartender)
-                {
-                    if(DataManager.UserData.bartenderLevel % 2 == 0)
-                    {
-                        levelTxt.text = $"DAY {DataManager.UserData.bartenderLevel / 2 + 1}";
-                    }else
-                        levelTxt.text = $"NIGHT {DataManager.UserData.bartenderLevel / 2 + 1}";
-                }else
-                    levelTxt.text = $"LEVEL {DataManager.UserData.challengeLevel+1}";
-                //levelTxt.text = DataManager.currGameMode == eGameMode.Normal ? $"LEVEL {DataManager.levelSelect}" 
-                //    : DataManager.UserData.bartenderLevel % 2 == 0 ? $"DAY {DataManager.UserData.bartenderLevel/2 + 1}" : $"NIGHT {DataManager.UserData.bartenderLevel / 2 + 1}";
+                levelTxt.text = $"LEVEL {DataManager.levelSelect}";
                 uiInforNormal.Hide();
                 uiBottomAnim?.Hide();
                 uiInfor_Bartender?.Hide();
