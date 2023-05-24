@@ -336,7 +336,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: -20, y: 0}
-  m_SizeDelta: {x: 44, y: 44}
+  m_SizeDelta: {x: 0, y: 44}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1290748367636485729
 CanvasRenderer:
@@ -946,8 +946,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -92.00003}
-  m_SizeDelta: {x: 0, y: 60}
+  m_AnchoredPosition: {x: 10, y: -24}
+  m_SizeDelta: {x: -100, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5204787041777613376
 CanvasRenderer:
@@ -1097,7 +1097,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -20}
+  m_AnchoredPosition: {x: 10, y: -20}
   m_SizeDelta: {x: 36, y: 54}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5204787042831041338
@@ -1321,7 +1321,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 5204787043189274134}
   itemSelectPrefab: {fileID: 6190706601091407537, guid: fe5ef7d882232634a9edcbef87beeab2, type: 3}
-  totalLevel: 100
   scrollRect: {fileID: 6157354883564320362}
   contentRect: {fileID: 6157354883174933029}
   BG: {fileID: 3613057154120466762}
@@ -1374,8 +1373,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -70}
-  m_SizeDelta: {x: -40.000008, y: -180}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: -8, y: -120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7473418622992807239
 CanvasRenderer:
@@ -1510,17 +1509,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 5
-    m_Right: 5
+    m_Left: 0
+    m_Right: 0
     m_Top: 44
-    m_Bottom: 0
+    m_Bottom: 20
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 95, y: 100}
-  m_Spacing: {x: 20, y: 12}
+  m_Spacing: {x: 6, y: 40}
   m_Constraint: 1
-  m_ConstraintCount: 3
+  m_ConstraintCount: 4
 --- !u!114 &6470339360743356095
 MonoBehaviour:
   m_ObjectHideFlags: 0

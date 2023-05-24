@@ -76,8 +76,8 @@ public class PopupBuyBuff : MonoBehaviour
     public void OnHide()
     {
         anim.Hide(onCompleted:() => {
-            if (GameStateManager.CurrentState == GameState.Pause)
-                GameStateManager.Play(null);
+            //if (GameStateManager.CurrentState == GameState.Pause)
+            //    GameStateManager.Play(null);
         });
     }
 

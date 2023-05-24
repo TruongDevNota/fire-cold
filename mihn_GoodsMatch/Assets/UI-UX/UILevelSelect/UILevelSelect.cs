@@ -35,15 +35,15 @@ public class UILevelSelect : MonoBehaviour
             var item = isExist ? selectItems[i - 1] : itemSelectPrefab.Spawn(contentRect);
             if (!isExist)
                 selectItems.Add(item);
-            item.Fill(i, OnLevelSelectHandle,mapIndex);
+            item.Fill(i, OnLevelSelectHandle, mapIndex);
         }
         int lastLevel = DataManager.levelSelect == 0 ? DataManager.UserData.level[mapIndex-1] : DataManager.levelSelect - 1;
-        anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastLevel / 3) * 1f / (DataManager.GameConfig.totalLevel / 3); });
         BG.sprite = bgSprites[DataManager.mapSelect - 1];
         for(int i = 1 ; i <= mapTitleObs.Length; i++)
         {
             mapTitleObs[i - 1].SetActive(i == DataManager.mapSelect);
         }
+        anim.Show(onStart: () => { scrollRect.verticalNormalizedPosition = 1 - (lastLevel / 3) * 1f / (DataManager.GameConfig.totalLevel / 3); });
     }
 
     public void OnLevelSelectHandle(int level)
@@ -66,5 +66,12 @@ public class UILevelSelect : MonoBehaviour
         }
         selectItems.Clear();
         GameUIManager.PopupMapSelect.Show();
+    }
+
+    [MyBox.ButtonMethod]
+    public void UnlockAllMapLevel()
+    {
+        DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].DoUnlockAllLevel();
+        OnShow(DataManager.mapSelect);
     }
 }

@@ -5,7 +5,6 @@ using Spine.Unity;
 
 public class CatController : MonoBehaviour
 {
-
     public Transform pointA;
     public Transform pointB;
     public float speed = 1.0f;

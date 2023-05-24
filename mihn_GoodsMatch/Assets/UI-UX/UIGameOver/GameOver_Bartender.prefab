@@ -2249,7 +2249,7 @@ MonoBehaviour:
   btnScaleCoinClaim: {fileID: 3574700232290822976}
   txtScaleCoinEarn: {fileID: 0}
   txt_unlockValue: {fileID: 0}
-  txt_nextLevel: {fileID: 0}
+  txt_nextLevel: {fileID: 8513574200561410313}
   btn_GoToNextLevel: {fileID: 0}
   backButton: {fileID: 8025560056058301075}
   restartButton: {fileID: 925970235874359209}
@@ -2490,7 +2490,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: DAY 1
+  m_Text: LEVEL 1
 --- !u!114 &7422399447819669006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3229,7 +3229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5808266220083655035
 RectTransform:
   m_ObjectHideFlags: 0

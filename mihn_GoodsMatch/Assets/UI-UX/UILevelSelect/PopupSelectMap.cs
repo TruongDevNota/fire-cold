@@ -13,6 +13,8 @@ public class PopupSelectMap : MonoBehaviour
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private PopupUnlockPack popupItemsUnlock;
 
+    [SerializeField] private GameObject btnBack;
+
     [Space(10)]
     [SerializeField] SkeletonGraphic catAnim;
     [SerializeField] float scrollTime = 1f;
@@ -43,12 +45,13 @@ public class PopupSelectMap : MonoBehaviour
             catAnim.AnimationState.SetAnimation(0, GameConstants.GetRandomCatIdleAnimName(), true);
 
             scrollRect.vertical = !showUnlock;
+            btnBack.SetActive(!showUnlock);
+
             if (!showUnlock)
                 scrollRect.verticalNormalizedPosition = Mathf.Clamp01((DataManager.mapSelect - 1) * 1f / DataManager.MapAsset.ListMap.Count);
             else
             {
                 scrollRect.verticalNormalizedPosition = Mathf.Clamp01(DataManager.mapSelect * 1f / DataManager.MapAsset.ListMap.Count);
-                StartCoroutine(YieldUnlockNewMap());
             }
         });
     }
@@ -56,7 +59,6 @@ public class PopupSelectMap : MonoBehaviour
     public IEnumerator YieldUnlockNewMap()
     {
         DataManager.MapAsset.ListMap[DataManager.mapSelect].hightestLevelUnlocked = 1;
-        Time.timeScale = 1;
 
         var newMapPos = Mathf.Clamp01(DataManager.mapSelect * 1f / DataManager.MapAsset.ListMap.Count);
         var oldMapPos = Mathf.Clamp01((DataManager.mapSelect - 1) * 1f / DataManager.MapAsset.ListMap.Count);
@@ -113,9 +115,10 @@ public class PopupSelectMap : MonoBehaviour
     }
 
     [MyBox.ButtonMethod]
-    public void TestUnlockNextMap()
+    public void UnlockNextMap()
     {
         scrollRect.vertical = false;
+        DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].DoUnlockAllLevel();
         StartCoroutine(YieldUnlockNewMap());
     }
 }

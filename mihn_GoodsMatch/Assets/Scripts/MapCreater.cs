@@ -102,7 +102,7 @@ public class MapCreater : MonoBehaviour
                     if (itemTypes[i3] == 0)
                         continue;
                     
-                    var itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3]);
+                    var itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], DataManager.mapSelect);
                     
                     if (itemDatum == null)
                     {

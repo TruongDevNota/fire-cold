@@ -387,12 +387,14 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         //GameStateManager.Init(null);
         //StartCoroutine(WaitToAutoPlay());
     }
+
     protected override void LuckyWheel(object data)
     {
         base.LuckyWheel(data);
         mainScreen.Hide();
         luckyWheelScreen.Show();
     }
+
     protected override void RebornCheckPointGame(object data)
     {
         gameOverScreen.Hide();
@@ -400,6 +402,30 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         GameStateManager.Init(null);
         StartCoroutine(WaitToAutoPlay());
     }
+
+    protected override void UnlockMap(object data)
+    {
+        SceneHelper.DoLoadScene("2_Idle");
+        
+        Action callback = () => {
+            UILoadGame.Hide();
+            popupMapSelect.UnlockNextMap();
+        };
+
+        UILoadGame.Init(true, () =>
+        {
+            inGameScreen.Hide();
+            gameOverScreen.Hide();
+            gameOver_Bar_Screen.Hide();
+
+            mainScreen.Show();
+            popupMapSelect.Show(true);
+
+            this.PostEvent((int)EventID.OnPlayMusic, "Bgm Menu");
+        });
+        StartCoroutine(WaitForLoading(callback, 0.5f));
+    }
+
     IEnumerator WaitToAutoPlay()
     {
         var wait01s = new WaitForSeconds(0.1f);
@@ -460,4 +486,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         //    }
         //}
     }
+
+    #region Test
+    [ButtonMethod]
+    public void TestShowMapUnlock()
+    {
+        UnlockMap(null);
+    }
+    #endregion
 }

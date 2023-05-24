@@ -77,7 +77,7 @@ public class BoardGame_Bartender : MonoBehaviour
         }
         instance = this;
 
-        bgImage.sprite = DataManager.UserData.bartenderPlayCount % 2 == 0 ? daySprite : nightSprite;
+        bgImage.sprite = DataManager.mapSelect % 2 == 0 ? daySprite : nightSprite;
 
         GameStateManager.OnStateChanged += OnGameStateChangeHandler;
         this.RegisterListener((int)EventID.OnBuffHint, DoBuffHint);
@@ -103,7 +103,7 @@ public class BoardGame_Bartender : MonoBehaviour
     {
         if(current == GameState.Restart || current == GameState.Init)
         {
-            bgImage.sprite = DataManager.UserData.bartenderPlayCount % 2 == 0 ? daySprite : nightSprite;
+            bgImage.sprite = DataManager.mapSelect % 2 == 0 ? daySprite : nightSprite;
             //StartCoroutine(YieldInit(0));
             StartCoroutine(YieldInitMapFromTextData(null));
         }
@@ -182,7 +182,7 @@ public class BoardGame_Bartender : MonoBehaviour
             item.Recycle();
         }
         items.Clear();
-        List<ItemDatum> listC = gameItemAsset.GetListUnlockedByMapIndex();
+        List<ItemDatum> listC = gameItemAsset.GetListUnlockedByMapIndex(DataManager.mapSelect);
         foreach (var group in typeGroups)
             group.Clear();
         requestingItems.Clear();
@@ -208,7 +208,7 @@ public class BoardGame_Bartender : MonoBehaviour
                         continue;
                     ItemDatum itemDatum;
                     
-                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3]);
+                        itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], DataManager.mapSelect);
                     
                         //itemDatum = DataManager.ItemsAsset.GetItemByIndex(itemTypes[i3], Store.store2);
 
@@ -411,7 +411,15 @@ public class BoardGame_Bartender : MonoBehaviour
         if (dragingItem != null)
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
         dragingItem = null;
-        //DataManager.UserData.LevelChesPercent += DataManager.GameConfig.unlockChestEachLevel;
+
+        // Default star of bartender mode = 3
+        if (DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars.Count >= DataManager.levelSelect)
+            DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars[DataManager.levelSelect - 1] = 3;
+        else
+            DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars.Add(3);
+
+        DataManager.levelStars = 3;
+        
         GameStateManager.WaitComplete(resultData);
     }
     public void GameOverHandler(object resultData)

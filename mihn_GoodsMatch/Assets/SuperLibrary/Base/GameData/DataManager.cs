@@ -13,7 +13,7 @@ public class DataManager : MonoBehaviour
     {
         get { return gameData?.user; }
     }
-    
+
     public static SkinData CurrentSkin
     {
         get => SkinsAsset?.Current;
@@ -129,17 +129,16 @@ public class DataManager : MonoBehaviour
         {
             var time = DateTime.Now;
             gameData.user.LastTimeUpdate = DateTime.Now;
-            //gameData.levelStars = MapAsset.saveList;
-            gameData.itemData = ItemsAsset.itemSaveList;
+            gameData.listMaps = MapAsset.ListMap;
 
-            gameData.walls = SkinsAsset.itemSaveList;
-            gameData.windows = WindowAsset.itemSaveList;
-            gameData.floors = FloorAsset.itemSaveList;
-            gameData.ceillings = CeillingAsset.itemSaveList;
-            gameData.carpets = CarpetsAsset.itemSaveList;
-            gameData.chairs = ChairsAsset.itemSaveList;
-            gameData.tables = TableAssets.itemSaveList;
-            gameData.lamps = LampsAsset.itemSaveList;
+            //gameData.walls = SkinsAsset.itemSaveList;
+            //gameData.windows = WindowAsset.itemSaveList;
+            //gameData.floors = FloorAsset.itemSaveList;
+            //gameData.ceillings = CeillingAsset.itemSaveList;
+            //gameData.carpets = CarpetsAsset.itemSaveList;
+            //gameData.chairs = ChairsAsset.itemSaveList;
+            //gameData.tables = TableAssets.itemSaveList;
+            //gameData.lamps = LampsAsset.itemSaveList;
             Debug.Log("ConvertData in " + (DateTime.Now - time).TotalMilliseconds + "ms");
             FileExtend.SaveData<GameData>("GameData", gameData);
             Debug.Log("SaveData in " + (DateTime.Now - time).TotalMilliseconds + "ms");
@@ -186,16 +185,16 @@ public class DataManager : MonoBehaviour
             {
                 MapAsset = ScriptableObject.CreateInstance("MapAsset") as MapAsset;
                 MapAsset.totalMap = instance.mapAsset.totalMap;
-                MapAsset.mapIcon = instance.mapAsset.mapIcon;
-                for (int i=0;i< instance.mapAsset.ListMap.Count;i++)
+                MapAsset.mapIcons = instance.mapAsset.mapIcons;
+                for (int i = 0; i < instance.mapAsset.ListMap.Count; i++)
                 {
                     MapAsset.ListMap.Add(instance.mapAsset.ListMap[i]);
                 }
             }
             else
-                Debug.Log("LevelAsset is not NULL");
+                Debug.Log("MapAsset is not NULL");
 
-            if(ItemsAsset == null)
+            if (ItemsAsset == null)
             {
                 ItemsAsset = ScriptableObject.CreateInstance("GameItemAsset") as GameItemAsset;
                 foreach (var i in instance.gameItemAsset.list)
@@ -204,78 +203,78 @@ public class DataManager : MonoBehaviour
             else
                 Debug.Log("GameItemAsset is not NULL");
 
-            if (SkinsAsset == null)
-            {
-                SkinsAsset = ScriptableObject.CreateInstance("SkinsAsset") as SkinsAsset;
-                foreach (var i in instance.skinsAsset.list)
-                    SkinsAsset.list.Add(i);
-            }
-            else
-                Debug.Log("SkinsAsset is not NULL");
+            //if (SkinsAsset == null)
+            //{
+            //    SkinsAsset = ScriptableObject.CreateInstance("SkinsAsset") as SkinsAsset;
+            //    foreach (var i in instance.skinsAsset.list)
+            //        SkinsAsset.list.Add(i);
+            //}
+            //else
+            //    Debug.Log("SkinsAsset is not NULL");
 
-            if (WindowAsset == null)
-            {
-                WindowAsset = ScriptableObject.CreateInstance("WindowsAsset") as WindowsAsset;
-                foreach (var i in instance.windowAsset.list)
-                    WindowAsset.list.Add(i);
-            }
-            else
-                Debug.Log("WindowAsset is not NULL");
+            //if (WindowAsset == null)
+            //{
+            //    WindowAsset = ScriptableObject.CreateInstance("WindowsAsset") as WindowsAsset;
+            //    foreach (var i in instance.windowAsset.list)
+            //        WindowAsset.list.Add(i);
+            //}
+            //else
+            //    Debug.Log("WindowAsset is not NULL");
 
 
-            if (FloorAsset == null)
-            {
-                FloorAsset = ScriptableObject.CreateInstance("FloorsAsset") as FloorsAsset;
-                foreach (var i in instance.floorAsset.list)
-                    FloorAsset.list.Add(i);
-            }
-            else
-                Debug.Log("FloorAsset is not NULL");
+            //if (FloorAsset == null)
+            //{
+            //    FloorAsset = ScriptableObject.CreateInstance("FloorsAsset") as FloorsAsset;
+            //    foreach (var i in instance.floorAsset.list)
+            //        FloorAsset.list.Add(i);
+            //}
+            //else
+            //    Debug.Log("FloorAsset is not NULL");
 
-            if (CeillingAsset == null)
-            {
-                CeillingAsset = ScriptableObject.CreateInstance("CeillingAsset") as CeillingAsset;
-                foreach (var i in instance.ceillingAsset.list)
-                    CeillingAsset.list.Add(i);
-            }
-            else
-                Debug.Log("CeillingAsset is not NULL");
+            //if (CeillingAsset == null)
+            //{
+            //    CeillingAsset = ScriptableObject.CreateInstance("CeillingAsset") as CeillingAsset;
+            //    foreach (var i in instance.ceillingAsset.list)
+            //        CeillingAsset.list.Add(i);
+            //}
+            //else
+            //    Debug.Log("CeillingAsset is not NULL");
 
-            if (CarpetsAsset == null)
-            {
-                CarpetsAsset = ScriptableObject.CreateInstance("CarpetsAsset") as CarpetsAsset;
-                foreach (var i in instance.carpetsAsset.list)
-                    CarpetsAsset.list.Add(i);
-            }
-            else
-                Debug.Log("CarpetsAsset is not NULL");
+            //if (CarpetsAsset == null)
+            //{
+            //    CarpetsAsset = ScriptableObject.CreateInstance("CarpetsAsset") as CarpetsAsset;
+            //    foreach (var i in instance.carpetsAsset.list)
+            //        CarpetsAsset.list.Add(i);
+            //}
+            //else
+            //    Debug.Log("CarpetsAsset is not NULL");
 
-            if (ChairsAsset == null)
-            {
-                ChairsAsset = ScriptableObject.CreateInstance("ChairsAsset") as ChairsAsset;
-                foreach (var i in instance.chairsAsset.list)
-                    ChairsAsset.list.Add(i);
-            }
-            else
-                Debug.Log("ChairsAsset is not NULL");
+            //if (ChairsAsset == null)
+            //{
+            //    ChairsAsset = ScriptableObject.CreateInstance("ChairsAsset") as ChairsAsset;
+            //    foreach (var i in instance.chairsAsset.list)
+            //        ChairsAsset.list.Add(i);
+            //}
+            //else
+            //    Debug.Log("ChairsAsset is not NULL");
 
-            if (TableAssets == null)
-            {
-                TableAssets = ScriptableObject.CreateInstance("TablesAsset") as TablesAsset;
-                foreach (var i in instance.tableAssets.list)
-                    TableAssets.list.Add(i);
-            }
-            else
-                Debug.Log("TableAssets is not NULL");
+            //if (TableAssets == null)
+            //{
+            //    TableAssets = ScriptableObject.CreateInstance("TablesAsset") as TablesAsset;
+            //    foreach (var i in instance.tableAssets.list)
+            //        TableAssets.list.Add(i);
+            //}
+            //else
+            //    Debug.Log("TableAssets is not NULL");
 
-            if (LampsAsset == null)
-            {
-                LampsAsset = ScriptableObject.CreateInstance("LampsAsset") as LampsAsset;
-                foreach (var i in instance.lampsAsset.list)
-                    LampsAsset.list.Add(i);
-            }
-            else
-                Debug.Log("LampsAsset is not NULL");
+            //if (LampsAsset == null)
+            //{
+            //    LampsAsset = ScriptableObject.CreateInstance("LampsAsset") as LampsAsset;
+            //    foreach (var i in instance.lampsAsset.list)
+            //        LampsAsset.list.Add(i);
+            //}
+            //else
+            //    Debug.Log("LampsAsset is not NULL");
 
             //Load gamedata
             GameData loadData = FileExtend.LoadData<GameData>("GameData") as GameData;
@@ -284,25 +283,22 @@ public class DataManager : MonoBehaviour
                 //if (loadData.levelStars != null && loadData.levelStars.Any())
                 //    MapAsset.ConvertLevelStars(loadData.levelStars);
 
-                if (loadData.itemData != null && loadData.itemData.Any())
-                    ItemsAsset.ConvertItemData(loadData.itemData);
-
-                if (loadData.walls != null && loadData.walls.Any())
-                    SkinsAsset.ConvertToData(loadData.walls);
-                if (loadData.windows != null && loadData.windows.Any())
-                    WindowAsset.ConvertToData(loadData.windows);
-                if (loadData.floors != null && loadData.floors.Any())
-                    FloorAsset.ConvertToData(loadData.floors);
-                if (loadData.ceillings != null && loadData.ceillings.Any())
-                    CeillingAsset.ConvertToData(loadData.ceillings);
-                if (loadData.carpets != null && loadData.carpets.Any())
-                    CarpetsAsset.ConvertToData(loadData.carpets);
-                if (loadData.chairs != null && loadData.chairs.Any())
-                    ChairsAsset.ConvertToData(loadData.chairs);
-                if (loadData.tables != null && loadData.tables.Any())
-                    TableAssets.ConvertToData(loadData.tables);
-                if (loadData.lamps != null && loadData.lamps.Any())
-                    LampsAsset.ConvertToData(loadData.lamps);
+                //if (loadData.walls != null && loadData.walls.Any())
+                //    SkinsAsset.ConvertToData(loadData.walls);
+                //if (loadData.windows != null && loadData.windows.Any())
+                //    WindowAsset.ConvertToData(loadData.windows);
+                //if (loadData.floors != null && loadData.floors.Any())
+                //    FloorAsset.ConvertToData(loadData.floors);
+                //if (loadData.ceillings != null && loadData.ceillings.Any())
+                //    CeillingAsset.ConvertToData(loadData.ceillings);
+                //if (loadData.carpets != null && loadData.carpets.Any())
+                //    CarpetsAsset.ConvertToData(loadData.carpets);
+                //if (loadData.chairs != null && loadData.chairs.Any())
+                //    ChairsAsset.ConvertToData(loadData.chairs);
+                //if (loadData.tables != null && loadData.tables.Any())
+                //    TableAssets.ConvertToData(loadData.tables);
+                //if (loadData.lamps != null && loadData.lamps.Any())
+                //    LampsAsset.ConvertToData(loadData.lamps);
 
                 if (loadData.user != null)
                 {
@@ -313,6 +309,11 @@ public class DataManager : MonoBehaviour
                     if (tempData.user.VersionInstall == 0)
                         tempData.user.VersionInstall = UIManager.BundleVersion;
                     tempData.user.VersionCurrent = UIManager.BundleVersion;
+                }
+
+                if(loadData.listMaps != null)
+                {
+                    MapAsset.ConverToData(loadData.listMaps);
                 }
 
                 Debug.Log("LoadData in " + (DateTime.Now - time).TotalMilliseconds + "ms");

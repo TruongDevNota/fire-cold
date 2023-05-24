@@ -214,11 +214,25 @@ public class UIGameOver_Bartender : MonoBehaviour
     public virtual void ShowResult(bool isWin)
     {
         resultInforPanel.gameObject.SetActive(true);
-        int lastLevel = isWin ? DataManager.UserData.bartenderPlayCount - 1 : DataManager.UserData.bartenderPlayCount;
         if (levelTxt)
-            levelTxt.text = lastLevel % 2 == 0 ? $"DAY {lastLevel / 2 + 1}" : $"NIGHT {lastLevel / 2 + 1}";
+            levelTxt.text = $"LEVEL {DataManager.levelSelect}";
         if (txtCoinEarn)
             txtCoinEarn.text = $"{GameStatisticsManager.goldEarn}";
+        if (txt_nextLevel)
+        {
+            if (DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel && !DataManager.MapAsset.ListMap[DataManager.mapSelect].isUnlocked)
+            {
+                txt_nextLevel.text = "NEXT MAP";
+            }
+            else if (DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel && DataManager.MapAsset.ListMap[DataManager.mapSelect].isUnlocked)
+            {
+                txt_nextLevel.text = "NEXT LEVEL";
+            }
+            else
+            {
+                txt_nextLevel.text = "NEXT LEVEL";
+            }
+        }
 
         if (isWin)
         {
@@ -473,18 +487,29 @@ public class UIGameOver_Bartender : MonoBehaviour
 
     public void Btn_Next_Handle()
     {
-        //UILoadGame.Init(true, null);
         SoundManager.Play("1. Click Button");
         rebornCount = 0;
-        SoundManager.Play(GameConstants.sound_doorCloseDown);
-        this.PostEvent((int)EventID.OnClearLastLevel);
-        animClose.Show(null, () => 
+        
+        if (DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel && !DataManager.MapAsset.ListMap[DataManager.mapSelect].isUnlocked)
         {
-            unlockItemScreen.Show(() =>
-            {
-                Hide(() => GameStateManager.Init(null));
-            });
-        }, null);
+            //Unlock next map
+            GameStateManager.UnlockMap(null);
+        }
+        else if(DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel && DataManager.MapAsset.ListMap[DataManager.mapSelect].isUnlocked)
+        {
+            //go to next map - unlocked
+            DataManager.mapSelect++;
+            DataManager.levelSelect = 1;
+            DataManager.UserData.lastMapIndexSelected = DataManager.mapSelect;
+            GameStateManager.LoadGame(null);
+        }
+        else
+        {
+            DataManager.levelSelect++;
+            DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].hightestLevelUnlocked = Mathf.Max(DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].hightestLevelUnlocked, DataManager.levelSelect);
+            GameStateManager.LoadGame(null);
+        }
+        DataManager.Save();
     }
     protected void Btn_SkipCountDown_Handle()
     {

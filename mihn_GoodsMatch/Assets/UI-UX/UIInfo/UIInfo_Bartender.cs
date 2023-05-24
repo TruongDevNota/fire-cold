@@ -160,11 +160,11 @@ public class UIInfo_Bartender : MonoBehaviour
         GameStatisticsManager.goldEarn = 0;
         coinEarnText.text = "0";
 
-        totalTime = Mathf.Min(config.maxLevelTime_bartender, config.levelTimeBase_bartender + DataManager.UserData.bartenderPlayCount * config.levelTimeIncrease_bartender);
+        totalTime = DataManager.currLevelconfigData.config.time;
         timePlayed = 0;
         timeLeftTxt.text = TimeSpan.FromSeconds(Mathf.CeilToInt(totalTime)).ToString("m':'ss");
 
-        maxRequestMissed = config.requestMissLimit;
+        maxRequestMissed = DataManager.currLevelconfigData.config.bar_MaxMissing;
         comboTimeCooldown = config.timeComboEslap;
 
         if (timeLeftSlider != null)
@@ -197,7 +197,7 @@ public class UIInfo_Bartender : MonoBehaviour
     {
         var item = (Goods_Item)obj;
         ComboCount++;
-        int coinEarn = DataManager.UserData.bartenderPlayCount % 2 == 0 ? DataManager.GameConfig.coinEarnInDay : DataManager.GameConfig.coinEarnInNight;
+        int coinEarn = DataManager.GameConfig.coinEarnInDay;
         coinEarn = Mathf.Max(coinEarn, coinEarn * ComboCount);
         var lastcoin = GameStatisticsManager.goldEarn;
         GameStatisticsManager.goldEarn += coinEarn;

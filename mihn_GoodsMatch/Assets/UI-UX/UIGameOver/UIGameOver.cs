@@ -51,7 +51,6 @@ public class UIGameOver : MonoBehaviour
     [SerializeField] GameObject ob_ThreeStar;
     private bool isItemUnlock;
     
-
     [Header("Stage Info")]
     [SerializeField]
     protected Text txtLevel;
@@ -249,15 +248,12 @@ public class UIGameOver : MonoBehaviour
             btnScaleStarClaim.interactable = true;
             btnStarClaim?.gameObject.SetActive(false);
             btnStarClaim.interactable = true;
-            //btn_GoToHome.gameObject.SetActive(false);
-            //btn_GoToHome.interactable = true;
-            //btn_GoToNextLevel.gameObject.SetActive(false);
-            //btn_GoToNextLevel.interactable = true;
-            isItemUnlock = false;
-            img_newItemUnlock.gameObject.SetActive(isItemUnlock);
-            levelChest.gameObject.SetActive(!isItemUnlock);
-            img_ChestUnlocked.fillAmount = DataManager.UserData.LevelChesPercent * 1f / 100;
-            txt_unlockValue.text = isItemUnlock ? $"New Item" : $"{DataManager.UserData.LevelChesPercent}%";
+            
+            //isItemUnlock = false;
+            //img_newItemUnlock.gameObject.SetActive(isItemUnlock);
+            //levelChest.gameObject.SetActive(!isItemUnlock);
+            //img_ChestUnlocked.fillAmount = DataManager.UserData.LevelChesPercent * 1f / 100;
+            //txt_unlockValue.text = isItemUnlock ? $"New Item" : $"{DataManager.UserData.LevelChesPercent}%";
         }
 
         //btnScaleStarClaim?.gameObject.SetActive(false);
@@ -512,20 +508,28 @@ public class UIGameOver : MonoBehaviour
     public void Btn_Next_Handle()
     {
         SoundManager.Play("1. Click Button");
-
-        if(DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel)
-        {
-            //unlock next map
-            Debug.Log("Go to unlock next level");
-
-            return;
-        }
-
-        DataManager.levelSelect++;
-        DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].hightestLevelUnlocked = Mathf.Max(DataManager.MapAsset.ListMap[DataManager.mapSelect].hightestLevelUnlocked, DataManager.levelSelect);
-
         rebornCount = 0;
 
+        if (DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel && !DataManager.MapAsset.ListMap[DataManager.mapSelect].isUnlocked)
+        {
+            //Unlock next map
+            GameStateManager.UnlockMap(null);
+        }
+        else if (DataManager.levelSelect == DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel && DataManager.MapAsset.ListMap[DataManager.mapSelect].isUnlocked)
+        {
+            //go to next map - unlocked
+            DataManager.mapSelect++;
+            DataManager.levelSelect = 1;
+            DataManager.UserData.lastMapIndexSelected = DataManager.mapSelect;
+            GameStateManager.LoadGame(null);
+        }
+        else
+        {
+            DataManager.levelSelect++;
+            DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].hightestLevelUnlocked = Mathf.Max(DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].hightestLevelUnlocked, DataManager.levelSelect);
+            GameStateManager.LoadGame(null);
+        }
+        DataManager.Save();
         //if (DataManager.UserData.LevelChesPercent >= 100)
         //{
         //    var rewardsAmount = rewardsAsset.GetLevelUnlockRewards();
@@ -541,8 +545,6 @@ public class UIGameOver : MonoBehaviour
         //    this.PostEvent((int)EventID.OnModeBartenderUnlocked);
         //    DataManager.UserData.isModeBartenderSuguested = true;
         //}
-
-        GameStateManager.LoadGame(null);
     }
     protected void Btn_SkipCountDown_Handle()
     {

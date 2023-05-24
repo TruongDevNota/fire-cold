@@ -24,7 +24,7 @@ public class UIMapSelectButton : MonoBehaviour
     public void Fill(MapData datum, System.Action<int> OnMapSelect)
     {
         mapData = datum;
-        img_Map.sprite = DataManager.MapAsset.mapIcon[mapData.mapIndex - 1];
+        img_Map.sprite = DataManager.MapAsset.mapIcons[mapData.mapIndex - 1];
         img_Map.SetColor(mapData.isUnlocked ? unlockMapColor : lockMapColor);
         txt_MapTitle.text = mapData.mapName;
         starOb?.SetActive(mapData.isUnlocked);

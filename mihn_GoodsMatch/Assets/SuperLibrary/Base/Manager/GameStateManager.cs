@@ -166,6 +166,11 @@ public class GameStateManager : MonoBehaviour
         stateChangedData = data;
         CurrentState = GameState.LuckySpin;
     }
+    public static void UnlockMap(object data)
+    {
+        stateChangedData = data;
+        CurrentState = GameState.UnlockMap;
+    }
 }
 
 public enum GameState
@@ -269,5 +274,6 @@ public enum GameState
     /// Show Shop
     /// </summary>
     InShop,
-    LuckySpin
+    LuckySpin,
+    UnlockMap
 }

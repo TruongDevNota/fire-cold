@@ -64,6 +64,8 @@ MonoBehaviour:
   comboCollectTimne: 1.8
   coinPrefab: {fileID: 1293701248151147880, guid: 576d4450b65fdb64092cf16f53c35772, type: 3}
   defaultTarget: {fileID: 3468465507174935394}
+  currentCoolDownTime: 0
+  comboCount: 0
 --- !u!114 &1751352580287778554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b700d2f8731ff654fb52ced93a4a77fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d960750e67688dd4b95302c57864562e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

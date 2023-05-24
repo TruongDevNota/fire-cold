@@ -23,27 +23,27 @@ MonoBehaviour:
     rewardsTypes: 0
     rewardAmount: 150
     color: {r: 0.6745098, g: 0.8313726, b: 1, a: 1}
-    rewardSpriteIcon: {fileID: 21300000, guid: d960750e67688dd4b95302c57864562e, type: 3}
+    rewardSpriteIcon: {fileID: 21300000, guid: 2e2d43ffc6835b444821fa236979a3aa, type: 3}
   - index: 2
     rewardsTypes: 0
-    rewardAmount: 600
+    rewardAmount: 300
     color: {r: 0.854902, g: 0.92549026, b: 1, a: 1}
-    rewardSpriteIcon: {fileID: 21300000, guid: 2e2d43ffc6835b444821fa236979a3aa, type: 3}
+    rewardSpriteIcon: {fileID: 21300000, guid: 4fce1f8a07fedab48ab1a45bf6b6d158, type: 3}
   - index: 3
     rewardsTypes: 0
-    rewardAmount: 500
+    rewardAmount: 50
+    color: {r: 0.6745098, g: 0.8313726, b: 1, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: d960750e67688dd4b95302c57864562e, type: 3}
+  - index: 4
+    rewardsTypes: 0
+    rewardAmount: 150
+    color: {r: 0.854902, g: 0.92549026, b: 1, a: 1}
+    rewardSpriteIcon: {fileID: 21300000, guid: 2e2d43ffc6835b444821fa236979a3aa, type: 3}
+  - index: 5
+    rewardsTypes: 0
+    rewardAmount: 250
     color: {r: 0.6745098, g: 0.8313726, b: 1, a: 1}
     rewardSpriteIcon: {fileID: 21300000, guid: 4fce1f8a07fedab48ab1a45bf6b6d158, type: 3}
-  - index: 4
-    rewardsTypes: 1
-    rewardAmount: 0
-    color: {r: 0.854902, g: 0.92549026, b: 1, a: 1}
-    rewardSpriteIcon: {fileID: 21300000, guid: cf8bde1e592b62947826e991d5a900b5, type: 3}
-  - index: 5
-    rewardsTypes: 2
-    rewardAmount: 0
-    color: {r: 0.6745098, g: 0.8313726, b: 1, a: 1}
-    rewardSpriteIcon: {fileID: 21300000, guid: 281bdcabc6d122046aaf2e8165987834, type: 3}
   giftBoxRewards:
   - index: 0
     spinTimeRequiredToGetThisGift: 3

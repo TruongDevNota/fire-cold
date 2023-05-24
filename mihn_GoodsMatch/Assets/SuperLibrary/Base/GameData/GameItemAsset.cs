@@ -10,9 +10,9 @@ public class GameItemAsset : BaseAsset<ItemDatum>
 {
     [SerializeField] List<Goods_Item> itemModels;
 
-    public List<ItemDatum> GetListUnlockedByMapIndex()
+    public List<ItemDatum> GetListUnlockedByMapIndex(int index)
     {
-        return list?.Where(x => x.mapIndexToUnlock <= DataManager.mapSelect).ToList();
+        return list?.Where(x => x.mapIndexToUnlock <= index).ToList();
     }
     public List<ItemDatum> GetlistNewUnlock(int index)
     {
@@ -33,17 +33,11 @@ public class GameItemAsset : BaseAsset<ItemDatum>
     {
         return list?.FirstOrDefault(x => x.itemProp.Type == type);
     }
-    public ItemDatum GetItemByIndex(int index)
+    public ItemDatum GetItemByIndex(int itemIndex, int mapIndex)
     {
-        List<ItemDatum> listC = new List<ItemDatum>();
+        List<ItemDatum> listC = list?.Where(x => x.mapIndexToUnlock <= mapIndex).OrderBy(x => x.index).ToList();
 
-        for (int i = 0; i < unlockedList.Count; i++)
-        {
-            
-            listC.Add(unlockedList[i]);
-
-        }
-        return listC[index - 1];
+        return listC[itemIndex - 1];
     }
     public void UnlockNewItemById(string id)
     {

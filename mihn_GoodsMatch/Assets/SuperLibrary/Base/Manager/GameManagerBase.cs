@@ -81,6 +81,9 @@ public abstract class GameManagerBase<T> : MonoBehaviour where T : GameManagerBa
             case GameState.LuckySpin:
                 LuckyWheel(data);
                 break;
+            case GameState.UnlockMap:
+                UnlockMap(data);
+                break;
         }
     }
 
@@ -113,5 +116,12 @@ public abstract class GameManagerBase<T> : MonoBehaviour where T : GameManagerBa
 
     }
     protected virtual void LuckyWheel(object data)
-    { }
+    { 
+
+    }
+
+    protected virtual void UnlockMap(object data)
+    {
+
+    }
 }

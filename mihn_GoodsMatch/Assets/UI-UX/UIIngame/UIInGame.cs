@@ -161,8 +161,8 @@ public class UIInGame : MonoBehaviour
 
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
     {
-        bool hintUnlocked = DataManager.UserData.level[DataManager.mapSelect-1] >= 4;
-        bool swapUnlocked = DataManager.UserData.level[DataManager.mapSelect-1] >= 9;
+        bool hintUnlocked = true;
+        bool swapUnlocked = true;
         switch (current)
         {
             case GameState.Init:

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 using DG.Tweening;
 using Random = UnityEngine.Random;
@@ -11,6 +12,9 @@ using Base;
 
 public class BoardGame : MonoBehaviour
 {
+    [SerializeField] Image bgImg;
+    [SerializeField] Sprite[] bgSprites;
+
     [SerializeField] MapCreater mapCreater;
     [SerializeField] float timeToAlert = 5f;
     private bool isAlert = false;
@@ -144,8 +148,9 @@ public class BoardGame : MonoBehaviour
     {
         Debug.Log($"Level Select: {DataManager.mapSelect}-{DataManager.levelSelect}");
         isPlayingGame = false;
-
         stopwatch = new Stopwatch();
+
+        bgImg.sprite = bgSprites[(DataManager.mapSelect - 1) % bgSprites.Length];
 
         ClearMap();
         currentLevelConfig = DataManager.currLevelconfigData.config;
@@ -189,6 +194,8 @@ public class BoardGame : MonoBehaviour
             DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars[DataManager.levelSelect - 1] = starNum;
         else
             DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars.Add(starNum);
+
+        DataManager.levelStars = starNum;
 
         GameStateManager.WaitComplete(null);
     }
