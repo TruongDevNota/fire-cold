@@ -1160,6 +1160,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 227772636334197538, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 521676472029478466, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_EffectColor.b
       value: 0.03137255
@@ -1577,12 +1581,24 @@ PrefabInstance:
       value: -7.26
       objectReference: {fileID: 0}
     - target: {fileID: 6069291285455489208, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069291285455489208, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069291285455489208, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 439.31
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 6069291285455489208, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 526.52
+      value: 420
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069291285455489208, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6069291285455489208, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
       propertyPath: m_AnchoredPosition.y

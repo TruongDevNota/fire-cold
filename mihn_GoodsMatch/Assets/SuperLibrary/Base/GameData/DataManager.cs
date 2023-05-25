@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 
 [ExecuteInEditMode]
 public class DataManager : MonoBehaviour
@@ -421,7 +422,7 @@ public class DataManager : MonoBehaviour
         {
             var rowSpeed = configDatum[2].Split(GameConstants.itemSplittChar).Where(x => x.Length > 0).ToList();
             foreach (var s in rowSpeed)
-                currLevelconfigData.config.rowsSpeed.Add(float.Parse(s));
+                currLevelconfigData.config.rowsSpeed.Add(float.Parse(s, CultureInfo.InvariantCulture));
         }
 
         for (int i = 1; i < lines.Count; i++)
