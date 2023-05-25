@@ -313,7 +313,7 @@ MonoBehaviour:
   processContainer: {fileID: 5679705771497612470}
   outsideSR: {fileID: 1164593798071626190}
   alertSR: {fileID: 4142663385779048365}
-  startPosOffset: {x: 0, y: 0, z: 0}
+  startPosOffset: {x: -0.5, y: 0.25, z: 0}
   itemDistance: 1.2
   waitMatchedFXTime: 1.5
   waitMissedFXTime: 1
@@ -331,6 +331,8 @@ MonoBehaviour:
   posOutSide: {x: 0, y: 0, z: 0}
   postInside: {x: 0, y: 0, z: 0}
   guestMovingTime: 1
+  tutObj: {fileID: 0}
+  tutStep: 4
   currId: 0
   requestingItems: []
   IsRequesting: 0

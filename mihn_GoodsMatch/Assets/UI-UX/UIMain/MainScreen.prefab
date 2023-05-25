@@ -1427,8 +1427,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 0, y: -4}
+  m_AnchoredPosition: {x: 0, y: 4}
+  m_SizeDelta: {x: 0, y: -8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7101041130852729934
 CanvasRenderer:
@@ -1460,7 +1460,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e512dcb5981cdf340b8cbb09dd60a746, type: 3}
-    m_FontSize: 18
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1753,9 +1753,9 @@ MonoBehaviour:
     m_Left: 10
     m_Right: 14
     m_Top: 0
-    m_Bottom: 60
+    m_Bottom: 32
   m_ChildAlignment: 8
-  m_Spacing: 80
+  m_Spacing: 60
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -1876,7 +1876,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 84, y: 84}
+  m_SizeDelta: {x: 68, y: 68}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &4527054164048097794
 MonoBehaviour:
@@ -5354,7 +5354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2352105058841050944, guid: 49a2b0b5c66ea9c46bdd3da94628aa5c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -4
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 2352105058841050944, guid: 49a2b0b5c66ea9c46bdd3da94628aa5c, type: 3}
       propertyPath: m_LocalScale.x
@@ -5374,7 +5374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2352105058841050944, guid: 49a2b0b5c66ea9c46bdd3da94628aa5c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3279878648441663842, guid: 49a2b0b5c66ea9c46bdd3da94628aa5c, type: 3}
       propertyPath: m_Text
@@ -5386,7 +5386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3279878648441663842, guid: 49a2b0b5c66ea9c46bdd3da94628aa5c, type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3279878648441663842, guid: 49a2b0b5c66ea9c46bdd3da94628aa5c, type: 3}
       propertyPath: m_FontData.m_LineSpacing
@@ -5478,11 +5478,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6556130563769771378, guid: 49a2b0b5c66ea9c46bdd3da94628aa5c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 84
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 6556130563769771378, guid: 49a2b0b5c66ea9c46bdd3da94628aa5c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 84
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 6556130563769771378, guid: 49a2b0b5c66ea9c46bdd3da94628aa5c, type: 3}
       propertyPath: m_LocalPosition.x

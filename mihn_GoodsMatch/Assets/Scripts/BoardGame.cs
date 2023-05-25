@@ -260,9 +260,10 @@ public class BoardGame : MonoBehaviour
         Cell targetCell = null;
         ShelfUnit targetShelf = null;
         int targetIndex = -1;
+        Goods_Item endPosItem = null;
         var raystart = touchPosion + Vector3.forward;
-        Debug.Log($"On stop touch at position: {touchPosion}");
-        Debug.Log($"Ray start at {raystart}");
+        
+
         RaycastHit2D[] hits = Physics2D.RaycastAll(raystart, Vector2.zero);
         foreach (var hit in hits)
         {
@@ -278,16 +279,42 @@ public class BoardGame : MonoBehaviour
         }
 
         if (targetShelf != null)
-            targetIndex = targetShelf.CheckItemFitOnShelf((int)dragingItem.size.x, targetCell.index);
-        Debug.Log(targetIndex);
-        if (targetIndex >= 0)
         {
-            dragingItem.pCurrentShelf = targetShelf;
-            dragingItem.pFirstLeftCellIndex = targetIndex;
+            //targetIndex = targetShelf.CheckItemFitOnShelf((int)dragingItem.size.x, targetCell.index);
+            endPosItem = targetShelf.ItemsOnShelf.FirstOrDefault(x => x.pFirstLeftCellIndex == targetCell.index);
+
+            if (endPosItem != null)
+            {
+                DoSwapItems(dragingItem, endPosItem);
+            }
+            else
+            {
+                dragingItem.pCurrentShelf = targetShelf;
+                dragingItem.pFirstLeftCellIndex = targetCell.index;
+
+                dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
+            }
         }
-        isDraggingItem = false;
-        if (dragingItem.pCurrentShelf != null)
+        else
+        {
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
+        }
+        
+        //Debug.Log(targetIndex);
+        //if (targetIndex >= 0)
+        //{
+        //    dragingItem.pCurrentShelf = targetShelf;
+        //    dragingItem.pFirstLeftCellIndex = targetIndex;
+
+        //    if (dragingItem.pCurrentShelf != null)
+        //        dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
+        //}
+        //else
+        //{
+        //    DoSwapItems(dragingItem, targetShelf.ItemsOnShelf.FirstOrDefault(x => x.pFirstLeftCellIndex == targetCell.index));
+        //}
+
+        isDraggingItem = false;
         dragingItem = null;
     }
 
@@ -320,26 +347,31 @@ public class BoardGame : MonoBehaviour
             case 2:
                 var item1 = swapShelf1.ItemsOnShelf[1];
 
-                var shelf2 = item2.pCurrentShelf;
-                int index2 = item2.pFirstLeftCellIndex;
-
-                item2.pCurrentShelf.PickItemUpHandler(item2);
-                item2.pCurrentShelf = swapShelf1;
-                item2.pFirstLeftCellIndex = item1.pFirstLeftCellIndex;
-
-                swapShelf1.PickItemUpHandler(item1);
-                item1.pCurrentShelf = shelf2;
-                item1.pFirstLeftCellIndex = index2;
-
-                item2.OnPickUp();
-                item1.OnPickUp();
-                swapShelf1.DoPutNewItem(item2);
-                shelf2.DoPutNewItem(item1);
-
+                DoSwapItems(item1, item2);
                 break;
         }
-
     }
+
+    private void DoSwapItems(Goods_Item item1, Goods_Item item2)
+    {
+        var shelf1 = item1.pCurrentShelf;
+        var shelf2 = item2.pCurrentShelf;
+        int index2 = item2.pFirstLeftCellIndex;
+
+        item2.pCurrentShelf.PickItemUpHandler(item2);
+        item2.pCurrentShelf = shelf1;
+        item2.pFirstLeftCellIndex = item1.pFirstLeftCellIndex;
+
+        shelf1.PickItemUpHandler(item1);
+        item1.pCurrentShelf = shelf2;
+        item1.pFirstLeftCellIndex = index2;
+
+        item2.OnPickUp();
+        item1.OnPickUp();
+        shelf1.DoPutNewItem(item2);
+        shelf2.DoPutNewItem(item1);
+    }
+
     #endregion
 
     #region matchedHandle

@@ -352,19 +352,19 @@ public class BoardGame_Bartender : MonoBehaviour
         typeGroups[0].Remove(datum.type);
         typeGroups[3].Add(datum.type);
         var shelf = datum.items[0].pCurrentShelf;
-        var requestingItem = requestingItems.FirstOrDefault(x => x.Type == datum.type);
-        bool isFitRequest = requestingItem != null;
+        var requestingItems = this.requestingItems.FindAll(x => x.Type == datum.type);
+        bool isFitRequest = requestingItems != null;
         if (isFitRequest)
         {
-            this.PostEvent((int)EventID.OnMatchedRightRequest, requestingItem);
-            requestingTypes.Remove(requestingItem.Type);
-            requestingItems.Remove(requestingItem);
+            this.PostEvent((int)EventID.OnMatchedRightRequest, requestingItems[0]);
+            requestingTypes.Remove(requestingItems[0].Type);
+            this.requestingItems.Remove(requestingItems[0]);
             SoundManager.Play("3. Scoring");
         }
         else
             this.PostEvent((int)EventID.OnMatchedWrongRequest);
 
-        var desPos = isFitRequest ? requestingItem.transform.position : Vector3.zero;
+        var desPos = isFitRequest ? requestingItems[0].transform.position : Vector3.zero;
         for (int i = 0; i < datum.items.Count; i++)
         {
             var posIndex = datum.items[i].pFirstLeftCellIndex;
@@ -380,8 +380,9 @@ public class BoardGame_Bartender : MonoBehaviour
             SpawnItemInGroup(i + 1, shelf, posIndex);
             yield return new WaitForSeconds(0.1f);
         };
-        if (isFitRequest && requestingItem.gameObject != null)
-            requestingItem.Recycle();
+        
+        if (isFitRequest && requestingItems[0].gameObject != null)
+            requestingItems[0].Recycle();
     }
     private void SpawnItemInGroup(int grIndex, ShelfUnit shelf, int posIndex)
     {

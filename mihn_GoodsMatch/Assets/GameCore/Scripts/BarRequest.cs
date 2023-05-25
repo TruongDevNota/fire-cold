@@ -157,7 +157,16 @@ public class BarRequest : MonoBehaviour
             item.transform.localPosition = GetPosOnBar(datum.types.Count, i);
             item.OnInit(active: false, delay: i * 0.15f);
             requestingItems.Add(item);
+
+            for (int j = 1; j <=2; j++)
+            {
+                var itemCollapse = gameItemAsset.GetItemByType(datum.types[i]).itemProp.Spawn(transform);
+                itemCollapse.transform.localPosition = item.transform.localPosition.OffsetX(j * 0.5f);
+                itemCollapse.OnInit(active: false, delay: i * 0.15f + j*0.1f);
+                requestingItems.Add(itemCollapse);
+            }
         }
+
         elapsedTime = 0;
         IsRequesting = true;
         processBG.SetAlpha(1f);
@@ -184,7 +193,9 @@ public class BarRequest : MonoBehaviour
         if (!IsRequesting)
             return;
         var item = (Goods_Item)obj;
-        if (requestingItems.Contains(item))
+        var matchItems = requestingItems.FindAll(x => x.Type == item.Type);
+
+        if(matchItems != null && matchItems.Count > 0)
         {
             if (currGuestController != null)
             {
@@ -192,9 +203,24 @@ public class BarRequest : MonoBehaviour
                 string soundName = GameUtilities.GetRandomBool() ? GameConstants.sound_CatHappy1 : GameConstants.sound_CatHappy2;
                 SoundManager.Play(soundName);
             }
-            item.OnHighLight(delay: 0.2f);
-            requestingItems.Remove(item);
+
+            for(int i = 1; i <= matchItems.Count; i++)
+            {
+                matchItems[i-1].OnHighLight(delay: i * 0.1f);
+                requestingItems.Remove(matchItems[i-1]);
+            }
         }
+        //if (requestingItems.Contains(item))
+        //{
+        //    if (currGuestController != null)
+        //    {
+        //        currGuestController.ChangeAnim(GuestAnimations.happy);
+        //        string soundName = GameUtilities.GetRandomBool() ? GameConstants.sound_CatHappy1 : GameConstants.sound_CatHappy2;
+        //        SoundManager.Play(soundName);
+        //    }
+        //    item.OnHighLight(delay: 0.2f);
+        //    requestingItems.Remove(item);
+        //}
         if(requestingItems.Count == 0)
         {
             IsRequesting = false;
