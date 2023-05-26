@@ -8548,6 +8548,10 @@ PrefabInstance:
       propertyPath: popupSetting
       value: 
       objectReference: {fileID: 1866255698}
+    - target: {fileID: 1026570365693610069, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 1138532316345244742, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -40.000732
@@ -8648,6 +8652,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d960750e67688dd4b95302c57864562e, type: 3}
+    - target: {fileID: 5813232671187476672, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813232671187476672, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -20
+      objectReference: {fileID: 0}
     - target: {fileID: 6736125681113481279, guid: 2e53852f7cee11b48ba77cec41fd0eb4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

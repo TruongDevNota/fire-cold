@@ -29,6 +29,7 @@ public class BoardGame_Bartender : MonoBehaviour
 
     public bool isPlayingGame = false;
     public bool isPausing = false;
+    private bool isSpawingReplace = false;
 
     public static BoardGame_Bartender instance;
 
@@ -172,6 +173,8 @@ public class BoardGame_Bartender : MonoBehaviour
     private IEnumerator YieldInitMapFromTextData(MapDatum datum)
     {
         var currentMapDatum = DataManager.currLevelconfigData.mapDatum;
+
+        isSpawingReplace = false;
 
         foreach (var shelf in shelves)
             shelf.InitCells();
@@ -348,12 +351,16 @@ public class BoardGame_Bartender : MonoBehaviour
     }
     private IEnumerator YieldSpawnReplace(object obj)
     {
+        //while (isSpawingReplace)
+        //    yield return null;
+
+        //isSpawingReplace = true;
         var datum = (NewMatchDatum)obj;
         typeGroups[0].Remove(datum.type);
         typeGroups[3].Add(datum.type);
         var shelf = datum.items[0].pCurrentShelf;
         var requestingItems = this.requestingItems.FindAll(x => x.Type == datum.type).OrderByDescending(x => x.spriteRenderer.sortingOrder).ToList();
-        bool isFitRequest = requestingItems != null;
+        bool isFitRequest = requestingItems != null && requestingItems.Count > 0;
         if (isFitRequest)
         {
             this.PostEvent((int)EventID.OnMatchedRightRequest, requestingItems[0]);
@@ -384,6 +391,8 @@ public class BoardGame_Bartender : MonoBehaviour
             SpawnItemInGroup(i + 1, shelf, posIndex);
             yield return new WaitForSeconds(0.1f);
         };
+
+        //isSpawingReplace = false;
 
         if (isFitRequest)
         {
@@ -491,6 +500,7 @@ public class BoardGame_Bartender : MonoBehaviour
         Cell targetCell = null;
         ShelfUnit targetShelf = null;
         int targetIndex = -1;
+        Goods_Item endPosItem = null;
         var raystart = touchPosion + Vector3.forward;
         RaycastHit2D[] hits = Physics2D.RaycastAll(raystart, Vector2.zero);
         foreach (var hit in hits)
@@ -507,15 +517,28 @@ public class BoardGame_Bartender : MonoBehaviour
         }
 
         if (targetShelf != null)
-            targetIndex = targetShelf.CheckItemFitOnShelf((int)dragingItem.size.x, targetCell.index);
-        if (targetIndex >= 0)
         {
-            dragingItem.pCurrentShelf = targetShelf;
-            dragingItem.pFirstLeftCellIndex = targetIndex;
+            //targetIndex = targetShelf.CheckItemFitOnShelf((int)dragingItem.size.x, targetCell.index);
+            endPosItem = targetShelf.ItemsOnShelf.FirstOrDefault(x => x.pFirstLeftCellIndex == targetCell.index);
+
+            if (endPosItem != null)
+            {
+                DoSwapItems(dragingItem, endPosItem);
+            }
+            else
+            {
+                dragingItem.pCurrentShelf = targetShelf;
+                dragingItem.pFirstLeftCellIndex = targetCell.index;
+
+                dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
+            }
         }
-        isDraggingItem = false;
-        if (dragingItem.pCurrentShelf != null)
+        else
+        {
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
+        }
+
+        isDraggingItem = false;
         dragingItem = null;
     }
 
@@ -568,6 +591,27 @@ public class BoardGame_Bartender : MonoBehaviour
         }
 
     }
+
+    private void DoSwapItems(Goods_Item item1, Goods_Item item2)
+    {
+        var shelf1 = item1.pCurrentShelf;
+        var shelf2 = item2.pCurrentShelf;
+        int index2 = item2.pFirstLeftCellIndex;
+
+        item2.pCurrentShelf.PickItemUpHandler(item2);
+        item2.pCurrentShelf = shelf1;
+        item2.pFirstLeftCellIndex = item1.pFirstLeftCellIndex;
+
+        shelf1.PickItemUpHandler(item1);
+        item1.pCurrentShelf = shelf2;
+        item1.pFirstLeftCellIndex = index2;
+
+        item2.OnPickUp();
+        item1.OnPickUp();
+        shelf1.DoPutNewItem(item2);
+        shelf2.DoPutNewItem(item1);
+    }
+
     #endregion
 
     private void OnTutorialStepDone(object obj)

@@ -19,6 +19,10 @@ public class BoardGame : MonoBehaviour
     [SerializeField] float timeToAlert = 5f;
     private bool isAlert = false;
 
+    [Header("Tutorial")]
+    [SerializeField] GameObject tutHand;
+    [SerializeField] GameObject tutText;
+
     public Vector3 touchPositionOffset;
 
     private LevelConfig currentLevelConfig;
@@ -45,6 +49,7 @@ public class BoardGame : MonoBehaviour
     private bool gameSetupDone = false;
     public bool isPlayingGame = false;
     public bool isPausing = false;
+    public bool isShowTut = false;
 
     private bool isChallengeGame = false;
 
@@ -156,6 +161,12 @@ public class BoardGame : MonoBehaviour
         currentLevelConfig = DataManager.currLevelconfigData.config;
         timeLimitInSeconds = currentLevelConfig.time;
         mapCreater.CreateMap();
+
+
+        isShowTut = DataManager.mapSelect == 1 && DataManager.levelSelect == 1 && !DataManager.UserData.tutNormalDone;
+        tutHand?.SetActive(isShowTut);
+        tutText?.SetActive(isShowTut);
+        
         yield return new WaitForEndOfFrame();
         GameStateManager.Ready(null);
         UIToast.Hide();
@@ -226,6 +237,13 @@ public class BoardGame : MonoBehaviour
         {
             if (string.Compare(hit.collider.gameObject.tag, GameConstants.goodsItemTag) == 0)
             {
+                if (isShowTut)
+                {
+                    tutHand?.SetActive(false);
+                    tutText?.SetActive(false);
+                    isShowTut = false;
+                    DataManager.UserData.tutNormalDone = true;
+                }
                 var item = hit.collider.gameObject.GetComponent<Goods_Item>();
                 if (!item.canPick)
                     break;
