@@ -4,6 +4,7 @@ using UnityEngine;
 using MyBox;
 using System;
 using DG.Tweening;
+using System.Linq;
 using Random = System.Random;
 
 public class BarRequest : MonoBehaviour
@@ -156,13 +157,15 @@ public class BarRequest : MonoBehaviour
             var item = gameItemAsset.GetItemByType(datum.types[i]).itemProp.Spawn(transform);
             item.transform.localPosition = GetPosOnBar(datum.types.Count, i);
             item.OnInit(active: false, delay: i * 0.15f);
+            item.spriteRenderer.sortingOrder = 40;
             requestingItems.Add(item);
 
             for (int j = 1; j <=2; j++)
             {
                 var itemCollapse = gameItemAsset.GetItemByType(datum.types[i]).itemProp.Spawn(transform);
                 itemCollapse.transform.localPosition = item.transform.localPosition.OffsetX(j * 0.5f);
-                itemCollapse.OnInit(active: false, delay: i * 0.15f + j*0.1f);
+                itemCollapse.OnInit(active: false, delay: i * 0.1f + j * 0.1f);
+                itemCollapse.spriteRenderer.sortingOrder = 40 - j * 5;
                 requestingItems.Add(itemCollapse);
             }
         }
@@ -193,7 +196,7 @@ public class BarRequest : MonoBehaviour
         if (!IsRequesting)
             return;
         var item = (Goods_Item)obj;
-        var matchItems = requestingItems.FindAll(x => x.Type == item.Type);
+        var matchItems = requestingItems.FindAll(x => x.Type == item.Type).OrderByDescending(x => x.spriteRenderer.sortingOrder).ToList();
 
         if(matchItems != null && matchItems.Count > 0)
         {
@@ -206,7 +209,7 @@ public class BarRequest : MonoBehaviour
 
             for(int i = 1; i <= matchItems.Count; i++)
             {
-                matchItems[i-1].OnHighLight(delay: i * 0.1f);
+                matchItems[i-1].OnHighLight(1.4f, 1f, i * 0.1f);
                 requestingItems.Remove(matchItems[i-1]);
             }
         }

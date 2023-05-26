@@ -10,7 +10,7 @@ public class Goods_Item : MonoBehaviour
     [SerializeField]
     public Vector3 size = Vector3.one;
     [SerializeField]
-    protected SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     [SerializeField]
     protected SpriteRenderer outlineSR;
     [SerializeField]
@@ -62,10 +62,10 @@ public class Goods_Item : MonoBehaviour
     }
     private void OnDisable()
     {
-        DOTween.Kill(this.gameObject);
-        DOTween.Kill($"DOScaleHightlight_{name}");
-        DOTween.Kill($"{this.GetInstanceID()}_scaleExplode");
-        DOTween.Kill($"{this.GetInstanceID()}_FaddInit");
+        transform.DOKill();
+        //DOTween.Kill($"DOScaleHightlight_{this.GetInstanceID()}");
+        //DOTween.Kill($"{this.GetInstanceID()}_scaleExplode");
+        //DOTween.Kill($"{this.GetInstanceID()}_FaddInit");
         transform.localScale = Vector3.one;
         StopAllCoroutines();
     }
@@ -181,6 +181,6 @@ public class Goods_Item : MonoBehaviour
         yield return new WaitForSeconds(delay);
         outlineSR?.gameObject.SetActive(true);
         transform.DOLocalMoveY(0.5f, duration * 0.5f);
-        transform.DOScale(scale, duration).SetId($"DOScaleHightlight_{name}");
+        transform.DOScale(scale, duration * 0.5f).SetId($"DOScaleHightlight_{this.GetInstanceID()}");
     }
 }

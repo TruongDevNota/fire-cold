@@ -352,19 +352,23 @@ public class BoardGame_Bartender : MonoBehaviour
         typeGroups[0].Remove(datum.type);
         typeGroups[3].Add(datum.type);
         var shelf = datum.items[0].pCurrentShelf;
-        var requestingItems = this.requestingItems.FindAll(x => x.Type == datum.type);
+        var requestingItems = this.requestingItems.FindAll(x => x.Type == datum.type).OrderByDescending(x => x.spriteRenderer.sortingOrder).ToList();
         bool isFitRequest = requestingItems != null;
         if (isFitRequest)
         {
             this.PostEvent((int)EventID.OnMatchedRightRequest, requestingItems[0]);
             requestingTypes.Remove(requestingItems[0].Type);
-            this.requestingItems.Remove(requestingItems[0]);
+            this.requestingItems.RemoveAll(x => x.Type == requestingItems[0].Type);
             SoundManager.Play("3. Scoring");
         }
         else
             this.PostEvent((int)EventID.OnMatchedWrongRequest);
 
-        var desPos = isFitRequest ? requestingItems[0].transform.position : Vector3.zero;
+        var desPos = new List<Vector3>();
+        
+        for (int i = 0; i < requestingItems.Count; i++)
+            desPos.Add(isFitRequest ? requestingItems[i].transform.position : Vector3.zero);
+
         for (int i = 0; i < datum.items.Count; i++)
         {
             var posIndex = datum.items[i].pFirstLeftCellIndex;
@@ -374,15 +378,22 @@ public class BoardGame_Bartender : MonoBehaviour
             if (!isFitRequest && datum.items[i] != null)
                 datum.items[i].Explode();
             else if(datum.items[i] != null)
-                StartCoroutine(datum.items[i].YieldMoveThenHide(desPos));
+                StartCoroutine(datum.items[i].YieldMoveThenHide(desPos[i]));
 
             yield return new WaitForSeconds(0.2f);
             SpawnItemInGroup(i + 1, shelf, posIndex);
             yield return new WaitForSeconds(0.1f);
         };
-        
-        if (isFitRequest && requestingItems[0].gameObject != null)
-            requestingItems[0].Recycle();
+
+        if (isFitRequest)
+        {
+            for (int i = 0; i < requestingItems.Count; i++)
+            {
+                yield return new WaitForSeconds(i * 0.1f);
+                if (requestingItems[i].gameObject != null)
+                    requestingItems[i].Recycle();
+            }
+        }
     }
     private void SpawnItemInGroup(int grIndex, ShelfUnit shelf, int posIndex)
     {
@@ -558,7 +569,6 @@ public class BoardGame_Bartender : MonoBehaviour
 
     }
     #endregion
-
 
     private void OnTutorialStepDone(object obj)
     {
