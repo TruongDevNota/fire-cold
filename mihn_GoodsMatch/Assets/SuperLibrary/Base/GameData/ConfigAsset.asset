@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ConfigAsset
   m_EditorClassIdentifier: Assembly-CSharp::ConfigData
   gameConfig:
-    suggestUpdateVersion: 1032303100
+    suggestUpdateVersion: 1002305291
     _timePlayToShowAd: 0
     _timePlayToShowAdReduce: 0
     _timeToWaitOpenAd: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     buffHintReward: 1
     buyCoinWithAdsCoolDownInSeconds: 300
     isTestRewarPopup: 0
-    starsToNextChallenge: 3
+    starsToUnlockChallenge: 5
     playChallengeCoinUse: 0
     starsToUnlockBartender: 10000
     coinEarnInDay: 3
@@ -70,6 +70,7 @@ MonoBehaviour:
     maxCombo_bartender: 5
     doubleRequestRepeat: 20
     tutBartenderLastStep: 7
+    starsToUnlockMap: 1900000019000000190000001900000019000000
     _goldByAds: 150
     startPerMatch: 5
     bankCoinStage: d007000088130000

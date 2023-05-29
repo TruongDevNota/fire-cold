@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
-  <string name="gcm_defaultSenderId" translatable="false">484737574060</string>
-  <string name="google_storage_bucket" translatable="false">mascom-goodmatch.appspot.com</string>
-  <string name="project_id" translatable="false">mascom-goodmatch</string>
-  <string name="google_api_key" translatable="false">AIzaSyCMEwZA_LtjY7tnqNVbLRaeFHW3PM5jQiA</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCMEwZA_LtjY7tnqNVbLRaeFHW3PM5jQiA</string>
-  <string name="google_app_id" translatable="false">1:484737574060:android:32d0a2f7a88e116a1e2b09</string>
-  <string name="default_web_client_id" translatable="false">484737574060-4rfl7j0uts3nbk37is2ah0q8c51dh006.apps.googleusercontent.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">726159488776</string>
+  <string name="google_storage_bucket" translatable="false">yunero-2048.appspot.com</string>
+  <string name="project_id" translatable="false">yunero-2048</string>
+  <string name="google_api_key" translatable="false">AIzaSyD0jI0SoKWj1sL6QTjBFjMWZ2Pz92Uqw3s</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD0jI0SoKWj1sL6QTjBFjMWZ2Pz92Uqw3s</string>
+  <string name="google_app_id" translatable="false">1:726159488776:android:38a9c2ac35acdc65141ebd</string>
+  <string name="default_web_client_id" translatable="false">726159488776-osscrqqoo3pr372jprv7h2omo75ln2id.apps.googleusercontent.com</string>
 </resources>

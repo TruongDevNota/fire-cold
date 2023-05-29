@@ -1775,6 +1775,18 @@ PrefabInstance:
       propertyPath: interstitialButton
       value: 
       objectReference: {fileID: 86235038}
+    - target: {fileID: 8254825336129934760, guid: 72a08ac447065a7449ec9175af8745ca, type: 3}
+      propertyPath: adsNetWork.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254825336129934760, guid: 72a08ac447065a7449ec9175af8745ca, type: 3}
+      propertyPath: adsNetWork.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254825336129934760, guid: 72a08ac447065a7449ec9175af8745ca, type: 3}
+      propertyPath: adsNetWork.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8254825336129934761, guid: 72a08ac447065a7449ec9175af8745ca, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -4398,12 +4410,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48fe32258dddae47a7337828e9cf498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SDKKey: CwIm/S/4a1i3IaxK6HzYBTV+J+HE7O5idunbFsBNENleoKCzmxHgOiB8QiSn1J+shvsM2GoTyAWwzT93ocU/EjDPz8izmvyOn5ups+0idjM=
-  bundleVersion: 1032303101
+  SDKKey: HNDgWzOEb4ylp4eaBXkwFmQIFcJHAOGwOk6n2kRW86BP+POQood3ooD2igJmpyu1
+  bundleVersion: 1002305291
   versionBuildTexts:
   - {fileID: 379268065}
   - {fileID: 1350732642}
-  appIdDROI: com.falcon.p.mcom.goodsmatch.puzzle.triplemaster
+  appIdDROI: com.fox.match3
   appIdIOS: 00000000
   email: nextsolpluse@gmail.com
   emailCC: 
@@ -10181,6 +10193,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6796597653925843873}
+    - target: {fileID: 3041499516999263982, guid: 0c6d51fbac35fde46b3e815a1daa9ffd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 3579889222298750185, guid: 0c6d51fbac35fde46b3e815a1daa9ffd, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -10232,6 +10248,10 @@ PrefabInstance:
     - target: {fileID: 5858660812328604692, guid: 0c6d51fbac35fde46b3e815a1daa9ffd, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668967250918069679, guid: 0c6d51fbac35fde46b3e815a1daa9ffd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6709658433372867279, guid: 0c6d51fbac35fde46b3e815a1daa9ffd, type: 3}
       propertyPath: m_Type

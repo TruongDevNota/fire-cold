@@ -191,19 +191,24 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             yield return null;
         }
 
-
         GameStateManager.LoadMain(null);
+        Debug.Log($"suggestUpdateVersion = {gameConfig.suggestUpdateVersion}");
+        Debug.Log($"VersionCurrent = {user.VersionCurrent}");
 
-        if (gameConfig.suggestUpdateVersion > user.VersionCurrent)
-        {
-            ForeUpdate();
-        }
-        else
-        {
-            GameStateManager.Idle(null);
-            yield return new WaitForSeconds(0.5f);
-            splashScreen?.Hide();
-        }
+        GameStateManager.Idle(null);
+        yield return new WaitForSeconds(0.5f);
+        splashScreen?.Hide();
+
+        //if (gameConfig.suggestUpdateVersion > user.VersionCurrent)
+        //{
+        //    ForeUpdate();
+        //}
+        //else
+        //{
+        //    GameStateManager.Idle(null);
+        //    yield return new WaitForSeconds(0.5f);
+        //    splashScreen?.Hide();
+        //}
 
         int loadGameIn = (int)(DateTime.Now - startLoadTime).TotalSeconds;
         Debug.Log("loadGameIn: " + loadGameIn + "s");

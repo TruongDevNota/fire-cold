@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: HyperFox
-  productName: Fruit Juice Match Masters
+  productName: Cat Juice
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0.3
+  bundleVersion: 1.0.0
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -155,7 +155,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.falcon.p.mcom.goodsmatch.puzzle.triplemaster
+    Android: com.fox.match3
     Standalone: com.DefaultCompany.2DProject
     iPhone: com.falcon.p.mcom.goodsmatch.puzzle.triplemaster
   buildNumber:
@@ -163,7 +163,7 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 1032303101
+  AndroidBundleVersionCode: 1002305291
   AndroidMinSdkVersion: 22
   AndroidTargetSdkVersion: 31
   AndroidPreferredInstallLocation: 1
@@ -771,7 +771,8 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: USE_ADMOB;USE_ADOPEN;USE_MAX;USE_FIREBASE;USE_APPSFLYER
+    Android: USE_FIREBASE
+    Standalone: USE_FIREBASE
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -783,7 +784,7 @@ PlayerSettings:
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
   enableRoslynAnalyzers: 1
-  selectedPlatform: 0
+  selectedPlatform: 2
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
