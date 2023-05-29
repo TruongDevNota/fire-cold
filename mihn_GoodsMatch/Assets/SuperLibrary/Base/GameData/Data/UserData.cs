@@ -126,6 +126,8 @@ public class UserData : UserAnalysic
         }
     }
 
+    public bool didShownGDPRConsent;
+
     [Header("Money")]
     [SerializeField]
     private int coin = 0;

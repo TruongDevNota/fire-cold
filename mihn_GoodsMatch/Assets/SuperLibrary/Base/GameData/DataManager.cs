@@ -48,6 +48,8 @@ public class DataManager : MonoBehaviour
     public delegate void LoadedDelegate(GameData gameData);
     public static event LoadedDelegate OnLoaded;
 
+    public static bool adInterOrRewardClicked = false;
+
     #region BASE
     private void Awake()
     {

@@ -23,6 +23,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     private UIPopupChallenge popupChallenge = null;
     [SerializeField]
     UILevelSelect popupLevelSelect = null;
+    [SerializeField] 
+    UIGDPRConsent gdprConsentPopup;
 
     public static UIMainScreen MainScreen => instance?.mainScreen;
 
@@ -100,13 +102,25 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
         while (user == null)
         {
-            DebugMode.Log("Load game data...");
+            Debug.Log("Load game data...");
             yield return null;
         }
 
-        SoundManager.LoadAllSounds();
+        if (!DataManager.UserData.didShownGDPRConsent)
+        {
+            bool showingConsent = true;
+            gdprConsentPopup.Show();
+            gdprConsentPopup.onChangedConsent += () =>
+            {
+                showingConsent = false;
+            };
 
-        yield return AdsManager.DOInit();
+            yield return new WaitUntil(() => !showingConsent);
+
+            DataManager.UserData.didShownGDPRConsent = true;
+        }
+
+        SoundManager.LoadAllSounds();
 
 #if USE_FIREBASE
         var remote = new GameConfig();
@@ -153,6 +167,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
                 gameConfig.forceInterToReward = FirebaseManager.RemoteGetValueBoolean("forceInterToReward");
                 gameConfig.forceRewardToInter = FirebaseManager.RemoteGetValueBoolean("forceRewardToInter");
                 gameConfig.forceInterEverywhere = FirebaseManager.RemoteGetValueBoolean("forceInterEverywhere");
+
+                if (gameConfig.timePlayToShowAd <= 0)
+                    gameConfig.timePlayToShowAd = 15;
+
+                if (gameConfig.timeToWaitOpenAd <= 0)
+                    gameConfig.timeToWaitOpenAd = 5;
             }
 
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
@@ -178,11 +198,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         }
         user.VersionCurrent = UIManager.BundleVersion;
 
+        yield return AdsManager.DOInit(true);
+
         while ((int)(DateTime.Now - startLoadTime).TotalSeconds < waitTimeForLoadAd)
         {
             yield return null;
         }
-
 
         GameStateManager.LoadMain(null);
 

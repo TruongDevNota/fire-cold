@@ -1,5 +1,6 @@
 #if USE_ADOPEN
 using GoogleMobileAds.Api;
+using MyBox;
 #endif
 using System;
 using System.Collections;
@@ -16,6 +17,7 @@ namespace Base.Ads
         public AdMediation mediation = AdMediation.APPOPEN;
 
         public ScreenOrientation screenOrientation = ScreenOrientation.AutoRotation;
+        public bool useAdmobTestAdUnitId = false;
 
         protected static string adUnitId = "";
 
@@ -25,12 +27,16 @@ namespace Base.Ads
 
         public static bool IsInit = false;
 
+        protected int idTierIndex = 0;
+
         private void Awake()
         {
             if (instance != null)
                 Destroy(gameObject);
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            idTierIndex = 0;
         }
 
         private void Start()
@@ -40,17 +46,14 @@ namespace Base.Ads
 #endif
         }
 
-        public static IEnumerator DOInit()
+        public static void DOInit(Action callback)
         {
-            CheckInstance();
+            //CheckInstance();
 
             if (instance == null)
             {
                 throw new Exception("AdOpen could not find the AdOpen object. Please ensure you have added the AdsManager Prefab to your scene.");
             }
-
-            bool isHasError = false;
-            float timeOut = 0f;
 
             try
             {
@@ -69,23 +72,14 @@ namespace Base.Ads
                     Log(TAG + "Initialize: DONE " + initStatus.ToString());
 
                     if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
-                        adUnitId = Settings.openIOSUnitId?.Trim();
+                        adUnitId = Settings.openAndroidUnitIdTier1?.Trim();
                     else
-                        adUnitId = Settings.openAnroidUnitId?.Trim();
-
-                    if (TestForceBackup || DebugMode.IsDebugMode)
-                    {
-                        if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
-                            adUnitId = "ca-app-pub-3940256099942544/5662855259";
-                        else
-                            adUnitId = "ca-app-pub-3940256099942544/3419835294";
-                    }
+                        adUnitId = Settings.openAndroidUnitIdTier1.Trim();
 
                     Log(TAG + "AppOpenLoad: " + adUnitId + " TestForceBackup: " + TestForceBackup);
 
-                    Load();
-
                     IsInit = true;
+                    callback?.Invoke();
                 });
 #endif
             }
@@ -95,7 +89,7 @@ namespace Base.Ads
 #if USE_FIREBASE
                 try
                 {
-                    LogEvent("ad_init_exception", new Dictionary<string, object>
+                    FirebaseManager.LogEvent("ad_init_exception", new Dictionary<string, object>
                     {
                         { "errorDescription", ex.Message },
                         { "mediation", TAG }
@@ -106,15 +100,7 @@ namespace Base.Ads
                 {
                     LogError(TAG + "Log Firebase: " + e.Message);
                 }
-
-                isHasError = true;
 #endif
-            }
-
-            while (IsInit == false && isHasError == false && timeOut < 3)
-            {
-                timeOut += Time.deltaTime;
-                yield return null;
             }
         }
 
@@ -123,11 +109,6 @@ namespace Base.Ads
 #if USE_ADOPEN
         private AppOpenAd ad;
 #endif
-
-        protected int reloadTimeIfError = 15;
-        protected int countAutoReload = 0;
-        protected int maxAutoReload = 3;
-
         public static AdEvent Status = AdEvent.Offer;
 
         public static bool IsReady
@@ -135,41 +116,81 @@ namespace Base.Ads
             get
             {
 #if USE_ADOPEN
-                return instance?.ad != null;
+                return instance?.ad != null && (instance?.ad.CanShowAd()).GetValueOrDefault(false);
 #else
                 return false;
 #endif
             }
         }
 
-        protected static void Load()
+        protected static void Load(bool reset, Action<bool> callback)
         {
 #if USE_ADOPEN
             try
             {
                 if (instance == null)
                 {
-                    LogError(TAG + "instance NULL --> return");
+                    LogError($"{TAG} Load -> instance NULL --> return");
+                    callback?.Invoke(false);
                     return;
                 }
 
                 if (instance.ad != null)
                 {
-                    Log(TAG + "Load: is Loaded --> return");
-                    return;
+                    if ((DateTime.Now - LastTimeLoaded).TotalHours >= 3.5)
+                    {
+                        LogError($"{TAG} Load -> TimeOut --> return");
+                        DestroyAd();
+                    }
+                    else
+                    {
+                        Log($"{TAG} Load -> is Loaded --> return");
+                        callback?.Invoke(false);
+                        return;
+                    }
+                }
+
+                if (instance.useAdmobTestAdUnitId)
+                {
+                    if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
+                        adUnitId = "ca-app-pub-3940256099942544/5662855259";
+                    else
+                        adUnitId = "ca-app-pub-3940256099942544/3419835294";
+                }
+                else
+                {
+                    if (reset)
+                        instance.idTierIndex = 0;
+
+                    instance.idTierIndex %= 3;
+
+                    switch (instance.idTierIndex)
+                    {
+                        case 0:
+                            adUnitId = Settings.openAndroidUnitIdTier1?.Trim();
+                            break;
+                        case 1:
+                            adUnitId = Settings.openAndroidUnitIdTier2?.Trim();
+                            break;
+                        case 2:
+                            adUnitId = Settings.openAndroidUnitIdTier3?.Trim();
+                            break;
+                    }
                 }
 
                 if (string.IsNullOrEmpty(adUnitId))
                 {
-                    Log(TAG + "Load: adUnitId NULL or EMPTY --> return");
+                    LogError($"{TAG} Load ({instance.idTierIndex}) -> adUnitId NULL or EMPTY --> return");
+                    callback?.Invoke(false);
                     return;
                 }
 
-                Log(TAG + "Load: Status: " + Status.ToString());
+                Log($"{TAG} Load ({instance.idTierIndex} | '{adUnitId}') -> Status: " + Status.ToString());
 
-                if (Status == AdEvent.Load)
+                if (Status == AdEvent.Load && reset)
                 {
-                    Log(TAG + "Load: is loading --> return");
+                    Log($"{TAG} Load: is loading --> return");
+                    callback?.Invoke(false);
                     return;
                 }
 
@@ -189,32 +210,17 @@ namespace Base.Ads
 #endif
 
                 // Load an app open ad for portrait orientation
-                AppOpenAd.LoadAd(adUnitId, instance.screenOrientation, request, (appOpenAd, args) =>
+                AppOpenAd.Load(adUnitId, instance.screenOrientation, request, (ad, error) =>
                 {
                     var logParams = ParamsBase(placementName, placementName, instance.mediation);
                     logParams.Add("load_time", (DateTime.Now - loadTime).TotalSeconds.ToString("#0.00"));
 
-                    if (args != null && args.LoadAdError != null)
+                    if (ad == null || error != null)
                     {
                         try
                         {
-                            if (IsConnected)
-                            {
-                                Status = AdEvent.LoadNotAvaiable;
-                                LogEvent(AdType.AppOpen, AdEvent.LoadNotAvaiable, logParams);
-                            }
-                            else
-                            {
-                                Status = AdEvent.LoadNoInternet;
-                                LogEvent(AdType.AppOpen, AdEvent.LoadNoInternet, logParams);
-                            }
-
-                            if (DebugMode.IsDebugMode)
-                            {
-                                var error = args.LoadAdError;
-                                var errorDescription = error.GetMessage();
-                                LogError(TAG + "Load Failed Error: " + errorDescription);
-                            }
+                            var errorDescription = $"{error.GetMessage()} ({error.GetCode()})";
+                            LogError(TAG + "Load Failed Error: " + errorDescription);
                         }
                         catch (Exception ex)
                         {
@@ -222,24 +228,40 @@ namespace Base.Ads
                         }
                         finally
                         {
-                            if (instance.countAutoReload < instance.maxAutoReload)
+                            instance.idTierIndex++;
+                            if (instance.idTierIndex < 3 && !instance.useAdmobTestAdUnitId)
                             {
-                                instance.countAutoReload++;
-                                instance.Invoke("Load", instance.reloadTimeIfError);
+                                instance.DelayedAction(0.1f, () => Load(false, callback), true);
+                            }
+                            else
+                            {
+                                instance.idTierIndex = 0;
+                                if (IsConnected)
+                                {
+                                    Status = AdEvent.LoadNotAvaiable;
+                                    LogEvent(AdType.AppOpen, AdEvent.LoadNotAvaiable, logParams);
+                                }
+                                else
+                                {
+                                    Status = AdEvent.LoadNoInternet;
+                                    LogEvent(AdType.AppOpen, AdEvent.LoadNoInternet, logParams);
+                                }
+                                callback?.Invoke(false);
                             }
                         }
                         return;
                     }
 
                     // App open ad is loaded.
-                    instance.ad = appOpenAd;
+                    instance.ad = ad;
                     LastTimeLoaded = DateTime.Now;
-                    instance.countAutoReload = 0;
+                    instance.idTierIndex = 0;
                     Status = AdEvent.LoadAvaiable;
 
                     SetStatus(AdType.AppOpen, AdEvent.LoadAvaiable, placementName, placementName, instance.mediation);
 
                     Log(TAG + "Load: isLoaded " + (DateTime.Now - loadTime).TotalSeconds.ToString("#0.00"));
+                    callback?.Invoke(true);
                 });
             }
             catch (Exception ex)
@@ -250,10 +272,22 @@ namespace Base.Ads
 #endif
         }
 
-        public static void ShowOpenAdIfAvailable(string placement = "app_open")
+        public static void ShowOpenAdIfAvailable(string placement, Action<string, bool> callback)
         {
 #if USE_ADOPEN
             placementName = placement;
+
+            if (!IsInit)
+            {
+                Log(TAG + "ShowAdIfAvailable: IsInit: " + IsInit + " --> return");
+                return;
+            }
+
+            if (!IsTimeToShowAdOpen)
+            {
+                Log(TAG + "ShowAdIfAvailable: IsTimeToShowAdOpen: " + IsTimeToShowAdOpen + " --> return");
+                return;
+            }
 
             if (instance.ad != null && (DateTime.Now - LastTimeLoaded).TotalHours >= 3.5)
             {
@@ -261,45 +295,24 @@ namespace Base.Ads
                 DestroyAd();
             }
 
-            if (IsInit == false)
-            {
-                Log(TAG + "ShowAdIfAvailable: IsInit: " + IsInit + " --> return");
-            }
+            Status = AdEvent.ShowStart;
+            SetStatus(AdType.AppOpen, AdEvent.ShowStart, placementName, placementName, instance.mediation);
 
-            if (IsTimeToShowAdOpen == false)
+            if (IsReady)
             {
-                Log(TAG + "ShowAdIfAvailable: IsTimeToShowAdOpen: " + IsTimeToShowAdOpen + " --> return");
-            }
-
-            if (LastAdEvent == AdEvent.ShowStart || LastAdEvent == AdEvent.Show || LastAdEvent == AdEvent.Close || LastAdEvent == AdEvent.ShowSuccess)
-            {
-                Log(TAG + "ShowAdIfAvailable: LastAdEvent: " + LastAdEvent.ToString() + " --> return");
-            }
-
-            Status = AdEvent.Show;
-            SetStatus(AdType.AppOpen, AdEvent.Show, placementName, placementName, instance.mediation);
-
-            if (instance.ad != null)
-            {
-                SetStatus(AdType.AppOpen, AdEvent.ShowStart, placementName, placementName, instance.mediation);
+                SetStatus(AdType.AppOpen, AdEvent.Show, placementName, placementName, instance.mediation);
                 instance.Show(placement);
             }
             else
             {
-                if (IsConnected)
-                {
-                    Status = AdEvent.ShowNotAvailable;
-                    SetStatus(AdType.AppOpen, AdEvent.ShowNotAvailable, placementName, placementName, instance.mediation);
-                }
-                else
-                {
-                    Status = AdEvent.ShowNoInternet;
-                    SetStatus(AdType.AppOpen, AdEvent.ShowNoInternet, placementName, placementName, instance.mediation);
-                }
-
                 Log(TAG + "ShowAdIfAvailable: Status: " + Status.ToString() + " --> Load");
-                instance.countAutoReload = 0;
-                Load();
+                Load(true, (done) => {
+                    if (done && placement.Equals("app_open"))
+                    {
+                        instance.Show(placement);
+                    }
+                    callback?.Invoke("app_open", done);
+                });
             }
 #endif
         }
@@ -307,16 +320,26 @@ namespace Base.Ads
         protected void Show(string placement = "app_open")
         {
 #if USE_ADOPEN
+
+            if (!IsReady)
+            {
+                LogError($"{TAG} Show -> IsReady: {IsReady} -> AdOpen is NULL or not READY");
+
+                DestroyAd();
+                Load(true, null);
+                return;
+            }
+
             try
             {
                 placementName = placement;
-                Status = AdEvent.ShowStart;
-                SetStatus(AdType.AppOpen, AdEvent.ShowStart, placementName, placementName, instance.mediation);
-                ad.OnAdDidDismissFullScreenContent += OnClose;
-                ad.OnAdFailedToPresentFullScreenContent += OnShowFailed;
-                ad.OnAdDidPresentFullScreenContent += HandleAdDidPresentFullScreenContent;
-                ad.OnAdDidRecordImpression += HandleAdDidRecordImpression;
-                ad.OnPaidEvent += HandlePaidEvent;
+                Status = AdEvent.Show;
+                SetStatus(AdType.AppOpen, AdEvent.Show, placementName, placementName, instance.mediation);
+                ad.OnAdFullScreenContentClosed += OnClose;
+                ad.OnAdFullScreenContentFailed += OnShowFailed;
+                ad.OnAdFullScreenContentOpened += HandleAdDidPresentFullScreenContent;
+                ad.OnAdImpressionRecorded += HandleAdDidRecordImpression;
+                ad.OnAdPaid += HandlePaidEvent;
 
                 PauseApp(true);
                 ad.Show();
@@ -328,13 +351,13 @@ namespace Base.Ads
                 SetStatus(AdType.AppOpen, AdEvent.Exception, placementName, placementName, instance.mediation);
 
                 DestroyAd();
-                Load();
+                Load(true, null);
             }
 #endif
         }
 
 #if USE_ADOPEN
-        protected static void OnClose(object sender, EventArgs args)
+        protected static void OnClose()
         {
             Status = AdEvent.Close;
             PauseApp(false);
@@ -345,28 +368,31 @@ namespace Base.Ads
             SetStatus(AdType.AppOpen, AdEvent.Close, placementName, placementName, instance.mediation);
 
             DestroyAd();
-            Load();
+            Load(true, null);
+
+            if (DataManager.adInterOrRewardClicked)
+                DataManager.adInterOrRewardClicked = false;
         }
 
-        protected static void OnShowFailed(object sender, AdErrorEventArgs args)
+        protected static void OnShowFailed(AdError err)
         {
             Status = AdEvent.ShowFailed;
             PauseApp(false);
             // Set the ad to null to indicate that AppOpenAdManager no longer has another ad to show.
 
-            if (args != null && args.AdError != null)
+            if (err != null)
             {
-                var errorMessage = args.AdError.GetMessage();
+                var errorMessage = err.GetMessage();
                 LogError(TAG + "Failed to present the ad " + errorMessage);
             }
 
             SetStatus(AdType.AppOpen, AdEvent.ShowFailed, placementName, placementName, instance.mediation);
 
             DestroyAd();
-            Load();
+            Load(true, null);
         }
 
-        protected static void HandleAdDidPresentFullScreenContent(object sender, EventArgs args)
+        protected static void HandleAdDidPresentFullScreenContent()
         {
             Status = AdEvent.ShowSuccess;
             Debug.Log(TAG + "Displayed app open ad Success");
@@ -374,14 +400,13 @@ namespace Base.Ads
             SetStatus(AdType.AppOpen, AdEvent.ShowSuccess, placementName, placementName, instance.mediation);
         }
 
-        protected static void HandleAdDidRecordImpression(object sender, EventArgs args)
+        protected static void HandleAdDidRecordImpression()
         {
             Debug.Log(TAG + "Recorded ad impression");
         }
 
-        protected static void HandlePaidEvent(object sender, AdValueEventArgs args)
+        protected static void HandlePaidEvent(AdValue adValue)
         {
-            var adValue = args.AdValue;
             if (adValue != null)
             {
                 var currency = adValue.CurrencyCode;
@@ -392,7 +417,7 @@ namespace Base.Ads
                     UnityMainThreadDispatcher.Instance().Enqueue(() =>
                     {
                         Debug.LogFormat(TAG + "Received paid event. (currency: {0}, value: {1}", currency, revenue);
-                        LogImpressionData(AdMediation.APPOPEN, args, placementName);
+                        LogImpressionData(AdMediation.APPOPEN, adValue, placementName);
                     });
                 }
             }
@@ -404,11 +429,11 @@ namespace Base.Ads
             {
                 if (instance != null && instance.ad != null)
                 {
-                    instance.ad.OnAdDidDismissFullScreenContent -= OnClose;
-                    instance.ad.OnAdFailedToPresentFullScreenContent -= OnShowFailed;
-                    instance.ad.OnAdDidPresentFullScreenContent -= HandleAdDidPresentFullScreenContent;
-                    instance.ad.OnAdDidRecordImpression -= HandleAdDidRecordImpression;
-                    instance.ad.OnPaidEvent -= HandlePaidEvent;
+                    instance.ad.OnAdFullScreenContentClosed -= OnClose;
+                    instance.ad.OnAdFullScreenContentFailed -= OnShowFailed;
+                    instance.ad.OnAdFullScreenContentOpened -= HandleAdDidPresentFullScreenContent;
+                    instance.ad.OnAdImpressionRecorded -= HandleAdDidRecordImpression;
+                    instance.ad.OnAdPaid -= HandlePaidEvent;
                     instance.ad.Destroy();
                     instance.ad = null;
                 }

@@ -37,4 +37,6 @@ public enum EventID
     OnTutStepDone = 400,
 
     OnPauseAppByAds = 1000,
+
+    OnBackFromStore = 3000,
 }

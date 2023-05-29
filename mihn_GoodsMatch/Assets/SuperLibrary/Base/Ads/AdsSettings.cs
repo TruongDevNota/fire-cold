@@ -48,7 +48,10 @@ namespace Base.Ads
         public string admobIOSBannerRectangleUnitId = string.Empty;
 
         [Header("APPOPEN")]
-        public string openAnroidUnitId = string.Empty;
+        public string openAndroidUnitIdTier1 = string.Empty;
+        public string openAndroidUnitIdTier2 = string.Empty;
+        public string openAndroidUnitIdTier3 = string.Empty;
+
         public string openIOSUnitId = string.Empty;
 
         public static AdsSettings instance = null;
