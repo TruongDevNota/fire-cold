@@ -1292,6 +1292,7 @@ namespace Base.Ads
                     }
                     else
                     {
+                        Debug.Log($"ADOPEN not show because of config timeToWaitOpenAd <= 0");
 #if USE_MAXOPEN
                         Log(AdOpen.TAG + "WaitToShow: " + AdOpen.Status.ToString() + " " + AdOpen.IsReady + " ---> Check Open MAX");
 #endif

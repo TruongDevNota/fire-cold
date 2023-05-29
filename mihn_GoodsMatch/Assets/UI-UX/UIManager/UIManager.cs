@@ -512,7 +512,7 @@ public class UIManager : MonoBehaviour
 
 
 #else
-        if (Screen.orientation == ScreenOrientation.Landscape ||
+        if (Screen.orientation == ScreenOrientation.LandscapeLeft ||
            Screen.orientation == ScreenOrientation.LandscapeLeft ||
            Screen.orientation == ScreenOrientation.LandscapeRight)
         {

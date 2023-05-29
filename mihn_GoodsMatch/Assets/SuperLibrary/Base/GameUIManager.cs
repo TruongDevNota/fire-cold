@@ -143,6 +143,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
                 gameConfig.timePlayToShowAdReduce = FirebaseManager.RemoteGetValueInt("timePlayToShowAdReduce");
                 gameConfig.timePlayToShowOpenAd = FirebaseManager.RemoteGetValueInt("timePlayToShowOpenAd");
                 gameConfig.timeToWaitOpenAd = FirebaseManager.RemoteGetValueInt("timeToWaitOpenAd");
+                Debug.Log($"Get remove config timeToWaitOpenAd = {gameConfig.timeToWaitOpenAd}");
                 gameConfig.adInterOnComplete = FirebaseManager.RemoteGetValueBoolean("adInterOnComplete");
                 gameConfig.adShowFromLevel = FirebaseManager.RemoteGetValueInt("adShowFromLevel");
                 gameConfig.adUseBackup = FirebaseManager.RemoteGetValueBoolean("adUseBackup");

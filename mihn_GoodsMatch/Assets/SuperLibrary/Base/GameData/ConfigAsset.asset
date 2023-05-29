@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ConfigAsset
   m_EditorClassIdentifier: Assembly-CSharp::ConfigData
   gameConfig:
-    suggestUpdateVersion: 1022301110
+    suggestUpdateVersion: 1032303100
     _timePlayToShowAd: 0
     _timePlayToShowAdReduce: 0
-    _timeToWaitOpenAd: 0
+    _timeToWaitOpenAd: 5
     _timePlayToShowOpenAd: 0
     _adShowFromLevel: 0
     _adInterOnComplete: 0
