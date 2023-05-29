@@ -334,7 +334,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         this.PostEvent((int)EventID.OnPlayMusic, "Bgm_Gameplay_loop_MP3");
         mainScreen.Hide();
-        decorScreen.Hide();
+        //decorScreen.Hide();
         StartCoroutine(WaitForLoading(() =>
         {
             UILoadGame.Hide();
