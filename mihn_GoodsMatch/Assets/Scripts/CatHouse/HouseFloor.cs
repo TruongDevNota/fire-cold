@@ -25,4 +25,6 @@ public class HouseFloor : MonoBehaviour
         foreach (var item in decorObjs)
             item.SetSortingOrder(orderAdding);
     }
+
+    public void Init()
 }
