@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5619766119324042419, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7148889689387811034, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -17,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148889689387811034, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -5.21
       objectReference: {fileID: 0}
     - target: {fileID: 7148889689387811034, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29,15 +33,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148889689387811034, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7148889689387811034, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7148889689387811034, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7148889689387811034, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -53,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148889689387811037, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}
       propertyPath: m_Name
-      value: Floor
+      value: Floor 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0bfb628a9388b34899fa1bf9dc0e26f, type: 3}

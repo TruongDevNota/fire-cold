@@ -88,6 +88,8 @@ public class DataManager : MonoBehaviour
 
     public static MapAsset MapAsset { get; private set; }
     public static GameItemAsset ItemsAsset { get; private set; }
+    public static HouseDataAsset HouseAsset { get; private set; }
+
     public static GameData gameData { get; private set; }
     private static DataManager instance { get; set; }
     #endregion
@@ -106,6 +108,8 @@ public class DataManager : MonoBehaviour
     protected MapAsset mapAsset = null;
     [SerializeField]
     protected GameItemAsset gameItemAsset = null;
+    [SerializeField]
+    protected HouseDataAsset houseDataAsset = null;
 
     public static bool IsFirstTime = false;
 
@@ -131,7 +135,7 @@ public class DataManager : MonoBehaviour
             var time = DateTime.Now;
             gameData.user.LastTimeUpdate = DateTime.Now;
             gameData.listMaps = MapAsset.ListMap;
-
+            gameData.floorsData = HouseAsset.GetSaveData();
             //gameData.walls = SkinsAsset.itemSaveList;
             //gameData.windows = WindowAsset.itemSaveList;
             //gameData.floors = FloorAsset.itemSaveList;
@@ -200,6 +204,15 @@ public class DataManager : MonoBehaviour
                 ItemsAsset = ScriptableObject.CreateInstance("GameItemAsset") as GameItemAsset;
                 foreach (var i in instance.gameItemAsset.list)
                     ItemsAsset.list.Add(i);
+            }
+            else
+                Debug.Log("GameItemAsset is not NULL");
+
+            if (HouseAsset == null)
+            {
+                HouseAsset = ScriptableObject.CreateInstance("HouseDataAsset") as HouseDataAsset;
+                foreach (var i in instance.houseDataAsset.allFloorData)
+                    HouseAsset.allFloorData.Add(i);
             }
             else
                 Debug.Log("GameItemAsset is not NULL");
@@ -316,6 +329,9 @@ public class DataManager : MonoBehaviour
                 {
                     MapAsset.ConverToData(loadData.listMaps);
                 }
+
+                if(loadData.floorsData != null)
+                    HouseAsset.ConvertData(loadData.floorsData);
 
                 Debug.Log("LoadData in " + (DateTime.Now - time).TotalMilliseconds + "ms");
             }

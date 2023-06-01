@@ -6,7 +6,7 @@ public class GameData
 {
     public UserData user = new UserData();
     public List<MapData> listMaps = new List<MapData>();
-
+    public List<FloorSaveData> floorsData = new List<FloorSaveData>();
     //public List<SaveData> walls = new List<SaveData>();
     //public List<SaveData> windows = new List<SaveData>();
     //public List<SaveData> floors = new List<SaveData>();

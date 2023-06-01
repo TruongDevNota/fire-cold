@@ -6,7 +6,13 @@ public class DecorItem : MonoBehaviour
 {
     [SerializeField] SpriteRenderer _SpriteRenderer = null;
 
-    private int _Index;
+    private int _index;
+    public int Index
+    {
+        get { return _index; }
+        private set { _index = value; }
+    }
+
     private int _sortingOrderOffset;
 
     private void Awake()
