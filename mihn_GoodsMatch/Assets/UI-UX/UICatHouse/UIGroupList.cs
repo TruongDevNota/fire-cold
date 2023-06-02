@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class UIGroupList : MonoBehaviour
 {
-    
+    [SerializeField] 
 }
