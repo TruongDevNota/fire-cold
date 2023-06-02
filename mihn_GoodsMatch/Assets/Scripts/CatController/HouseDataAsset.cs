@@ -52,9 +52,13 @@ public class HouseFloorData
     public int floorIndex;
     public bool isUnlocked;
     public int unlockPrice;
+    public string name;
     
     public List<ItemDecorData> allDecorationItems;
     public List<houseCatData> allCats;
+
+    public int itemUnlockedCount => allDecorationItems.Where(x => x.isUnlocked).Count();
+    public int catUnlockedCount => allCats.Where(x => x.isUnlocked).Count();
 
     public FloorSaveData GetSaveData()
     {
@@ -101,13 +105,9 @@ public class HouseFloorData
 }
 
 [System.Serializable] 
-public class ItemDecorData
+public class ItemDecorData : SaveData
 {
-    public int index;
-    public Sprite icon;
-    public bool isUnlocked;
-    public UnlockType unlockType;
-    public int price;
+    public Sprite thumb;
 }
 
 [System.Serializable]
