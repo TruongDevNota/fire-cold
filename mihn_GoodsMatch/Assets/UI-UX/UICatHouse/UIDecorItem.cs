@@ -33,6 +33,7 @@ public class UIDecorItem : MonoBehaviour
 
     public void OnButtonPreviewClicked()
     {
+        this.PostEvent((int)EventID.ShowItemPreview, new ItemPreivewDatum() { floorIndex = _currData.floorIndex, itemID = _currData.id, type = _currData.type }); 
         if(_onButtonPreviewClicked != null)
             _onButtonPreviewClicked.Invoke(_currData);
     }
@@ -72,4 +73,11 @@ public class UIDecorItem : MonoBehaviour
             }, $"unlock_HouseItem_Cat");
         }
     }
+}
+
+public class ItemPreivewDatum
+{
+    public int floorIndex;
+    public string itemID;
+    public eHouseDecorType type;
 }

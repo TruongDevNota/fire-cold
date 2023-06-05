@@ -46,4 +46,6 @@ public enum EventID
     OnClaimGiftBox = 1007,
     OnX2Coin = 1008,
     ChooseMap = 1009,
+
+    ShowItemPreview = 2000,
 }

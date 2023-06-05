@@ -43,5 +43,10 @@ public class HouseFloor : MonoBehaviour
             cats[i].gameObject.SetActive(i < datum.allCats.Count && datum.allCats[i].isUnlocked);
         }
     }
+
+    public IEnumerator YieldUnlock()
+    {
+
+    }
 }
 

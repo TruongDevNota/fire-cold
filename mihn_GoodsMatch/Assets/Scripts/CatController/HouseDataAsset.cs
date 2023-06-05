@@ -9,6 +9,11 @@ public class HouseDataAsset : ScriptableObject
     [SerializeField]
     public List<HouseFloorData> allFloorData;
 
+    public ItemDecorData GetItemData(int floorIndex, string id, eHouseDecorType type)
+    {
+        return allFloorData.FirstOrDefault(x => x.floorIndex == floorIndex).GetItemData(id, type);
+    }
+
     public List<FloorSaveData> GetSaveData()
     {
         return allFloorData.Select(x => x.GetSaveData()).OrderBy(x => x.index).ToList();
@@ -60,6 +65,14 @@ public class HouseFloorData
     public int itemUnlockedCount => allDecorationItems.Where(x => x.isUnlocked).Count();
     public int catUnlockedCount => allCats.Where(x => x.isUnlocked).Count();
 
+    public ItemDecorData GetItemData(string id, eHouseDecorType type)
+    {
+        if (type == eHouseDecorType.Item)
+            return allDecorationItems.FirstOrDefault(x => string.Compare(x.id, id) == 0);
+        else
+            return allCats.FirstOrDefault(x => string.Compare(x.id, id) == 0);
+    }
+
     public FloorSaveData GetSaveData()
     {
         return new FloorSaveData()
@@ -108,6 +121,8 @@ public class HouseFloorData
 public class ItemDecorData : SaveData
 {
     public Sprite thumb;
+    public int floorIndex;
+    public eHouseDecorType type;
 }
 
 [System.Serializable]

@@ -27,13 +27,13 @@ public class UIGroupItem : MonoBehaviour
             item.Recycle();
     }
 
-    private void Fill(HouseFloorData data, eHouseItemType type)
+    public void Fill(HouseFloorData data, eHouseDecorType type)
     {
         _floorData = data;
 
         _txtGroupName.text = data.name;
 
-        if (type == eHouseItemType.Cat)
+        if (type == eHouseDecorType.Cat)
         {
             for (int i = 0; i < data.allCats.Count; i++)
             {
@@ -50,7 +50,7 @@ public class UIGroupItem : MonoBehaviour
             }
             _txtUnlockAmount.text = string.Format(unlockTextFormat, data.catUnlockedCount, data.allCats.Count);
         }
-        else if(type == eHouseItemType.Decor)
+        else if(type == eHouseDecorType.Item)
         {
             for (int i = 0; i < data.allDecorationItems.Count; i++)
             {
@@ -68,10 +68,4 @@ public class UIGroupItem : MonoBehaviour
             _txtUnlockAmount.text = string.Format(unlockTextFormat, data.itemUnlockedCount, data.allDecorationItems.Count);
         }
     }
-}
-
-public enum eHouseItemType
-{
-    Cat = 1,
-    Decor = 2,
 }
