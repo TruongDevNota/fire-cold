@@ -346,7 +346,6 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         {
             UILoadGame.Hide();
             GameStateManager.Play(data);
-            
         }));
     }
 

@@ -158,5 +158,10 @@ public class UIMainScreen : MonoBehaviour
             GameStateManager.InShop(null);
         }
     }
+    public void OnButtonHouseClicked()
+    {
+        SoundManager.Play("1. Click Button");
+        GameStateManager.HouseDecoration(null);
+    }
     #endregion
 }

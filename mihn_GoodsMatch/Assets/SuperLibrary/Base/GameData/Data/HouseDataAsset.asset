@@ -15,26 +15,90 @@ MonoBehaviour:
   allFloorData:
   - floorIndex: 1
     isUnlocked: 1
+    unlockPrice: 0
+    name: 
     allDecorationItems:
-    - index: 0
-      icon: {fileID: 0}
+    - name: 
+      id: 
+      idThumb: 
+      index: 0
+      description: 
+      unlockType: 3
+      unlockPrice: 1
       isUnlocked: 0
-    - index: 0
-      icon: {fileID: 0}
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: d4d91b46a9473154e8abe3da5b8c6b8c, type: 3}
+      floorIndex: 0
+      type: 0
+    - name: 
+      id: 
+      idThumb: 
+      index: 0
+      description: 
+      unlockType: 1
+      unlockPrice: 100
       isUnlocked: 0
-    - index: 0
-      icon: {fileID: 0}
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 9f0f8efbf93c455419752f851a55c534, type: 3}
+      floorIndex: 0
+      type: 0
+    - name: 
+      id: 
+      idThumb: 
+      index: 0
+      description: 
+      unlockType: 3
+      unlockPrice: 1
       isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: a854c5fcaaefdca4abadf65c051e232c, type: 3}
+      floorIndex: 0
+      type: 0
     allCats:
-    - index: 0
-      icon: {fileID: 0}
+    - name: 
+      id: 
+      idThumb: 
+      index: 0
+      description: 
+      unlockType: 2
+      unlockPrice: 1
       isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 0}
+      floorIndex: 0
+      type: 0
       skinName: 
-    - index: 1
-      icon: {fileID: 0}
+    - name: 
+      id: 
+      idThumb: 
+      index: 1
+      description: 
+      unlockType: 2
+      unlockPrice: 1
       isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 0}
+      floorIndex: 0
+      type: 0
       skinName: 
   - floorIndex: 2
     isUnlocked: 0
+    unlockPrice: 0
+    name: 
     allDecorationItems: []
     allCats: []

@@ -12,19 +12,17 @@ public class UIGroupItem : MonoBehaviour
     [SerializeField] RectTransform _itemContainerRect;
 
     private HouseFloorData _floorData;
-    private List<UIDecorItem> _listItem = new List<UIDecorItem>();
+    [SerializeField, MyBox.ReadOnly] private List<UIDecorItem> _listItem = new List<UIDecorItem>();
 
     private string unlockTextFormat = "{0}/{1}";
     private void Awake()
     {
-        _itemPrefab.CreatePool(20);
+        _itemPrefab.CreatePool(30);
     }
 
     private void Start()
     {
-        var sampleItems = _itemContainerRect.GetComponentsInChildren<UIDecorItem>();
-        foreach (var item in sampleItems)
-            item.Recycle();
+        
     }
 
     public void Fill(HouseFloorData data, eHouseDecorType type)

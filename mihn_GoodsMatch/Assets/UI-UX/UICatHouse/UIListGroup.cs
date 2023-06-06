@@ -22,9 +22,7 @@ public class UIListGroup : MonoBehaviour
 
     private void Start()
     {
-        var samplegroup = _container.GetComponentsInChildren<UIGroupItem>();
-        foreach (var item in samplegroup)
-            item.Recycle();
+        
     }
 
     public void Show(eHouseDecorType type)

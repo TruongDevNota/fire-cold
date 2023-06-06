@@ -40,7 +40,8 @@ public class HouseFloor : MonoBehaviour
         Index = datum.floorIndex;
         SetItemsOrderSorting();
 
-        _lockCoverSR.gameObject.SetActive(datum.isUnlocked);
+        _lockCoverSR.gameObject.SetActive(!datum.isUnlocked);
+        _lockAnim.gameObject.SetActive(!datum.isUnlocked);
 
         for (int i = 0; i < _decorObjs.Count; i++)
         {

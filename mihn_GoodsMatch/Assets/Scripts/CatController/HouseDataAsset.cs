@@ -7,7 +7,7 @@ using System.Linq;
 public class HouseDataAsset : ScriptableObject
 {
     [SerializeField]
-    public List<HouseFloorData> allFloorData;
+    public List<HouseFloorData> allFloorData = new List<HouseFloorData>();
 
     public void UnlockFloorByIndex(int index)
     {

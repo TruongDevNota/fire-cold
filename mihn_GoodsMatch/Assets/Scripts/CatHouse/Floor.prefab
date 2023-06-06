@@ -28,7 +28,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8959498265816903694}
   m_Father: {fileID: 7148889689387811034}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -116,8 +117,8 @@ Transform:
   - {fileID: 7394322041881628274}
   - {fileID: 1091354200399990841}
   - {fileID: 8571883828326424677}
-  m_Father: {fileID: 7148889689387811034}
-  m_RootOrder: 13
+  m_Father: {fileID: 1659654044}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7896535077596289301
 SpriteRenderer:
@@ -601,6 +602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpriteRenderer: {fileID: 7148889688373523151}
+  _index: 0
 --- !u!1 &7148889689363177637
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpriteRenderer: {fileID: 7148889689363177635}
+  _index: 0
 --- !u!1 &7148889689387811037
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +744,6 @@ Transform:
   - {fileID: 8665646959418976234}
   - {fileID: 1659654044}
   - {fileID: 1957044850501416127}
-  - {fileID: 8959498265816903694}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -861,6 +863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpriteRenderer: {fileID: 7148889689646612921}
+  _index: 0
 --- !u!1 &7148889689795693484
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,6 +962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpriteRenderer: {fileID: 7148889689795693482}
+  _index: 0
 --- !u!1 &7148889689805074125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,6 +1061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpriteRenderer: {fileID: 7148889689805074123}
+  _index: 0
 --- !u!1 &7148889689834531632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,6 +1160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpriteRenderer: {fileID: 7148889689834531646}
+  _index: 0
 --- !u!1 &7148889690168575841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,6 +1259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpriteRenderer: {fileID: 7148889690168575855}
+  _index: 0
 --- !u!1 &8036458741412852851
 GameObject:
   m_ObjectHideFlags: 0
