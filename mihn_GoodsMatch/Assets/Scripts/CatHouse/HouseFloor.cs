@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity;
+using DG.Tweening;
+using System.Linq;
 
 public class HouseFloor : MonoBehaviour
 {
-    [SerializeField] List<DecorItem> decorObjs = new List<DecorItem>();
+    private HouseDataAsset _dataAsset => DataManager.HouseAsset;
+
+    [SerializeField] List<DecorItem> _decorObjs = new List<DecorItem>();
     [SerializeField] int _orderDelta = 100;
-    [SerializeField] List<CatControl> cats = new List<CatControl>();
-    [SerializeField] SpriteRenderer lockCoverSR;
+    [SerializeField] List<CatControl> _cats = new List<CatControl>();
+    [SerializeField] SpriteRenderer _lockCoverSR;
+    [SerializeField] SkeletonAnimation _lockAnim;
 
     [SerializeField, MyBox.ReadOnly]
     private int _index;
@@ -25,28 +31,54 @@ public class HouseFloor : MonoBehaviour
     public void SetItemsOrderSorting()
     {
         int orderAdding = _index * _orderDelta;
-        foreach (var item in decorObjs)
+        foreach (var item in _decorObjs)
             item.SetSortingOrder(orderAdding);
     }
 
     public void Fill(HouseFloorData datum)
     {
-        lockCoverSR.gameObject.SetActive(datum.isUnlocked);
+        Index = datum.floorIndex;
+        SetItemsOrderSorting();
 
-        for (int i = 0; i < decorObjs.Count; i++)
+        _lockCoverSR.gameObject.SetActive(datum.isUnlocked);
+
+        for (int i = 0; i < _decorObjs.Count; i++)
         {
-            decorObjs[i].gameObject.SetActive(i < datum.allDecorationItems.Count && datum.allDecorationItems[i].isUnlocked);
+            _decorObjs[i].gameObject.SetActive(i < datum.allDecorationItems.Count && datum.allDecorationItems[i].isUnlocked);
         }
         
-        for(int i = 0; i < cats.Count; i++)
+        for(int i = 0; i < _cats.Count; i++)
         {
-            cats[i].gameObject.SetActive(i < datum.allCats.Count && datum.allCats[i].isUnlocked);
+            _cats[i].gameObject.SetActive(i < datum.allCats.Count && datum.allCats[i].isUnlocked);
         }
     }
 
     public IEnumerator YieldUnlock()
     {
+        _dataAsset.UnlockFloorByIndex(Index);
+        DataManager.Save();
+        yield return new WaitForSeconds(0.5f);
 
+        _lockAnim.AnimationState.SetAnimation(0, "unlocked", false);
+        _lockAnim.Update(0);
+        yield return new WaitForEndOfFrame();
+        _lockAnim.AnimationState.Complete += delegate
+        {
+            _lockAnim.gameObject.SetActive(false);
+            _lockCoverSR.DOFade(0F, 0.5f);
+            ShowPopupNewDiscover();
+        };
+    }
+
+    private void ShowPopupNewDiscover()
+    {
+        UIPopupListPreview.ShowList(_dataAsset.GetFloorDataByIndex(_index).GetAllSprite());
+    }
+
+    [MyBox.ButtonMethod]
+    public void ShowUnlockAnim()
+    {
+        StartCoroutine(YieldUnlock());
     }
 }
 

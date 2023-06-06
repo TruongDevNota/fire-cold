@@ -84,6 +84,9 @@ public abstract class GameManagerBase<T> : MonoBehaviour where T : GameManagerBa
             case GameState.UnlockMap:
                 UnlockMap(data);
                 break;
+            case GameState.HouseDecoration:
+                HouseDecor(data);
+                break;
         }
     }
 
@@ -121,6 +124,10 @@ public abstract class GameManagerBase<T> : MonoBehaviour where T : GameManagerBa
     }
 
     protected virtual void UnlockMap(object data)
+    {
+
+    }
+    protected virtual void HouseDecor(object data)
     {
 
     }

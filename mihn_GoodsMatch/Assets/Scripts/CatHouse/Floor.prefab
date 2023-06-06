@@ -757,18 +757,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0e2c94a01686d4fadb4b7b86d320ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decorObjs:
-  - {fileID: 7148889688373523148}
-  - {fileID: 7148889689646612870}
-  - {fileID: 7148889689795693483}
-  - {fileID: 7148889689834531647}
-  - {fileID: 7148889689363177632}
-  - {fileID: 7148889689805074120}
-  - {fileID: 7148889690168575852}
+  _decorObjs: []
   _orderDelta: 100
-  cats:
-  - {fileID: 7783701745604629210}
-  lockCoverSR: {fileID: 0}
+  _cats: []
+  _lockCoverSR: {fileID: 1659654045}
+  _lockAnim: {fileID: 6463405372446198084}
   _index: 0
 --- !u!1 &7148889689646612923
 GameObject:
@@ -1507,17 +1500,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1094575047015980991, guid: 250ed2b83b9cee3489a1d80164146c83, type: 3}
   m_PrefabInstance: {fileID: 3006193469551514532}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7783701745604629210 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5025285420618711422, guid: 250ed2b83b9cee3489a1d80164146c83, type: 3}
-  m_PrefabInstance: {fileID: 3006193469551514532}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9304370723fcbc44faf1e7dbad5819d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3190705933124835943
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -171,6 +171,11 @@ public class GameStateManager : MonoBehaviour
         stateChangedData = data;
         CurrentState = GameState.UnlockMap;
     }
+    public static void HouseDecoration(object data)
+    {
+        stateChangedData = data;
+        CurrentState = GameState.HouseDecoration;
+    }
 }
 
 public enum GameState
@@ -275,5 +280,6 @@ public enum GameState
     /// </summary>
     InShop,
     LuckySpin,
-    UnlockMap
+    UnlockMap,
+    HouseDecoration,
 }

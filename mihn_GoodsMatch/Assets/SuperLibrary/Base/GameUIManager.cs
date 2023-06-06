@@ -31,6 +31,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     PopupSelectMap popupMapSelect = null;
     [SerializeField]
     private UIAnimation luckyWheelScreen = null;
+    [SerializeField] UIAnimation _houseMainScreen = null;
+
     public static UIMainScreen MainScreen => instance?.mainScreen;
 
     [SerializeField]
@@ -427,6 +429,22 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             popupMapSelect.Show(true);
 
             this.PostEvent((int)EventID.OnPlayMusic, "Bgm Menu");
+        });
+        StartCoroutine(WaitForLoading(callback, 0.5f));
+    }
+
+    protected override void HouseDecor(object data)
+    {
+        SceneHelper.DoLoadScene("4_CatHouse");
+
+        Action callback = () => {
+            UILoadGame.Hide();
+        };
+
+        UILoadGame.Init(true, () =>
+        {
+            mainScreen.Hide();
+            _houseMainScreen.Show();
         });
         StartCoroutine(WaitForLoading(callback, 0.5f));
     }

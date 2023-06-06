@@ -5,8 +5,7 @@ using UnityEngine;
 public class DecorItem : MonoBehaviour
 {
     [SerializeField] SpriteRenderer _SpriteRenderer = null;
-
-    private int _index;
+    [SerializeField] private int _index;
     public int Index
     {
         get { return _index; }

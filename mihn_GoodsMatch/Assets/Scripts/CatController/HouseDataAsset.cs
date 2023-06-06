@@ -9,6 +9,17 @@ public class HouseDataAsset : ScriptableObject
     [SerializeField]
     public List<HouseFloorData> allFloorData;
 
+    public void UnlockFloorByIndex(int index)
+    {
+        allFloorData.FirstOrDefault(x => x.floorIndex == index).isUnlocked = true;
+        SetDirtyAsset();
+    }
+
+    public HouseFloorData GetFloorDataByIndex(int index)
+    {
+        return allFloorData.FirstOrDefault(x => x.floorIndex == index);
+    }
+
     public ItemDecorData GetItemData(int floorIndex, string id, eHouseDecorType type)
     {
         return allFloorData.FirstOrDefault(x => x.floorIndex == floorIndex).GetItemData(id, type);
@@ -37,6 +48,11 @@ public class HouseDataAsset : ScriptableObject
             allFloorData[i].ResetData();
         }
 
+        SetDirtyAsset();
+    }
+
+    private void SetDirtyAsset()
+    {
 #if UNITY_EDITOR
         UnityEditor.EditorUtility.SetDirty(this);
 #endif
@@ -64,6 +80,14 @@ public class HouseFloorData
 
     public int itemUnlockedCount => allDecorationItems.Where(x => x.isUnlocked).Count();
     public int catUnlockedCount => allCats.Where(x => x.isUnlocked).Count();
+
+    public List<Sprite> GetAllSprite()
+    {
+        var allSprites = allDecorationItems.Select(x => x.thumb).ToList();
+        foreach (var item in allCats)
+            allSprites.Add(item.thumb);
+        return allSprites;
+    }
 
     public ItemDecorData GetItemData(string id, eHouseDecorType type)
     {
