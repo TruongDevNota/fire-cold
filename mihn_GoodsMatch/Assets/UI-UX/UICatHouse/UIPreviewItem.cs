@@ -25,7 +25,7 @@ public class UIPreviewItem : MonoBehaviour
         {
             _uiAnim.Show(onStart: () =>
             {
-                _imgItem.sprite = itemDatum.thumb;
+                _imgItem.sprite = itemDatum.thumbUnlocked;
                 _txtItemName.text = itemDatum.name;
             });
         }

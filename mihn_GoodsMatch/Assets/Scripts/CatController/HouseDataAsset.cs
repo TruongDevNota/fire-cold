@@ -83,9 +83,9 @@ public class HouseFloorData
 
     public List<Sprite> GetAllSprite()
     {
-        var allSprites = allDecorationItems.Select(x => x.thumb).ToList();
+        var allSprites = allDecorationItems.Select(x => x.thumbUnlocked).ToList();
         foreach (var item in allCats)
-            allSprites.Add(item.thumb);
+            allSprites.Add(item.thumbUnlocked);
         return allSprites;
     }
 
@@ -130,12 +130,14 @@ public class HouseFloorData
     {
         for(int i = 0; i < this.allCats.Count; i++)
         {
-            this.allCats[i].index = i;
+            allCats[i].SetIndex(this.floorIndex, i);
+            allCats[i].type = eHouseDecorType.Cat;
             this.allCats[i].isUnlocked = false;
         }
         for(int i = 0; i < allDecorationItems.Count; i++)
         {
-            this.allDecorationItems[i].index = i;
+            allDecorationItems[i].SetIndex(this.floorIndex, i);
+            allDecorationItems[i].type = eHouseDecorType.Item;
             this.allDecorationItems[i].isUnlocked = false;
         }
     }
@@ -144,9 +146,16 @@ public class HouseFloorData
 [System.Serializable] 
 public class ItemDecorData : SaveData
 {
-    public Sprite thumb;
+    public Sprite thumbUnlocked;
+    public Sprite thumbLock;
     public int floorIndex;
     public eHouseDecorType type;
+
+    public void SetIndex(int floorIndex, int itemIndex)
+    {
+        this.floorIndex = floorIndex;
+        this.index = itemIndex;
+    }
 }
 
 [System.Serializable]
