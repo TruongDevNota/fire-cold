@@ -20,7 +20,7 @@ public class UIDecorItem : MonoBehaviour
     {
         _currData = itemData;
 
-        _iconItem.sprite = _currData.thumbUnlocked;
+        _iconItem.sprite = _currData.thumb;
         _txtCoinPrice.text = _currData.unlockPrice.ToString();
 
         _unlockWithCoinBtn.gameObject.SetActive(_currData.unlockType == UnlockType.Gold);

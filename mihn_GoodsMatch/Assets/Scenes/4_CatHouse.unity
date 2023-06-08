@@ -334,6 +334,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5089248343176361122, guid: 50b3ba9024aea0749b1a69bd1ec5e3f6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7523327697697931998, guid: 50b3ba9024aea0749b1a69bd1ec5e3f6, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -516,7 +520,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 16
+  orthographic size: 22
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

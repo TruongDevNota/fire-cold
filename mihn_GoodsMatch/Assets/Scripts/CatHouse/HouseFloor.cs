@@ -12,8 +12,10 @@ public class HouseFloor : MonoBehaviour
     [SerializeField] List<DecorItem> _decorObjs = new List<DecorItem>();
     [SerializeField] int _orderDelta = 100;
     [SerializeField] List<CatControl> _cats = new List<CatControl>();
+    [SerializeField] SpriteRenderer _wallSR;
     [SerializeField] SpriteRenderer _lockCoverSR;
     [SerializeField] SkeletonAnimation _lockAnim;
+    [SerializeField] ButtonUnlockFloor _btnUnlock;
 
     [SerializeField, MyBox.ReadOnly]
     private int _index;
@@ -28,24 +30,25 @@ public class HouseFloor : MonoBehaviour
         Index = value;
     }
 
-    public void SetItemsOrderSorting()
-    {
-        int orderAdding = _index * _orderDelta;
-        foreach (var item in _decorObjs)
-            item.SetSortingOrder(orderAdding);
-    }
-
     public void Fill(HouseFloorData datum)
     {
         Index = datum.floorIndex;
-        SetItemsOrderSorting();
+        int orderAdding = Index * _orderDelta;
 
+        _wallSR.sortingOrder = orderAdding;
         _lockCoverSR.gameObject.SetActive(!datum.isUnlocked);
         _lockAnim.gameObject.SetActive(!datum.isUnlocked);
+        _btnUnlock.Fill(datum.unlockPrice);
 
         for (int i = 0; i < _decorObjs.Count; i++)
         {
-            _decorObjs[i].gameObject.SetActive(i < datum.allDecorationItems.Count && datum.allDecorationItems[i].isUnlocked);
+            if(i < datum.allDecorationItems.Count)
+            {
+                _decorObjs[i].gameObject.SetActive(true);
+                _decorObjs[i].Fill(this, datum.allDecorationItems[i], orderAdding);
+            }
+            else
+                _decorObjs[i].gameObject.SetActive(false);
         }
         
         for(int i = 0; i < _cats.Count; i++)
@@ -62,12 +65,15 @@ public class HouseFloor : MonoBehaviour
 
         _lockAnim.AnimationState.SetAnimation(0, "unlocked", false);
         _lockAnim.Update(0);
+        _btnUnlock.gameObject.SetActive(false);
         yield return new WaitForEndOfFrame();
         _lockAnim.AnimationState.Complete += delegate
         {
             _lockAnim.gameObject.SetActive(false);
-            _lockCoverSR.DOFade(0F, 0.5f);
-            ShowPopupNewDiscover();
+            _lockCoverSR.DOFade(0F, 0.5f).OnComplete(() =>
+            {
+                ShowPopupNewDiscover();
+            });
         };
     }
 
@@ -76,10 +82,14 @@ public class HouseFloor : MonoBehaviour
         UIPopupListPreview.ShowList(_dataAsset.GetFloorDataByIndex(_index).GetAllSprite());
     }
 
-    [MyBox.ButtonMethod]
-    public void ShowUnlockAnim()
+    public void Unlock()
     {
         StartCoroutine(YieldUnlock());
+    }
+
+    public void UnlockItem(string id, eHouseDecorType type)
+    {
+        _dataAsset.UnLockItem(Index, id, type);
     }
 }
 

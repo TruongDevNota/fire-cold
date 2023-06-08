@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allFloorData:
   - floorIndex: 1
-    isUnlocked: 1
+    isUnlocked: 0
     unlockPrice: 0
     name: 
     allDecorationItems:
-    - name: 
-      id: 
+    - name: 1_table
+      id: floor_1_1
       idThumb: 
-      index: 0
+      index: 1
       description: 
       unlockType: 3
       unlockPrice: 1
@@ -30,13 +30,13 @@ MonoBehaviour:
       count: 0
       countHit: 0
       unlockPay: 0
-      thumb: {fileID: 21300000, guid: d4d91b46a9473154e8abe3da5b8c6b8c, type: 3}
-      floorIndex: 0
-      type: 0
-    - name: 
-      id: 
+      thumb: {fileID: 21300000, guid: e0905883609f86147a087322f0f77063, type: 3}
+      floorIndex: 1
+      type: 1
+    - name: 1_ceiling_fan
+      id: floor_1_2
       idThumb: 
-      index: 0
+      index: 2
       description: 
       unlockType: 1
       unlockPrice: 100
@@ -45,13 +45,13 @@ MonoBehaviour:
       count: 0
       countHit: 0
       unlockPay: 0
-      thumb: {fileID: 21300000, guid: 9f0f8efbf93c455419752f851a55c534, type: 3}
-      floorIndex: 0
-      type: 0
-    - name: 
-      id: 
+      thumb: {fileID: 21300000, guid: fe256a95687380942a24116132f2f885, type: 3}
+      floorIndex: 1
+      type: 1
+    - name: 1_sofa
+      id: floor_1_3
       idThumb: 
-      index: 0
+      index: 3
       description: 
       unlockType: 3
       unlockPrice: 1
@@ -60,42 +60,100 @@ MonoBehaviour:
       count: 0
       countHit: 0
       unlockPay: 0
-      thumb: {fileID: 21300000, guid: a854c5fcaaefdca4abadf65c051e232c, type: 3}
-      floorIndex: 0
-      type: 0
-    allCats:
-    - name: 
-      id: 
+      thumb: {fileID: 21300000, guid: 89f864eb63282e5459c15602c6b5e46c, type: 3}
+      floorIndex: 1
+      type: 1
+    - name: 1_carpet
+      id: floor_1_4
       idThumb: 
-      index: 0
+      index: 4
       description: 
-      unlockType: 2
+      unlockType: 3
       unlockPrice: 1
       isUnlocked: 0
       isSelected: 0
       count: 0
       countHit: 0
       unlockPay: 0
-      thumb: {fileID: 0}
-      floorIndex: 0
-      type: 0
-      skinName: 
-    - name: 
-      id: 
+      thumb: {fileID: 21300000, guid: 051ebc21df8ca36469eab43c4ec7ef82, type: 3}
+      floorIndex: 1
+      type: 1
+    - name: 1_shelf
+      id: floor_1_5
       idThumb: 
-      index: 1
+      index: 5
       description: 
-      unlockType: 2
+      unlockType: 3
       unlockPrice: 1
       isUnlocked: 0
       isSelected: 0
       count: 0
       countHit: 0
       unlockPay: 0
-      thumb: {fileID: 0}
-      floorIndex: 0
-      type: 0
-      skinName: 
+      thumb: {fileID: 21300000, guid: fd3901054d07b1746b4e044f0c65459f, type: 3}
+      floorIndex: 1
+      type: 1
+    - name: 1_tizi
+      id: floor_1_6
+      idThumb: 
+      index: 6
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 1b3803ee4709e5b41aacbf827787ccab, type: 3}
+      floorIndex: 1
+      type: 1
+    - name: 1_window
+      id: floor_1_7
+      idThumb: 
+      index: 7
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: ac7d14671f00eec4b8c84baf7177d253, type: 3}
+      floorIndex: 1
+      type: 1
+    - name: 1_wool-basket
+      id: floor_1_8
+      idThumb: 
+      index: 8
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: aecebcbec8b69fc469afb7a37e6ef774, type: 3}
+      floorIndex: 1
+      type: 1
+    - name: 1_bonsai_pot
+      id: floor_1_9
+      idThumb: 
+      index: 9
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 651eaf484aa5ae449af90ee2802c4e21, type: 3}
+      floorIndex: 1
+      type: 1
+    allCats: []
   - floorIndex: 2
     isUnlocked: 0
     unlockPrice: 0
