@@ -59,6 +59,8 @@ public class UIPopupReward : MonoBehaviour
         anim.Show(null, onCompleted: () =>
         {
             OnClaimReward();
+            //btn_Claim.gameObject.SetActive(true);
+            btn_x2Claim.gameObject.SetActive(true);
         });
     }
 

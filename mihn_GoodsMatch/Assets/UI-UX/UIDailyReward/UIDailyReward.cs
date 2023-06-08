@@ -46,17 +46,7 @@ public class UIDailyReward : MonoBehaviour
     public void OnShow()
     {
         FetchData();
-        if(anim.Status == UIAnimStatus.IsShow)
-            ShowCountDown();
-        else
-        {
-            anim.Show(onStart: () => {
-                btn_Claim.interactable = canClaim;
-                btn_ClaimX2.interactable = canClaim;
-                if (!canClaim)
-                    ShowCountDown();
-            });
-        }
+        anim.Show();
     }
 
     public void OnHide()
@@ -78,8 +68,8 @@ public class UIDailyReward : MonoBehaviour
         buffSwapEarn = rewards[2];
 
         btn_Claim.gameObject.SetActive(canClaim);
-        btn_ClaimX2.gameObject.SetActive(canClaim);
-        timeLeftObj.gameObject.SetActive(!canClaim);
+        //btn_ClaimX2.gameObject.SetActive(canClaim);
+        //timeLeftObj.gameObject.SetActive(!canClaim);
 
         foreach (var item in dailyItems)
             item.FillLayout();

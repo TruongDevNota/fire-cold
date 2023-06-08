@@ -14,11 +14,13 @@ public class UIDailyRewardItem : MonoBehaviour
     [SerializeField] Image img_HeaderFade;
     [SerializeField] Image img_BodyFade;
     [SerializeField] Image img_Today;
+    [SerializeField] Image img_Fill;
 
     [SerializeField] Sprite spr_ActiveHeader;
     [SerializeField] Sprite spr_NormalHeader;
     [SerializeField] Sprite spr_ActiveBody;
     [SerializeField] Sprite spr_NormalBodyBG;
+
     
     System.Action<int> onSelect;
 
@@ -36,6 +38,11 @@ public class UIDailyRewardItem : MonoBehaviour
         bool canClaim = dayIndex == DataManager.UserData.dailyRewardClaimCount + 1 && (DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1 || DataManager.UserData.dailyRewardClaimCount ==0);
         img_HeaderFade.gameObject.SetActive(isClaimed);
         img_BodyFade.gameObject.SetActive(isClaimed);
+        if (isToday || isClaimed)
+            img_Fill?.gameObject.SetActive(false);
+        else
+            img_Fill?.gameObject.SetActive(true);
+
         img_Today?.gameObject.SetActive(isToday);
         if (dayIndex != 7)
         {
