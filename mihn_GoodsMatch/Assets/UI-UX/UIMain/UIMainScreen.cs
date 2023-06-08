@@ -36,6 +36,8 @@ public class UIMainScreen : MonoBehaviour
     [SerializeField] GameObject suggestFadeImg = null;
     [SerializeField] GameObject suggestBartenderOb = null;
 
+    [SerializeField] Text infoLevelPlaying;
+
     void Awake()
     {
         Instance = this;
@@ -87,6 +89,14 @@ public class UIMainScreen : MonoBehaviour
         //    suggestFadeImg?.SetActive(false);
         //    suggestBartenderOb.SetActive(false);
         //}
+        if (DataManager.MapAsset.ListMap[DataManager.UserData.lastMapIndexSelected - 1].hightestLevelUnlocked >= 2)
+        {
+            infoLevelPlaying.gameObject.SetActive(true);
+            infoLevelPlaying.text = $"{DataManager.MapAsset.ListMap[DataManager.UserData.lastMapIndexSelected - 1].mapName} - Level {DataManager.MapAsset.ListMap[DataManager.UserData.lastMapIndexSelected - 1].hightestLevelUnlocked}";
+        }
+            
+        else
+            infoLevelPlaying.gameObject.SetActive(false);
     }
 
     public void Show(TweenCallback onStart = null, TweenCallback onCompleted = null)
@@ -120,7 +130,11 @@ public class UIMainScreen : MonoBehaviour
             GameUIManager.PopupMapSelect.Show();
         }
         else
-            GameUIManager.PopupLevelSelect.OnShow(DataManager.mapSelect);
+        {
+            DataManager.levelSelect = DataManager.MapAsset.ListMap[DataManager.UserData.lastMapIndexSelected - 1].hightestLevelUnlocked;
+            GameStateManager.LoadGame(null);
+        }
+            
 
     }
     public void Ins_BtnChallengeClick()
@@ -162,6 +176,11 @@ public class UIMainScreen : MonoBehaviour
     {
         SoundManager.Play("1. Click Button");
         GameStateManager.HouseDecoration(null);
+    }
+    public void BtnSelectLevel()
+    {
+        GameUIManager.PopupLevelSelect.OnShow(DataManager.UserData.lastMapIndexSelected);
+        SoundManager.Play("1. Click Button");
     }
     #endregion
 }
