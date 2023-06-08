@@ -67,7 +67,11 @@ public class UILevelSelect : MonoBehaviour
         selectItems.Clear();
         GameUIManager.PopupMapSelect.Show();
     }
-
+    public void HomeBtn()
+    {
+        SoundManager.Play("1. Click Button");
+        OnHide();
+    }
     [MyBox.ButtonMethod]
     public void UnlockAllMapLevel()
     {
