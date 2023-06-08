@@ -60,6 +60,9 @@ public class UIGameOver : MonoBehaviour
     protected Button backButton = null;
     [SerializeField]
     protected Button restartButton = null;
+
+    [SerializeField]
+    protected Button levelSelectBtn = null;
     
     [Header("Continue")]
     [SerializeField]
@@ -171,7 +174,11 @@ public class UIGameOver : MonoBehaviour
         btnStarClaim?.onClick.AddListener(Btn_StarClaimClick);
         btn_GoToHome?.onClick.AddListener(Btn_Back_Handle);
         btn_GoToNextLevel?.onClick.AddListener(Btn_NextLevel_Handle);
+        levelSelectBtn?.onClick.AddListener(Btn_Level_Select);
     }
+
+
+
     IEnumerator DelayShowButton(System.Action callback = null)
     {
         //backButton?.gameObject.SetActive(false);
@@ -315,7 +322,14 @@ public class UIGameOver : MonoBehaviour
         DOVirtual.DelayedCall(3f, () => Btn_Next_Handle());
         DataManager.Save();
     }
-
+    private void Btn_Level_Select()
+    {
+        GameUIManager.PopupLevelSelect.OnShow(DataManager.UserData.lastMapIndexSelected);
+        SoundManager.Play("1. Click Button");
+        rebornCount = 0;
+        GameStateManager.Idle(null);
+        Hide();
+    }
     private void Btn_ScaleStarClick()
     {
         SoundManager.Play("1. Click Button");
