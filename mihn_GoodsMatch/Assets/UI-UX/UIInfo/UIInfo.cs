@@ -25,6 +25,9 @@ public class UIInfo : MonoBehaviour
     [Header("Star effect")]
     [SerializeField]
     GameObject coinPrefab;
+    [SerializeField] GameObject star;
+    [SerializeField] GameObject star2;
+    [SerializeField] GameObject star3;
     public Transform defaultTarget;
 
     [SerializeField] float currentCoolDownTime;
@@ -84,6 +87,16 @@ public class UIInfo : MonoBehaviour
             timePlayed = BoardGame.instance.pStopWatch.ElapsedMilliseconds / 1000;
         }
         timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
+
+        float timeUsePercent = (float)timePlayed / BoardGame.instance.pTimeLimitInSeconds;
+
+        int starNum = timeUsePercent <= DataManager.GameConfig.threeStar ? 3 : timeUsePercent <= DataManager.GameConfig.twoStar ? 2 : 1;
+
+        if (starNum == 2)
+            star3.SetActive(false);
+        else if (starNum == 1)
+            star2.SetActive(false);
+
     }
 
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
@@ -101,7 +114,7 @@ public class UIInfo : MonoBehaviour
                 DOTween.Kill(comboTimeSlider);
                 break;
             case GameState.Play:
-                ComboCount = 3;
+                ComboCount = 2;
                 DoComboCountDown();
                 break;
             case GameState.RebornContinue:
@@ -123,12 +136,12 @@ public class UIInfo : MonoBehaviour
         timeLeftText.text = "-:--";
         GameStatisticsManager.starEarn = 0;
         startText.text = "0";
-        ComboCount = 3;
+        ComboCount = 2;
         comboCountText.text = $"x{comboCount}";
         matchCount = 0;
 
         timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
-        comboTimeCooldown = BoardGame.instance.pTimeLimitInSeconds / 3;
+        comboTimeCooldown = BoardGame.instance.pTimeLimitInSeconds / 1;
         comboTimeSlider.minValue = 0;
         comboTimeSlider.maxValue = comboTimeCooldown;
         comboTimeSlider.value = comboTimeCooldown;
