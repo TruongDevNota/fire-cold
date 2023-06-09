@@ -4,6 +4,7 @@ using DG.Tweening;
 using Base.Ads;
 using Spine.Unity;
 using Animation = Spine.Animation;
+using System.Collections;
 
 public class UIPopupReward : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class UIPopupReward : MonoBehaviour
     Button btn_Claim;
     [SerializeField]
     Button btn_x2Claim;
+    [SerializeField]
+    Button No_Thanks;
     //[SerializeField]
     //GameObject starChestObj;
     //[SerializeField]
@@ -37,16 +40,19 @@ public class UIPopupReward : MonoBehaviour
     private int buffSwapEarn;
     private string starChestSkin = "chest2";
     string levelChestSkin = "box";
+    private bool isShowNoThanks;
 
     private void Start()
     {
         btn_Claim.onClick.AddListener(BtnClaimSelect);
         btn_x2Claim.onClick.AddListener(BtnX2ClaimSelect);
+        No_Thanks.onClick.AddListener(OnHide);
     }
 
     public void ShowDailyChestReward(int coinNumber = 0, int buffHint = 0, int buffSwap = 0)
     {
         isDailyRewardChest = true;
+        isShowNoThanks = true;
         coinEarn = coinNumber;
         buffHintEarn = buffHint;
         buffSwapEarn = buffSwap;
@@ -56,14 +62,20 @@ public class UIPopupReward : MonoBehaviour
         coinReward.Fill(coinNumber);
         btn_Claim.gameObject.SetActive(false);
         btn_x2Claim.gameObject.SetActive(false);
+        No_Thanks.gameObject.SetActive(false);
         anim.Show(null, onCompleted: () =>
         {
             OnClaimReward();
-            //btn_Claim.gameObject.SetActive(true);
             btn_x2Claim.gameObject.SetActive(true);
+            StartCoroutine(ShowNoThanks());
         });
     }
-
+    public IEnumerator ShowNoThanks()
+    {
+        yield return new WaitForSeconds(5);
+        if(isShowNoThanks)
+            No_Thanks.gameObject.SetActive(true);
+    }
     public void ShowLevelChestReward(int coinNumber = 0, int buffHint = 0, int buffSwap = 0)
     {
         DataManager.UserData.LevelChesPercent = 0;
@@ -119,7 +131,7 @@ public class UIPopupReward : MonoBehaviour
             UIMainScreen.Instance.FetchData();
             DOVirtual.DelayedCall(2.5f, () =>
             {
-                OnHide();
+                //OnHide();
             });
         }
         else
@@ -162,11 +174,19 @@ public class UIPopupReward : MonoBehaviour
             if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
                 SwitchActiveAllButton(false);
-                coinEarn *= 2;
-                buffHintEarn *= 2;
-                buffSwapEarn *= 2;
+                isShowNoThanks = false;
                 coinReward.DoTextAnim(lastValue, coinEarn);
-                OnClaimReward();
+                CoinManager.Add(coinEarn, coinStarTf);
+                DataManager.UserData.totalHintBuff += buffHintEarn;
+                DataManager.UserData.totalSwapBuff += buffSwapEarn;
+                UIMainScreen.Instance.FetchData();
+                btn_Claim.gameObject.SetActive(false);
+                btn_x2Claim.gameObject.SetActive(false);
+                //OnClaimReward();
+                DOVirtual.DelayedCall(2f, () =>
+                {
+                    OnHide();
+                });
             }
             else
             {

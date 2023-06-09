@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG;
+using DG.Tweening;
 
 public class UIDailyRewardItem : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class UIDailyRewardItem : MonoBehaviour
     [SerializeField] Image img_BodyFade;
     [SerializeField] Image img_Today;
     [SerializeField] Image img_Fill;
+    [SerializeField] Image img_Icon;
 
     [SerializeField] Sprite spr_ActiveHeader;
     [SerializeField] Sprite spr_NormalHeader;
@@ -49,6 +52,10 @@ public class UIDailyRewardItem : MonoBehaviour
             img_HeaderBg.sprite = canClaim ? spr_ActiveHeader : spr_NormalHeader;
             img_BodyBG.sprite = canClaim ? spr_ActiveBody : spr_NormalBodyBG;
         }
+        if (!canClaim)
+            img_Icon?.GetComponent<DOTweenAnimation>().DOPause();
+        else
+            img_Icon?.GetComponent<DOTweenAnimation>().DOPlay();
     }
 
     public void OnDaySelect()
