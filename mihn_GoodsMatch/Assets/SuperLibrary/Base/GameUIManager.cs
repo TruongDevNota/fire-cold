@@ -258,7 +258,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         };
 
         if(GameStateManager.LastState == GameState.Complete || GameStateManager.LastState == GameState.GameOver
-            || GameStateManager.LastState == GameState.Next || GameStateManager.LastState == GameState.Pause)
+            || GameStateManager.LastState == GameState.Next || GameStateManager.LastState == GameState.Pause 
+            || GameStateManager.LastState == GameState.HouseDecoration)
         {
             UILoadGame.Init(true, null);
             StartCoroutine(WaitForLoading(callback, 0.5f));

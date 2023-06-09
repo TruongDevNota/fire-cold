@@ -48,4 +48,5 @@ public enum EventID
     ChooseMap = 1009,
 
     ShowItemPreview = 2000,
+    OnFloorUnlocked = 2100,
 }

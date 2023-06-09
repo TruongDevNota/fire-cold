@@ -8,14 +8,16 @@ using System.Linq;
 public class HouseFloor : MonoBehaviour
 {
     private HouseDataAsset _dataAsset => DataManager.HouseAsset;
+    private HouseFloorData _currData => _dataAsset.GetFloorDataByIndex(_index);
 
     [SerializeField] List<DecorItem> _decorObjs = new List<DecorItem>();
     [SerializeField] int _orderDelta = 100;
     [SerializeField] List<CatControl> _cats = new List<CatControl>();
     [SerializeField] SpriteRenderer _wallSR;
-    [SerializeField] SpriteRenderer _lockCoverSR;
     [SerializeField] SkeletonAnimation _lockAnim;
     [SerializeField] ButtonUnlockFloor _btnUnlock;
+    [SerializeField] Color _lockColor;
+    [SerializeField] Color _unlockedColor;
 
     [SerializeField, MyBox.ReadOnly]
     private int _index;
@@ -34,17 +36,18 @@ public class HouseFloor : MonoBehaviour
     {
         Index = datum.floorIndex;
         int orderAdding = Index * _orderDelta;
-
+        
         _wallSR.sortingOrder = orderAdding;
-        _lockCoverSR.gameObject.SetActive(!datum.isUnlocked);
         _lockAnim.gameObject.SetActive(!datum.isUnlocked);
         _btnUnlock.Fill(datum.unlockPrice);
+
+        _wallSR.color = datum.isUnlocked ? _unlockedColor : _lockColor;
 
         for (int i = 0; i < _decorObjs.Count; i++)
         {
             if(i < datum.allDecorationItems.Count)
             {
-                _decorObjs[i].gameObject.SetActive(true);
+                _decorObjs[i].gameObject.SetActive(datum.isUnlocked);
                 _decorObjs[i].Fill(this, datum.allDecorationItems[i], orderAdding);
             }
             else
@@ -59,6 +62,7 @@ public class HouseFloor : MonoBehaviour
 
     public IEnumerator YieldUnlock()
     {
+        CoinManager.Add(-_currData.unlockPrice);
         _dataAsset.UnlockFloorByIndex(Index);
         DataManager.Save();
         yield return new WaitForSeconds(0.5f);
@@ -70,7 +74,7 @@ public class HouseFloor : MonoBehaviour
         _lockAnim.AnimationState.Complete += delegate
         {
             _lockAnim.gameObject.SetActive(false);
-            _lockCoverSR.DOFade(0F, 0.5f).OnComplete(() =>
+            _wallSR.DOColor(_unlockedColor, 0.5f).OnComplete(() =>
             {
                 ShowPopupNewDiscover();
             });
@@ -80,10 +84,18 @@ public class HouseFloor : MonoBehaviour
     private void ShowPopupNewDiscover()
     {
         UIPopupListPreview.ShowList(_dataAsset.GetFloorDataByIndex(_index).GetAllSprite());
+        this.PostEvent((int)EventID.OnFloorUnlocked);
     }
 
     public void Unlock()
     {
+        if(CoinManager.totalCoin < _currData.unlockPrice)
+        {
+            Debug.Log("Not enought money to unlock floor");
+            UIToast.ShowNotice("Not enought money to unlock floor");
+            return;
+        }
+
         StartCoroutine(YieldUnlock());
     }
 
