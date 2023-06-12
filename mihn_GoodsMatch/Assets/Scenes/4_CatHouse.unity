@@ -172,6 +172,8 @@ GameObject:
   m_Component:
   - component: {fileID: 418035606}
   - component: {fileID: 418035607}
+  - component: {fileID: 418035609}
+  - component: {fileID: 418035608}
   m_Layer: 0
   m_Name: HouseController
   m_TagString: Untagged
@@ -216,6 +218,42 @@ MonoBehaviour:
   _roofTF: {fileID: 706813703}
   _roofPosYMin: 10.25
   _floorHeight: 12
+  mapInput: {fileID: 418035608}
+  cameraMoving: {fileID: 418035609}
+  _cameraPosMinY: 3
+  _cameraPosOffsetY: 3
+  pCurrentLevelNodeWorldPosition: {x: 0, y: 3, z: -10}
+--- !u!114 &418035608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418035605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9373ba292b5c7428b0cd138734c788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 7367104241237243791}
+  _stageViewLayer:
+    serializedVersion: 2
+    m_Bits: 2147483647
+--- !u!114 &418035609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418035605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1440f97e575efca4e9270ea47a7a0a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 7367104241237243791}
+  _cameraSpeedFactor: 15
+  _cameraFriction: 0.02
 --- !u!1 &653658544
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +588,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: d7df2bc400eb6a648bd45964a0d3b7c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -796,7 +834,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7367104241237243789}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.28, z: -10}
+  m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -815,7 +853,7 @@ GameObject:
   - component: {fileID: 7367104241237243791}
   - component: {fileID: 7367104241237243792}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Map Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

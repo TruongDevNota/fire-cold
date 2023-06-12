@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using MewtonGames.Nonogram;
 
 public class HouseDecoration : MonoBehaviour
 {
@@ -9,6 +10,14 @@ public class HouseDecoration : MonoBehaviour
     [SerializeField] Transform _roofTF;
     [SerializeField] float _roofPosYMin;
     [SerializeField] float _floorHeight;
+
+    [Header("Camera Controller")]
+    [SerializeField] MapInput mapInput;
+    [SerializeField] CameraMapMoving cameraMoving;
+    [SerializeField] private float _cameraPosMinY;
+    [SerializeField] private float _cameraPosOffsetY;
+    [SerializeField] public Vector3 pCurrentLevelNodeWorldPosition;
+    private Vector3 startPressDownScreenPosition = Vector3.zero;
 
     private void Start()
     {
@@ -18,6 +27,7 @@ public class HouseDecoration : MonoBehaviour
     private void OnDestroy()
     {
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnFloorUnlocked, Init);
+        mapInput.Enable(false);
     }
 
     private void OnEnable()
@@ -25,7 +35,30 @@ public class HouseDecoration : MonoBehaviour
         Init(null);
     }
 
+    private void Update()
+    {
+        mapInput.Tick();
+
+        if (mapInput.pIsHolding)
+            cameraMoving.MoveDistance(mapInput.pMovingWorldOffsetY, mapInput.pIsFlick);
+
+        if (mapInput.pIsFlick)
+            mapInput.Reset();
+
+        cameraMoving.Tick();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            startPressDownScreenPosition = Input.mousePosition;
+        }
+    }
+
     public void Init(object data)
+    {
+        StartCoroutine(YieldInit(null));
+    }
+
+    public IEnumerator YieldInit(object data)
     {
         int roofCount = 0;
         for(int i = 0; i < floors.Count; i++)
@@ -48,5 +81,13 @@ public class HouseDecoration : MonoBehaviour
 
         }
         _roofTF.position = new Vector2(0, _roofPosYMin + Mathf.Max(0, roofCount - 1) * _floorHeight);
+
+        mapInput.Init();
+        cameraMoving.Init();
+        mapInput.Enable(true);
+        cameraMoving.SetupBound(_cameraPosMinY, _cameraPosMinY + _cameraPosOffsetY + Mathf.Max(0, roofCount - 1) * _floorHeight);
+
+        yield return new WaitForSeconds(0.1f);
+        cameraMoving.Show(pCurrentLevelNodeWorldPosition.y);
     }
 }
