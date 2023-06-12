@@ -27,7 +27,7 @@ public class UIPopupReward : MonoBehaviour
     [SerializeField]
     UIChestItem buffSwapReward;
 
-   //[SerializeField]
+    //[SerializeField]
     //private UIPopupPigProcess popup_PigProcess;
     [SerializeField]
     public SkeletonAnimation skeletonAnimation;
@@ -73,7 +73,7 @@ public class UIPopupReward : MonoBehaviour
     public IEnumerator ShowNoThanks()
     {
         yield return new WaitForSeconds(5);
-        if(isShowNoThanks)
+        if (isShowNoThanks)
             No_Thanks.gameObject.SetActive(true);
     }
     public void ShowLevelChestReward(int coinNumber = 0, int buffHint = 0, int buffSwap = 0)
@@ -190,7 +190,7 @@ public class UIPopupReward : MonoBehaviour
             }
             else
             {
-                
+
             }
         }, placeAds, "coin");
     }

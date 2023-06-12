@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Base.Ads;
 using System;
+using MyBox;
 
 public class UIDailyReward : MonoBehaviour
 {
@@ -139,5 +140,10 @@ public class UIDailyReward : MonoBehaviour
         DataManager.UserData.lastdayClaimed = System.DateTime.Now;
         popupReward.ShowDailyChestReward(coinEarn, buffHintEarn, buffSwapEarn);
         OnShow();
+    }
+    [ButtonMethod]
+    public void test()
+    {
+        DataManager.UserData.lastdayClaimed= System.DateTime.Now.AddDays(-1);
     }
 }
