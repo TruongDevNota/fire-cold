@@ -25,8 +25,6 @@ public class UIMainScreen : MonoBehaviour
     [SerializeField] private Text txt_LevelPlay;
     [SerializeField] private Button btn_PlayChallenge;
     [SerializeField] private GameObject lockChallengeBtn;
-    [SerializeField] private Button btn_shopDecor;
-    [SerializeField] private GameObject lockShopDecorBtn;
     [SerializeField] Text txt_LockChallenge;
     [SerializeField] Text txt_LockShopDecor;
     [SerializeField] Button PlayBartenderBtn;
@@ -66,8 +64,6 @@ public class UIMainScreen : MonoBehaviour
         //btn_PlayChallenge?.gameObject.SetActive(DataManager.UserData.level >= DataManager.GameConfig.starsToNextChallenge - 1);
         //lockChallengeBtn?.SetActive(DataManager.UserData.level < DataManager.GameConfig.levelsToNextChallenge - 1);
         //txt_LockChallenge.text = $"UNLOCK AT LV.{DataManager.GameConfig.levelsToNextChallenge}";
-        btn_shopDecor?.gameObject.SetActive(DataManager.UserData.level[0] >= DataManager.GameConfig.levelOpenShopDecor - 1);
-        lockShopDecorBtn?.SetActive(DataManager.UserData.level[0] < DataManager.GameConfig.levelOpenShopDecor - 1);
         txt_LockShopDecor.text = $"LV.{DataManager.GameConfig.levelOpenShopDecor}";
 
         //PlayBartenderBtn?.gameObject.SetActive(true);
