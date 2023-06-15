@@ -16,6 +16,6 @@ public class ButtonUnlockFloor : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("AAAAAAA CLICK ON FLOOR UNLOCK");
+        _floor.Unlock();
     }
 }

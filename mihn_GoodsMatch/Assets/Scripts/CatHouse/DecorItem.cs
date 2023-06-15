@@ -8,14 +8,15 @@ public class DecorItem : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private SpriteRenderer _unlockedSR = null;
     [SerializeField] private SpriteRenderer _lockSR = null;
+    [SerializeField] private GameObject _lockGroupObj = null;
     [SerializeField] private GameObject _unlockWithAdsObj;
     [SerializeField] private GameObject _unlockWithCoinObj;
     [SerializeField] private TextMeshPro _tmpPrice = null;
 
     [SerializeField] BoxCollider2D _boxCollider = null;
-    [SerializeField]
 
-    private ItemDecorData _currDatum = null;
+    private HouseFloor _floor;
+    private ItemDecorData _currDatum;
     private int _sortingOrderOffset;
 
     private void Awake()
@@ -24,7 +25,7 @@ public class DecorItem : MonoBehaviour, IPointerClickHandler
             _sortingOrderOffset = _unlockedSR.sortingOrder;
     }
 
-    public void SetSortingOrder(int addAmount)
+    private void SetSortingOrder(int addAmount)
     {
         if (_unlockedSR != null)
             _unlockedSR.sortingOrder = _sortingOrderOffset + addAmount;
@@ -32,12 +33,20 @@ public class DecorItem : MonoBehaviour, IPointerClickHandler
             _lockSR.sortingOrder = _sortingOrderOffset + addAmount;
     }
 
-    public void Fill(ItemDecorData datum)
+    public void Fill(HouseFloor floor, ItemDecorData datum, int addSortingOrder)
     {
+        _floor = floor;
         _currDatum = datum;
+        SetSortingOrder(addSortingOrder);
+
+        Fetch(_currDatum);
+    }
+
+    private void Fetch(ItemDecorData datum)
+    {
         _tmpPrice.text = _currDatum.unlockPrice.ToString();
         _unlockedSR.gameObject.SetActive(_currDatum.isUnlocked);
-        _lockSR.gameObject?.SetActive(!_currDatum.isUnlocked);
+        _lockGroupObj?.SetActive(!_currDatum.isUnlocked);
         _unlockWithAdsObj?.SetActive(_currDatum.unlockType == UnlockType.Ads);
         _unlockWithCoinObj.SetActive(_currDatum.unlockType == UnlockType.Gold);
     }
@@ -48,8 +57,7 @@ public class DecorItem : MonoBehaviour, IPointerClickHandler
             return;
 
         Debug.Log($"Try to unlock house decor: floorIndex={_currDatum.floorIndex}, itemIndex={_currDatum.index}");
-        //PostEvent Unlock Item
-
+        
         if(_currDatum.unlockType == UnlockType.Gold)
         {
             if (CoinManager.totalCoin < _currDatum.unlockPrice)
@@ -60,7 +68,8 @@ public class DecorItem : MonoBehaviour, IPointerClickHandler
 
             CoinManager.Add(-_currDatum.unlockPrice);
             _currDatum.isUnlocked = true;
-            Fill(_currDatum);
+            _floor.UnlockItem(_currDatum.id, _currDatum.type);
+            Fetch(_currDatum);
         }
         else if(_currDatum.unlockType == UnlockType.Ads)
         {
@@ -68,8 +77,9 @@ public class DecorItem : MonoBehaviour, IPointerClickHandler
             {
                 if (e == AdEvent.ShowSuccess)
                 {
+                    _floor.UnlockItem(_currDatum.id, _currDatum.type);
                     _currDatum.isUnlocked = true;
-                    Fill(_currDatum);
+                    Fetch(_currDatum);
                 }
                 else
                 {

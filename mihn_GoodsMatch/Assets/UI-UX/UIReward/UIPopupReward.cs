@@ -49,7 +49,7 @@ public class UIPopupReward : MonoBehaviour
         No_Thanks.onClick.AddListener(OnHide);
     }
 
-    public void ShowDailyChestReward(int coinNumber = 0, int buffHint = 0, int buffSwap = 0)
+    public void ShowDailyChestReward(int coinNumber = 0, int buffHint = 0, int buffSwap = 0, int index = 0)
     {
         isDailyRewardChest = true;
         isShowNoThanks = true;
@@ -66,7 +66,10 @@ public class UIPopupReward : MonoBehaviour
         anim.Show(null, onCompleted: () =>
         {
             OnClaimReward();
-            btn_x2Claim.gameObject.SetActive(true);
+            if(index==7)
+                btn_x2Claim.gameObject.SetActive(false);
+            else
+                btn_x2Claim.gameObject.SetActive(true);
             StartCoroutine(ShowNoThanks());
         });
     }
@@ -173,7 +176,7 @@ public class UIPopupReward : MonoBehaviour
             var lastValue = coinEarn;
             if (e == AdEvent.ShowSuccess || DataManager.GameConfig.isAdsByPass)
             {
-                SwitchActiveAllButton(false);
+                //SwitchActiveAllButton(false);
                 isShowNoThanks = false;
                 coinReward.DoTextAnim(lastValue, coinEarn);
                 CoinManager.Add(coinEarn, coinStarTf);

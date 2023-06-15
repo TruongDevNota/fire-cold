@@ -138,7 +138,11 @@ public class UIDailyReward : MonoBehaviour
     {
         DataManager.UserData.dailyRewardClaimCount++;
         DataManager.UserData.lastdayClaimed = System.DateTime.Now;
-        popupReward.ShowDailyChestReward(coinEarn, buffHintEarn, buffSwapEarn);
+        if(DataManager.UserData.dailyRewardClaimCount == 7)
+        {
+            popupReward.ShowDailyChestReward(coinEarn, buffHintEarn, buffSwapEarn,7);
+        }else
+            popupReward.ShowDailyChestReward(coinEarn, buffHintEarn, buffSwapEarn);
         OnShow();
     }
     [ButtonMethod]

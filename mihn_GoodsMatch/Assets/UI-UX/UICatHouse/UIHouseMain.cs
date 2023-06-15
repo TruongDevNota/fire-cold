@@ -20,6 +20,7 @@ public class UIHouseMain : MonoBehaviour
 
     public void ExitHouse()
     {
+        _uiAnim.Hide();
         GameStateManager.Idle(null);
     }
 }

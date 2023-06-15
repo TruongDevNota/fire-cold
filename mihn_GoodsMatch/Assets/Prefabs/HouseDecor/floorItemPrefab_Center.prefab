@@ -17,11 +17,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2977471897760142229, guid: 3dede3d2910acb14fb0e1cfa9d496b7c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2977471897760142229, guid: 3dede3d2910acb14fb0e1cfa9d496b7c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2977471897760142229, guid: 3dede3d2910acb14fb0e1cfa9d496b7c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2977471897760142230, guid: 3dede3d2910acb14fb0e1cfa9d496b7c, type: 3}
       propertyPath: m_Name
-      value: floorItemPrefab
+      value: floorItemPrefab_Center
       objectReference: {fileID: 0}
     - target: {fileID: 3129576783509263325, guid: 3dede3d2910acb14fb0e1cfa9d496b7c, type: 3}
       propertyPath: m_LocalRotation.w

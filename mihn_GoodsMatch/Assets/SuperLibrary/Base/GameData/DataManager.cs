@@ -166,7 +166,7 @@ public class DataManager : MonoBehaviour
             else
                 Debug.LogWarning("GameData not NULL");
 
-            while (gameData == null || MapAsset == null)
+            while (gameData == null || MapAsset == null || HouseAsset == null)
             {
                 if (elapsedTime < 5)
                 {
@@ -381,8 +381,8 @@ public class DataManager : MonoBehaviour
         try
         {
             mapAsset.ResetAndUpdateToBuild();
-
             gameItemAsset.ResetData();
+            houseDataAsset.ResetData();
             Reset();
             Debug.Log("Reset and Update data to BUILD!!!");
         }

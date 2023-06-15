@@ -9,10 +9,28 @@ public class HouseDataAsset : ScriptableObject
     [SerializeField]
     public List<HouseFloorData> allFloorData = new List<HouseFloorData>();
 
+    //[SerializeField]
+    //public List<FloorSaveData> floorSaveData = new List<FloorSaveData>();
+
+    public bool CheckFoorUnlockable(int index)
+    {
+        if(index < 1 || index > allFloorData.Count)
+            return false;
+        return index == 1 || allFloorData[index-1].isUnlocked || allFloorData[index - 2].CanUnlockNextFoor();
+    }
+
     public void UnlockFloorByIndex(int index)
     {
         allFloorData.FirstOrDefault(x => x.floorIndex == index).isUnlocked = true;
         SetDirtyAsset();
+        DataManager.Save();
+    }
+
+    public void UnLockItem(int index, string id, eHouseDecorType type)
+    {
+        GetItemData(index, id, type).isUnlocked = false;
+        SetDirtyAsset();
+        DataManager.Save();
     }
 
     public HouseFloorData GetFloorDataByIndex(int index)
@@ -27,7 +45,9 @@ public class HouseDataAsset : ScriptableObject
 
     public List<FloorSaveData> GetSaveData()
     {
-        return allFloorData.Select(x => x.GetSaveData()).OrderBy(x => x.index).ToList();
+        var floorSaveData = new List<FloorSaveData>();
+        floorSaveData = allFloorData.Select(x => x.GetSaveData()).OrderBy(x => x.index).ToList();
+        return floorSaveData;
     }
 
     public void ConvertData(List<FloorSaveData> data)
@@ -44,7 +64,8 @@ public class HouseDataAsset : ScriptableObject
         for(int i = 0; i < allFloorData.Count; i++)
         {
             allFloorData[i].floorIndex = i + 1;
-            allFloorData[i].isUnlocked = i == 0;
+            allFloorData[i].isUnlocked = false;
+            allFloorData[i].unlockCountRequire = 5;
             allFloorData[i].ResetData();
         }
 
@@ -59,12 +80,13 @@ public class HouseDataAsset : ScriptableObject
     }
 }
 
+[System.Serializable]
 public class FloorSaveData
 {
     public int index;
     public bool unlocked;
-    public List<int> catUnlocked = new List<int>();
-    public List<int> itemDecorUnlocked = new List<int>();
+    public List<string> catUnlocked;
+    public List<string> itemDecorUnlocked;
 }
 
 [System.Serializable]
@@ -74,21 +96,24 @@ public class HouseFloorData
     public bool isUnlocked;
     public int unlockPrice;
     public string name;
-    
+    public int unlockCountRequire;
+
     public List<ItemDecorData> allDecorationItems;
     public List<houseCatData> allCats;
 
     public int itemUnlockedCount => allDecorationItems.Where(x => x.isUnlocked).Count();
     public int catUnlockedCount => allCats.Where(x => x.isUnlocked).Count();
-
+    public bool CanUnlockNextFoor()
+    {
+        return itemUnlockedCount >= unlockCountRequire;
+    }
     public List<Sprite> GetAllSprite()
     {
-        var allSprites = allDecorationItems.Select(x => x.thumbUnlocked).ToList();
+        var allSprites = allDecorationItems.Select(x => x.thumb).ToList();
         foreach (var item in allCats)
-            allSprites.Add(item.thumbUnlocked);
+            allSprites.Add(item.thumb);
         return allSprites;
     }
-
     public ItemDecorData GetItemData(string id, eHouseDecorType type)
     {
         if (type == eHouseDecorType.Item)
@@ -96,18 +121,16 @@ public class HouseFloorData
         else
             return allCats.FirstOrDefault(x => string.Compare(x.id, id) == 0);
     }
-
     public FloorSaveData GetSaveData()
     {
         return new FloorSaveData()
         {
             index = this.floorIndex,
             unlocked = this.isUnlocked,
-            catUnlocked = allCats.Where(item => item.isUnlocked).Select(x => x.index).ToList(),
-            itemDecorUnlocked = allDecorationItems.Where(item => item.isUnlocked).Select(x => x.index).ToList(),
+            catUnlocked = allCats.Where(item => item.isUnlocked).Select(x => x.id).ToList(),
+            itemDecorUnlocked = allDecorationItems.Where(item => item.isUnlocked).Select(x => x.id).ToList(),
         };
     }
-
     public void ConvertData(FloorSaveData saveData = null)
     {
         if (saveData == null)
@@ -116,27 +139,26 @@ public class HouseFloorData
         this.isUnlocked = saveData.unlocked;
         foreach(var item in allDecorationItems)
         {
-            if(saveData.itemDecorUnlocked.Contains(item.index))
+            if(saveData.itemDecorUnlocked.Contains(item.id))
                 item.isUnlocked = true;
         }
         foreach (var item in allCats)
         {
-            if (saveData.catUnlocked.Contains(item.index))
+            if (saveData.catUnlocked.Contains(item.id))
                 item.isUnlocked = true;
         }
     }
-
     public void ResetData()
     {
         for(int i = 0; i < this.allCats.Count; i++)
         {
-            allCats[i].SetIndex(this.floorIndex, i);
             allCats[i].type = eHouseDecorType.Cat;
             this.allCats[i].isUnlocked = false;
+            allCats[i].SetIndexAndId(this.floorIndex, i + 1, eHouseDecorType.Cat);
         }
         for(int i = 0; i < allDecorationItems.Count; i++)
         {
-            allDecorationItems[i].SetIndex(this.floorIndex, i);
+            allDecorationItems[i].SetIndexAndId(this.floorIndex, i+1, eHouseDecorType.Item);
             allDecorationItems[i].type = eHouseDecorType.Item;
             this.allDecorationItems[i].isUnlocked = false;
         }
@@ -146,15 +168,22 @@ public class HouseFloorData
 [System.Serializable] 
 public class ItemDecorData : SaveData
 {
-    public Sprite thumbUnlocked;
-    public Sprite thumbLock;
+    public Sprite thumb;
     public int floorIndex;
     public eHouseDecorType type;
 
-    public void SetIndex(int floorIndex, int itemIndex)
+    public void SetIndexAndId(int floorIndex, int itemIndex, eHouseDecorType type)
     {
+        this.type = type;
         this.floorIndex = floorIndex;
         this.index = itemIndex;
+        this.id = $"floor_{floorIndex}_{itemIndex}";
+        if (thumb == null)
+            Debug.LogError($"Decor Asset item type = {this.type}, id = {id} miss sprite");
+        this.name = $"{floorIndex}_{thumb.name.ToLower()}";
+        //Demo data
+        this.unlockType = itemIndex % 2 == 0 ? UnlockType.Ads : UnlockType.Gold;
+        this.unlockPrice = unlockType == UnlockType.Ads ? 1 : itemIndex * 100;
     }
 }
 
