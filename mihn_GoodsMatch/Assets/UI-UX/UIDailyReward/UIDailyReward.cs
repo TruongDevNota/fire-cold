@@ -68,7 +68,7 @@ public class UIDailyReward : MonoBehaviour
         buffHintEarn = rewards[1];
         buffSwapEarn = rewards[2];
 
-        btn_Claim.gameObject.SetActive(canClaim);
+        btn_Claim.gameObject.SetActive(false);
         //btn_ClaimX2.gameObject.SetActive(canClaim);
         //timeLeftObj.gameObject.SetActive(!canClaim);
 
@@ -128,7 +128,7 @@ public class UIDailyReward : MonoBehaviour
         }, "ScaleDailyReward");
     }
 
-    private void OnClaim()
+    public void OnClaim()
     {
         SoundManager.Play("1. Click Button");
         DOClaim();

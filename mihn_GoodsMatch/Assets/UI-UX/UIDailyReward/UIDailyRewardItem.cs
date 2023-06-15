@@ -23,8 +23,12 @@ public class UIDailyRewardItem : MonoBehaviour
     [SerializeField] Sprite spr_NormalHeader;
     [SerializeField] Sprite spr_ActiveBody;
     [SerializeField] Sprite spr_NormalBodyBG;
+    [SerializeField] Text dayIndextxt;
+    [SerializeField] Text rewardTxt;
+    [SerializeField] Color canClaimcolor;
+    [SerializeField] Color cantClaimcolor;
 
-    
+
     System.Action<int> onSelect;
 
     private void Start()
@@ -38,7 +42,7 @@ public class UIDailyRewardItem : MonoBehaviour
         bool isToday = DataManager.UserData.dailyRewardClaimCount == dayIndex - 1 && DataManager.UserData.lastdayClaimed.Day <= System.DateTime.Now.Day - 1
             || DataManager.UserData.dailyRewardClaimCount == dayIndex && DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day;
         bool isClaimed = dayIndex <= DataManager.UserData.dailyRewardClaimCount;
-        bool canClaim = dayIndex == DataManager.UserData.dailyRewardClaimCount + 1 && (DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1 || DataManager.UserData.dailyRewardClaimCount ==0);
+        bool canClaim = dayIndex == DataManager.UserData.dailyRewardClaimCount + 1 && (DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1 || DataManager.UserData.dailyRewardClaimCount == 0);
         img_HeaderFade.gameObject.SetActive(isClaimed);
         img_BodyFade.gameObject.SetActive(isClaimed);
         if (isToday || isClaimed)
@@ -47,15 +51,21 @@ public class UIDailyRewardItem : MonoBehaviour
             img_Fill?.gameObject.SetActive(true);
 
         img_Today?.gameObject.SetActive(isToday);
-        if (dayIndex != 7)
-        {
-            img_HeaderBg.sprite = canClaim ? spr_ActiveHeader : spr_NormalHeader;
-            img_BodyBG.sprite = canClaim ? spr_ActiveBody : spr_NormalBodyBG;
-        }
+        img_HeaderBg.sprite = canClaim ? spr_ActiveHeader : spr_NormalHeader;
+        img_BodyBG.sprite = canClaim ? spr_ActiveBody : spr_NormalBodyBG;
         if (!canClaim)
             img_Icon?.GetComponent<DOTweenAnimation>().DOPause();
         else
             img_Icon?.GetComponent<DOTweenAnimation>().DOPlay();
+        dayIndextxt.text = dayIndex.ToString();
+        if (canClaim || isClaimed)
+            rewardTxt.GetComponent<Outline>().effectColor = canClaimcolor;
+        else
+            rewardTxt.GetComponent<Outline>().effectColor = cantClaimcolor;
+        if (canClaim)
+            btn_Select.GetComponent<Button>().enabled = true;
+        else
+            btn_Select.GetComponent<Button>().enabled = false;
     }
 
     public void OnDaySelect()
