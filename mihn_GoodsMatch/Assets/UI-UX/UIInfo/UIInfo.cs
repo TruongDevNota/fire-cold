@@ -118,6 +118,10 @@ public class UIInfo : MonoBehaviour
                 DoComboCountDown();
                 break;
             case GameState.RebornContinue:
+                star3.SetActive(true);
+                star2.SetActive(true);
+                star.SetActive(true);
+                timePlayed = 0;
                 ComboCount = 0;
                 break;
             case GameState.WaitComplete:
