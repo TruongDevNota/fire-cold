@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIGroupItem : MonoBehaviour
+public class UIBaseGroupItem : MonoBehaviour
 {
     [SerializeField] Text _txtGroupName;
     [SerializeField] Text _txtUnlockAmount;
@@ -25,7 +25,7 @@ public class UIGroupItem : MonoBehaviour
         
     }
 
-    public void Fill(HouseFloorData data, eHouseDecorType type)
+    public virtual void Fill(HouseFloorData data, eHouseDecorType type)
     {
         _floorData = data;
 
@@ -37,7 +37,7 @@ public class UIGroupItem : MonoBehaviour
             {
                 var exist = i < _listItem.Count;
                 var newItem = exist ? _listItem[i] : _itemPrefab.Spawn(_itemContainerRect);
-                newItem.Fill(data.allCats[i]);
+                newItem.Fill(data.allCats[i], OnBtnBuyClicked);
                 if(!exist)
                     _listItem.Add(newItem);
             }
@@ -54,7 +54,7 @@ public class UIGroupItem : MonoBehaviour
             {
                 var exist = i < _listItem.Count;
                 var newItem = exist ? _listItem[i] : _itemPrefab.Spawn(_itemContainerRect);
-                newItem.Fill(data.allDecorationItems[i]);
+                newItem.Fill(data.allDecorationItems[i], OnBtnBuyClicked);
                 if (!exist)
                     _listItem.Add(newItem);
             }
@@ -65,5 +65,11 @@ public class UIGroupItem : MonoBehaviour
             }
             _txtUnlockAmount.text = string.Format(unlockTextFormat, data.itemUnlockedCount, data.allDecorationItems.Count);
         }
+    }
+
+    protected virtual void OnBtnBuyClicked(ItemDecorData data)
+    {
+        if(data.type == eHouseDecorType.Cat)
+            this.PostEvent((int)EventID.OnUnlockCatSuccess, data);
     }
 }

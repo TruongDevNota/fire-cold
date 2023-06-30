@@ -19,8 +19,8 @@ MonoBehaviour:
     name: FLOOR 1
     unlockCountRequire: 5
     allDecorationItems:
-    - name: 1_table
-      id: floor_1_1
+    - name: table
+      id: floor_1-item_1
       idThumb: 
       index: 1
       description: 
@@ -34,8 +34,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: e0905883609f86147a087322f0f77063, type: 3}
       floorIndex: 1
       type: 1
-    - name: 1_ceiling_fan
-      id: floor_1_2
+    - name: ceiling_fan
+      id: floor_1-item_2
       idThumb: 
       index: 2
       description: 
@@ -49,8 +49,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: fe256a95687380942a24116132f2f885, type: 3}
       floorIndex: 1
       type: 1
-    - name: 1_sofa
-      id: floor_1_3
+    - name: sofa
+      id: floor_1-item_3
       idThumb: 
       index: 3
       description: 
@@ -64,8 +64,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 89f864eb63282e5459c15602c6b5e46c, type: 3}
       floorIndex: 1
       type: 1
-    - name: 1_carpet
-      id: floor_1_4
+    - name: carpet
+      id: floor_1-item_4
       idThumb: 
       index: 4
       description: 
@@ -79,8 +79,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 051ebc21df8ca36469eab43c4ec7ef82, type: 3}
       floorIndex: 1
       type: 1
-    - name: 1_shelf
-      id: floor_1_5
+    - name: shelf
+      id: floor_1-item_5
       idThumb: 
       index: 5
       description: 
@@ -94,8 +94,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: fd3901054d07b1746b4e044f0c65459f, type: 3}
       floorIndex: 1
       type: 1
-    - name: 1_tizi
-      id: floor_1_6
+    - name: tizi
+      id: floor_1-item_6
       idThumb: 
       index: 6
       description: 
@@ -109,8 +109,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 1b3803ee4709e5b41aacbf827787ccab, type: 3}
       floorIndex: 1
       type: 1
-    - name: 1_window
-      id: floor_1_7
+    - name: window
+      id: floor_1-item_7
       idThumb: 
       index: 7
       description: 
@@ -124,8 +124,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: ac7d14671f00eec4b8c84baf7177d253, type: 3}
       floorIndex: 1
       type: 1
-    - name: 1_wool-basket
-      id: floor_1_8
+    - name: wool-basket
+      id: floor_1-item_8
       idThumb: 
       index: 8
       description: 
@@ -139,8 +139,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: aecebcbec8b69fc469afb7a37e6ef774, type: 3}
       floorIndex: 1
       type: 1
-    - name: 1_bonsai_pot
-      id: floor_1_9
+    - name: bonsai_pot
+      id: floor_1-item_9
       idThumb: 
       index: 9
       description: 
@@ -154,15 +154,95 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 651eaf484aa5ae449af90ee2802c4e21, type: 3}
       floorIndex: 1
       type: 1
-    allCats: []
+    allCats:
+    - name: cat_1-1
+      id: floor_1-cat_1
+      idThumb: 
+      index: 1
+      description: 
+      unlockType: 1
+      unlockPrice: 100
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 7ae583fb215cb5b42ba1ad5a4d82fcf9, type: 3}
+      floorIndex: 1
+      type: 2
+      skinName: 
+    - name: cat_1-2
+      id: floor_1-cat_2
+      idThumb: 
+      index: 2
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: cc567a3828c0e0943a253e42d53dd14f, type: 3}
+      floorIndex: 1
+      type: 2
+      skinName: 
+    - name: cat_1-3
+      id: floor_1-cat_3
+      idThumb: 
+      index: 3
+      description: 
+      unlockType: 1
+      unlockPrice: 300
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 060e109213fc28b4eaac0144a1bc6f62, type: 3}
+      floorIndex: 1
+      type: 2
+      skinName: 
+    - name: cat_1-4
+      id: floor_1-cat_4
+      idThumb: 
+      index: 4
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 692113fba23f8e44cabe20fbb7e0c5c3, type: 3}
+      floorIndex: 1
+      type: 2
+      skinName: 
+    - name: cat_1-5
+      id: floor_1-cat_5
+      idThumb: 
+      index: 5
+      description: 
+      unlockType: 1
+      unlockPrice: 500
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 0fb76dffe385154409d6e7a6616a9ff8, type: 3}
+      floorIndex: 1
+      type: 2
+      skinName: 
   - floorIndex: 2
     isUnlocked: 0
     unlockPrice: 500
     name: FLOOR 2
     unlockCountRequire: 5
     allDecorationItems:
-    - name: 2_2-easel
-      id: floor_2_1
+    - name: 2-easel
+      id: floor_2-item_1
       idThumb: 
       index: 1
       description: 
@@ -176,8 +256,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 37b79c6ad4eff194fb6c7f1f8675cc17, type: 3}
       floorIndex: 2
       type: 1
-    - name: 2_2-toyball
-      id: floor_2_2
+    - name: 2-toyball
+      id: floor_2-item_2
       idThumb: 
       index: 2
       description: 
@@ -191,8 +271,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: bf63bd933716ad64da789431db4a7477, type: 3}
       floorIndex: 2
       type: 1
-    - name: 2_2-painting
-      id: floor_2_3
+    - name: 2-painting
+      id: floor_2-item_3
       idThumb: 
       index: 3
       description: 
@@ -206,8 +286,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: ceda780ed48bb964e84bac8e4ef07de8, type: 3}
       floorIndex: 2
       type: 1
-    - name: 2_2-window
-      id: floor_2_4
+    - name: 2-window
+      id: floor_2-item_4
       idThumb: 
       index: 4
       description: 
@@ -221,8 +301,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 9db508dee1a545240bd27dd02de726e5, type: 3}
       floorIndex: 2
       type: 1
-    - name: 2_2-carpet
-      id: floor_2_5
+    - name: 2-carpet
+      id: floor_2-item_5
       idThumb: 
       index: 5
       description: 
@@ -236,8 +316,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: ef879753eeed4524ea15a58115fbd5c8, type: 3}
       floorIndex: 2
       type: 1
-    - name: 2_2-chair
-      id: floor_2_6
+    - name: 2-chair
+      id: floor_2-item_6
       idThumb: 
       index: 6
       description: 
@@ -251,8 +331,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: cdee5eb303f43dc4d8fde8deda4a51aa, type: 3}
       floorIndex: 2
       type: 1
-    - name: 2_2-flower-paper
-      id: floor_2_7
+    - name: 2-flower-paper
+      id: floor_2-item_7
       idThumb: 
       index: 7
       description: 
@@ -266,8 +346,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: fd781225ac60c3b428b3d3d6ad4f9350, type: 3}
       floorIndex: 2
       type: 1
-    - name: 2_dovat2
-      id: floor_2_8
+    - name: dovat2
+      id: floor_2-item_8
       idThumb: 
       index: 8
       description: 
@@ -281,8 +361,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 39ade22971dc73b4bbbafad5d070f9c9, type: 3}
       floorIndex: 2
       type: 1
-    - name: 2_2-shelf
-      id: floor_2_9
+    - name: 2-shelf
+      id: floor_2-item_9
       idThumb: 
       index: 9
       description: 
@@ -303,8 +383,8 @@ MonoBehaviour:
     name: 
     unlockCountRequire: 5
     allDecorationItems:
-    - name: 3_3-flag1
-      id: floor_3_1
+    - name: 3-flag1
+      id: floor_3-item_1
       idThumb: 
       index: 1
       description: 
@@ -318,8 +398,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 7ebf928295a434747980fc8d3626ad1b, type: 3}
       floorIndex: 3
       type: 1
-    - name: 3_3-sushi-counter
-      id: floor_3_2
+    - name: 3-sushi-counter
+      id: floor_3-item_2
       idThumb: 
       index: 2
       description: 
@@ -333,8 +413,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 7614fccb9ede0654a8e40c68011ca186, type: 3}
       floorIndex: 3
       type: 1
-    - name: 3_3-chairs
-      id: floor_3_3
+    - name: 3-chairs
+      id: floor_3-item_3
       idThumb: 
       index: 3
       description: 
@@ -348,8 +428,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 1454244d8fbf4b14699f529e1e22108f, type: 3}
       floorIndex: 3
       type: 1
-    - name: 3_3-recycle-bin
-      id: floor_3_4
+    - name: 3-recycle-bin
+      id: floor_3-item_4
       idThumb: 
       index: 4
       description: 
@@ -363,8 +443,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 559f4d77c34b02741a2d000de16ad4ae, type: 3}
       floorIndex: 3
       type: 1
-    - name: 3_3-pantry
-      id: floor_3_5
+    - name: 3-pantry
+      id: floor_3-item_5
       idThumb: 
       index: 5
       description: 
@@ -378,8 +458,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 6aa03216f8edc5d4b8fd23feae8ac63a, type: 3}
       floorIndex: 3
       type: 1
-    - name: 3_3-fruit-stall
-      id: floor_3_6
+    - name: 3-fruit-stall
+      id: floor_3-item_6
       idThumb: 
       index: 6
       description: 
@@ -393,8 +473,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 3e0a355826ab5aa48ab7b15caf67b0bc, type: 3}
       floorIndex: 3
       type: 1
-    - name: 3_3-lantern
-      id: floor_3_7
+    - name: 3-lantern
+      id: floor_3-item_7
       idThumb: 
       index: 7
       description: 
@@ -408,8 +488,8 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 1038be3543fda964b90166db98a42926, type: 3}
       floorIndex: 3
       type: 1
-    - name: 3_carpet
-      id: floor_3_8
+    - name: carpet
+      id: floor_3-item_8
       idThumb: 
       index: 8
       description: 

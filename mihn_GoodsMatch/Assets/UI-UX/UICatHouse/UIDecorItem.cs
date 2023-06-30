@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class UIDecorItem : MonoBehaviour
 {
     [SerializeField] Image _iconItem;
-    [SerializeField] Text _txtCoinPrice;
+    [SerializeField] Text _txtCoinPrice = null;
 
     [SerializeField] Button _previewBtn;
-    [SerializeField] Button _unlockWithCoinBtn;
-    [SerializeField] Button _unlockWithAdsBtn;
+    [SerializeField] Button _unlockWithCoinBtn = null;
+    [SerializeField] Button _unlockWithAdsBtn = null;
 
     private ItemDecorData _currData = null;
     System.Action<ItemDecorData> _onButtonPreviewClicked = null;
@@ -21,11 +21,13 @@ public class UIDecorItem : MonoBehaviour
         _currData = itemData;
 
         _iconItem.sprite = _currData.thumb;
-        _txtCoinPrice.text = _currData.unlockPrice.ToString();
+        if(_txtCoinPrice)
+            _txtCoinPrice.text = _currData.unlockPrice.ToString();
 
-        _unlockWithCoinBtn.gameObject.SetActive(_currData.unlockType == UnlockType.Gold);
-        _unlockWithAdsBtn.gameObject.SetActive(_currData.unlockType == UnlockType.Ads);
-        _unlockWithCoinBtn.interactable = _currData.isCanUnlock;
+        _unlockWithCoinBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Gold);
+        _unlockWithAdsBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Ads);
+        if(_unlockWithCoinBtn)
+            _unlockWithCoinBtn.interactable = _currData.isCanUnlock;
 
         _onButtonPreviewClicked = previewAction;
         _onButtonUnlockClicked = unlockAction;

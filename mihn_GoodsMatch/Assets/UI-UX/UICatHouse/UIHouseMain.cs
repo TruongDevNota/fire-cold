@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class UIHouseMain : MonoBehaviour
 {
     [SerializeField] UIAnimation _uiAnim;
-    [SerializeField] UIListGroup _popupGroupsItem;
+    [SerializeField] UIDecorItemCollection _popupGroupsItem;
+    [SerializeField] UIDecorItemCollection _popupGroupsCat;
 
     public void OnShowAllCatsInGroup()
     {
-        _popupGroupsItem.Show(eHouseDecorType.Cat);
+        _popupGroupsCat.Show(eHouseDecorType.Cat);
     }
 
     public void OnShowAllItemsInGroup()

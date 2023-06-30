@@ -24,7 +24,17 @@ public class CatControl : MonoBehaviour
     }
     private void OnDisable()
     {
+        DOTween.Kill($"guest_{name}_Move");
         StopAllCoroutines();
+    }
+
+    public void ActiveOnfloor(HouseCatData datum)
+    {
+        this.gameObject.SetActive(true);
+    }
+    public void DeActiveOnFloor()
+    {
+        this.gameObject.SetActive(false);
     }
     public void ChangeSkin(string newskin = null)
     {

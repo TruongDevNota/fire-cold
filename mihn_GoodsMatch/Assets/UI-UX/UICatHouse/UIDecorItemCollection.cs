@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIListGroup : MonoBehaviour
+public class UIDecorItemCollection : MonoBehaviour
 {
     private HouseDataAsset _allgroupData => DataManager.HouseAsset;
 
     [SerializeField] UIAnimation _uiAnim;
     [SerializeField] ScrollRect _scrollRect;
     [SerializeField] RectTransform _container;
-    [SerializeField] UIGroupItem _groupPrefab;
+    [SerializeField] UIBaseGroupItem _groupPrefab;
 
     private eHouseDecorType _curListType;
-    private List<UIGroupItem> _groups = new List<UIGroupItem>();
+    private List<UIBaseGroupItem> _groups = new List<UIBaseGroupItem>();
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class UIListGroup : MonoBehaviour
         _uiAnim.Show();
     }
 
-    private IEnumerator YieldFetchData()
+    protected IEnumerator YieldFetchData()
     {
         for (int i = 0; i < _allgroupData.allFloorData.Count; i++)
         {

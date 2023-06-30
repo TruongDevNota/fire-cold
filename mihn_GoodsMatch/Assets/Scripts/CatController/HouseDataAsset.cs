@@ -99,7 +99,7 @@ public class HouseFloorData
     public int unlockCountRequire;
 
     public List<ItemDecorData> allDecorationItems;
-    public List<houseCatData> allCats;
+    public List<HouseCatData> allCats;
 
     public int itemUnlockedCount => allDecorationItems.Where(x => x.isUnlocked).Count();
     public int catUnlockedCount => allCats.Where(x => x.isUnlocked).Count();
@@ -177,10 +177,10 @@ public class ItemDecorData : SaveData
         this.type = type;
         this.floorIndex = floorIndex;
         this.index = itemIndex;
-        this.id = $"floor_{floorIndex}_{itemIndex}";
+        this.id = type == eHouseDecorType.Item ? $"floor_{floorIndex}-item_{itemIndex}" : $"floor_{floorIndex}-cat_{itemIndex}";
         if (thumb == null)
             Debug.LogError($"Decor Asset item type = {this.type}, id = {id} miss sprite");
-        this.name = $"{floorIndex}_{thumb.name.ToLower()}";
+        this.name = type == eHouseDecorType.Item ? thumb.name.ToLower() : $"cat_{thumb.name.ToLower()}";
         //Demo data
         this.unlockType = itemIndex % 2 == 0 ? UnlockType.Ads : UnlockType.Gold;
         this.unlockPrice = unlockType == UnlockType.Ads ? 1 : itemIndex * 100;
@@ -188,7 +188,7 @@ public class ItemDecorData : SaveData
 }
 
 [System.Serializable]
-public class houseCatData : ItemDecorData
+public class HouseCatData : ItemDecorData
 {
     public string skinName;
 }

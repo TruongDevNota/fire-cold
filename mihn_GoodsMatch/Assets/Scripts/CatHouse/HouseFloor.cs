@@ -32,6 +32,16 @@ public class HouseFloor : MonoBehaviour
         Index = value;
     }
 
+    private void OnEnable()
+    {
+        this.RegisterListener((int)EventID.OnUnlockCatSuccess, UnlockCat);
+    }
+
+    private void OnDisable()
+    {
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnUnlockCatSuccess, UnlockCat);
+    }
+
     public void Fill(HouseFloorData datum)
     {
         Index = datum.floorIndex;
@@ -59,7 +69,6 @@ public class HouseFloor : MonoBehaviour
             _cats[i].gameObject.SetActive(i < datum.allCats.Count && datum.allCats[i].isUnlocked);
         }
     }
-
     public IEnumerator YieldUnlock()
     {
         CoinManager.Add(-_currData.unlockPrice);
@@ -80,13 +89,11 @@ public class HouseFloor : MonoBehaviour
             });
         };
     }
-
     private void ShowPopupNewDiscover()
     {
         UIPopupListPreview.ShowList(_dataAsset.GetFloorDataByIndex(_index).GetAllSprite());
         this.PostEvent((int)EventID.OnFloorUnlocked);
     }
-
     public void Unlock()
     {
         if(CoinManager.totalCoin < _currData.unlockPrice)
@@ -98,10 +105,20 @@ public class HouseFloor : MonoBehaviour
 
         StartCoroutine(YieldUnlock());
     }
-
     public void UnlockItem(string id, eHouseDecorType type)
     {
         _dataAsset.UnLockItem(Index, id, type);
+    }
+    public void UnlockCat(object obj)
+    {
+        var datum = (HouseCatData)obj;
+        if (datum.floorIndex != Index)
+            return;
+        if (datum.index < 0 || datum.index >= _cats.Count)
+            return;
+
+        _dataAsset.UnLockItem(Index, datum.id, eHouseDecorType.Cat);
+        _cats[datum.index].ActiveOnfloor(datum);
     }
 }
 
