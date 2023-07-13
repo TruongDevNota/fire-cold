@@ -435,7 +435,8 @@ public class BoardGame : MonoBehaviour
         }
         for(int i = 0; i < itemSwap.Count;)
         {
-            DoSwapItems(itemSwap[i], itemSwap[i+1]);
+            if(i+1< itemSwap.Count)
+                DoSwapItems(itemSwap[i], itemSwap[i+1]);
             i += 2;
         }
         
