@@ -12,44 +12,42 @@ public class UIInfo : MonoBehaviour
     [Header("Base")]
     [SerializeField] UIAnimation anim;
     [SerializeField] Button settingButton;
-    
+
+    [Header("Stars")]
     [SerializeField] Text timeLeftText;
     [SerializeField] Text startText;
+    [SerializeField] RectTransform star;
+    [SerializeField] RectTransform star2;
+    [SerializeField] RectTransform star2_parent;
+    [SerializeField] RectTransform star3;
+    [SerializeField] RectTransform star3_parent;
+    [SerializeField] RectTransform timeSlideRect;
+    [SerializeField] Image timeUseProcessImg;
 
-    [SerializeField] Slider comboTimeSlider = null;
+    //[SerializeField] Slider comboTimeSlider = null;
     [SerializeField] Text comboCountText = null;
     [SerializeField] float comboCollectTimne;
-    float comboTimeCooldown;
     private int matchCount;
 
-    [Header("Star effect")]
+    
     [SerializeField]
     GameObject coinPrefab;
-    [SerializeField] GameObject star;
-    [SerializeField] GameObject star2;
-    [SerializeField] GameObject star3;
+    
     public Transform defaultTarget;
 
-    [SerializeField] float currentCoolDownTime;
-    [SerializeField] int comboCount;
-    public int ComboCount
+    [SerializeField] int startCount;
+    public int StarCount
     { 
-        get { return instance.comboCount; }
+        get { return instance.startCount; }
         set
         {
-            instance.comboCount = value;
-            if (value < 1)
-                instance.comboCountText.text = $"X1";
-            if (instance.comboCount > 0)
-            {
-                currentCoolDownTime = comboTimeCooldown;
-                instance.DoComboCountDown();
-            }
+            instance.startCount = value;
         }
     }
     Coroutine coolDownCoroutine;
 
     float timePlayed = 0;
+    float timeLeft = 0;
     int currentStar;
 
     private void Awake()
@@ -81,22 +79,16 @@ public class UIInfo : MonoBehaviour
     {
         if (GameStateManager.CurrentState != GameState.Play)
             return;
-        
-        if ((float)BoardGame.instance.pStopWatch.ElapsedMilliseconds / 1000 >= timePlayed + 1)
-        {
-            timePlayed = BoardGame.instance.pStopWatch.ElapsedMilliseconds / 1000;
-        }
-        timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
 
+        timePlayed = BoardGame.instance.pStopWatch.ElapsedMilliseconds / 1000f;
+        timeLeft = Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0);
+        timeLeftText.text = TimeSpan.FromSeconds(timeLeft).ToString("m':'ss");
+        timeUseProcessImg.fillAmount = timeLeft / BoardGame.instance.pTimeLimitInSeconds;
         float timeUsePercent = (float)timePlayed / BoardGame.instance.pTimeLimitInSeconds;
 
-        int starNum = timeUsePercent <= DataManager.GameConfig.threeStar ? 3 : timeUsePercent <= DataManager.GameConfig.twoStar ? 2 : 1;
-
-        if (starNum == 2)
-            star3.SetActive(false);
-        else if (starNum == 1)
-            star2.SetActive(false);
-
+        StarCount = timeUsePercent <= DataManager.GameConfig.threeStar ? 3 : timeUsePercent <= DataManager.GameConfig.twoStar ? 2 : 1;
+        star3.gameObject?.SetActive(StarCount >= 3);
+        star2.gameObject?.SetActive(StarCount >= 2);
     }
 
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
@@ -107,29 +99,24 @@ public class UIInfo : MonoBehaviour
             case GameState.Restart:
                 break;
             case GameState.Ready:
-                
                 break;
             case GameState.Pause:
-                currentCoolDownTime = comboTimeSlider.value;
-                DOTween.Kill(comboTimeSlider);
                 break;
             case GameState.Play:
-                ComboCount = 2;
-                DoComboCountDown();
+                StarCount = 3;
                 break;
             case GameState.RebornContinue:
-                star3.SetActive(true);
-                star2.SetActive(true);
-                star.SetActive(true);
+                star3.gameObject?.SetActive(true);
+                star2.gameObject?.SetActive(true);
+                star.gameObject?.SetActive(true);
                 timePlayed = 0;
-                ComboCount = 0;
                 break;
             case GameState.WaitComplete:
-                if (ComboCount > 1)
-                {
-                    currentCoolDownTime = comboTimeSlider.value;
-                    DOTween.Kill(comboTimeSlider);
-                }
+                //if (ComboCount > 1)
+                //{
+                //    currentCoolDownTime = comboTimeSlider.value;
+                //    DOTween.Kill(comboTimeSlider);
+                //}
                 StartCoroutine(YieldShowBonus());
                 break;
         }
@@ -140,16 +127,14 @@ public class UIInfo : MonoBehaviour
         timeLeftText.text = "-:--";
         GameStatisticsManager.starEarn = 0;
         startText.text = "0";
-        ComboCount = 2;
-        comboCountText.text = $"x{comboCount}";
+        StarCount = 2;
+        comboCountText.text = $"x{startCount}";
         matchCount = 0;
 
         timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
-        comboTimeCooldown = BoardGame.instance.pTimeLimitInSeconds / 1;
-        comboTimeSlider.minValue = 0;
-        comboTimeSlider.maxValue = comboTimeCooldown;
-        comboTimeSlider.value = comboTimeCooldown;
-        currentCoolDownTime = comboTimeCooldown;
+        timeUseProcessImg.fillAmount = 1;
+        star3_parent.anchoredPosition = new Vector2(timeSlideRect.sizeDelta.x * (1 - DataManager.GameConfig.threeStar), star3_parent.anchoredPosition.y);
+        star2_parent.anchoredPosition = new Vector2(timeSlideRect.sizeDelta.x * (1 - DataManager.GameConfig.twoStar), star2_parent.anchoredPosition.y);
         anim.Show();
     }
     public void Hide()
@@ -160,7 +145,7 @@ public class UIInfo : MonoBehaviour
     {
         yield return new WaitForSeconds(0.15f);
         var lastStar = GameStatisticsManager.starEarn;
-        GameStatisticsManager.starEarn *= Mathf.Max(ComboCount, 1);
+        GameStatisticsManager.starEarn *= Mathf.Max(StarCount, 1);
         startText.DOText(lastStar, GameStatisticsManager.starEarn, comboCollectTimne);
         float t = 0;
         int remainTime = Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0));
@@ -192,23 +177,10 @@ public class UIInfo : MonoBehaviour
             var posIndex = datum.items[i].pFirstLeftCellIndex;
             shelf.PickItemUpHandler(datum.items[i]);
             datum.items[i].Explode();
-            yield return CollectStars(1, datum.items[i].transform.position);
+            yield return CollectCoins(1, datum.items[i].transform.position);
         };
     }
 
-    private void DoComboCountDown()
-    {
-        DOTween.Kill(comboTimeSlider);
-        comboTimeSlider.value = currentCoolDownTime;
-        instance.comboCountText.text = $"X{instance.comboCount}";
-        instance.comboCountText.transform.DOScale(2f, 0f);
-        instance.comboCountText.transform.DOScale(1f, 0.5f);
-        comboTimeSlider.DOValue(0, currentCoolDownTime).OnComplete(() =>
-        {
-            ComboCount--;
-            currentCoolDownTime = comboTimeCooldown;
-        });
-    }
     public static void CollectStars(int numb, Transform fromTrans, Transform toTrans = null)
     {
         for(int i = 0; i < numb; i++)
@@ -224,7 +196,7 @@ public class UIInfo : MonoBehaviour
         }
         DOVirtual.DelayedCall(1f,() => SoundManager.Play("5. Star to target")).SetUpdate(true);
     }
-    public IEnumerator CollectStars(int numb, Vector3 fromPos, Transform toTrans = null)
+    public IEnumerator CollectCoins(int numb, Vector3 fromPos, Transform toTrans = null)
     {
         yield return new WaitForSeconds(0.1f);
         var endPos = toTrans != null ? toTrans.position : instance.defaultTarget.position;
