@@ -156,7 +156,7 @@ public class BoardGame : MonoBehaviour
         isPlayingGame = false;
         stopwatch = new Stopwatch();
 
-        bgImg.sprite = bgSprites[(DataManager.mapSelect - 1) % bgSprites.Length];
+        //bgImg.sprite = bgSprites[(DataManager.mapSelect - 1) % bgSprites.Length];
 
         ClearMap();
         currentLevelConfig = DataManager.currLevelconfigData.config;
