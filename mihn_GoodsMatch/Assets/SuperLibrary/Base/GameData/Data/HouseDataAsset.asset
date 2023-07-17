@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allFloorData:
   - floorIndex: 1
-    isUnlocked: 0
+    isUnlocked: 1
     unlockPrice: 100
     name: FLOOR 1
     unlockCountRequire: 5
@@ -380,7 +380,7 @@ MonoBehaviour:
   - floorIndex: 3
     isUnlocked: 0
     unlockPrice: 1000
-    name: 
+    name: FLOOR 3
     unlockCountRequire: 5
     allDecorationItems:
     - name: 3-flag1

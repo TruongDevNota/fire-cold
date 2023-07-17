@@ -200,7 +200,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 762070348475184578}
         m_TargetAssemblyTypeName: UIDecorItem, Assembly-CSharp
         m_MethodName: OnButtonUnlockWithAdsClicked
         m_Mode: 1
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 762070348475184578}
         m_TargetAssemblyTypeName: UIDecorItem, Assembly-CSharp
         m_MethodName: OnButtonUnlockWithCoinClicked
         m_Mode: 1

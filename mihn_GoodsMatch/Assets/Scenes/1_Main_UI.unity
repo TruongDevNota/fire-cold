@@ -2069,6 +2069,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &505359475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8593222336596905427, guid: c48cf0591b5b92048abdb53be3476707, type: 3}
+  m_PrefabInstance: {fileID: 300790291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1581548551, guid: 1446ceb6d3317a745ab0a575385bbbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &514136750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,6 +2161,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514136750}
   m_CullTransparentMesh: 0
+--- !u!224 &522019165 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8506113385052716498, guid: 5eb61b087c153114f927d939eb5db26b, type: 3}
+  m_PrefabInstance: {fileID: 8410802409297933188}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &562646941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4597,6 +4613,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535761412}
   m_CullTransparentMesh: 1
+--- !u!224 &1567049067 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5336523019879894666, guid: df727b12f9aca5046a925b9d073b0c37, type: 3}
+  m_PrefabInstance: {fileID: 5336523019561014394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1580657783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5118,6 +5139,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643262958}
   m_CullTransparentMesh: 1
+--- !u!224 &1654144187 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1074757734691012288, guid: 5eb61b087c153114f927d939eb5db26b, type: 3}
+  m_PrefabInstance: {fileID: 8410802409297933188}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1673410034 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7277635845472533125, guid: 0c6d51fbac35fde46b3e815a1daa9ffd, type: 3}
@@ -8260,7 +8286,7 @@ MonoBehaviour:
   popupChallenge: {fileID: 0}
   popupLevelSelect: {fileID: 6796597653925843873}
   popupMapSelect: {fileID: 1083747277864903636}
-  luckyWheelScreen: {fileID: 0}
+  luckyWheelScreen: {fileID: 505359475}
   _houseMainScreen: {fileID: 3455458563379394994}
   inGameScreen: {fileID: 877532997}
   gameOverScreen: {fileID: 843457463}
@@ -9021,6 +9047,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5336523019879894666, guid: df727b12f9aca5046a925b9d073b0c37, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -157.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336523019879894666, guid: df727b12f9aca5046a925b9d073b0c37, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -38.699997
+      objectReference: {fileID: 0}
     - target: {fileID: 6319945610954929429, guid: df727b12f9aca5046a925b9d073b0c37, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -9101,6 +9135,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8060333019189771151, guid: df727b12f9aca5046a925b9d073b0c37, type: 3}
+      propertyPath: m_Viewport
+      value: 
+      objectReference: {fileID: 1567049067}
     - target: {fileID: 8203270456058535060, guid: df727b12f9aca5046a925b9d073b0c37, type: 3}
       propertyPath: _groupPrefab
       value: 
@@ -10333,6 +10371,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 655595649}
     m_Modifications:
+    - target: {fileID: 1074757734691012288, guid: 5eb61b087c153114f927d939eb5db26b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -160.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074757734691012288, guid: 5eb61b087c153114f927d939eb5db26b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -60.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114629685185006533, guid: 5eb61b087c153114f927d939eb5db26b, type: 3}
+      propertyPath: m_Content
+      value: 
+      objectReference: {fileID: 522019165}
+    - target: {fileID: 3114629685185006533, guid: 5eb61b087c153114f927d939eb5db26b, type: 3}
+      propertyPath: m_Viewport
+      value: 
+      objectReference: {fileID: 1654144187}
     - target: {fileID: 3833322061572205778, guid: 5eb61b087c153114f927d939eb5db26b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
