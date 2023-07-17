@@ -111,7 +111,6 @@ public class UIDailyReward : MonoBehaviour
     }
     #endregion
 
-
     private void OnClaimX2()
     {
         SoundManager.Play("1. Click Button");
