@@ -43,6 +43,14 @@ public class CatControl : MonoBehaviour
         anim.initialSkinName = newskin;
         anim.Initialize(true);
     }
+    public void ChangeSkinCatHouse(int id,string newskin = null)
+    {
+        if (string.IsNullOrEmpty(newskin))
+            newskin = $"skin{ingameSkinIndex[id]}";
+        Debug.LogError(newskin);
+        anim.initialSkinName = newskin;
+        anim.Initialize(true);
+    }
     public void ChangeAnim(string animName)
     {
         anim.AnimationName = animName;
