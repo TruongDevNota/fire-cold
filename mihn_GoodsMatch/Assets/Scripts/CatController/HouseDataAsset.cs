@@ -28,7 +28,7 @@ public class HouseDataAsset : ScriptableObject
 
     public void UnLockItem(int index, string id, eHouseDecorType type)
     {
-        GetItemData(index, id, type).isUnlocked = false;
+        GetItemData(index, id, type).isUnlocked = true;
         SetDirtyAsset();
         DataManager.Save();
     }

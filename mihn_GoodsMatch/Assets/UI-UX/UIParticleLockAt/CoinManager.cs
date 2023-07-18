@@ -95,7 +95,7 @@ public class CoinManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Test(100000);
+            Test(100);
         }
     }
 #endif

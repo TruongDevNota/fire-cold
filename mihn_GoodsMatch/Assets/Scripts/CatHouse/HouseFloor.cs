@@ -35,11 +35,13 @@ public class HouseFloor : MonoBehaviour
     private void OnEnable()
     {
         this.RegisterListener((int)EventID.OnUnlockCatSuccess, UnlockCat);
+        this.RegisterListener((int)EventID.OnUnlockItemSuccess, UnlockItem);
     }
 
     private void OnDisable()
     {
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnUnlockCatSuccess, UnlockCat);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnUnlockItemSuccess, UnlockItem);
     }
 
     public void Fill(HouseFloorData datum)
@@ -49,6 +51,7 @@ public class HouseFloor : MonoBehaviour
         
         _wallSR.sortingOrder = orderAdding;
         _lockAnim.gameObject.SetActive(!datum.isUnlocked);
+        _btnUnlock.gameObject.SetActive(!datum.isUnlocked);
         _btnUnlock.Fill(datum.unlockPrice);
 
         _wallSR.color = datum.isUnlocked ? _unlockedColor : _lockColor;
@@ -114,11 +117,23 @@ public class HouseFloor : MonoBehaviour
         var datum = (HouseCatData)obj;
         if (datum.floorIndex != Index)
             return;
-        if (datum.index < 0 || datum.index >= _cats.Count)
+        if (datum.index < 0 || datum.index > _cats.Count)
             return;
 
         _dataAsset.UnLockItem(Index, datum.id, eHouseDecorType.Cat);
-        _cats[datum.index].ActiveOnfloor(datum);
+        _cats[datum.index-1].ActiveOnfloor(datum);
+    }
+    public void UnlockItem(object obj)
+    {
+        var datum = (ItemDecorData)obj;
+        if (datum.floorIndex != Index)
+            return;
+        if (datum.index < 0 || datum.index > _decorObjs.Count)
+            return;
+
+        _dataAsset.UnLockItem(Index, datum.id, eHouseDecorType.Item);
+        _decorObjs[datum.index - 1].gameObject.SetActive(true);
+        _decorObjs[datum.index - 1].Fill(this, datum, Index * _orderDelta);
     }
 }
 

@@ -37,7 +37,7 @@ public class UIBaseGroupItem : MonoBehaviour
             {
                 var exist = i < _listItem.Count;
                 var newItem = exist ? _listItem[i] : _itemPrefab.Spawn(_itemContainerRect);
-                newItem.Fill(data.allCats[i], OnBtnBuyClicked);
+                newItem.Fill(data.allCats[i],null, OnBtnBuyClicked);
                 if(!exist)
                     _listItem.Add(newItem);
             }
@@ -54,7 +54,7 @@ public class UIBaseGroupItem : MonoBehaviour
             {
                 var exist = i < _listItem.Count;
                 var newItem = exist ? _listItem[i] : _itemPrefab.Spawn(_itemContainerRect);
-                newItem.Fill(data.allDecorationItems[i], OnBtnBuyClicked);
+                newItem.Fill(data.allDecorationItems[i],null, OnBtnBuyClicked);
                 if (!exist)
                     _listItem.Add(newItem);
             }
@@ -70,6 +70,15 @@ public class UIBaseGroupItem : MonoBehaviour
     protected virtual void OnBtnBuyClicked(ItemDecorData data)
     {
         if(data.type == eHouseDecorType.Cat)
+        {
             this.PostEvent((int)EventID.OnUnlockCatSuccess, data);
+            Debug.Log("mua thanh cong");
+        }
+        if (data.type == eHouseDecorType.Item)
+        {
+            this.PostEvent((int)EventID.OnUnlockItemSuccess, data);
+            Debug.Log("mua thanh cong");
+        }
+
     }
 }

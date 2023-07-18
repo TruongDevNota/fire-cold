@@ -49,5 +49,6 @@ public enum EventID
 
     ShowItemPreview = 2000,
     OnFloorUnlocked = 2100,
-    OnUnlockCatSuccess = 2101
+    OnUnlockCatSuccess = 2101,
+    OnUnlockItemSuccess = 2102
 }

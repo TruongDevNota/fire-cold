@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,22 @@ public class UIDecorItem : MonoBehaviour
     private ItemDecorData _currData = null;
     System.Action<ItemDecorData> _onButtonPreviewClicked = null;
     System.Action<ItemDecorData> _onButtonUnlockClicked = null;
+    private void OnEnable()
+    {
+        this.RegisterListener((int)EventID.OnUnlockCatSuccess, FillAgain);
+        this.RegisterListener((int)EventID.OnUnlockItemSuccess, FillAgain);
+    }
 
+    private void FillAgain(object obj)
+    {
+        Fill(_currData,_onButtonPreviewClicked,_onButtonUnlockClicked);
+    }
+
+    private void OnDisable()
+    {
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnUnlockCatSuccess, FillAgain);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnUnlockItemSuccess, FillAgain);
+    }
     public void Fill(ItemDecorData itemData, System.Action<ItemDecorData> previewAction = null, System.Action<ItemDecorData> unlockAction = null)
     {
         _currData = itemData;
@@ -24,8 +40,8 @@ public class UIDecorItem : MonoBehaviour
         if(_txtCoinPrice)
             _txtCoinPrice.text = _currData.unlockPrice.ToString();
 
-        _unlockWithCoinBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Gold);
-        _unlockWithAdsBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Ads);
+        _unlockWithCoinBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Gold&&!_currData.isUnlocked);
+        _unlockWithAdsBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Ads && !_currData.isUnlocked);
         if(_unlockWithCoinBtn)
             _unlockWithCoinBtn.interactable = _currData.isCanUnlock;
 
@@ -52,6 +68,8 @@ public class UIDecorItem : MonoBehaviour
         if(_onButtonUnlockClicked != null)
         {
             CoinManager.Add(-_currData.unlockPrice);
+            //_unlockWithCoinBtn?.gameObject.SetActive(false);
+            //_unlockWithAdsBtn?.gameObject.SetActive(false);
             _onButtonUnlockClicked.Invoke(_currData);
         }
     }
