@@ -120,7 +120,8 @@ public class UIMainScreen : MonoBehaviour
     {
         SoundManager.Play("1. Click Button");
         DataManager.mapSelect = DataManager.UserData.lastMapIndexSelected;
-        if (!DataManager.UserData.isMapSelectShowed)
+        if (!DataManager.UserData.isMapSelectShowed&&
+            DataManager.MapAsset.ListMap[DataManager.mapSelect-1].hightestLevelUnlocked== DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].totalLevel)
         {
             DataManager.UserData.isMapSelectShowed = true;
             GameUIManager.PopupMapSelect.Show();

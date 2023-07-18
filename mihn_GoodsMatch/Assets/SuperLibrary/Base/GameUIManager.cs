@@ -438,13 +438,15 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         SceneHelper.DoLoadScene("4_CatHouse");
 
         Action callback = () => {
-            UILoadGame.Hide();
+            _houseMainScreen.Show(() => {
+            }, () => {
+                UILoadGame.Hide();
+            });
         };
 
         UILoadGame.Init(true, () =>
         {
             mainScreen.Hide();
-            _houseMainScreen.Show();
         });
         StartCoroutine(WaitForLoading(callback, 0.5f));
     }
