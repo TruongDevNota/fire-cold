@@ -27,6 +27,7 @@ public class UIInfo : MonoBehaviour
     //[SerializeField] Slider comboTimeSlider = null;
     [SerializeField] Text comboCountText = null;
     [SerializeField] float comboCollectTimne;
+    [SerializeField] Text coinText;
     private int matchCount;
 
     
@@ -130,7 +131,7 @@ public class UIInfo : MonoBehaviour
         StarCount = 2;
         comboCountText.text = $"x{startCount}";
         matchCount = 0;
-
+        coinText.text = "0";
         timeLeftText.text = TimeSpan.FromSeconds(Mathf.FloorToInt(Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0))).ToString("m':'ss");
         timeUseProcessImg.fillAmount = 1;
         star3_parent.anchoredPosition = new Vector2(timeSlideRect.sizeDelta.x * (1 - DataManager.GameConfig.threeStar), star3_parent.anchoredPosition.y);

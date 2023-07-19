@@ -8,6 +8,7 @@ public class UIDecorItem : MonoBehaviour
 {
     [SerializeField] Image _iconItem;
     [SerializeField] Text _txtCoinPrice = null;
+    [SerializeField] Image iconCatFootPrints;
 
     [SerializeField] Button _previewBtn;
     [SerializeField] Button _unlockWithCoinBtn = null;
@@ -42,6 +43,7 @@ public class UIDecorItem : MonoBehaviour
 
         _unlockWithCoinBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Gold&&!_currData.isUnlocked);
         _unlockWithAdsBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Ads && !_currData.isUnlocked);
+        iconCatFootPrints?.gameObject.SetActive(_currData.isUnlocked);
         if(_unlockWithCoinBtn)
             _unlockWithCoinBtn.interactable = _currData.isCanUnlock;
 

@@ -25,9 +25,11 @@ public class CoinManager : MonoBehaviour
     public static int CoinByAds => DataManager.GameConfig.goldByAds;
 
     private static CoinManager instance;
+    public static UIAnimation anim;
 
     private void Awake()
     {
+        anim = this.GetComponent<UIAnimation>();
         instance = this;
         DataManager.OnLoaded += DataManager_OnLoaded;
     }
