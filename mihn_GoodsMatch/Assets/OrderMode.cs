@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 using MyBox;
-
+using UnityEngine.UI;
 
 public class OrderMode : MonoBehaviour
 {
@@ -13,11 +13,14 @@ public class OrderMode : MonoBehaviour
 
     private float timer = 0f;
     private bool isMoving = false;
-   [SerializeField] private SkeletonGraphic cat;
+    [SerializeField] private SkeletonGraphic cat;
+    [SerializeField] private Image[] order_Img;
+    [SerializeField] private GameObject orderBoard;
 
     private void Start()
     {
         cat.transform.position = pointA.position;
+        orderBoard.SetActive(false);
     }
     [ButtonMethod]
     public void MoveCatToDestination()

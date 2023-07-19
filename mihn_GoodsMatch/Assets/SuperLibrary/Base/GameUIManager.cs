@@ -448,7 +448,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         {
             mainScreen.Hide();
         });
-        StartCoroutine(WaitForLoading(callback, 0.5f));
+        StartCoroutine(WaitForLoading(callback, 2.5f));
     }
 
     IEnumerator WaitToAutoPlay()
