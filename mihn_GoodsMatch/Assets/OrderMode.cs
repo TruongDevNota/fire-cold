@@ -27,6 +27,14 @@ public class OrderMode : MonoBehaviour
     {
         isMoving = true;
         timer = 0f;
+        StartCoroutine(Order());
+    }
+    private IEnumerator Order()
+    {
+        yield return new WaitForSeconds(movementTime + 1);
+        orderBoard.SetActive(true);
+        cat.startingAnimation = "idle1";
+        cat.Initialize(true);
     }
 
     private void Update()
