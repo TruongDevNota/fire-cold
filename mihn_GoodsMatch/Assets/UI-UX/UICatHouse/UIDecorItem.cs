@@ -9,12 +9,14 @@ public class UIDecorItem : MonoBehaviour
     [SerializeField] Image _iconItem;
     [SerializeField] Text _txtCoinPrice = null;
     [SerializeField] Image iconCatFootPrints;
+    [SerializeField] Image img_Grey;
 
     [SerializeField] Button _previewBtn;
     [SerializeField] Button _unlockWithCoinBtn = null;
     [SerializeField] Button _unlockWithAdsBtn = null;
 
     private ItemDecorData _currData = null;
+    private HouseFloorData floorData = null;
     System.Action<ItemDecorData> _onButtonPreviewClicked = null;
     System.Action<ItemDecorData> _onButtonUnlockClicked = null;
     private void OnEnable()
@@ -25,7 +27,7 @@ public class UIDecorItem : MonoBehaviour
 
     private void FillAgain(object obj)
     {
-        Fill(_currData,_onButtonPreviewClicked,_onButtonUnlockClicked);
+        Fill(floorData,_currData,_onButtonPreviewClicked,_onButtonUnlockClicked);
     }
 
     private void OnDisable()
@@ -33,10 +35,10 @@ public class UIDecorItem : MonoBehaviour
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnUnlockCatSuccess, FillAgain);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnUnlockItemSuccess, FillAgain);
     }
-    public void Fill(ItemDecorData itemData, System.Action<ItemDecorData> previewAction = null, System.Action<ItemDecorData> unlockAction = null)
+    public void Fill(HouseFloorData m_floorData,ItemDecorData itemData, System.Action<ItemDecorData> previewAction = null, System.Action<ItemDecorData> unlockAction = null)
     {
+        floorData = m_floorData;
         _currData = itemData;
-
         _iconItem.sprite = _currData.thumb;
         if(_txtCoinPrice)
             _txtCoinPrice.text = _currData.unlockPrice.ToString();
@@ -44,8 +46,11 @@ public class UIDecorItem : MonoBehaviour
         _unlockWithCoinBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Gold&&!_currData.isUnlocked);
         _unlockWithAdsBtn?.gameObject.SetActive(_currData.unlockType == UnlockType.Ads && !_currData.isUnlocked);
         iconCatFootPrints?.gameObject.SetActive(_currData.isUnlocked);
-        if(_unlockWithCoinBtn)
-            _unlockWithCoinBtn.interactable = _currData.isCanUnlock;
+        img_Grey?.gameObject.SetActive(!floorData.isUnlocked || (floorData.isUnlocked  && !_currData.isUnlocked));
+        if (_unlockWithCoinBtn)
+            _unlockWithCoinBtn.interactable = floorData.isUnlocked;
+        if (_unlockWithAdsBtn)
+            _unlockWithAdsBtn.interactable = floorData.isUnlocked;
 
         _onButtonPreviewClicked = previewAction;
         _onButtonUnlockClicked = unlockAction;
@@ -63,15 +68,12 @@ public class UIDecorItem : MonoBehaviour
         if(CoinManager.totalCoin < _currData.unlockPrice)
         {
             UIToast.ShowError("Not enought gold");
-            _unlockWithCoinBtn.interactable = false;
             return;
         }
 
         if(_onButtonUnlockClicked != null)
         {
             CoinManager.Add(-_currData.unlockPrice);
-            //_unlockWithCoinBtn?.gameObject.SetActive(false);
-            //_unlockWithAdsBtn?.gameObject.SetActive(false);
             _onButtonUnlockClicked.Invoke(_currData);
         }
     }

@@ -37,7 +37,7 @@ public class UIBaseGroupItem : MonoBehaviour
             {
                 var exist = i < _listItem.Count;
                 var newItem = exist ? _listItem[i] : _itemPrefab.Spawn(_itemContainerRect);
-                newItem.Fill(data.allCats[i],null, OnBtnBuyClicked);
+                newItem.Fill(data,data.allCats[i],null, OnBtnBuyClicked);
                 if(!exist)
                     _listItem.Add(newItem);
             }
@@ -54,7 +54,7 @@ public class UIBaseGroupItem : MonoBehaviour
             {
                 var exist = i < _listItem.Count;
                 var newItem = exist ? _listItem[i] : _itemPrefab.Spawn(_itemContainerRect);
-                newItem.Fill(data.allDecorationItems[i],null, OnBtnBuyClicked);
+                newItem.Fill(data,data.allDecorationItems[i],null, OnBtnBuyClicked);
                 if (!exist)
                     _listItem.Add(newItem);
             }
