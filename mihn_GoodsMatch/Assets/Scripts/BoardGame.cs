@@ -73,6 +73,8 @@ public class BoardGame : MonoBehaviour
         GameStateManager.OnStateChanged += OnGameStateChangeHandler;
         this.RegisterListener((int)EventID.OnBuffHint, DoBuffHint);
         this.RegisterListener((int)EventID.OnBuffSwap, DoBuffSwap);
+        this.RegisterListener((int)EventID.BuffHintStartTime, BuffHintStartTime);
+        this.RegisterListener((int)EventID.BuffHintStopTime, BuffHintStopTime);
         this.RegisterListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
     }
 
@@ -81,7 +83,19 @@ public class BoardGame : MonoBehaviour
         GameStateManager.OnStateChanged -= OnGameStateChangeHandler;
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffHint, DoBuffHint);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnBuffSwap, DoBuffSwap);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.BuffHintStartTime, BuffHintStartTime);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.BuffHintStopTime, BuffHintStopTime);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
+    }
+
+    private void BuffHintStopTime(object obj)
+    {
+        stopwatch.Stop();
+    }
+
+    private void BuffHintStartTime(object obj)
+    {
+        stopwatch.Start();
     }
 
     private void OnGameStateChangeHandler(GameState current, GameState last, object data)
