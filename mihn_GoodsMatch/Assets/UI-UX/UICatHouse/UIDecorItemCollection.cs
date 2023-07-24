@@ -46,8 +46,8 @@ public class UIDecorItemCollection : MonoBehaviour
     {
         for (int i = 0; i < _allgroupData.allFloorData.Count; i++)
         {
-            if (!_allgroupData.allFloorData[i].isUnlocked)
-                continue;
+            //if (!_allgroupData.allFloorData[i].isUnlocked)
+            //    continue;
             var existed = i < _groups.Count;
             var group = existed ? _groups[i] : _groupPrefab.Spawn(_container);
             group.Fill(_allgroupData.allFloorData[i], _curListType);

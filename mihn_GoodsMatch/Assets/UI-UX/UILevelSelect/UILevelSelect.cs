@@ -28,6 +28,7 @@ public class UILevelSelect : MonoBehaviour
 
     public void OnShow(int mapIndex)
     {
+        CoinManager.anim.Hide();
         SoundManager.Play("1. Click Button");
         for (int i = 1; i <= DataManager.MapAsset.ListMap[mapIndex - 1].totalLevel; i++)
         {

@@ -180,7 +180,7 @@ public class ItemDecorData : SaveData
         this.id = type == eHouseDecorType.Item ? $"floor_{floorIndex}-item_{itemIndex}" : $"floor_{floorIndex}-cat_{itemIndex}";
         if (thumb == null)
             Debug.LogError($"Decor Asset item type = {this.type}, id = {id} miss sprite");
-        this.name = type == eHouseDecorType.Item ? thumb.name.ToLower() : $"cat_{thumb.name.ToLower()}";
+        //this.name = type == eHouseDecorType.Item ? thumb.name.ToLower() : $"cat_{thumb.name.ToLower()}";
         //Demo data
         this.unlockType = itemIndex % 2 == 0 ? UnlockType.Ads : UnlockType.Gold;
         this.unlockPrice = unlockType == UnlockType.Ads ? 1 : itemIndex * 100;

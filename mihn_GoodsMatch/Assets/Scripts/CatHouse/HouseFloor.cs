@@ -96,7 +96,7 @@ public class HouseFloor : MonoBehaviour
     {
         UIPopupListPreview.ShowList(_dataAsset.GetFloorDataByIndex(_index).GetAllSprite());
         this.PostEvent((int)EventID.OnFloorUnlocked);
-    }
+    } 
     public void Unlock()
     {
         if(CoinManager.totalCoin < _currData.unlockPrice)

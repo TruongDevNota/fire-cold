@@ -227,11 +227,7 @@ internal class DebugMode : MonoBehaviour
 
     public void Ins_UnlockAllLevels()
     {
-        for(int i = 0; i < DataManager.UserData.level.Length; i++)
-        {
-            DataManager.UserData.level[i] = 9999;
-            DataManager.Save();
-        }
+            DataManager.MapAsset.UnlockAllLevel();
         
 
         UIToast.ShowNotice("All Level is unlocked!!!");

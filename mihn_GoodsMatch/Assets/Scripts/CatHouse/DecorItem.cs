@@ -67,6 +67,7 @@ public class DecorItem : MonoBehaviour, IPointerClickHandler
             }
 
             CoinManager.Add(-_currDatum.unlockPrice);
+            this.PostEvent((int)EventID.OnFloorUnlocked);
             _currDatum.isUnlocked = true;
             _floor.UnlockItem(_currDatum.id, _currDatum.type);
             Fetch(_currDatum);
@@ -79,6 +80,7 @@ public class DecorItem : MonoBehaviour, IPointerClickHandler
                 {
                     _floor.UnlockItem(_currDatum.id, _currDatum.type);
                     _currDatum.isUnlocked = true;
+                    this.PostEvent((int)EventID.OnFloorUnlocked);
                     Fetch(_currDatum);
                 }
                 else

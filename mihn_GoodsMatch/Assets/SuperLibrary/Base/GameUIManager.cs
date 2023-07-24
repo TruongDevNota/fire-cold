@@ -31,7 +31,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     PopupSelectMap popupMapSelect = null;
     [SerializeField]
     private UIAnimation luckyWheelScreen = null;
-    [SerializeField] UIAnimation _houseMainScreen = null;
+    [SerializeField] UIHouseMain _houseMainScreen = null;
 
     public static UIMainScreen MainScreen => instance?.mainScreen;
 
@@ -313,6 +313,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     public override void PlayGame(object data)
     {
         MusicManager.UnPause();
+        //coinScreen.Show();
     }
 
     public override void PauseGame(object data)
@@ -438,10 +439,10 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         SceneHelper.DoLoadScene("4_CatHouse");
 
         Action callback = () => {
-            _houseMainScreen.Show(() => {
-            }, () => {
+            _houseMainScreen.Show(null);
+            coinScreen.Show();
                 UILoadGame.Hide();
-            });
+
         };
 
         UILoadGame.Init(true, () =>

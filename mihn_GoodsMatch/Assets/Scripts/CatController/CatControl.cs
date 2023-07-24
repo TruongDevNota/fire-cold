@@ -7,7 +7,7 @@ using MyBox;
 
 public class CatControl : MonoBehaviour
 {
-    [SerializeField] SkeletonAnimation anim;
+    [SerializeField] protected SkeletonAnimation anim;
 
     [Header("Skin config")]
     [SerializeField] int[] ingameSkinIndex;

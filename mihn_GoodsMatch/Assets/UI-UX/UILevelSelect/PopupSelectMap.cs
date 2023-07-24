@@ -19,7 +19,7 @@ public class PopupSelectMap : MonoBehaviour
     [SerializeField] SkeletonGraphic catAnim;
     [SerializeField] float scrollTime = 1f;
     [SerializeField] Vector2 catPosition;
-    [SerializeField] float catMoveTime = 1.2f;
+    [SerializeField] float catMoveTime =0.8f;
     private RectTransform catRectTf;
 
     private void Start()

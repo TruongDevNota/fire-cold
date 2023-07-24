@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1094575047015980991}
   - component: {fileID: 5025285420618711422}
+  - component: {fileID: 1448888510100614488}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -48,6 +49,51 @@ MonoBehaviour:
   anim: {fileID: 5851487312630776455}
   ingameSkinIndex: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d000000
   gameoverSkinName: 
+--- !u!60 &1448888510100614488
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094575047015980984}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 2.1558409, y: 1.6791562}
+      - {x: 2.3307943, y: 2.3968349}
+      - {x: 1.8737628, y: 3.1612608}
+      - {x: 1.4309759, y: 3.8288586}
+      - {x: 0.6248661, y: 3.6097345}
+      - {x: -0.04283511, y: 3.9580784}
+      - {x: -0.43130958, y: 3.288615}
+      - {x: -1.1539018, y: 2.7689533}
+      - {x: -1.6271882, y: 2.1192148}
+      - {x: -1.8646078, y: 2.252052}
+      - {x: -2.8892922, y: 2.6658707}
+      - {x: -3.1037846, y: 2.3543663}
+      - {x: -1.7886137, y: 1.3297461}
+      - {x: -1.778085, y: 0.9155041}
+      - {x: -1.3780566, y: -0.22090793}
+      - {x: -0.4967487, y: -0.13243139}
+      - {x: -0.07105945, y: -0.14378014}
+      - {x: 0.56940675, y: -0.36793506}
+      - {x: 0.7417732, y: -0.00342381}
+      - {x: 1.245111, y: 0.0333412}
 --- !u!1 &8788635568026921310
 GameObject:
   m_ObjectHideFlags: 0

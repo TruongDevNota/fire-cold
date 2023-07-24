@@ -155,7 +155,7 @@ MonoBehaviour:
       floorIndex: 1
       type: 1
     allCats:
-    - name: cat_1-1
+    - name: Margot
       id: floor_1-cat_1
       idThumb: 
       index: 1
@@ -171,7 +171,7 @@ MonoBehaviour:
       floorIndex: 1
       type: 2
       skinName: 
-    - name: cat_1-2
+    - name: Angel
       id: floor_1-cat_2
       idThumb: 
       index: 2
@@ -187,7 +187,7 @@ MonoBehaviour:
       floorIndex: 1
       type: 2
       skinName: 
-    - name: cat_1-3
+    - name: Honey
       id: floor_1-cat_3
       idThumb: 
       index: 3
@@ -203,7 +203,7 @@ MonoBehaviour:
       floorIndex: 1
       type: 2
       skinName: 
-    - name: cat_1-4
+    - name: Ellie
       id: floor_1-cat_4
       idThumb: 
       index: 4
@@ -219,7 +219,7 @@ MonoBehaviour:
       floorIndex: 1
       type: 2
       skinName: 
-    - name: cat_1-5
+    - name: Gladis
       id: floor_1-cat_5
       idThumb: 
       index: 5
@@ -376,7 +376,87 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: 7dac8be54b5dd294ab4b6728522618a1, type: 3}
       floorIndex: 2
       type: 1
-    allCats: []
+    allCats:
+    - name: Gigi
+      id: floor_2-cat_1
+      idThumb: 
+      index: 1
+      description: 
+      unlockType: 1
+      unlockPrice: 100
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 6ec285abe1eb5bd4eb61ab4ee945dfc7, type: 3}
+      floorIndex: 2
+      type: 2
+      skinName: 
+    - name: Sheba
+      id: floor_2-cat_2
+      idThumb: 
+      index: 2
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: bdad631f4e86f2344a35c407df899cfb, type: 3}
+      floorIndex: 2
+      type: 2
+      skinName: 
+    - name: Callie
+      id: floor_2-cat_3
+      idThumb: 
+      index: 3
+      description: 
+      unlockType: 1
+      unlockPrice: 300
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 3d294f60e49c04848b41a576b1af2ae4, type: 3}
+      floorIndex: 2
+      type: 2
+      skinName: 
+    - name: Millie
+      id: floor_2-cat_4
+      idThumb: 
+      index: 4
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: fc26a84a92e9fcb498947f6c8b89c3dc, type: 3}
+      floorIndex: 2
+      type: 2
+      skinName: 
+    - name: Bailey
+      id: floor_2-cat_5
+      idThumb: 
+      index: 5
+      description: 
+      unlockType: 1
+      unlockPrice: 500
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 1b0da1d5aa8276347b9d1ae73f3b2c9d, type: 3}
+      floorIndex: 2
+      type: 2
+      skinName: 
   - floorIndex: 3
     isUnlocked: 0
     unlockPrice: 1000
@@ -503,4 +583,84 @@ MonoBehaviour:
       thumb: {fileID: 21300000, guid: aaa736f2b56979d48a47d8c20de083f9, type: 3}
       floorIndex: 3
       type: 1
-    allCats: []
+    allCats:
+    - name: June
+      id: floor_3-cat_1
+      idThumb: 
+      index: 1
+      description: 
+      unlockType: 1
+      unlockPrice: 100
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 3564663fca3e32345886c22ea4deff9c, type: 3}
+      floorIndex: 3
+      type: 2
+      skinName: 
+    - name: Georgia
+      id: floor_3-cat_2
+      idThumb: 
+      index: 2
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 625afae03df67fb4687fe6a9134d32a2, type: 3}
+      floorIndex: 3
+      type: 2
+      skinName: 
+    - name: Roxie
+      id: floor_3-cat_3
+      idThumb: 
+      index: 3
+      description: 
+      unlockType: 1
+      unlockPrice: 300
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: 2417d08482faad94bb0ff30349258908, type: 3}
+      floorIndex: 3
+      type: 2
+      skinName: 
+    - name: Piper
+      id: floor_3-cat_4
+      idThumb: 
+      index: 4
+      description: 
+      unlockType: 3
+      unlockPrice: 1
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: cbfb547d34434d84a97b14164e85a922, type: 3}
+      floorIndex: 3
+      type: 2
+      skinName: 
+    - name: Maisy
+      id: floor_3-cat_5
+      idThumb: 
+      index: 5
+      description: 
+      unlockType: 1
+      unlockPrice: 500
+      isUnlocked: 0
+      isSelected: 0
+      count: 0
+      countHit: 0
+      unlockPay: 0
+      thumb: {fileID: 21300000, guid: abcde12200e9fbc4481a0790ed83cf93, type: 3}
+      floorIndex: 3
+      type: 2
+      skinName: 

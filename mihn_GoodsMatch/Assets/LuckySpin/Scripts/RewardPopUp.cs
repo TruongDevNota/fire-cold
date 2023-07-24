@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using DG.Tweening;
 
 [RequireComponent(typeof(UIAnimation))]
 public class RewardPopUp : MonoBehaviour
@@ -157,7 +158,7 @@ public class RewardPopUp : MonoBehaviour
         switch (luckyReward.rewardsTypes)
         {
             case LuckyRewardsTypes.Coins:
-                CoinManager.Add(luckyReward.rewardAmount);
+                CoinManager.Add(luckyReward.rewardAmount, rewardImg.transform);
                 if (luckyReward.rewardAmount > 200)
                 {
                     Base.Ads.AdsManager.ShowInterstitial((a, t) => { }, $"Claim_Coin_{luckyReward.rewardAmount}");
@@ -204,9 +205,12 @@ public class RewardPopUp : MonoBehaviour
                 DataManager.Save();
                 break;
         }
-
-        anim.Hide();
-        this.PostEvent((int)EventID.OnClaimReward, luckyReward);
+       // DOVirtual.DelayedCall(f, () =>
+       // {
+            anim.Hide();
+            this.PostEvent((int)EventID.OnClaimReward, luckyReward);
+       // });
+        
     }
     public void HandleClaimGiftReward()
     {

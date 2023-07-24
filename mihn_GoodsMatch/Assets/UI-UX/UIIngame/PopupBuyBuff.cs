@@ -63,7 +63,6 @@ public class PopupBuyBuff : MonoBehaviour
     {
         if (GameStateManager.CurrentState != GameState.Play)
             return;
-        GameStateManager.Pause(null);
         eBuffType = type;
         btn_BuyWithCoin.interactable = DataManager.UserData.totalCoin >= DataManager.GameConfig.buffPrice;
         btn_BuyWithAds.interactable = true;
@@ -71,6 +70,7 @@ public class PopupBuyBuff : MonoBehaviour
         txt_Title.text = type == BuffType.Hint ? "HINT" : "SWAP";
         img_icon.sprite = type == BuffType.Hint ? hintSprite : swapSprite;
         anim.Show();
+        this.PostEvent((int)EventID.BuffHintStopTime);
     }
 
     public void OnHide()
@@ -78,6 +78,7 @@ public class PopupBuyBuff : MonoBehaviour
         anim.Hide(onCompleted:() => {
             //if (GameStateManager.CurrentState == GameState.Pause)
             //    GameStateManager.Play(null);
+            this.PostEvent((int)EventID.BuffHintStartTime);
         });
     }
 
@@ -93,6 +94,7 @@ public class PopupBuyBuff : MonoBehaviour
                 break;
         }
         DataManager.Save();
+        this.PostEvent((int)EventID.BuffHintStartTime);
         OnHide();
     }
 }
