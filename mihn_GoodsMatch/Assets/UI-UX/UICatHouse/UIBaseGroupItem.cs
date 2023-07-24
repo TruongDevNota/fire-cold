@@ -79,6 +79,6 @@ public class UIBaseGroupItem : MonoBehaviour
             this.PostEvent((int)EventID.OnUnlockItemSuccess, data);
             Debug.Log("mua thanh cong");
         }
-
+        this.PostEvent((int)EventID.OnFloorUnlocked);
     }
 }

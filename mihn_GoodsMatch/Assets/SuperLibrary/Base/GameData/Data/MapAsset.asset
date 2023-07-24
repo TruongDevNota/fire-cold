@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c41561181b292849a933a53189dc89c, type: 3}
   m_Name: MapAsset
   m_EditorClassIdentifier: 
-  totalMap: 4
+  totalMap: 3
   ListMap:
   - mapIndex: 1
     mapName: Jungle
@@ -26,11 +26,6 @@ MonoBehaviour:
     levelStars: 
   - mapIndex: 3
     mapName: Sakura Village
-    totalLevel: 20
-    hightestLevelUnlocked: 0
-    levelStars: 
-  - mapIndex: 4
-    mapName: Supermarket
     totalLevel: 20
     hightestLevelUnlocked: 0
     levelStars: 

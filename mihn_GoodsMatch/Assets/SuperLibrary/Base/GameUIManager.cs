@@ -440,6 +440,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
         Action callback = () => {
             _houseMainScreen.Show(null);
+            coinScreen.Show();
                 UILoadGame.Hide();
 
         };

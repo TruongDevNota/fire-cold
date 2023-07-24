@@ -103,10 +103,10 @@ public class MapData
     public void DoUnlockAllLevel()
     {
         hightestLevelUnlocked = totalLevel;
-        levelStars = new List<int>();
-        for (int i = 0; i < totalLevel; i++)
-        {
-            levelStars.Add(3);
-        }
+        //levelStars = new List<int>();
+        //for (int i = 0; i < totalLevel; i++)
+        //{
+        //    levelStars.Add(3);
+        //}
     }
 }
