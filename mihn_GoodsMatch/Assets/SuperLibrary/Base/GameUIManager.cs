@@ -309,7 +309,21 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
         onComplete?.Invoke();
     }
+    IEnumerator WaitForLoadingCatHouse(Action onComplete,float startProcess, float stopProcess,float timeWait, float time = 0)
+    {
+        if (time > 0)
+            yield return new WaitForSeconds(time);
 
+        while (UILoadGame.currentProcess < stopProcess&& UILoadGame.currentProcess >=startProcess)
+        {
+            UILoadGame.Process();
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(timeWait);
+        Debug.Log("Loading 50%");
+        onComplete?.Invoke();
+    }
     public override void PlayGame(object data)
     {
         MusicManager.UnPause();
@@ -436,22 +450,29 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
     protected override void HouseDecor(object data)
     {
-        SceneHelper.DoLoadScene("4_CatHouse");
-
-        Action callback = () => {
-            _houseMainScreen.Show(null);
-            coinScreen.Show();
-                UILoadGame.Hide();
-
-        };
-
+        StartCoroutine(YieldOpenHouseDecor());
+    }
+    private IEnumerator YieldOpenHouseDecor()
+    {
         UILoadGame.Init(true, () =>
         {
             mainScreen.Hide();
         });
-        StartCoroutine(WaitForLoading(callback, 2.5f));
-    }
 
+
+        StartCoroutine(WaitForLoadingCatHouse(null,0,0.8f,0, 1f));
+        yield return SceneHelper.DoLoadSceneAsync("4_CatHouse");
+         yield return (WaitForLoadingCatHouse(null, 0.8f, 1f,1f, 0f));
+        
+        _houseMainScreen.Show(null);
+        coinScreen.Show();
+        UILoadGame.Hide();
+    }
+    IEnumerator test()
+    {
+        yield return null;
+        Debug.Log("Loadsence 4");
+    }
     IEnumerator WaitToAutoPlay()
     {
         var wait01s = new WaitForSeconds(0.1f);

@@ -8005,6 +8005,8 @@ MonoBehaviour:
   pointB: {fileID: 203852133}
   movementTime: 5
   cat: {fileID: 1862799230}
+  order_Img: []
+  orderBoard: {fileID: 0}
 --- !u!1 &1694998260
 GameObject:
   m_ObjectHideFlags: 0
