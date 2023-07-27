@@ -459,10 +459,10 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             mainScreen.Hide();
         });
 
-
-        StartCoroutine(WaitForLoadingCatHouse(null,0,0.8f,0, 1f));
+        float i = UnityEngine.Random.Range(0.5f, 0.9f);
+        StartCoroutine(WaitForLoadingCatHouse(null,0,i,0, 0f));
         yield return SceneHelper.DoLoadSceneAsync("4_CatHouse");
-         yield return (WaitForLoadingCatHouse(null, 0.8f, 1f,1f, 0f));
+         yield return (WaitForLoadingCatHouse(null, i, 1f,1f, 0f));
         
         _houseMainScreen.Show(null);
         coinScreen.Show();

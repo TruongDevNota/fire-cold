@@ -32,6 +32,7 @@ public class HouseDecoration : MonoBehaviour
 
     private void OnEnable()
     {
+        
         Init(null);
     }
 
@@ -55,13 +56,35 @@ public class HouseDecoration : MonoBehaviour
 
     public void Init(object data)
     {
+        LoadFloor();
         StartCoroutine(YieldInit(null));
     }
+    public void LoadFloor()
+    {
 
+        for (int i = 0; i < DataManager.HouseAsset.allFloorData.Count; i++)
+        {
+            var datum = DataManager.HouseAsset.allFloorData.FirstOrDefault(x => x.floorIndex == i + 1);
+            //floors[i].gameObject.SetActive(datum != null && DataManager.HouseAsset.CheckFoorUnlockable(i + 1));
+            if (datum == null)
+            {
+                Debug.LogError($"HouseData is null at floor {i + 1}");
+                continue;
+            }
+            else if (DataManager.HouseAsset.CheckFoorUnlockable(i + 1)&&i+1>floors.Count)
+            {
+                string path = $"PrefabCat/Floor {i + 1}";
+                var prefab = Resources.Load<HouseFloor>(path);
+                var floor = Instantiate(prefab, this.transform);
+                floors.Add(floor);
+            }
+
+        }
+    }
     public IEnumerator YieldInit(object data)
     {
         int roofCount = 0;
-        for(int i = 0; i < floors.Count; i++)
+        for (int i = 0; i < floors.Count; i++)
         {
             var datum = DataManager.HouseAsset.allFloorData.FirstOrDefault(x => x.floorIndex == i + 1);
             floors[i].gameObject.SetActive(datum != null && DataManager.HouseAsset.CheckFoorUnlockable(i + 1));
