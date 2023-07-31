@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using MewtonGames.Nonogram;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class HouseDecoration : MonoBehaviour
 {
     [SerializeField] List<HouseFloor> floors = new List<HouseFloor>();
+    [SerializeField] private AssetReference[] assetReference;
     [SerializeField] Transform _roofTF;
     [SerializeField] float _roofPosYMin;
     [SerializeField] float _floorHeight;
+    private int floorCount;
 
     [Header("Camera Controller")]
     [SerializeField] MapInput mapInput;
@@ -32,8 +36,8 @@ public class HouseDecoration : MonoBehaviour
 
     private void OnEnable()
     {
-        
-        Init(null);
+
+         Init(null);
     }
 
     private void Update()
@@ -56,30 +60,43 @@ public class HouseDecoration : MonoBehaviour
 
     public void Init(object data)
     {
-        LoadFloor();
-        StartCoroutine(YieldInit(null));
-    }
-    public void LoadFloor()
-    {
+        floorCount = 0;
+        StartCoroutine(LoadFloor());
 
+    }
+    public IEnumerator LoadFloor()
+    {
+        int loadedFloorCount = 0;
         for (int i = 0; i < DataManager.HouseAsset.allFloorData.Count; i++)
         {
-            var datum = DataManager.HouseAsset.allFloorData.FirstOrDefault(x => x.floorIndex == i + 1);
-            //floors[i].gameObject.SetActive(datum != null && DataManager.HouseAsset.CheckFoorUnlockable(i + 1));
-            if (datum == null)
+            if (DataManager.HouseAsset.CheckFoorUnlockable(i + 1) && i + 1 > floors.Count)
             {
-                Debug.LogError($"HouseData is null at floor {i + 1}");
-                continue;
-            }
-            else if (DataManager.HouseAsset.CheckFoorUnlockable(i + 1)&&i+1>floors.Count)
-            {
-                string path = $"PrefabCat/Floor {i + 1}";
-                var prefab = Resources.Load<HouseFloor>(path);
-                var floor = Instantiate(prefab, this.transform);
-                floors.Add(floor);
-            }
+                floorCount++;
+                float startTime = Time.time;
+                var handle = assetReference[i].LoadAssetAsync<GameObject>();
+                yield return handle;
 
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    Debug.Log("Load sucess");
+                    var floor = Instantiate(handle.Result, this.transform);
+                    floors.Add(floor.GetComponent<HouseFloor>());
+                    loadedFloorCount++;
+                    float loadTime = Time.time - startTime;
+                    Debug.LogError("load prefab time: " + loadTime);
+                }
+                else
+                {
+                    Debug.Log("Failed to load!");
+                }
+
+
+            }
         }
+        yield return new WaitForSeconds(.1f);
+
+        yield return new WaitUntil(() => loadedFloorCount >= floorCount);
+        yield return YieldInit(null);
     }
     public IEnumerator YieldInit(object data)
     {
@@ -87,21 +104,8 @@ public class HouseDecoration : MonoBehaviour
         for (int i = 0; i < floors.Count; i++)
         {
             var datum = DataManager.HouseAsset.allFloorData.FirstOrDefault(x => x.floorIndex == i + 1);
-            floors[i].gameObject.SetActive(datum != null && DataManager.HouseAsset.CheckFoorUnlockable(i + 1));
-            if (datum == null)
-            {
-                Debug.LogError($"HouseData is null at floor {i + 1}");
-                continue;
-            }
-            else if (DataManager.HouseAsset.CheckFoorUnlockable(i + 1))
-            {
-                floors[i].gameObject.SetActive(true);
-                floors[i].Fill(datum);
-                roofCount++;
-            }
-            else
-                floors[i].gameObject.SetActive(false);
-
+            floors[i].Fill(datum);
+            roofCount++;
         }
         _roofTF.position = new Vector2(0, _roofPosYMin + Mathf.Max(0, roofCount - 1) * _floorHeight);
 
@@ -112,5 +116,6 @@ public class HouseDecoration : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
         cameraMoving.Show(pCurrentLevelNodeWorldPosition.y);
+        UILoadGame.Hide();
     }
 }

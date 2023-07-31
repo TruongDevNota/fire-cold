@@ -44,6 +44,8 @@ public class SceneHelper : MonoBehaviour
 
     private IEnumerator LoadScene(string sceneName)
     {
+        float loadSceneTime = 0;
+        Debug.LogError("starSceneTime: "  + "    : " + Time.realtimeSinceStartupAsDouble);
         if (SceneManager.sceneCount > 1)
         {
             var scene = SceneManager.GetSceneAt(1);
@@ -51,16 +53,22 @@ public class SceneHelper : MonoBehaviour
 
             while (!sceneUnload.isDone)
             {
+                loadSceneTime += Time.deltaTime;
                 yield return null;
             }
+            Debug.LogError("UnloadSceneTime: " + scene.name + "    : " + Time.realtimeSinceStartupAsDouble);
         }
         yield return null;
 
         var sceneload = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!sceneload.isDone)
         {
+            loadSceneTime += Time.deltaTime;
+            
             yield return null;
         }
+        Debug.LogError("loadSceneTime: " + sceneName+"    : " + loadSceneTime);
+        Debug.LogError("loadSceneTime: " + Time.realtimeSinceStartupAsDouble);
         if (SceneManager.sceneCount > 1)
             SceneManager.SetActiveScene(SceneManager.GetSceneAt(1));
     }

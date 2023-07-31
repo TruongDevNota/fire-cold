@@ -17,10 +17,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/3_Battle_Bartender.unity
     guid: 9f356349c478bdc46a6f714e96f2b90b
+  - enabled: 0
+    path: Assets/Scenes/4_CatHouse_1.unity
+    guid: 9c2ee47f05323bb43acd54244b74e011
   - enabled: 1
     path: Assets/Scenes/3_Battle_1.unity
     guid: 9955380f567381b4180ef81759b9cb44
   - enabled: 1
     path: Assets/Scenes/4_CatHouse.unity
     guid: b4dfbfd2f28e26d4cb2802a3b0a0d3f5
-  m_configObjects: {}
+  - enabled: 0
+    path: Assets/Scenes/4_cat.unity
+    guid: ac90e822fa1b5e340a8d05c399dfd4a8
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: ab95e7a42c2179644ab95d1a92157590, type: 2}

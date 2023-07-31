@@ -313,7 +313,10 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         if (time > 0)
             yield return new WaitForSeconds(time);
-
+        if (stopProcess == 1)
+        {
+            Debug.Log("Load xog scene 4");
+        }
         while (UILoadGame.currentProcess < stopProcess&& UILoadGame.currentProcess >=startProcess)
         {
             UILoadGame.Process();
@@ -321,7 +324,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         }
 
         yield return new WaitForSeconds(timeWait);
-        Debug.Log("Loading 50%");
+        Debug.Log($"Loading {stopProcess}%");
         onComplete?.Invoke();
     }
     public override void PlayGame(object data)
@@ -460,13 +463,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         });
 
         float i = UnityEngine.Random.Range(0.5f, 0.9f);
-        StartCoroutine(WaitForLoadingCatHouse(null,0,i,0, 0f));
-        yield return SceneHelper.DoLoadSceneAsync("4_CatHouse");
-         yield return (WaitForLoadingCatHouse(null, i, 1f,1f, 0f));
+        StartCoroutine(WaitForLoadingCatHouse(null,0,1,0, 0f));
+        StartCoroutine (SceneHelper.DoLoadSceneAsync("4_CatHouse"));
+        yield return new WaitForSeconds(0.1f);
         
         _houseMainScreen.Show(null);
         coinScreen.Show();
-        UILoadGame.Hide();
     }
     IEnumerator test()
     {
