@@ -1,15 +1,15 @@
 <dependencies>
-    <unityversion>4.3.36.0</unityversion>
+<unityversion>4.3.6.3</unityversion>
   <androidPackages>
-    <androidPackage spec="com.vungle:publisher-sdk-android:6.12.1">
+    <androidPackage spec="io.liftoff:liftoffads:1.9.1">
       <repositories>
-        <repository>https://jitpack.io/</repository>
+          <repository>https://maven.google.com/</repository>
       </repositories>
     </androidPackage>
   </androidPackages>
 
     <androidPackages>
-    <androidPackage spec="com.ironsource.adapters:vungleadapter:4.3.21">
+    <androidPackage spec="com.ironsource.adapters:liftoffadapter:4.3.4">
       <repositories>
         <repository>https://android-sdk.is.com/</repository>
       </repositories>
@@ -17,7 +17,7 @@
   </androidPackages>
 
   <iosPods>
-    <iosPod name="IronSourceVungleAdapter" version="4.3.28.0">
+    <iosPod name="IronSourceLiftoffAdapter" version="4.3.3.4">
       <sources>
         <source>https://github.com/CocoaPods/Specs</source>
       </sources>
