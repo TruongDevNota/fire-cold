@@ -182,6 +182,7 @@ namespace Base.Ads
 
         public override void RewardLoad()
         {
+           
 #if USE_IRON
             if (!RewardIsReady)
             {

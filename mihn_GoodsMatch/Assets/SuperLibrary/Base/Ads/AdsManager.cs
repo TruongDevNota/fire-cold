@@ -260,7 +260,7 @@ namespace Base.Ads
             removeAdsToggle?.onValueChanged.RemoveAllListeners();
             removeAdsToggle?.onValueChanged.AddListener((isOn) =>
             {
-                //UIToast.ShowNotice("Not show ads is " + isOn);
+                UIToast.ShowNotice("Not show ads is " + isOn);
                 UpdateBannerArea();
             });
 
