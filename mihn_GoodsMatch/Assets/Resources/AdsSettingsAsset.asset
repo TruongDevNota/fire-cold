@@ -16,7 +16,7 @@ MonoBehaviour:
   autoRetryMax: 3
   useBanner: 1
   bannerPosition: 2
-  ironAndroidAppKey: 
+  ironAndroidAppKey: 1b0c574d5
   ironIOSAppKey: 
   maxSdkKey: 
   maxAndroidBannerUnitId: 
@@ -27,7 +27,7 @@ MonoBehaviour:
   maxIOSInterUnitId: 
   maxIOSRewaredUnitId: 
   maxIOSOpenUnitId: 
-  adMobAndroidAppId: 
+  adMobAndroidAppId: ca-app-pub-6336405384015455~7121878013
   adMobIOSAppId: 
   admobAndroidBannerUnitId: 
   admobAndroidInterUnitId: 
@@ -37,5 +37,7 @@ MonoBehaviour:
   admobIOSInterUnitId: 
   admobIOSRewaredUnitId: 
   admobIOSBannerRectangleUnitId: 
-  openAnroidUnitId: ' '
+  openAndroidUnitIdTier1: ca-app-pub-6336405384015455/5661456686
+  openAndroidUnitIdTier2: ca-app-pub-6336405384015455/3478146472
+  openAndroidUnitIdTier3: ca-app-pub-6336405384015455/9546793002
   openIOSUnitId: 

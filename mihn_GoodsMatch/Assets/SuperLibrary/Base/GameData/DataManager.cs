@@ -23,7 +23,7 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     protected SkinsAsset skinsAsset = null;
     public static SkinsAsset SkinsAsset { get; private set; }
-
+    public static bool adInterOrRewardClicked = false;
     public static WindowsData CurrentWindow
     {
         get => WindowAsset?.Current;

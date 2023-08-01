@@ -116,8 +116,23 @@ public class GameUIManager : GameManagerBase<GameUIManager>
         }
 
         SoundManager.LoadAllSounds();
+#if !UNITY_ANDROID
+        if (!DataManager.UserData.didShownGDPRConsent)
+        {
+            bool showingConsent = true;
+            gdprConsentPopup.Show();
+            gdprConsentPopup.onChangedConsent += () =>
+            {
+                showingConsent = false;
+            };
 
-        yield return AdsManager.DOInit();
+            yield return new WaitUntil(() => !showingConsent);
+
+            DataManager.UserData.didShownGDPRConsent = true;
+            yield return new WaitForSeconds(.2f);
+        }
+#endif
+       // yield return AdsManager.DOInit();
 
 #if USE_FIREBASE
         var remote = new GameConfig();

@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
-  <string name="gcm_defaultSenderId" translatable="false">726159488776</string>
-  <string name="google_storage_bucket" translatable="false">yunero-2048.appspot.com</string>
-  <string name="project_id" translatable="false">yunero-2048</string>
-  <string name="google_api_key" translatable="false">AIzaSyD0jI0SoKWj1sL6QTjBFjMWZ2Pz92Uqw3s</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD0jI0SoKWj1sL6QTjBFjMWZ2Pz92Uqw3s</string>
-  <string name="google_app_id" translatable="false">1:726159488776:android:38a9c2ac35acdc65141ebd</string>
-  <string name="default_web_client_id" translatable="false">726159488776-osscrqqoo3pr372jprv7h2omo75ln2id.apps.googleusercontent.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">56796828150</string>
+  <string name="google_storage_bucket" translatable="false">hyperfox---publishing.appspot.com</string>
+  <string name="project_id" translatable="false">hyperfox---publishing</string>
+  <string name="google_api_key" translatable="false">AIzaSyC5rBIsZwnXfel73xECfur7lIgVaZ0p1p8</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC5rBIsZwnXfel73xECfur7lIgVaZ0p1p8</string>
+  <string name="google_app_id" translatable="false">1:56796828150:android:2a25188eec6a884796f7d7</string>
+  <string name="default_web_client_id" translatable="false">56796828150-jf5u28uisf10frnp10jdcoseuf1i7sgn.apps.googleusercontent.com</string>
 </resources>

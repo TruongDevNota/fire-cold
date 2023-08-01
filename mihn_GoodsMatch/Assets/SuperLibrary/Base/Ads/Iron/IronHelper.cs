@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppsFlyerSDK;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static Base.Ads.AdsManager;
@@ -77,7 +78,7 @@ namespace Base.Ads
                         Debug.Log(TAG + "Init: " + appKey + " - deviceUniqueIdentifier: " + SystemInfo.deviceUniqueIdentifier);
                     };
 
-                    IronSourceEvents.onImpressionDataReadyEvent += ImpressionSuccessEvent;
+                    IronSourceEvents.onImpressionDataReadyEvent += IronSourceEvents_onImpressionDataReadyEvent;
 
                     if (Settings.useBanner == AdMediation.IRON)
                     {
@@ -85,6 +86,14 @@ namespace Base.Ads
                     }
                     else
                         IronSource.Agent.init(appKey, IronSourceAdUnits.REWARDED_VIDEO, IronSourceAdUnits.INTERSTITIAL);
+
+
+                    AdQualitySdkInit adQualitySdkInit = new AdQualitySdkInit();
+                    ISAdQualityConfig adQualityConfig = new ISAdQualityConfig
+                    {
+                        AdQualityInitCallback = adQualitySdkInit
+                    };
+                    IronSourceAdQuality.Initialize(appKey, adQualityConfig);
                 }
                 catch (Exception ex)
                 {
@@ -105,11 +114,28 @@ namespace Base.Ads
         }
 
 #if USE_IRON
+        private static void IronSourceEvents_onImpressionDataReadyEvent(IronSourceImpressionData obj)
+        {
+            if (obj != null && !string.IsNullOrEmpty(obj.adNetwork))
+                SendEventAF(obj);
+        }
         private static void ImpressionSuccessEvent(IronSourceImpressionData impressionData)
         {
             LogImpressionData(AdMediation.IRON, impressionData);
         }
-
+        public static void SendEventAF(IronSourceImpressionData data)
+        {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add(AFAdRevenueEvent.COUNTRY, data.country);
+            dic.Add(AFAdRevenueEvent.AD_UNIT, data.adUnit);
+            dic.Add(AFAdRevenueEvent.AD_TYPE, data.instanceName);
+            dic.Add(AFAdRevenueEvent.PLACEMENT, data.placement);
+            dic.Add(AFAdRevenueEvent.ECPM_PAYLOAD, data.encryptedCPM);
+            //dic.Add("custom", "foo");
+            //dic.Add("custom_2", "bar");
+            //dic.Add("af_quantity", "1");
+            AppsFlyerAdRevenue.logAdRevenue(data.adNetwork, AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeIronSource, data.revenue.Value, "USD", dic);
+        }
         protected void OnAdEvent(AdType type, string eventName, IronSourceAdInfo obj)
         {
 #if USE_FIREBASE
@@ -134,14 +160,16 @@ namespace Base.Ads
 #if USE_IRON
             if (!IsInitReward)
             {
-                IronSourceEvents.onRewardedVideoAvailabilityChangedEvent += RewardOnReady;
-                IronSourceEvents.onRewardedVideoAdLoadFailedEvent += RewardOnLoadFailed;
-                IronSourceEvents.onRewardedVideoAdRewardedEvent += RewardOnShowSuscess;
-                IronSourceEvents.onRewardedVideoAdShowFailedEvent += RewardOnShowFailed;
-                IronSourceEvents.onRewardedVideoAdClosedEvent += RewardOnClose;
+                IronSourceRewardedVideoEvents.onAdReadyEvent += (i) => RewardOnReady(true);
+                IronSourceRewardedVideoEvents.onAdLoadFailedEvent += RewardOnLoadFailed;
+                IronSourceRewardedVideoEvents.onAdRewardedEvent += (p, i) => RewardOnShowSuscess(p);
+                IronSourceRewardedVideoEvents.onAdShowFailedEvent += (e, i) => RewardOnShowFailed(e);
+                IronSourceRewardedVideoEvents.onAdClosedEvent += (i) => RewardOnClose();
 
                 IronSourceRewardedVideoEvents.onAdOpenedEvent += (i) => OnAdEvent(AdType.Reward, "open", i);
                 IronSourceRewardedVideoEvents.onAdReadyEvent += (i) => OnAdEvent(AdType.Reward, "ready", i);
+
+                //IronSourceRewardedVideoEvents.onAdClickedEvent +=(p,i)=> RewardOnClick();
 
                 IronSource.Agent.loadRewardedVideo();
                 IsInitReward = true;
@@ -296,15 +324,16 @@ namespace Base.Ads
 #if USE_IRON
             if (!IsInitInter)
             {
-                IronSourceEvents.onInterstitialAdReadyEvent += InterOnReady;
-                IronSourceEvents.onInterstitialAdLoadFailedEvent += InterOnLoadFailed;
-                IronSourceEvents.onInterstitialAdShowSucceededEvent += InterOnShowSuscess;
-                IronSourceEvents.onInterstitialAdShowFailedEvent += InterOnShowFailed;
-                IronSourceEvents.onInterstitialAdClosedEvent += InterOnClose;
+                IronSourceInterstitialEvents.onAdReadyEvent += (info) => InterOnReady();
+                IronSourceInterstitialEvents.onAdLoadFailedEvent += InterOnLoadFailed;
+                IronSourceInterstitialEvents.onAdShowSucceededEvent += (info) => InterOnShowSuscess();
+                IronSourceInterstitialEvents.onAdShowFailedEvent += (error, info) => InterOnShowFailed(error);
+                IronSourceInterstitialEvents.onAdClosedEvent += (info) => InterOnClose();
+             //   IronSourceInterstitialEvents.onAdClickedEvent += (info) => InterOnClicked();
+
 
                 IronSourceInterstitialEvents.onAdOpenedEvent += (i) => OnAdEvent(AdType.Inter, "open", i);
                 IronSourceInterstitialEvents.onAdReadyEvent += (i) => OnAdEvent(AdType.Inter, "ready", i);
-
                 IsInitInter = true;
                 Log(TAG + "InitInterstitial " + appKey);
 
@@ -455,8 +484,8 @@ namespace Base.Ads
 #if USE_IRON
             bannerPos = pos;
 
-            IronSourceEvents.onBannerAdLoadedEvent += OnBannerAdLoadedEvent;
-            IronSourceEvents.onBannerAdLoadFailedEvent += OnBannerAdLoadFailedEvent;
+            IronSourceBannerEvents.onAdLoadedEvent += OnBannerAdLoadedEvent;
+            IronSourceBannerEvents.onAdLoadFailedEvent += OnBannerAdLoadFailedEvent;
 
             BannerIsInit = true;
 
@@ -490,8 +519,8 @@ namespace Base.Ads
 #if USE_IRON
                 if (BannerIsInit)
                 {
-                    IronSourceEvents.onBannerAdLoadedEvent -= OnBannerAdLoadedEvent;
-                    IronSourceEvents.onBannerAdLoadFailedEvent -= OnBannerAdLoadFailedEvent;
+                    IronSourceBannerEvents.onAdLoadedEvent -= OnBannerAdLoadedEvent;
+                    IronSourceBannerEvents.onAdLoadFailedEvent -= OnBannerAdLoadFailedEvent;
                     IronSource.Agent.destroyBanner();
                 }
 #endif
@@ -529,7 +558,7 @@ namespace Base.Ads
 #endif
         }
 
-        private static void OnBannerAdLoadedEvent()
+        private static void OnBannerAdLoadedEvent(IronSourceAdInfo info)
         {
 #if USE_IRON
             IronSource.Agent.displayBanner();
@@ -537,5 +566,17 @@ namespace Base.Ads
 #endif
         }
         #endregion
+    }
+}
+public class AdQualitySdkInit : ISAdQualityInitCallback
+{
+
+    public void adQualitySdkInitSuccess()
+    {
+        Debug.Log("unity: adQualitySdkInitSuccess");
+    }
+    public void adQualitySdkInitFailed(ISAdQualityInitError adQualitySdkInitError, string errorMessage)
+    {
+        Debug.Log("unity: adQualitySdkInitFailed " + adQualitySdkInitError + " message: " + errorMessage);
     }
 }

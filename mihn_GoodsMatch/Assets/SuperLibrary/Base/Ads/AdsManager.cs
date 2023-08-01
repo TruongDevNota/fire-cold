@@ -10,6 +10,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Globalization;
+using GoogleMobileAds.Api;
+using GoogleMobileAds.Common;
 
 namespace Base.Ads
 {
@@ -157,17 +159,9 @@ namespace Base.Ads
                         return isTimeToShowAds;
                     }
 
-                    if ((LastAdType == AdType.Reward || LastAdType == AdType.Inter || LastAdType == AdType.AppOpen) && (LastAdEvent == AdEvent.ShowStart || LastAdEvent == AdEvent.ShowSuccess || LastAdEvent == AdEvent.Close))
-                    {
-                        Debug.LogWarning("[AdsManager] is " + LastAdType + " is " + LastAdEvent + " --> return");
-                        return isTimeToShowAdOpen;
-                    }
-
-                    float timePlayToShowAds = GameConfig.timePlayToShowAd + (GameConfig.timePlayToShowAdReduce * Mathf.Min(totalSuccess, 2));
+                    float timePlayToShowAds = GameConfig.timePlayToShowAd;
                     float totalTimePlay = (float)(DateTime.Now - LastTimeShowAd).TotalSeconds;
-
-                    if (Mathf.FloorToInt(totalTimePlay) >= timePlayToShowAds)
-                        isTimeToShowAds = true;
+                    isTimeToShowAds = totalTimePlay >= timePlayToShowAds;
 
                     Log("[AdsManager] isTimeToShowAds:  " + isTimeToShowAds + " - totalTimePlay: " + totalTimePlay.ToString("#0.0") + " - timePlayToShowAds: " + timePlayToShowAds + " - totalSuccess: " + totalSuccess);
                 }
@@ -190,22 +184,30 @@ namespace Base.Ads
                     if (IsNotShowAds)
                     {
                         Log("isVIP: " + UserData.isVIP + " isRemovedAds: " + UserData.isRemovedAds);
+                        Debug.Log($"check back in IsTimeToShowAdOpe is vip {IsNotShowAds}");
                         return isTimeToShowAdOpen;
                     }
-
-                    if ((LastAdType == AdType.Reward || LastAdType == AdType.Inter || LastAdType == AdType.AppOpen) && (LastAdEvent == AdEvent.ShowStart || LastAdEvent == AdEvent.ShowSuccess || LastAdEvent == AdEvent.Close))
+                    Debug.Log($"check back in IsTimeToShowAdOpen is ads clicked: {DataManager.adInterOrRewardClicked}");
+                    if (!DataManager.adInterOrRewardClicked)
                     {
-                        Debug.LogWarning("[AdsManager] is " + LastAdType + " is " + LastAdEvent + " --> return");
-                        return isTimeToShowAdOpen;
+                        if ((LastAdType == AdType.Reward || LastAdType == AdType.Inter || LastAdType == AdType.AppOpen)
+                            && (LastAdEvent == AdEvent.ShowStart || LastAdEvent == AdEvent.ShowSuccess || LastAdEvent == AdEvent.Close))
+                        {
+                            Debug.LogWarning("[AdsManager] is " + LastAdType + " is " + LastAdEvent + " --> return");
+                            return isTimeToShowAdOpen;
+                        }
                     }
-
+                    else
+                    {
+                        //DataManager.adInterOrRewardClicked = false;
+                        return true;
+                    }
                     float timePlayToShowAds = GameConfig.timePlayToShowOpenAd;
                     float totalTimePlay = (float)(DateTime.Now - LastTimeShowAd).TotalSeconds;
+                    Debug.Log($"check back in IsTimeToShowAdOpen timeplay {timePlayToShowAds} {totalTimePlay}");
+                    isTimeToShowAdOpen = totalTimePlay >= timePlayToShowAds;
 
-                    if (Mathf.FloorToInt(totalTimePlay) >= timePlayToShowAds)
-                        isTimeToShowAdOpen = true;
-
-                    Log("[AdsManager] isTimeToShowAds:  " + isTimeToShowAdOpen + " - totalTimePlay: " + totalTimePlay.ToString("#0.0") + " - timePlayToShowAds: " + timePlayToShowAds);
+                    Log("[AdsManager] IsTimeToShowAdOpen:  " + isTimeToShowAdOpen + " - totalTimePlay: " + totalTimePlay.ToString("#0.0") + " - timePlayToShowAds: " + timePlayToShowAds);
                 }
                 return isTimeToShowAdOpen;
             }
@@ -265,6 +267,68 @@ namespace Base.Ads
             UserData.OnVIPChanged += OnVIPChanged;
             UserData.OnRemovedAdsChanged += OnRemovedAdsChanged;
         }
+        private void OnEnable()
+        {
+            //IronSourceEvents.onSdkInitializationCompletedEvent += IronSourceEvents_onSdkInitializationCompletedEvent;
+            //IronSourceEvents.onImpressionDataReadyEvent += IronSourceEvents_onImpressionDataReadyEvent;
+           // this.RegisterListener((int)EventID.OnBackFromStore, OnBackFromStore);
+        }
+
+        private void OnBackFromStore(object obj)
+        {
+            if (DataManager.adInterOrRewardClicked)
+            {
+                Debug.Log($"Check back in OnBackFromStore: {GameConfig} IsTimeToShowAOA: {IsTimeToShowAdOpen}");
+                string itemName = "back_from_store";
+                if (IsTimeToShowAdOpen && GameConfig != null)
+                {
+                    Debug.Log($"Check back in OnBackFromStore: {GameConfig.timeToWaitOpenAd}");
+                    if (GameConfig.timeToWaitOpenAd > 0)
+                    {
+                        Debug.Log($"Check back in OnBackFromStore: show ads");
+                        AdOpen.ShowOpenAdIfAvailable(itemName, null);
+                        return;
+                    }
+                    else
+                    {
+#if USE_MAXOPEN
+                        Log(AdOpen.TAG + "WaitToShow: " + AdOpen.Status.ToString() + " " + AdOpen.IsReady + " ---> Check Open MAX");
+#endif
+                    }
+
+#if USE_MAXOPEN
+                    if (GameConfig.adUseOpenBackup && MaxHelper.OpenIsReady)
+                    {
+                        MaxHelper.ShowOpenAdIfAvailable(itemName);
+                        return;
+                    }
+                    else
+                    {
+                        Log(MaxHelper.TAG + "WaitToShow: " + MaxHelper.StatusOpen.ToString() + " " + MaxHelper.OpenIsReady + " ---> Check Inter DEFAULT");
+                    }
+#endif
+                }
+
+                //DataManager.adInterOrRewardClicked = false;
+            }
+        }
+
+        private void IronSourceEvents_onImpressionDataReadyEvent(IronSourceImpressionData obj)
+        {
+
+            Debug.Log("unity - scrip: I got ImpressionDataReadyEvent ToString(): " + obj.ToString());
+            Debug.Log("unity - scrip: I got ImpressionDataReadyEvent allData: " + obj.allData);
+
+            if (obj != null && !string.IsNullOrEmpty(obj.adNetwork))
+            {
+                //FirebaseAnalytics
+            }
+        }
+
+        private void IronSourceEvents_onSdkInitializationCompletedEvent()
+        {
+        }
+
 
         private void OnDestroy()
         {
@@ -284,7 +348,7 @@ namespace Base.Ads
             UpdateBannerArea();
         }
 
-        public static IEnumerator DOInit()
+        public static IEnumerator DOInit(bool waitForOpen)
         {
             CheckInstance();
 
@@ -292,6 +356,18 @@ namespace Base.Ads
                 yield break;
 
             yield return new WaitForEndOfFrame();
+
+            var checkShowAdOpen = false;
+            if (GameConfig.timeToWaitOpenAd > 0)
+            {
+                AdOpen.DOInit(() =>
+                {
+                    AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
+                    ShowAdOpen((p, d) => {
+                        checkShowAdOpen = true;
+                    });
+                });
+            }
 
             yield return ATTHelper.DOCheckATT();
 
@@ -304,145 +380,63 @@ namespace Base.Ads
             }
 #else
 
-            if (GameConfig.timeToWaitOpenAd > 0)
-                yield return AdOpen.DOInit();
-
-            if (GameConfig.adUseBackup)
+            if (DefaultMediation == AdMediation.MAX)
             {
-                foreach (var network in AdsNetwork)
-                {
-                    if (network == AdMediation.IRON)
-                    {
-                        Log("[AdsManager] Init " + network);
-                        IronHelper.Init(IsDebug);
-                        yield return new WaitForSeconds(0.25f);
-                    }
-                    else if (network == AdMediation.MAX)
-                    {
-                        Log("[AdsManager] Init " + network);
-                        MaxHelper.Init(IsDebug);
-                        yield return new WaitForSeconds(0.25f);
-                    }
-                    else if (network == AdMediation.ADMOD)
-                    {
-                        Log("[AdsManager] Init " + network);
-                        yield return AdmobHelper.DOInit(IsDebug, () => Debug.Log("AdmobHelper Init DONE but DON NOT AUTO LOAD"), LoadBackupOnInitDone || TestForceBackup);
-                        yield return new WaitForSeconds(0.25f);
-                    }
-                    else
-                    {
-                        LogError("[AdsManager] Init " + network + " NOT SUPPORT");
-                    }
-                }
+                Log("[AdsManager] Init " + DefaultMediation);
+                MaxHelper.Init(IsDebug);
+                yield return new WaitForSeconds(0.25f);
+            }
+            else if (DefaultMediation == AdMediation.IRON)
+            {
+                Log("[AdsManager] Init " + DefaultMediation);
+                IronHelper.Init(IsDebug);
+                yield return new WaitForSeconds(0.25f);
+            }
+            else if (DefaultMediation == AdMediation.ADMOD)
+            {
+                Log("[AdsManager] Init " + DefaultMediation);
+                yield return AdmobHelper.DOInit(IsDebug, () => Debug.Log("AdmobHelper Init DONE --> AUTO LOAD"), true);
+                yield return new WaitForSeconds(0.25f);
             }
             else
             {
-                if (DefaultMediation == AdMediation.MAX)
-                {
-                    Log("[AdsManager] Init " + DefaultMediation);
-                    MaxHelper.Init(IsDebug);
-                    yield return new WaitForSeconds(0.25f);
-                }
-                else if (DefaultMediation == AdMediation.IRON)
-                {
-                    Log("[AdsManager] Init " + DefaultMediation);
-                    IronHelper.Init(IsDebug);
-                    yield return new WaitForSeconds(0.25f);
-                }
-                else if (DefaultMediation == AdMediation.ADMOD)
-                {
-                    Log("[AdsManager] Init " + DefaultMediation);
-                    yield return AdmobHelper.DOInit(IsDebug, () => Debug.Log("AdmobHelper Init DONE --> AUTO LOAD"), true);
-                    yield return new WaitForSeconds(0.25f);
-                }
-                else
-                {
-                    LogError("[AdsManager] Init " + DefaultMediation + " NOT SUPPORT");
-                }
+                LogError("[AdsManager] Init " + DefaultMediation + " NOT SUPPORT");
             }
 
             UpdateBannerArea();
-
-            yield return AdvertyHelper.DOInit();
 #endif
             IsInit = true;
+
+            if (waitForOpen)
+            {
+                var wait1s = new WaitForSeconds(1);
+                var elapsed = 0;
+                while (!checkShowAdOpen && elapsed < GameConfig.timeToWaitOpenAd && IsConnected)
+                {
+                    yield return wait1s;
+                    elapsed++;
+                }
+            }
         }
 
         /// <summary>
         /// Should call show then FirebaseManager initiated. Flow game monetization on Gameover
         /// </summary>
         /// <returns></returns>
-        public static IEnumerator ShowAdOpen()
+        public static void ShowAdOpen(Action<string, bool> callback)
         {
-            string itemName = "app_open";
             if (GameConfig != null)
             {
 #if UNITY_IOS && (USE_ADOPEN || USE_MAXOPEN) && !UNITY_EDITOR
                 while (Unity.Advertisement.IosSupport.ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == Unity.Advertisement.IosSupport.ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
-                    yield return null;
+                    return;
 #endif
-                DateTime startLoad = DateTime.Now;
 
                 Log(AdOpen.TAG + "WaitToShow: " + GameConfig.timeToWaitOpenAd + " is " + AdOpen.Status.ToString());
                 if (GameConfig.timeToWaitOpenAd > 0)
                 {
-                    double loadAdsIn = (DateTime.Now - startLoad).TotalSeconds;
-                    while (loadAdsIn < GameConfig.timeToWaitOpenAd && (AdOpen.Status == AdEvent.Offer || AdOpen.Status == AdEvent.Load))
-                    {
-                        loadAdsIn = (DateTime.Now - startLoad).TotalSeconds;
-                        Log(AdOpen.TAG + "WaitToShow: " + AdOpen.Status.ToString() + " in " + loadAdsIn.ToString("#0.00"));
-                        yield return new WaitForSeconds(0.125f);
-                    }
-
-                    if (AdOpen.IsReady)
-                    {
-                        Log(AdOpen.TAG + "WaitToShow: " + AdOpen.Status.ToString() + " IsReady " + AdOpen.IsReady);
-                        AdOpen.ShowOpenAdIfAvailable(itemName);
-                        yield break;
-                    }
-                    else
-                    {
-                        Log(AdOpen.TAG + "WaitToShow: " + AdOpen.Status.ToString() + " " + AdOpen.IsReady + " ---> Check Open MAX");
-                    }
-                }
-
-                startLoad = DateTime.Now;
-                Log(MaxHelper.TAG + "WaitToShow: " + GameConfig.adUseOpenBackup + " is " + MaxHelper.StatusOpen.ToString());
-#if USE_MAXOPEN
-                if (GameConfig.adUseOpenBackup)
-                {
-                    double loadAdsIn = (DateTime.Now - startLoad).TotalSeconds;
-                    while (loadAdsIn < GameConfig.timeToWaitOpenAd && (MaxHelper.StatusOpen == AdEvent.Offer || MaxHelper.StatusOpen == AdEvent.Load))
-                    {
-                        loadAdsIn = (DateTime.Now - startLoad).TotalSeconds;
-                        Log(MaxHelper.TAG + "WaitToShow: " + MaxHelper.StatusOpen.ToString() + " in " + loadAdsIn.ToString("#0.00"));
-                        yield return new WaitForSeconds(0.125f);
-                    }
-
-                    if (MaxHelper.OpenIsReady)
-                    {
-                        Log(MaxHelper.TAG + "WaitToShow: " + GameConfig.adUseOpenBackup + " is " + MaxHelper.StatusOpen.ToString() + " IsReady " + MaxHelper.OpenIsReady);
-                        MaxHelper.ShowOpenAdIfAvailable(itemName);
-                        yield break;
-                    }
-                    else
-                    {
-                        Log(MaxHelper.TAG + "WaitToShow: " + GameConfig.adUseOpenBackup + " is " + MaxHelper.StatusOpen.ToString() + " IsReady " + MaxHelper.OpenIsReady + " ---> Check Iner DEFAULT");
-                    }
-                }
-#endif
-                Log("DEFAULT " + "WaitToShow: " + GameConfig.timeToWaitOpenInter + " is " + InterIsReady);
-                if (GameConfig.timeToWaitOpenInter > 0)
-                {
-                    double loadAdsIn = (DateTime.Now - startLoad).TotalSeconds;
-                    while (loadAdsIn < GameConfig.timeToWaitOpenInter && InterIsReady)
-                    {
-                        loadAdsIn = (DateTime.Now - startLoad).TotalSeconds;
-                        Log(MaxHelper.TAG + "WaitToShow: InterIsReady " + InterIsReady + " in " + loadAdsIn.ToString("#0.00"));
-                        yield return new WaitForSeconds(0.125f);
-                    }
-
-                    //ShowInterstitial((status, type) => { }, "app_open_inter", itemName);
+                    Log(AdOpen.TAG + "WaitToShow: " + AdOpen.Status.ToString() + " IsReady " + AdOpen.IsReady);
+                    AdOpen.ShowOpenAdIfAvailable("app_open", callback);
                 }
             }
         }
@@ -502,17 +496,12 @@ namespace Base.Ads
                     return;
                 }
 
-                instance.StartCoroutine(DOInit());
+                if (!IsInit)
+                    instance.StartCoroutine(DOInit(false));
 
                 interToReward = GameConfig.forceInterToReward;
 
                 Debug.Log(string.Format("[AdsManager] ShowInterstitial IRON {0} MAX {1} ADMOB {2} LastAdEvent {3} IsTime {4} TotalSuccess {5} ", IronHelper.InterIsReady, MaxHelper.InterIsReady, AdmobHelper.InterIsReady, LastAdEvent, IsTimeToShowAds, totalSuccess));
-
-                if (UserData.TotalWin < GameConfig.adShowFromLevel)
-                {
-                    Debug.LogWarning("[AdsManager] adShowFromLevel " + UserData.TotalWin + "/" + GameConfig.adShowFromLevel + " --> return");
-                    return;
-                }
 
                 if (!IsTimeToShowAds && !forceToShow || IsNotShowAds)
                 {
@@ -523,7 +512,7 @@ namespace Base.Ads
                 if (Settings.ratioInterPerReward > 0 && (totalInterSuccess + 0.001) / (totalRewardSuccess + 1) >= Settings.ratioInterPerReward)
                 {
                     Log(string.Format("[AdsManager] ShowInterstitial RatioInterPerReward {0}/{1}", (totalInterSuccess + 0.001) / (totalRewardSuccess + 1), Settings.ratioInterPerReward));
-                    ShowVideoReward(onSuccess, placementName, itemName);
+                    ShowVideoReward(onSuccess, placementName, placementName);
                     return;
                 }
 
@@ -552,98 +541,30 @@ namespace Base.Ads
 
                 if (DefaultMediation == AdMediation.IRON)
                 {
-                    if (IronHelper.InterIsReady && !instance.testForceBackup)
+                    if (IronHelper.InterIsReady)
                     {
                         Debug.Log("[AdsManager] ShowInterstitial IRON Show");
-
                         IronHelper.ShowInterstitial(onSuccess, placementName, itemName);
-                    }
-                    else if (AdsNetwork.Contains(AdMediation.MAX) && MaxHelper.InterIsReady)
-                    {
-                        Debug.Log("[AdsManager] ShowInterstitial IRON --> MAX Show");
-
-                        LogEvent("ad_" + AdType.Inter + "_iron_max", ParamsBase(placementName, itemName, AdMediation.MAX));
-
-                        MaxHelper.ShowInterstitial(onSuccess, placementName, itemName);
-                    }
-                    else if (AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.InterIsReady)
-                    {
-                        Debug.Log("[AdsManager] ShowInterstitial IRON --> ADMOD Show");
-
-                        LogEvent("ad_" + AdType.Inter + "_iron_admob", ParamsBase(placementName, itemName, AdMediation.ADMOD));
-
-                        AdmobHelper.ShowInterstitial(onSuccess, placementName, itemName);
                     }
                     else
                     {
-                        if (interToReward && IronHelper.RewardIsReady)
-                        {
-                            Debug.Log("[AdsManager] ShowInterstitial IRON Inter --> IRON Reward");
-
-                            LogEvent("ad_" + AdType.Inter + "_" + AdType.Reward, ParamsBase(placementName, itemName, DefaultMediation));
-
-                            IronHelper.ShowRewarded(onSuccess, placementName, itemName);
-                        }
-                        else
-                        {
-                            Debug.Log("[AdsManager] ShowInterstitial IRON Inter --> NOT AVAIABLE --> Try show AdUseBackup: " + GameConfig.adUseBackup + " " + AdmobHelper.IsInitInter);
-
-                            IronHelper.ShowInterstitial(onSuccess, placementName, itemName);
-
-                            if (GameConfig.adUseBackup && AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.IsInitInter == false)
-                            {
-                                Debug.Log("[AdsManager] ShowInterstitial IRON Inter --> NOT AVAIABLE --> ADMOB Init Inter");
-                                instance.StartCoroutine(AdmobHelper.DOInit(IsDebug, AdmobHelper.InitInter));
-                            }
-                        }
+                        Debug.LogError("[AdsManager] IRON ShowInterstitial --> InterIsReady: " + IronHelper.InterIsReady);
+                        onSuccess?.Invoke(AdEvent.ShowNotAvailable, AdType.Inter);
+                        SetStatus(AdType.Inter, AdEvent.ShowNotAvailable, placementName, itemName, DefaultMediation);
                     }
                 }
                 else if (DefaultMediation == AdMediation.MAX)
                 {
-                    if (MaxHelper.InterIsReady && !instance.testForceBackup)
+                    if (MaxHelper.InterIsReady)
                     {
                         Debug.Log("[AdsManager] ShowInterstitial MAX Show");
-
                         MaxHelper.ShowInterstitial(onSuccess, placementName, itemName);
-                    }
-                    else if (AdsNetwork.Contains(AdMediation.IRON) && IronHelper.InterIsReady)
-                    {
-                        Debug.Log("[AdsManager] ShowInterstitial MAX --> IRON Show");
-
-                        LogEvent("ad_" + AdType.Inter + "_max_iron", ParamsBase(placementName, itemName, AdMediation.IRON));
-
-                        IronHelper.ShowInterstitial(onSuccess, placementName, itemName);
-                    }
-                    else if (AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.InterIsReady)
-                    {
-                        Debug.Log("[AdsManager] ShowInterstitial MAX --> ADMOD Show");
-
-                        LogEvent("ad_" + AdType.Inter + "_max_admob", ParamsBase(placementName, itemName, AdMediation.ADMOD));
-
-                        AdmobHelper.ShowInterstitial(onSuccess, placementName, itemName);
                     }
                     else
                     {
-                        if (interToReward && IronHelper.RewardIsReady)
-                        {
-                            Debug.Log("[AdsManager] ShowInterstitial MAX Inter --> MAX Reward");
-
-                            LogEvent("ad_" + AdType.Inter + "_" + AdType.Reward, ParamsBase(placementName, itemName, DefaultMediation));
-
-                            MaxHelper.ShowRewarded(onSuccess, placementName, itemName);
-                        }
-                        else
-                        {
-                            Debug.Log("[AdsManager] ShowInterstitial MAX Inter --> NOT AVAIABLE --> Try show AdUseBackup: " + GameConfig.adUseBackup + " " + AdmobHelper.IsInitInter);
-
-                            MaxHelper.ShowInterstitial(onSuccess, placementName, itemName);
-
-                            if (GameConfig.adUseBackup && AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.IsInitInter == false)
-                            {
-                                Debug.Log("[AdsManager] ShowInterstitial MAX Inter --> NOT AVAIABLE --> ADMOB Init Inter");
-                                instance.StartCoroutine(AdmobHelper.DOInit(IsDebug, AdmobHelper.InitInter));
-                            }
-                        }
+                        Debug.LogError("[AdsManager] MAX ShowInterstitial --> InterIsReady: " + IronHelper.InterIsReady);
+                        onSuccess?.Invoke(AdEvent.ShowNotAvailable, AdType.Inter);
+                        SetStatus(AdType.Inter, AdEvent.ShowNotAvailable, placementName, itemName, DefaultMediation);
                     }
                 }
                 else
@@ -690,6 +611,11 @@ namespace Base.Ads
         /// </summary>
         public static void ShowVideoReward(Action<AdEvent, AdType> onSuccess, string placementName, string itemName = "default")
         {
+#if UNITY_EDITOR
+            onSuccess?.Invoke(AdEvent.ShowSuccess, AdType.Reward);
+            return;
+#endif
+
             try
             {
                 if (!instance)
@@ -699,7 +625,8 @@ namespace Base.Ads
                     return;
                 }
 
-                instance.StartCoroutine(DOInit());
+                if (!IsInit)
+                    instance.StartCoroutine(DOInit(false));
 
                 Debug.Log(string.Format("[AdsManager] ShowVideoReward IRON {0} MAX {1} ADMOB {2} LastAdEvent {3} IsTime {4}", IronHelper.RewardIsReady, MaxHelper.RewardIsReady, AdmobHelper.RewardIsReady, LastAdEvent, IsTimeToShowAds));
 
@@ -730,106 +657,32 @@ namespace Base.Ads
 
                 if (DefaultMediation == AdMediation.IRON)
                 {
-                    if (IronHelper.RewardIsReady && !instance.testForceBackup)
+                    if (IronHelper.RewardIsReady)
                     {
                         IronHelper.ShowRewarded(onSuccess, placementName, itemName);
                     }
-                    else if (AdsNetwork.Contains(AdMediation.MAX) && MaxHelper.RewardIsReady)
-                    {
-                        Debug.Log("[AdsManager] ShowVideoReward IRON --> MAX");
-
-                        LogEvent("ad_" + AdType.Reward + "_iron_max", ParamsBase(placementName, itemName, AdMediation.MAX));
-
-                        MaxHelper.ShowRewarded(onSuccess, placementName, itemName);
-                    }
-                    else if (AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.RewardIsReady)
-                    {
-                        Debug.Log("[AdsManager] ShowVideoReward IRON --> ADMOD");
-
-                        LogEvent("ad_" + AdType.Reward + "_iron_admob", ParamsBase(placementName, itemName, AdMediation.ADMOD));
-
-                        AdmobHelper.ShowRewarded(onSuccess, placementName, itemName);
-                    }
                     else
                     {
-                        if (rewardToInter && IronHelper.InterIsReady)
-                        {
-                            Debug.Log("[AdsManager] ShowVideoReward IRON Reward --> IRON Inter");
+                        Debug.LogError("[AdsManager] IRON ShowVideoReward --> RewardIsReady: " + IronHelper.RewardIsReady);
 
-                            LogEvent("ad_" + AdType.Reward + "_" + AdType.Inter, ParamsBase(placementName, itemName, DefaultMediation));
+                        onSuccess?.Invoke(AdEvent.ShowNotAvailable, AdType.Reward);
 
-                            IronHelper.ShowInterstitial(onSuccess, placementName, itemName);
-                        }
-                        else
-                        {
-                            Debug.Log("[AdsManager] ShowVideoReward IRON Reward --> NOT AVAIABLE --> Try show AdUseBackup: " + GameConfig.adUseBackup + " " + AdmobHelper.IsInitInter);
-
-                            IronHelper.ShowRewarded(onSuccess, placementName, itemName);
-
-                            if (GameConfig.adUseBackup && AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.IsInitReward == false)
-                            {
-                                Debug.Log("[AdsManager] ShowInterstitial IRON Reward --> NOT AVAIABLE --> ADMOB Init Reward");
-                                instance.StartCoroutine(AdmobHelper.DOInit(IsDebug, AdmobHelper.InitReward));
-                            }
-                        }
+                        SetStatus(AdType.Reward, AdEvent.ShowNotAvailable, placementName, itemName, DefaultMediation);
                     }
                 }
                 else if (DefaultMediation == AdMediation.MAX)
                 {
-                    if (MaxHelper.RewardIsReady && !instance.testForceBackup)
+                    if (MaxHelper.RewardIsReady)
                     {
-                        Debug.Log("[AdsManager] ShowVideoReward MAX --> MAX");
                         MaxHelper.ShowRewarded(onSuccess, placementName, itemName);
-                    }
-                    else if (AdsNetwork.Contains(AdMediation.IRON) && IronHelper.RewardIsReady)
-                    {
-                        Debug.Log("[AdsManager] ShowVideoReward MAX --> IRON");
-
-                        LogEvent("ad_" + AdType.Reward + "_max_iron", ParamsBase(placementName, itemName, AdMediation.IRON));
-
-                        IronHelper.ShowRewarded(onSuccess, placementName, itemName);
-                    }
-                    else if (AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.RewardIsReady)
-                    {
-                        Debug.Log("[AdsManager] ShowVideoReward MAX --> ADMOD");
-
-                        LogEvent("ad_" + AdType.Reward + "_max_admob", ParamsBase(placementName, itemName, AdMediation.ADMOD));
-
-                        AdmobHelper.ShowRewarded(onSuccess, placementName, itemName);
                     }
                     else
                     {
-                        if (rewardToInter)
-                        {
-                            if (IronHelper.InterIsReady)
-                            {
-                                Debug.Log("[AdsManager] ShowVideoReward MAX Reward --> MAX Inter");
+                        Debug.LogError("[AdsManager] ShowVideoReward --> NOT DefaultMediation ------------------------------");
 
-                                LogEvent("ad_" + AdType.Reward + "_" + AdType.Inter, ParamsBase(placementName, itemName, DefaultMediation));
+                        onSuccess?.Invoke(AdEvent.ShowNotAvailable, AdType.Reward);
 
-                                MaxHelper.ShowInterstitial(onSuccess, placementName, itemName);
-                            }
-                            else
-                            {
-                                Debug.Log("[AdsManager] ShowVideoReward MAX Inter --> NOT AVAIABLE --> Try show AdUseBackup: " + GameConfig.adUseBackup + " " + AdmobHelper.IsInitInter);
-
-                                MaxHelper.ShowRewarded(onSuccess, placementName, itemName);
-
-                                if (GameConfig.adUseBackup && AdsNetwork.Contains(AdMediation.ADMOD) && AdmobHelper.IsInitReward == false)
-                                {
-                                    Debug.Log("[AdsManager] ShowInterstitial MAX Reward --> NOT AVAIABLE --> ADMOB Init Reward");
-                                    instance.StartCoroutine(AdmobHelper.DOInit(IsDebug, AdmobHelper.InitReward));
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogWarning("[AdsManager] ShowVideoReward --> NOT AVAIABLE ------------------------------");
-
-                            onSuccess?.Invoke(AdEvent.ShowNotAvailable, AdType.Reward);
-
-                            SetStatus(AdType.Reward, AdEvent.ShowNotAvailable, placementName, itemName, DefaultMediation);
-                        }
+                        SetStatus(AdType.Reward, AdEvent.ShowNotAvailable, placementName, itemName, DefaultMediation);
                     }
                 }
                 else
@@ -1117,14 +970,12 @@ namespace Base.Ads
 
         public static void Log(string value)
         {
-            if (IsDebug)
-                Debug.Log(value);
+            Debug.Log(value);
         }
 
         public static void LogWarning(string value)
         {
-            if (IsDebug)
-                Debug.LogWarning(value);
+            Debug.LogWarning(value);
         }
 
         public static void LogError(string value)
@@ -1213,7 +1064,7 @@ namespace Base.Ads
 #if USE_FIREBASE
                 if (FirebaseManager.AnalyticStatus == FirebaseStatus.Initialized)
                 {
-                    FirebaseAnalytics.LogEvent("ad_impression",
+                    FirebaseAnalytics.LogEvent("ad_impression_ironsource",
                         new Parameter[] {
                         new Parameter("is_connected", RegexString(InternetStatus)),
                         new Parameter("ad_platform", RegexString(mediation)),
@@ -1242,17 +1093,23 @@ namespace Base.Ads
 #endif
 
 
-                //#if USE_APPSFLYER
-                //var afParameters = new Dictionary<string, string>
-                //{
-                //{ "af_currency", currency },
-                //{ "af_content_id", ad_format },
-                //{ "af_revenue", revenue.ToString("#0.00000", culture) },
-                //{ "af_level", DataManager.UserData.totalWin.ToString() }
-                //};
+#if USE_APPSFLYER
+                if (data != null && data is IronSourceImpressionData)
+                {
+                    var impressionData = data as IronSourceImpressionData;
+                    var afParameters = new Dictionary<string, string>
+                     {
+                        { /*"af_currency"*/AFAdRevenueEvent.COUNTRY, impressionData.country },
+                        {/* "af_content_id"*/AFAdRevenueEvent.AD_UNIT,impressionData.adUnit },
+                        { /*"af_revenue"*/AFAdRevenueEvent.AD_TYPE, impressionData.instanceName/*revenue.ToString("#0.00000", culture)*/ },
+                        { /*"af_level"*/AFAdRevenueEvent.PLACEMENT, /*DataManager.UserData.TotalWin.ToString()*/impressionData.placement },
+                        { AFAdRevenueEvent.ECPM_PAYLOAD, impressionData.encryptedCPM}
+                     };
 
-                //AppsFlyerSDK.AppsFlyer.sendEvent(ad_unit_name.ToLower(), afParameters);
-                //#endif
+                    AppsFlyerSDK.AppsFlyer.sendEvent(ad_unit_name.ToLower(), afParameters);
+                    AppsFlyerSDK.AppsFlyerAdRevenue.logAdRevenue(impressionData.adNetwork, AppsFlyerSDK.AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeIronSource, impressionData.revenue.Value, "USD", afParameters);
+                }
+#endif
 
                 string stringLog = "ad_impression" + " " + mediation.ToString() + " " + ad_network + " " + ad_unit_name + " " + ad_format + " " + revenue.ToString("#0.00000", culture) + " " + currency.ToString();
 
@@ -1277,102 +1134,47 @@ namespace Base.Ads
 #if USE_IRON
             IronSource.Agent.onApplicationPause(isPaused);
 #endif
-
-            StopCoroutine(ShowWarningLostConnection());
-
-            if (IsTimeToShowAdOpen && isPaused == false)
-            {
-                string itemName = "app_pause";
-                if (GameConfig != null)
-                {
-                    if (GameConfig.timeToWaitOpenAd > 0 && AdOpen.IsReady)
-                    {
-                        AdOpen.ShowOpenAdIfAvailable(itemName);
-                        return;
-                    }
-                    else
-                    {
-#if USE_MAXOPEN
-                        Log(AdOpen.TAG + "WaitToShow: " + AdOpen.Status.ToString() + " " + AdOpen.IsReady + " ---> Check Open MAX");
-#endif
-                    }
-
-#if USE_MAXOPEN
-                    if (GameConfig.adUseOpenBackup && MaxHelper.OpenIsReady)
-                    {
-                        MaxHelper.ShowOpenAdIfAvailable(itemName);
-                        return;
-                    }
-                    else
-                    {
-                        Log(MaxHelper.TAG + "WaitToShow: " + MaxHelper.StatusOpen.ToString() + " " + MaxHelper.OpenIsReady + " ---> Check Inter DEFAULT");
-                    }
-#endif
-
-                    if (GameConfig.timeToWaitOpenInter > 0 && InterIsReady)
-                    {
-                        //ShowInterstitial((status, type) => { }, "app_pause_inter", itemName);
-                    }
-
-                    CheckLostConnection();
-                }
-            }
         }
 
+        private static void OnAppStateChanged(AppState state)
+        {
+            Debug.Log($"check back in App State Change is back from store: {DataManager.adInterOrRewardClicked}");
+            if (DataManager.adInterOrRewardClicked)
+            {
+                Debug.Log($"check back in App State Change change appstate and back from store");
+                return;
+            }
+            Debug.Log("App State is " + state);
+            if (state == AppState.Foreground && IsTimeToShowAdOpen && GameConfig != null)
+            {
+                if (GameConfig.timeToWaitOpenAd > 0)
+                {
+                    AdOpen.ShowOpenAdIfAvailable("app_pause", null);
+                    return;
+                }
+                else
+                {
+#if USE_MAXOPEN
+                    Log(AdOpen.TAG + "WaitToShow: " + AdOpen.Status.ToString() + " " + AdOpen.IsReady + " ---> Check Open MAX");
+#endif
+                }
+
+#if USE_MAXOPEN
+                if (GameConfig.adUseOpenBackup && MaxHelper.OpenIsReady)
+                {
+                    MaxHelper.ShowOpenAdIfAvailable(itemName);
+                    return;
+                }
+                else
+                {
+                    Log(MaxHelper.TAG + "WaitToShow: " + MaxHelper.StatusOpen.ToString() + " " + MaxHelper.OpenIsReady + " ---> Check Inter DEFAULT");
+                }
+#endif
+            }
+        }
         private void OnApplicationFocus(bool isFocus)
         {
             Debug.Log("OnApplicationFocus " + isFocus);
-        }
-
-        public static void CheckLostConnection()
-        {
-            if (instance != null && (GameStateManager.CurrentState == GameState.Ready || GameStateManager.CurrentState == GameState.Play) && UserData.TotalWin > GameConfig.isNeedInternet)
-            {
-                if (isCheckingLostConnection == false)
-                {
-                    instance.StopCoroutine(instance.ShowWarningLostConnection());
-                    instance.StartCoroutine(instance.ShowWarningLostConnection());
-                }
-            }
-        }
-
-        protected static bool isCheckingLostConnection = false;
-        public IEnumerator ShowWarningLostConnection()
-        {
-            if (IsConnected)
-            {
-                isCheckingLostConnection = false;
-                yield break;
-            }
-
-            int countTimeOut = 1;
-            while (IsConnected == false && countTimeOut <= 5)
-            {
-                isCheckingLostConnection = true;
-                UIToast.ShowLoading("Connection lost, trying to reconnect.. " + countTimeOut + " time(s)", 6);
-                yield return new WaitForSeconds(0.5f);
-                if (IsConnected)
-                {
-                    isCheckingLostConnection = false;
-                    UIToast.ShowNotice("Connecting to server... ");
-                    yield break;
-                }
-                yield return new WaitForSeconds(0.5f);
-                countTimeOut++;
-            }
-
-            yield return new WaitForSeconds(1f);
-            isCheckingLostConnection = false;
-            UIToast.ShowError("Failed connection timed out... ");
-
-            //GameStateManager.Main();
-
-            //PopupMessage.Show("NO INTERNET",
-            //        "Some actions are"
-            //        + "\n" + "NOT available OFFLINE"
-            //        + "\n" + "Please check your internet connection",
-            //        "OKIE", null, null);
-            ;
         }
 
         public static void LogAppsFlyer(AdType adType, AdEvent adEvent, string placementName, string itemName)
