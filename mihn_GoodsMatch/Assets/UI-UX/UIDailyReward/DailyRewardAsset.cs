@@ -12,9 +12,9 @@ public class DailyRewardAsset : ScriptableObject
     [SerializeField] List<DailyRewardDatum> daySevenRewards;
     [SerializeField] List<DailyRewardDatum> levelUnlockRewards;
 
-    public int[] GetDailyRewards()
+    public int[] GetDailyRewards(int index )
     {
-        return ConvertRewardDatum(list[Random.Range(0, list.Count)]);
+        return ConvertRewardDatum(list[index]);
     }
 
     public int[] GetLevelUnlockRewards()
@@ -22,11 +22,28 @@ public class DailyRewardAsset : ScriptableObject
         return ConvertRewardDatum(levelUnlockRewards[Random.Range(0, levelUnlockRewards.Count)]);
     }
 
+    public ItemDecorData GetDaySevenRewardDeCor()
+    {
+        for(int i=DataManager.HouseAsset.allFloorData.Count-1; i>=0; i--)
+        {
+            if (DataManager.HouseAsset.allFloorData[i].isUnlocked)
+            {
+                if (DataManager.HouseAsset.allFloorData[i].allCats.Count != DataManager.HouseAsset.allFloorData[i].catUnlockedCount)
+                {
+                    return DataManager.HouseAsset.allFloorData[i].UnlockRandomCat();
+                } else
+                if (DataManager.HouseAsset.allFloorData[i].allDecorationItems.Count != DataManager.HouseAsset.allFloorData[i].itemUnlockedCount)
+                {
+                    return DataManager.HouseAsset.allFloorData[i].UnlockRandomDecor();
+                }
+            }
+        }
+        return null;
+    }
     public int[] GetDaySevenReward()
     {
-        return ConvertRewardDatum(daySevenRewards[Random.Range(0, list.Count)]);
+        return ConvertRewardDatum(daySevenRewards[6]);
     }
-
     private int[] ConvertRewardDatum(DailyRewardDatum datum)
     {
         int coinEarn = 0;
@@ -70,5 +87,7 @@ public enum eRewardType
     Gold,
     BuffHint,
     BuffSwap,
-    GoldSale
+    GoldSale,
+    Decor,
+    Cat,
 }

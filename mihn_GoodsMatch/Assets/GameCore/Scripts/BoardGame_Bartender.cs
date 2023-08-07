@@ -8,6 +8,7 @@ using DG.Tweening;
 using Random = UnityEngine.Random;
 using System.Linq;
 using Base;
+using MyBox;
 
 public class BoardGame_Bartender : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class BoardGame_Bartender : MonoBehaviour
     [Header("Items List")]
     public List<Goods_Item> items = new List<Goods_Item>();
     public List<ShelfUnit> shelves = new List<ShelfUnit>();
+    public List<Goods_Item> itemSwap = new List<Goods_Item>();
     private List<eItemType>[] typeGroups = new List<eItemType>[4];
 
     [Header("Request Manager")]
@@ -629,5 +631,29 @@ public class BoardGame_Bartender : MonoBehaviour
             item.Recycle();
 
         items.Clear();
+    }
+
+    [ButtonMethod]
+    public void TestSwap()
+    {
+        itemSwap.Clear();
+        foreach (var item in items)
+        {
+            itemSwap.Add(item);
+        }
+        for (int i = itemSwap.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, itemSwap.Count);
+            Goods_Item temp = itemSwap[i];
+            itemSwap[i] = itemSwap[j];
+            itemSwap[j] = temp;
+        }
+        for (int i = 0; i < itemSwap.Count;)
+        {
+            if (i + 1 < itemSwap.Count)
+                DoSwapItems(itemSwap[i], itemSwap[i + 1]);
+            i += 2;
+        }
+
     }
 }

@@ -58,6 +58,10 @@ public class BoardGame : MonoBehaviour
 
     private Coroutine prepareMapCoroutine;
 
+    private List<eItemType>[] typeGroups = new List<eItemType>[4];
+    private List<eItemType> requestingTypes = new List<eItemType>();
+    [SerializeField] private List<Goods_Item> requestingItems = new List<Goods_Item>();
+
     private void Awake()
     {
         instance = this;
@@ -176,7 +180,10 @@ public class BoardGame : MonoBehaviour
         currentLevelConfig = DataManager.currLevelconfigData.config;
         timeLimitInSeconds = currentLevelConfig.time;
         mapCreater.CreateMap();
-
+        foreach (var group in typeGroups)
+            group.Clear();
+        requestingItems.Clear();
+        requestingTypes.Clear();
 
         isShowTut = DataManager.mapSelect == 1 && DataManager.levelSelect == 1 && !DataManager.UserData.tutNormalDone;
         tutHand?.SetActive(isShowTut);
@@ -411,7 +418,33 @@ public class BoardGame : MonoBehaviour
     }
 
     #endregion
-
+    #region requestHandle
+    public eItemType GetItemTypeByGroup(int groupIndex)
+    {
+        int index = groupIndex;
+        var type = typeGroups[index].FirstOrDefault(x => !requestingTypes.Contains(x));
+        while (type == eItemType.None)
+        {
+            index = (++index) % typeGroups.Length;
+            type = typeGroups[index].FirstOrDefault(x => !requestingTypes.Contains(x));
+        }
+        requestingTypes.Add(type);
+        return type;
+    }
+    private void OnNewRequestCreated(object obj)
+    {
+        var datum = (List<Goods_Item>)obj;
+        foreach (var requestItem in datum)
+        {
+            requestingItems.Add(requestItem);
+        }
+    }
+    public void OnRequestTimeout(List<Goods_Item> items)
+    {
+        foreach (var item in items)
+            requestingItems.Remove(item);
+    }
+    #endregion
     #region matchedHandle
     private void OnNewMatchSuccess(object obj)
     {

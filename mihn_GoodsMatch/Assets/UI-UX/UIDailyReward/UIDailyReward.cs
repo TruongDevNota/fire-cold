@@ -30,6 +30,7 @@ public class UIDailyReward : MonoBehaviour
     private int coinEarn;
     private int buffHintEarn;
     private int buffSwapEarn;
+    private ItemDecorData item;
 
     private void OnDisable()
     {
@@ -57,17 +58,34 @@ public class UIDailyReward : MonoBehaviour
 
     public void FetchData()
     {
-        if ((DataManager.UserData.dailyRewardClaimCount > 0 && DataManager.UserData.lastdayClaimed.Day < System.DateTime.Now.Day - 1) ||
-            (DataManager.UserData.dailyRewardClaimCount == 7 && DataManager.UserData.lastdayClaimed.Day < System.DateTime.Now.Day - 1))
+        if ((DataManager.UserData.dailyRewardClaimCount == 7 && DataManager.UserData.lastdayClaimed.Day <= System.DateTime.Now.Day - 1))
             DataManager.UserData.dailyRewardClaimCount = 0;
         canClaim = DataManager.UserData.dailyRewardClaimCount == 0 || DataManager.UserData.lastdayClaimed.Day == System.DateTime.Now.Day - 1;
 
-        var rewards = DataManager.UserData.dailyRewardClaimCount < 6 ? dailyRewardAsset.GetDailyRewards() : dailyRewardAsset.GetDaySevenReward();
 
-        coinEarn = rewards[0];
-        buffHintEarn = rewards[1];
-        buffSwapEarn = rewards[2];
-
+        
+        if(DataManager.UserData.dailyRewardClaimCount < 6)
+        {
+            var rewards = dailyRewardAsset.GetDailyRewards(DataManager.UserData.dailyRewardClaimCount);
+            coinEarn = rewards[0];
+            buffHintEarn = rewards[1];
+            buffSwapEarn = rewards[2];
+        }
+        else
+        {
+            var rewards = dailyRewardAsset.GetDaySevenRewardDeCor();
+            item = rewards;
+            coinEarn = 0;
+            buffHintEarn = 0;
+            buffSwapEarn = 0;
+            if (rewards == null)
+            {
+               var rewards1 = dailyRewardAsset.GetDaySevenReward();
+                coinEarn = rewards1[0];
+                buffHintEarn = rewards1[1];
+                buffSwapEarn = rewards1[2];
+            }
+        }
         btn_Claim.gameObject.SetActive(false);
         //btn_ClaimX2.gameObject.SetActive(canClaim);
         //timeLeftObj.gameObject.SetActive(!canClaim);
@@ -107,7 +125,8 @@ public class UIDailyReward : MonoBehaviour
     {
         isCountDown = false;
         txt_timeLeft.text = "--:--:--";
-        OnShow();
+        foreach (var item in dailyItems)
+            item.FillLayout();
     }
     #endregion
 
@@ -139,14 +158,17 @@ public class UIDailyReward : MonoBehaviour
         DataManager.UserData.lastdayClaimed = System.DateTime.Now;
         if(DataManager.UserData.dailyRewardClaimCount == 7)
         {
-            popupReward.ShowDailyChestReward(coinEarn, buffHintEarn, buffSwapEarn,7);
+            popupReward.ShowDailyChestReward(item,coinEarn, buffHintEarn, buffSwapEarn,7);
         }else
-            popupReward.ShowDailyChestReward(coinEarn, buffHintEarn, buffSwapEarn);
-        OnShow();
+            popupReward.ShowDailyChestReward(null,coinEarn, buffHintEarn, buffSwapEarn);
+
+        foreach (var item in dailyItems)
+            item.FillLayout();
     }
     [ButtonMethod]
     public void test()
     {
         DataManager.UserData.lastdayClaimed= System.DateTime.Now.AddDays(-1);
+        OnShow();
     }
 }

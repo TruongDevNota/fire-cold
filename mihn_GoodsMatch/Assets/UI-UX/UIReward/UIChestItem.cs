@@ -16,6 +16,11 @@ public class UIChestItem : MonoBehaviour
         DOTween.Kill(txt_Amount);
         DoTextAnim(0, number);
     }
+    public void FillDecor( Sprite icon = null)
+    {
+        if (icon != null)
+            img_icon.sprite = icon;
+    }
 
     public void DoTextAnim(int startValue, int endValue, float dur = 1f)
     {

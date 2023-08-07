@@ -15,35 +15,25 @@ MonoBehaviour:
   list:
   - rewards:
     - type: 0
-      amount: 10
+      amount: 100
   - rewards:
     - type: 0
-      amount: 15
+      amount: 150
   - rewards:
     - type: 0
-      amount: 20
+      amount: 200
   - rewards:
     - type: 0
-      amount: 25
-  - rewards:
-    - type: 1
-      amount: 1
-    - type: 0
-      amount: 10
-  - rewards:
-    - type: 2
-      amount: 1
-    - type: 0
-      amount: 10
+      amount: 250
   - rewards:
     - type: 0
-      amount: 30
+      amount: 300
   - rewards:
     - type: 0
-      amount: 40
+      amount: 350
   - rewards:
     - type: 0
-      amount: 50
+      amount: 1000
   daySevenRewards:
   - rewards:
     - type: 0

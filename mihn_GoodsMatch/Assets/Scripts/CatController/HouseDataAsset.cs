@@ -121,6 +121,20 @@ public class HouseFloorData
         else
             return allCats.FirstOrDefault(x => string.Compare(x.id, id) == 0);
     }
+    public ItemDecorData UnlockRandomDecor()
+    {
+        List<ItemDecorData> lockItem = allDecorationItems.Where(item => !item.isUnlocked && item.unlockPrice >= 0).ToList();
+        int i = Random.Range(0, lockItem.Count);
+        lockItem[i].isUnlocked = true;
+        return lockItem[i];
+    }
+    public ItemDecorData UnlockRandomCat()
+    {
+        List<HouseCatData> lockItem = allCats.Where(item => !item.isUnlocked && item.unlockPrice >= 0).ToList();
+        int i = Random.Range(0, lockItem.Count);
+        lockItem[i].isUnlocked = true;
+        return lockItem[i];
+    }
     public FloorSaveData GetSaveData()
     {
         return new FloorSaveData()

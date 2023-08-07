@@ -112,6 +112,7 @@ public class BarRequest : MonoBehaviour
             OnTimeOut();
         }
     }
+
     public void ShowRequestItem()
     {
         gameObject.SetActive(true);
@@ -364,4 +365,10 @@ public class BarRequest : MonoBehaviour
         });
     }
     #endregion
+
+    [ButtonMethod]
+    public void Test()
+    {
+        ShowRequestItem();
+    }
 }

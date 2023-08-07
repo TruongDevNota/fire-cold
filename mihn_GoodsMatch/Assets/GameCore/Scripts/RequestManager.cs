@@ -8,6 +8,7 @@ public class RequestManager : MonoBehaviour
     [SerializeField] GameItemAsset gameItemAsset;
     private GameConfig config => DataManager.GameConfig;
     public BoardGame_Bartender boardGame;
+    public BoardGame boardGame1;
 
     [SerializeField] BarRequest[] bars;
     [SerializeField] float waitTime = 10f;
@@ -112,7 +113,11 @@ public class RequestManager : MonoBehaviour
         request.waitTime = waitTime + (itemCount -1) * waitTime * 0.5f;
         for (int i = 0; i < itemCount; i++)
         {
-            var requestType = boardGame.GetItemTypeByGroup(0);
+            eItemType requestType;
+            if (boardGame1==null)
+                requestType = boardGame.GetItemTypeByGroup(0);
+            else
+                requestType = boardGame1.GetItemTypeByGroup(0);
             request.types.Add(requestType);
         }
         return request;
