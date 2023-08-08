@@ -27,15 +27,16 @@ public class RequestManager : MonoBehaviour
     private void OnEnable()
     {
         GameStateManager.OnStateChanged += GameStateManager_OnStateChanged;
+        this.RegisterListener((int)EventID.StartModeOrder, StartModeOrder);
         foreach (var bar in bars)
             bar.gameObject.SetActive(false);
     }
     private void OnDisable()
     {
         GameStateManager.OnStateChanged -= GameStateManager_OnStateChanged;
+        EventDispatcher.Instance?.RemoveListener((int)EventID.StartModeOrder, StartModeOrder);
         StopAllCoroutines();
     }
-
     private void GameStateManager_OnStateChanged(GameState current, GameState last, object data)
     {
         if(current == GameState.Play)
@@ -88,6 +89,14 @@ public class RequestManager : MonoBehaviour
             StopCoroutine(spawnRequestCoroutine);
         spawnRequestCoroutine = StartCoroutine(YieldSpawnRequest());
     }
+    public void StartRequestOrder()
+    {
+        foreach (var bar in bars)
+        {
+            bar.ShowRequestItem();
+        }
+
+    }
     private IEnumerator YieldSpawnRequest()
     {
         requestCount = 0;
@@ -110,7 +119,7 @@ public class RequestManager : MonoBehaviour
         var request = new RequestDatum();
         request.id = requestCount;
         request.types = new List<eItemType>();
-        request.waitTime = waitTime + (itemCount -1) * waitTime * 0.5f;
+        request.waitTime = waitTime + (itemCount - 1) * waitTime * 0.5f;
         for (int i = 0; i < itemCount; i++)
         {
             eItemType requestType;
@@ -155,6 +164,31 @@ public class RequestManager : MonoBehaviour
                 value -= percentValues[i];
         }
         return percentValues.Length - 1;
+    }
+    private void SetGameLayerRecursive(GameObject gameObject, int layer)
+    {
+        gameObject.layer = layer;
+        foreach (Transform child in gameObject.transform)
+        {
+            SetGameLayerRecursive(child.gameObject, layer);
+        }
+    }
+    public void StartModeOrder(object obj)
+    {
+        if (!BoardGame.instance.hasOrderMode)
+        {
+            return;
+        }
+        StartRequestOrder();
+        foreach (var bar in bars)
+        {
+            if (bar.gameObject.activeInHierarchy)
+            {
+                SetGameLayerRecursive(bar.gameObject, 5);
+            }
+        }
+        
+        
     }
 }
 

@@ -52,5 +52,6 @@ public enum EventID
     OnUnlockCatSuccess = 2101,
     OnUnlockItemSuccess = 2102,
     BuffHintStopTime = 2103,
-    BuffHintStartTime = 2104
+    BuffHintStartTime = 2104,
+    StartModeOrder = 2105
 }

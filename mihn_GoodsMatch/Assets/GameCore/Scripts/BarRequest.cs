@@ -40,7 +40,7 @@ public class BarRequest : MonoBehaviour
 
     [Header("VFX")]
     [SerializeField] ParticleSystem completeParticle;
-    [SerializeField] float alertTime = 5f;
+    [SerializeField] float alertTime = 2f;
     [SerializeField] float alertSingleTime = 1f;
 
     [Header("Guest Config")]
@@ -65,7 +65,7 @@ public class BarRequest : MonoBehaviour
 
     private void Awake()
     {
-        if(requestManager == null)
+        if (requestManager == null)
             requestManager = GetComponentInParent<RequestManager>();
         if (boardGame == null)
             boardGame = requestManager.boardGame;
@@ -75,7 +75,7 @@ public class BarRequest : MonoBehaviour
     {
         iconTick.gameObject.SetActive(false);
         iconMiss.gameObject.SetActive(false);
-        if(tutObj)
+        if (tutObj)
             tutObj.SetActive(false);
     }
     private void OnDestroy()
@@ -89,10 +89,12 @@ public class BarRequest : MonoBehaviour
     private void OnEnable()
     {
         this.RegisterListener((int)EventID.OnMatchedRightRequest, OnMatchedRequest);
+        
     }
     private void OnDisable()
     {
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnMatchedRightRequest, OnMatchedRequest);
+        
         DOTween.Kill($"{this.GetInstanceID()}_OutSideFadeIn");
         DOTween.Kill($"{this.GetInstanceID()}_OutSideFadeOut");
         DOTween.Kill($"{this.GetInstanceID()}_Fade_Alert");
@@ -101,13 +103,13 @@ public class BarRequest : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if(!IsRequesting)
+        if (!IsRequesting)
             return;
         elapsedTime += Time.deltaTime;
-        waitTimeProcess.SetSizeY(fillProcessFullHeight * Mathf.Max(0,  (currDatum.waitTime - elapsedTime)/ currDatum.waitTime));
+        waitTimeProcess.SetSizeY(fillProcessFullHeight * Mathf.Max(0, (currDatum.waitTime - elapsedTime) / currDatum.waitTime));
         if (elapsedTime >= currDatum.waitTime - alertTime && !alertSR.gameObject.activeSelf)
             StartCoroutine(YieldAlert());
-        if(elapsedTime >= currDatum.waitTime && requestingItems.Count > 0)
+        if (elapsedTime >= currDatum.waitTime && requestingItems.Count > 0)
         {
             OnTimeOut();
         }
@@ -127,8 +129,8 @@ public class BarRequest : MonoBehaviour
         outsideSR.DOColor(bgNormalColor, 0);
 
         var guests = GetComponentsInChildren<GuestController>();
-        if(guests != null && guests.Length > 0)
-            foreach(var guest in guests)
+        if (guests != null && guests.Length > 0)
+            foreach (var guest in guests)
                 guest.Recycle();
 
         foreach (var item in requestingItems)
@@ -158,16 +160,18 @@ public class BarRequest : MonoBehaviour
             var item = gameItemAsset.GetItemByType(datum.types[i]).itemProp.Spawn(transform);
             item.transform.localPosition = GetPosOnBar(datum.types.Count, i);
             item.OnInit(active: false, delay: i * 0.15f);
-            item.spriteRenderer.sortingOrder = 40;
+            item.spriteRenderer.sortingOrder = 145;
+            item.gameObject.layer = 5;
             requestingItems.Add(item);
 
-            for (int j = 1; j <=2; j++)
+            for (int j = 1; j <= 2; j++)
             {
                 var itemCollapse = gameItemAsset.GetItemByType(datum.types[i]).itemProp.Spawn(transform);
                 itemCollapse.transform.localPosition = item.transform.localPosition.OffsetX(j * 0.5f);
                 itemCollapse.OnInit(active: false, delay: i * 0.1f + j * 0.1f);
-                itemCollapse.spriteRenderer.sortingOrder = 40 - j * 5;
+                itemCollapse.spriteRenderer.sortingOrder = 145 - j * 5;
                 requestingItems.Add(itemCollapse);
+                itemCollapse.gameObject.layer = 5;
             }
         }
 
@@ -199,7 +203,7 @@ public class BarRequest : MonoBehaviour
         var item = (Goods_Item)obj;
         var matchItems = requestingItems.FindAll(x => x.Type == item.Type).OrderByDescending(x => x.spriteRenderer.sortingOrder).ToList();
 
-        if(matchItems != null && matchItems.Count > 0)
+        if (matchItems != null && matchItems.Count > 0)
         {
             if (currGuestController != null)
             {
@@ -208,10 +212,10 @@ public class BarRequest : MonoBehaviour
                 SoundManager.Play(soundName);
             }
 
-            for(int i = 1; i <= matchItems.Count; i++)
+            for (int i = 1; i <= matchItems.Count; i++)
             {
-                matchItems[i-1].OnHighLight(1.4f, 1f, i * 0.1f);
-                requestingItems.Remove(matchItems[i-1]);
+                matchItems[i - 1].OnHighLight(1.4f, 1f, i * 0.1f);
+                requestingItems.Remove(matchItems[i - 1]);
             }
         }
         //if (requestingItems.Contains(item))
@@ -225,7 +229,7 @@ public class BarRequest : MonoBehaviour
         //    item.OnHighLight(delay: 0.2f);
         //    requestingItems.Remove(item);
         //}
-        if(requestingItems.Count == 0)
+        if (requestingItems.Count == 0)
         {
             IsRequesting = false;
             StopCoroutine(YieldAlert());
@@ -239,13 +243,14 @@ public class BarRequest : MonoBehaviour
         IsRequesting = false;
         this.PostEvent((int)EventID.OnRequestTimeout, this.currDatum);
         BoardGame_Bartender.instance?.OnRequestTimeout(this.requestingItems);
+        BoardGame.instance?.OnRequestTimeout(this.requestingItems);
         if (currGuestController != null)
         {
             currGuestController.ChangeAnim(GuestAnimations.angryLeaveAnim);
             string soundName = GameUtilities.GetRandomBool() ? GameConstants.sound_CatAngryLeave1 : GameConstants.sound_CatAngryLeave2;
             SoundManager.Play(soundName);
         }
-            
+
         StartCoroutine(YieldLeave(false));
     }
     public void OnLevelEnd(bool isWin, bool forceHide = false)
@@ -267,10 +272,10 @@ public class BarRequest : MonoBehaviour
             outsideSR.DOColor(bgMissedColor, 0.25f);
             iconMiss.gameObject.SetActive(true);
             iconMiss.transform.localScale = Vector3.one;
-            yield return iconMiss.transform.DOScale(1.2f, waitMatchedFXTime*0.75f).OnComplete(() =>
-            {
-                iconTick.gameObject.SetActive(false);
-            }).SetId($"{iconMiss.GetInstanceID()}_DoScale").WaitForCompletion();
+            yield return iconMiss.transform.DOScale(1.2f, waitMatchedFXTime * 0.75f).OnComplete(() =>
+              {
+                  iconTick.gameObject.SetActive(false);
+              }).SetId($"{iconMiss.GetInstanceID()}_DoScale").WaitForCompletion();
             HideAll();
             yield return new WaitForSeconds(waitMatchedFXTime * 0.25f);
             if (currGuestController != null)
@@ -303,9 +308,9 @@ public class BarRequest : MonoBehaviour
         int count = Mathf.FloorToInt(alertTime / alertSingleTime);
         string soundName = GameUtilities.GetRandomBool() ? GameConstants.sound_CatWaitlong1 : GameConstants.sound_CatWaitlong2;
         SoundManager.Play(soundName);
-        for (int i = 0; i < count-1; i++)
+        for (int i = 0; i < count - 1; i++)
         {
-            yield return alertSR.DOFade(1f, alertSingleTime*0.5f).SetId($"{this.GetInstanceID()}_Fade_Alert").WaitForCompletion();
+            yield return alertSR.DOFade(1f, alertSingleTime * 0.5f).SetId($"{this.GetInstanceID()}_Fade_Alert").WaitForCompletion();
             DOTween.Kill($"{this.GetInstanceID()}_Fade_Alert");
             yield return new WaitForEndOfFrame();
             yield return alertSR.DOFade(0.25f, alertSingleTime * 0.5f).SetId($"{this.GetInstanceID()}_Fade_Alert").WaitForCompletion();
@@ -336,7 +341,7 @@ public class BarRequest : MonoBehaviour
         var startPos = startPosOffset;
 
         if (totalItems == 2)
-            startPos.x -= (itemDistance*0.5f);
+            startPos.x -= (itemDistance * 0.5f);
         if (index == 1)
             return startPos + Vector3.right.Multi(itemDistance, 0, 0);
         else if (index == 2)
@@ -346,7 +351,7 @@ public class BarRequest : MonoBehaviour
     }
     public void ClearAll()
     {
-        if(currGuestController)
+        if (currGuestController)
             currGuestController = null;
         IsRequesting = false;
         if (tutObj)
@@ -359,16 +364,20 @@ public class BarRequest : MonoBehaviour
     {
         currGuestController = null;
         currGuestController = guestPrefab.Spawn(this.transform);
+        SetGameLayerRecursive(currGuestController.gameObject, 5);
         currGuestController.ChangeSkin();
-        yield return currGuestController.YieldMove(posOutSide + transform.position, postInside + transform.position, false, guestMovingTime, callback: () => {
+        yield return currGuestController.YieldMove(posOutSide + transform.position, postInside + transform.position, false, guestMovingTime, callback: () =>
+        {
             currGuestController.ChangeAnim(GuestAnimations.idleAnims[UnityEngine.Random.Range(0, GuestAnimations.idleAnims.Length)]);
         });
     }
     #endregion
-
-    [ButtonMethod]
-    public void Test()
+    private void SetGameLayerRecursive(GameObject gameObject, int layer)
     {
-        ShowRequestItem();
+        gameObject.layer = layer;
+        foreach (Transform child in gameObject.transform)
+        {
+            SetGameLayerRecursive(child.gameObject, layer);
+        }
     }
 }

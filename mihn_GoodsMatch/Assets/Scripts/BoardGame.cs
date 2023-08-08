@@ -51,6 +51,8 @@ public class BoardGame : MonoBehaviour
     public bool isPlayingGame = false;
     public bool isPausing = false;
     public bool isShowTut = false;
+    public bool isOrdering = false;
+    public bool hasOrderMode = false;
 
     private bool isChallengeGame = false;
 
@@ -65,6 +67,10 @@ public class BoardGame : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        for (int i = 0; i < 4; i++)
+        {
+            typeGroups[i] = new List<eItemType>();
+        }
     }
 
     private void Start()
@@ -80,6 +86,7 @@ public class BoardGame : MonoBehaviour
         this.RegisterListener((int)EventID.BuffHintStartTime, BuffHintStartTime);
         this.RegisterListener((int)EventID.BuffHintStopTime, BuffHintStopTime);
         this.RegisterListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
+        this.RegisterListener((int)EventID.OnNewRequestCreated, OnNewRequestCreated);
     }
 
     private void OnDisable()
@@ -90,6 +97,7 @@ public class BoardGame : MonoBehaviour
         EventDispatcher.Instance?.RemoveListener((int)EventID.BuffHintStartTime, BuffHintStartTime);
         EventDispatcher.Instance?.RemoveListener((int)EventID.BuffHintStopTime, BuffHintStopTime);
         EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewMatchSuccess, OnNewMatchSuccess);
+        EventDispatcher.Instance?.RemoveListener((int)EventID.OnNewRequestCreated, OnNewRequestCreated);
     }
 
     private void BuffHintStopTime(object obj)
@@ -179,6 +187,7 @@ public class BoardGame : MonoBehaviour
         ClearMap();
         currentLevelConfig = DataManager.currLevelconfigData.config;
         timeLimitInSeconds = currentLevelConfig.time;
+        hasOrderMode = currentLevelConfig.hasOrderMode;
         mapCreater.CreateMap();
         foreach (var group in typeGroups)
             group.Clear();
@@ -188,7 +197,7 @@ public class BoardGame : MonoBehaviour
         isShowTut = DataManager.mapSelect == 1 && DataManager.levelSelect == 1 && !DataManager.UserData.tutNormalDone;
         tutHand?.SetActive(isShowTut);
         tutText?.SetActive(isShowTut);
-        
+
         yield return new WaitForEndOfFrame();
         GameStateManager.Ready(null);
         UIToast.Hide();
@@ -196,6 +205,7 @@ public class BoardGame : MonoBehaviour
 
     public void StartGamePlay()
     {
+        isOrdering = false;
         FirebaseManager.LogLevelStart(DataManager.levelSelect, $"level_{DataManager.levelSelect}");
         isPlayingGame = true;
         isPausing = false;
@@ -225,7 +235,7 @@ public class BoardGame : MonoBehaviour
 
         if (DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars.Count >= DataManager.levelSelect)
         {
-            if(DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars[DataManager.levelSelect - 1] < starNum)
+            if (DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars[DataManager.levelSelect - 1] < starNum)
             {
                 DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars[DataManager.levelSelect - 1] = starNum;
             }
@@ -234,7 +244,7 @@ public class BoardGame : MonoBehaviour
             DataManager.MapAsset.ListMap[DataManager.mapSelect - 1].levelStars.Add(starNum);
 
         DataManager.levelStars = starNum;
-
+        isOrdering = false;
         GameStateManager.WaitComplete(null);
     }
 
@@ -307,7 +317,7 @@ public class BoardGame : MonoBehaviour
         int targetIndex = -1;
         Goods_Item endPosItem = null;
         var raystart = touchPosion + Vector3.forward;
-        
+
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(raystart, Vector2.zero);
         foreach (var hit in hits)
@@ -344,7 +354,7 @@ public class BoardGame : MonoBehaviour
         {
             dragingItem.pCurrentShelf.DoPutNewItem(dragingItem);
         }
-        
+
         //Debug.Log(targetIndex);
         //if (targetIndex >= 0)
         //{
@@ -421,6 +431,11 @@ public class BoardGame : MonoBehaviour
     #region requestHandle
     public eItemType GetItemTypeByGroup(int groupIndex)
     {
+        typeGroups[0].Clear();
+        foreach (var item in items)
+        {
+            typeGroups[0].Add(item.Type);
+        }
         int index = groupIndex;
         var type = typeGroups[index].FirstOrDefault(x => !requestingTypes.Contains(x));
         while (type == eItemType.None)
@@ -444,6 +459,35 @@ public class BoardGame : MonoBehaviour
         foreach (var item in items)
             requestingItems.Remove(item);
     }
+    private void YieldSpawnReplace(object obj)
+    {
+        //while (isSpawingReplace)
+        //    yield return null;
+
+        //isSpawingReplace = true;
+        var datum = (NewMatchDatum)obj;
+        typeGroups[0].Remove(datum.type);
+        typeGroups[3].Add(datum.type);
+        var shelf = datum.items[0].pCurrentShelf;
+        var requestingItems = this.requestingItems.FindAll(x => x.Type == datum.type).OrderByDescending(x => x.spriteRenderer.sortingOrder).ToList();
+        bool isFitRequest = requestingItems != null && requestingItems.Count > 0;
+        if (isFitRequest)
+        {
+            this.PostEvent((int)EventID.OnMatchedRightRequest, requestingItems[0]);
+            requestingTypes.Remove(requestingItems[0].Type);
+            this.requestingItems.RemoveAll(x => x.Type == requestingItems[0].Type);
+            SoundManager.Play("3. Scoring");
+            for (int i = 0; i < requestingItems.Count; i++)
+            {
+                if (requestingItems[i].gameObject != null)
+                    requestingItems[i].Recycle();
+            }
+        }
+        else
+            this.PostEvent((int)EventID.OnMatchedWrongRequest);
+
+        
+    }
     #endregion
     #region matchedHandle
     private void OnNewMatchSuccess(object obj)
@@ -452,6 +496,8 @@ public class BoardGame : MonoBehaviour
         var datum = (NewMatchDatum)obj;
         foreach (var item in datum.items)
             items.Remove(item);
+        if (isOrdering)
+            YieldSpawnReplace(obj);
         CheckGameComplete();
     }
     #endregion
@@ -474,7 +520,7 @@ public class BoardGame : MonoBehaviour
     public void TestSwap()
     {
         itemSwap.Clear();
-        foreach(var item in items)
+        foreach (var item in items)
         {
             itemSwap.Add(item);
         }
@@ -485,12 +531,12 @@ public class BoardGame : MonoBehaviour
             itemSwap[i] = itemSwap[j];
             itemSwap[j] = temp;
         }
-        for(int i = 0; i < itemSwap.Count;)
+        for (int i = 0; i < itemSwap.Count;)
         {
-            if(i+1< itemSwap.Count)
-                DoSwapItems(itemSwap[i], itemSwap[i+1]);
+            if (i + 1 < itemSwap.Count)
+                DoSwapItems(itemSwap[i], itemSwap[i + 1]);
             i += 2;
         }
-        
+
     }
 }

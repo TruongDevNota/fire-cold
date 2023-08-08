@@ -422,11 +422,11 @@ public class DataManager : MonoBehaviour
 
         currLevelconfigData.config.gameMode = (eGameMode)int.Parse(configDatum[0]);
         currLevelconfigData.config.time = int.Parse(configDatum[1]);
-
+        currLevelconfigData.config.hasOrderMode = int.Parse(configDatum[2]) == 1 ? true : false;
         if(currLevelconfigData.config.gameMode == eGameMode.Bartender)
         {
-            if(configDatum.Count > 2 && configDatum[2].Length > 0)
-                currLevelconfigData.config.bar_MaxMissing = int.Parse(configDatum[2]);
+            if(configDatum.Count > 3 && configDatum[3].Length > 0)
+                currLevelconfigData.config.bar_MaxMissing = int.Parse(configDatum[3]);
             else
             {
                 Debug.LogError($"Level config data is wrong - Mode Bartender miss max missiong config");
@@ -434,9 +434,9 @@ public class DataManager : MonoBehaviour
                 return;
             }
         }
-        else if (configDatum.Count > 2 && configDatum[2].Length > 0)
+        else if (configDatum.Count > 3 && configDatum[3].Length > 0)
         {
-            var rowSpeed = configDatum[2].Split(GameConstants.itemSplittChar).Where(x => x.Length > 0).ToList();
+            var rowSpeed = configDatum[3].Split(GameConstants.itemSplittChar).Where(x => x.Length > 0).ToList();
             foreach (var s in rowSpeed)
                 currLevelconfigData.config.rowsSpeed.Add(float.Parse(s, CultureInfo.InvariantCulture));
         }

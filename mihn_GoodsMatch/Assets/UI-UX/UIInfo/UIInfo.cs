@@ -29,6 +29,7 @@ public class UIInfo : MonoBehaviour
     [SerializeField] float comboCollectTimne;
     [SerializeField] Text coinText;
     private int matchCount;
+    private bool isBuffingCoin = false;
 
     
     [SerializeField]
@@ -82,6 +83,11 @@ public class UIInfo : MonoBehaviour
             return;
 
         timePlayed = BoardGame.instance.pStopWatch.ElapsedMilliseconds / 1000f;
+        if (timePlayed >= 6f && !BoardGame.instance.isOrdering)
+        {
+            this.PostEvent((int)EventID.StartModeOrder);
+            BoardGame.instance.isOrdering = true;
+        }
         timeLeft = Mathf.Max(BoardGame.instance.pTimeLimitInSeconds - timePlayed, 0);
         timeLeftText.text = TimeSpan.FromSeconds(timeLeft).ToString("m':'ss");
         timeUseProcessImg.fillAmount = timeLeft / BoardGame.instance.pTimeLimitInSeconds;
@@ -125,6 +131,7 @@ public class UIInfo : MonoBehaviour
     public void Show()
     {
         this.timePlayed = 0;
+        isBuffingCoin = false; 
         timeLeftText.text = "-:--";
         GameStatisticsManager.starEarn = 0;
         startText.text = "0";
@@ -164,7 +171,13 @@ public class UIInfo : MonoBehaviour
     {
         matchCount++;
         var lastStar = GameStatisticsManager.starEarn;
-        GameStatisticsManager.starEarn += matchCount % 9 + 1;
+        if (BoardGame.instance.isOrdering && !isBuffingCoin)
+        {
+            GameStatisticsManager.starEarn += matchCount % 9 + 6;
+            isBuffingCoin = true;
+        }
+        else
+            GameStatisticsManager.starEarn += matchCount % 9 + 1;
         startText.DOText(lastStar, GameStatisticsManager.starEarn, 0.5f, 0.5f);
         StartCoroutine(YieldCollectCoin(obj));
     }

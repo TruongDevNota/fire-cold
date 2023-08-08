@@ -8,6 +8,7 @@ public class LevelConfig
     public eGameMode gameMode;
     public int time;
     public List<float> rowsSpeed;
+    public bool hasOrderMode;
 
     #region Bartender
     public int bar_MaxMissing;
