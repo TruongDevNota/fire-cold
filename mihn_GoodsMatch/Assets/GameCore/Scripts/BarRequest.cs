@@ -187,7 +187,8 @@ public class BarRequest : MonoBehaviour
             if (tutObj)
                 tutObj.SetActive(true);
             yield return new WaitForSeconds(0.15f);
-            tutObj?.SetActive(false);
+            if (tutObj)
+                tutObj.SetActive(false);
         }
 
     }
