@@ -67,7 +67,7 @@ public class MusicManager : MonoBehaviour
             });
         }
 
-       // this.RegisterListener((int)EventID.OnPlayMusic, SchedulePlayMusicHandle);
+        this.RegisterListener((int)EventID.OnPlayMusic, SchedulePlayMusicHandle);
     }
 
     public void SchedulePlayMusicHandle(object obj)

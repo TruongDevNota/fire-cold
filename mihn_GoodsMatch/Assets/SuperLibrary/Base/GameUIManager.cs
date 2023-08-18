@@ -260,7 +260,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         SceneHelper.DoLoadScene("2_Idle");
         inGameScreen.Hide();
-       // this.PostEvent((int)EventID.OnPlayMusic, "Bgm Menu");
+        this.PostEvent((int)EventID.OnPlayMusic, "Bgm Menu");
         Action callback = () => {
             mainScreen.Show(()=> {
             }, () => {
@@ -373,7 +373,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
 
     protected override void ReadyGame(object data)
     {
-        //this.PostEvent((int)EventID.OnPlayMusic, "Bgm_Gameplay_loop_MP3");
+        this.PostEvent((int)EventID.OnPlayMusic, "Bgm_Gameplay_loop_MP3");
         mainScreen.Hide();
         //decorScreen.Hide();
         StartCoroutine(WaitForLoading(() =>
@@ -422,7 +422,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     {
         gameOverScreen.Hide();
         gameOver_Bar_Screen.Hide();
-        //this.PostEvent((int)EventID.OnPlayMusic, "Bgm_Gameplay_loop_MP3");
+        this.PostEvent((int)EventID.OnPlayMusic, "Bgm_Gameplay_loop_MP3");
         //inGameScreen.ShowTapToPlay();
         //GameStateManager.Init(null);
         //StartCoroutine(WaitToAutoPlay());
@@ -461,7 +461,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             mainScreen.Show();
             popupMapSelect.Show(true);
 
-           // this.PostEvent((int)EventID.OnPlayMusic, "Bgm Menu");
+            this.PostEvent((int)EventID.OnPlayMusic, "Bgm Menu");
         });
         StartCoroutine(WaitForLoading(callback, 0.5f));
     }
