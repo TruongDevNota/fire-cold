@@ -358,6 +358,8 @@ namespace Base.Ads
             yield return new WaitForEndOfFrame();
 
             var checkShowAdOpen = false;
+            Debug.Log($"=====> {GameConfig.timeToWaitOpenAd}");
+
             if (GameConfig.timeToWaitOpenAd > 0)
             {
                 AdOpen.DOInit(() =>

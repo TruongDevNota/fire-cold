@@ -107,6 +107,7 @@ public class GameUIManager : GameManagerBase<GameUIManager>
     public IEnumerator LoadGameData()
     {
         yield return DataManager.DoLoad();
+        Debug.Log($"=====> Datamanager Loaded");
         //UIToast.ShowLoading("Loading... please wait!!");
 
         while (user == null)
@@ -114,8 +115,12 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             DebugMode.Log("Load game data...");
             yield return null;
         }
+        Debug.Log($"=====> Gamedata Loaded");
 
         SoundManager.LoadAllSounds();
+
+        Debug.Log($"=====> Sound Loaded");
+
 #if !UNITY_ANDROID
         if (!DataManager.UserData.didShownGDPRConsent)
         {
@@ -132,7 +137,8 @@ public class GameUIManager : GameManagerBase<GameUIManager>
             yield return new WaitForSeconds(.2f);
         }
 #endif
-       // yield return AdsManager.DOInit();
+        Debug.Log($"=====> Init ads");
+        yield return AdsManager.DOInit(true);
 
 #if USE_FIREBASE
         var remote = new GameConfig();
